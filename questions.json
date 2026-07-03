@@ -1592,4 +1592,1013 @@
       ]
     ]
   }
+],
+{
+  "topic": "geo",
+  "cat": {
+    "en": "Which of these are countries in South America?",
+    "fi": "Mitkä näistä maista sijaitsevat Etelä-Amerikassa?"
+  },
+  "o": [
+    ["Brazil", "Brasilia", 1],
+    ["Argentina", "Argentiina", 1],
+    ["Mexico", "Meksiko", 0],
+    ["Chile", "Chile", 1],
+    ["Canada", "Kanada", 0],
+    ["Peru", "Peru", 1],
+    ["Colombia", "Kolumbia", 1],
+    ["Spain", "Espanja", 0],
+    ["Bolivia", "Bolivia", 1],
+    ["Portugal", "Portugali", 0]
+  ]
+},
+{
+  "topic": "geo",
+  "cat": {
+    "en": "Which of these are islands?",
+    "fi": "Mitkä näistä ovat saaria?"
+  },
+  "o": [
+    ["Greenland", "Grönlanti", 1],
+    ["Madagascar", "Madagaskar", 1],
+    ["Sahara", "Sahara", 0],
+    ["Iceland", "Islanti", 1],
+    ["Japan", "Japani", 1],
+    ["Alps", "Alpit", 0],
+    ["Sri Lanka", "Sri Lanka", 1],
+    ["Amazon", "Amazon", 0],
+    ["Tasmania", "Tasmania", 1],
+    ["Himalayas", "Himalaja", 0]
+  ]
+},
+{
+  "topic": "sci",
+  "cat": {
+    "en": "Which of these are birds?",
+    "fi": "Mitkä näistä ovat lintuja?"
+  },
+  "o": [
+    ["Eagle", "Kotka", 1],
+    ["Penguin", "Pingviini", 1],
+    ["Dolphin", "Delfiini", 0],
+    ["Owl", "Pöllö", 1],
+    ["Bat", "Lepakko", 0],
+    ["Parrot", "Papukaija", 1],
+    ["Shark", "Hai", 0],
+    ["Swan", "Joutsen", 1],
+    ["Crocodile", "Krokotiili", 0],
+    ["Falcon", "Haukka", 1]
+  ]
+},
+{
+  "topic": "sci",
+  "cat": {
+    "en": "Which of these are gases at room temperature?",
+    "fi": "Mitkä näistä ovat kaasuja huoneenlämmössä?"
+  },
+  "o": [
+    ["Oxygen", "Happi", 1],
+    ["Nitrogen", "Typpi", 1],
+    ["Iron", "Rauta", 0],
+    ["Hydrogen", "Vety", 1],
+    ["Helium", "Helium", 1],
+    ["Gold", "Kulta", 0],
+    ["Neon", "Neon", 1],
+    ["Copper", "Kupari", 0],
+    ["Argon", "Argon", 1],
+    ["Silver", "Hopea", 0]
+  ]
+},
+{
+  "topic": "sci",
+  "cat": {
+    "en": "Which of these are planets' moons?",
+    "fi": "Mitkä näistä ovat planeettojen kuita?"
+  },
+  "o": [
+    ["Titan", "Titan", 1],
+    ["Europa", "Europa", 1],
+    ["Mars", "Mars", 0],
+    ["Ganymede", "Ganymedes", 1],
+    ["Venus", "Venus", 0],
+    ["Callisto", "Kallisto", 1],
+    ["Earth", "Maa", 0],
+    ["Io", "Io", 1],
+    ["Mercury", "Merkurius", 0],
+    ["Triton", "Triton", 1]
+  ]
+},
+{
+  "topic": "arts",
+  "cat": {
+    "en": "Which of these are musical genres?",
+    "fi": "Mitkä näistä ovat musiikkityylejä?"
+  },
+  "o": [
+    ["Jazz", "Jazz", 1],
+    ["Rock", "Rock", 1],
+    ["Cubism", "Kubismi", 0],
+    ["Blues", "Blues", 1],
+    ["Opera", "Ooppera", 0],
+    ["Hip hop", "Hip hop", 1],
+    ["Classical", "Klassinen", 1],
+    ["Sculpture", "Veistos", 0],
+    ["Reggae", "Reggae", 1],
+    ["Architecture", "Arkkitehtuuri", 0]
+  ]
+},
+{
+  "topic": "arts",
+  "cat": {
+    "en": "Which of these are percussion instruments?",
+    "fi": "Mitkä näistä ovat lyömäsoittimia?"
+  },
+  "o": [
+    ["Drums", "Rummut", 1],
+    ["Xylophone", "Ksylöfoni", 1],
+    ["Violin", "Viulu", 0],
+    ["Tambourine", "Tamburiini", 1],
+    ["Trumpet", "Trumpetti", 0],
+    ["Timpani", "Patarummut", 1],
+    ["Piano", "Piano", 0],
+    ["Triangle", "Triangeli", 1],
+    ["Cello", "Sello", 0],
+    ["Cymbals", "Symbaalit", 1]
+  ]
+},
+{
+  "topic": "sport",
+  "cat": {
+    "en": "Which of these are combat sports?",
+    "fi": "Mitkä näistä ovat kamppailulajeja?"
+  },
+  "o": [
+    ["Boxing", "Nyrkkeily", 1],
+    ["Judo", "Judo", 1],
+    ["Swimming", "Uinti", 0],
+    ["Karate", "Karate", 1],
+    ["Taekwondo", "Taekwondo", 1],
+    ["Cycling", "Pyöräily", 0],
+    ["Wrestling", "Paini", 1],
+    ["Rowing", "Soutu", 0],
+    ["Fencing", "Miekkailu", 1],
+    ["Golf", "Golf", 0]
+  ]
+},
+{
+  "topic": "sport",
+  "cat": {
+    "en": "Which of these sports use ice?",
+    "fi": "Missä näistä urheilulajeista käytetään jäätä?"
+  },
+  "o": [
+    ["Ice hockey", "Jääkiekko", 1],
+    ["Figure skating", "Taitoluistelu", 1],
+    ["Football", "Jalkapallo", 0],
+    ["Curling", "Curling", 1],
+    ["Speed skating", "Pikaluistelu", 1],
+    ["Basketball", "Koripallo", 0],
+    ["Bobsleigh", "Rattikelkka", 1],
+    ["Tennis", "Tennis", 0],
+    ["Luge", "Kelkkailu", 1],
+    ["Volleyball", "Lentopallo", 0]
+  ]
+},
+{
+  "topic": "hist",
+  "cat": {
+    "en": "Which of these were explorers?",
+    "fi": "Ketkä näistä olivat tutkimusmatkailijoita?"
+  },
+  "o": [
+    ["Christopher Columbus", "Kristoffer Kolumbus", 1],
+    ["Marco Polo", "Marco Polo", 1],
+    ["Albert Einstein", "Albert Einstein", 0],
+    ["Ferdinand Magellan", "Ferdinand Magalhães", 1],
+    ["Isaac Newton", "Isaac Newton", 0],
+    ["James Cook", "James Cook", 1],
+    ["Leif Erikson", "Leif Eriksson", 1],
+    ["Napoleon", "Napoleon", 0],
+    ["Roald Amundsen", "Roald Amundsen", 1],
+    ["Winston Churchill", "Winston Churchill", 0]
+  ]
+},
+{
+  "topic": "gen",
+  "cat": {
+    "en": "Which of these are web browsers?",
+    "fi": "Mitkä näistä ovat verkkoselaimia?"
+  },
+  "o": [
+    ["Chrome", "Chrome", 1],
+    ["Firefox", "Firefox", 1],
+    ["Windows", "Windows", 0],
+    ["Safari", "Safari", 1],
+    ["Edge", "Edge", 1],
+    ["Ubuntu", "Ubuntu", 0],
+    ["Opera", "Opera", 1],
+    ["Android", "Android", 0],
+    ["Brave", "Brave", 1],
+    ["Excel", "Excel", 0]
+  ]
+},
+{
+  "topic": "gen",
+  "cat": {
+    "en": "Which of these are geometric shapes?",
+    "fi": "Mitkä näistä ovat geometrisia muotoja?"
+  },
+  "o": [
+    ["Triangle", "Kolmio", 1],
+    ["Circle", "Ympyrä", 1],
+    ["Mountain", "Vuori", 0],
+    ["Square", "Neliö", 1],
+    ["River", "Joki", 0],
+    ["Pentagon", "Viisikulmio", 1],
+    ["Hexagon", "Kuusikulmio", 1],
+    ["Forest", "Metsä", 0],
+    ["Ellipse", "Ellipsi", 1],
+    ["Ocean", "Valtameri", 0]
+  ]
+},
+{
+  "topic": "geo",
+  "cat": {
+    "en": "Which of these are capitals of Nordic countries?",
+    "fi": "Mitkä näistä ovat Pohjoismaiden pääkaupunkeja?"
+  },
+  "o": [
+    ["Helsinki", "Helsinki", 1],
+    ["Stockholm", "Tukholma", 1],
+    ["Oslo", "Oslo", 1],
+    ["Bergen", "Bergen", 0],
+    ["Copenhagen", "Kööpenhamina", 1],
+    ["Gothenburg", "Göteborg", 0],
+    ["Reykjavik", "Reykjavík", 1],
+    ["Turku", "Turku", 0],
+    ["Tórshavn", "Tórshavn", 1],
+    ["Malmö", "Malmö", 0]
+  ]
+},
+{
+  "topic": "geo",
+  "cat": {
+    "en": "Which of these are deserts?",
+    "fi": "Mitkä näistä ovat aavikoita?"
+  },
+  "o": [
+    ["Sahara", "Sahara", 1],
+    ["Gobi", "Gobi", 1],
+    ["Amazon", "Amazon", 0],
+    ["Kalahari", "Kalahari", 1],
+    ["Atacama", "Atacama", 1],
+    ["Alps", "Alpit", 0],
+    ["Mojave", "Mojave", 1],
+    ["Nile", "Niili", 0],
+    ["Arabian Desert", "Arabian aavikko", 1],
+    ["Pyrenees", "Pyreneet", 0]
+  ]
+},
+{
+  "topic": "sci",
+  "cat": {
+    "en": "Which of these are reptiles?",
+    "fi": "Mitkä näistä ovat matelijoita?"
+  },
+  "o": [
+    ["Snake", "Käärme", 1],
+    ["Crocodile", "Krokotiili", 1],
+    ["Frog", "Sammakko", 0],
+    ["Lizard", "Lisko", 1],
+    ["Turtle", "Kilpikonna", 1],
+    ["Whale", "Valas", 0],
+    ["Gecko", "Gekko", 1],
+    ["Bat", "Lepakko", 0],
+    ["Iguana", "Iguaani", 1],
+    ["Penguin", "Pingviini", 0]
+  ]
+},
+{
+  "topic": "sci",
+  "cat": {
+    "en": "Which of these are renewable energy sources?",
+    "fi": "Mitkä näistä ovat uusiutuvia energialähteitä?"
+  },
+  "o": [
+    ["Solar", "Aurinkoenergia", 1],
+    ["Wind", "Tuulivoima", 1],
+    ["Coal", "Hiili", 0],
+    ["Hydropower", "Vesivoima", 1],
+    ["Natural gas", "Maakaasu", 0],
+    ["Geothermal", "Geoterminen energia", 1],
+    ["Oil", "Öljy", 0],
+    ["Biomass", "Biomassa", 1],
+    ["Nuclear", "Ydinenergia", 0],
+    ["Tidal", "Vuorovesienergia", 1]
+  ]
+},
+{
+  "topic": "arts",
+  "cat": {
+    "en": "Which of these are famous painters?",
+    "fi": "Ketkä näistä ovat tunnettuja maalareita?"
+  },
+  "o": [
+    ["Pablo Picasso", "Pablo Picasso", 1],
+    ["Vincent van Gogh", "Vincent van Gogh", 1],
+    ["Mozart", "Mozart", 0],
+    ["Claude Monet", "Claude Monet", 1],
+    ["Leonardo da Vinci", "Leonardo da Vinci", 1],
+    ["Beethoven", "Beethoven", 0],
+    ["Salvador Dalí", "Salvador Dalí", 1],
+    ["Shakespeare", "Shakespeare", 0],
+    ["Rembrandt", "Rembrandt", 1],
+    ["Chopin", "Chopin", 0]
+  ]
+},
+{
+  "topic": "arts",
+  "cat": {
+    "en": "Which of these are musical instruments with keys?",
+    "fi": "Mitkä näistä ovat kosketinsoittimia?"
+  },
+  "o": [
+    ["Piano", "Piano", 1],
+    ["Organ", "Urut", 1],
+    ["Violin", "Viulu", 0],
+    ["Accordion", "Haitari", 1],
+    ["Harpsichord", "Cembalo", 1],
+    ["Trumpet", "Trumpetti", 0],
+    ["Synthesizer", "Syntetisaattori", 1],
+    ["Flute", "Huilu", 0],
+    ["Celesta", "Celesta", 1],
+    ["Drums", "Rummut", 0]
+  ]
+},
+{
+  "topic": "sport",
+  "cat": {
+    "en": "Which of these are team sports?",
+    "fi": "Mitkä näistä ovat joukkuelajeja?"
+  },
+  "o": [
+    ["Football", "Jalkapallo", 1],
+    ["Basketball", "Koripallo", 1],
+    ["Tennis", "Tennis", 0],
+    ["Ice hockey", "Jääkiekko", 1],
+    ["Volleyball", "Lentopallo", 1],
+    ["Golf", "Golf", 0],
+    ["Baseball", "Pesäpallo/Baseball", 1],
+    ["Boxing", "Nyrkkeily", 0],
+    ["Handball", "Käsipallo", 1],
+    ["Judo", "Judo", 0]
+  ]
+},
+{
+  "topic": "sport",
+  "cat": {
+    "en": "Which of these sports involve water?",
+    "fi": "Missä näistä urheilulajeista käytetään vettä?"
+  },
+  "o": [
+    ["Swimming", "Uinti", 1],
+    ["Rowing", "Soutu", 1],
+    ["Football", "Jalkapallo", 0],
+    ["Water polo", "Vesipallo", 1],
+    ["Surfing", "Lainelautailu", 1],
+    ["Boxing", "Nyrkkeily", 0],
+    ["Sailing", "Purjehdus", 1],
+    ["Cycling", "Pyöräily", 0],
+    ["Canoeing", "Melonta", 1],
+    ["Wrestling", "Paini", 0]
+  ]
+},
+{
+  "topic": "hist",
+  "cat": {
+    "en": "Which of these were scientists?",
+    "fi": "Ketkä näistä olivat tiedemiehiä?"
+  },
+  "o": [
+    ["Albert Einstein", "Albert Einstein", 1],
+    ["Isaac Newton", "Isaac Newton", 1],
+    ["Napoleon", "Napoleon", 0],
+    ["Marie Curie", "Marie Curie", 1],
+    ["Galileo Galilei", "Galileo Galilei", 1],
+    ["Julius Caesar", "Julius Caesar", 0],
+    ["Charles Darwin", "Charles Darwin", 1],
+    ["Winston Churchill", "Winston Churchill", 0],
+    ["Nikola Tesla", "Nikola Tesla", 1],
+    ["Genghis Khan", "Tšingis-kaani", 0]
+  ]
+},
+{
+  "topic": "hist",
+  "cat": {
+    "en": "Which of these were empires?",
+    "fi": "Mitkä näistä olivat imperiumeja?"
+  },
+  "o": [
+    ["Roman Empire", "Rooman valtakunta", 1],
+    ["British Empire", "Brittiläinen imperiumi", 1],
+    ["European Union", "Euroopan unioni", 0],
+    ["Ottoman Empire", "Osmanien valtakunta", 1],
+    ["Mongol Empire", "Mongoli-imperiumi", 1],
+    ["NATO", "NATO", 0],
+    ["Persian Empire", "Persian imperiumi", 1],
+    ["United Nations", "Yhdistyneet kansakunnat", 0],
+    ["Spanish Empire", "Espanjan imperiumi", 1],
+    ["ASEAN", "ASEAN", 0]
+  ]
+},
+{
+  "topic": "gen",
+  "cat": {
+    "en": "Which of these are social media platforms?",
+    "fi": "Mitkä näistä ovat sosiaalisen median alustoja?"
+  },
+  "o": [
+    ["Instagram", "Instagram", 1],
+    ["TikTok", "TikTok", 1],
+    ["Excel", "Excel", 0],
+    ["Facebook", "Facebook", 1],
+    ["LinkedIn", "LinkedIn", 1],
+    ["Windows", "Windows", 0],
+    ["Reddit", "Reddit", 1],
+    ["Linux", "Linux", 0],
+    ["Snapchat", "Snapchat", 1],
+    ["Photoshop", "Photoshop", 0]
+  ]
+},
+{
+  "topic": "gen",
+  "cat": {
+    "en": "Which of these are video game consoles?",
+    "fi": "Mitkä näistä ovat pelikonsolien nimiä?"
+  },
+  "o": [
+    ["PlayStation", "PlayStation", 1],
+    ["Xbox", "Xbox", 1],
+    ["Steam", "Steam", 0],
+    ["Nintendo Switch", "Nintendo Switch", 1],
+    ["GameCube", "GameCube", 1],
+    ["Windows", "Windows", 0],
+    ["Dreamcast", "Dreamcast", 1],
+    ["Firefox", "Firefox", 0],
+    ["Wii", "Wii", 1],
+    ["Chrome", "Chrome", 0]
+  ]
+},
+{
+  "topic": "gen",
+  "cat": {
+    "en": "Which of these are car manufacturers?",
+    "fi": "Mitkä näistä ovat autonvalmistajia?"
+  },
+  "o": [
+    ["Toyota", "Toyota", 1],
+    ["BMW", "BMW", 1],
+    ["Samsung", "Samsung", 0],
+    ["Ford", "Ford", 1],
+    ["Volkswagen", "Volkswagen", 1],
+    ["Sony", "Sony", 0],
+    ["Volvo", "Volvo", 1],
+    ["Nokia", "Nokia", 0],
+    ["Honda", "Honda", 1],
+    ["Adobe", "Adobe", 0]
+  ]
+},
+{
+  "topic": "gen",
+  "cat": {
+    "en": "Which of these are currencies?",
+    "fi": "Mitkä näistä ovat valuuttoja?"
+  },
+  "o": [
+    ["Euro", "Euro", 1],
+    ["Dollar", "Dollari", 1],
+    ["Volt", "Voltti", 0],
+    ["Yen", "Jeni", 1],
+    ["Pound", "Punta", 1],
+    ["Newton", "Newton", 0],
+    ["Krona", "Kruunu", 1],
+    ["Pascal", "Pascal", 0],
+    ["Rupee", "Rupia", 1],
+    ["Kelvin", "Kelvin", 0]
+  ]
+},
+{
+  "topic": "gen",
+  "cat": {
+    "en": "Which of these are internet domains?",
+    "fi": "Mitkä näistä ovat internetin ylätason verkkotunnuksia?"
+  },
+  "o": [
+    [".com", ".com", 1],
+    [".org", ".org", 1],
+    [".exe", ".exe", 0],
+    [".net", ".net", 1],
+    [".fi", ".fi", 1],
+    [".txt", ".txt", 0],
+    [".edu", ".edu", 1],
+    [".jpg", ".jpg", 0],
+    [".gov", ".gov", 1],
+    [".pdf", ".pdf", 0]
+  ]
+},
+{
+  "topic": "geo",
+  "cat": {
+    "en": "Which of these countries have coastlines on the Mediterranean Sea?",
+    "fi": "Mitkä näistä maista sijaitsevat Välimeren rannalla?"
+  },
+  "o": [
+    ["Lebanon", "Libanon", 1],
+    ["Jordan", "Jordania", 0],
+    ["Albania", "Albania", 1],
+    ["Portugal", "Portugali", 0],
+    ["Slovenia", "Slovenia", 1],
+    ["Bosnia and Herzegovina", "Bosnia ja Hertsegovina", 1],
+    ["Serbia", "Serbia", 0],
+    ["Monaco", "Monaco", 1],
+    ["North Macedonia", "Pohjois-Makedonia", 0],
+    ["Syria", "Syyria", 1]
+  ]
+},
+{
+  "topic": "geo",
+  "cat": {
+    "en": "Which of these countries are landlocked?",
+    "fi": "Mitkä näistä valtioista ovat sisämaavaltioita?"
+  },
+  "o": [
+    ["Bolivia", "Bolivia", 1],
+    ["Uruguay", "Uruguay", 0],
+    ["Paraguay", "Paraguay", 1],
+    ["Laos", "Laos", 1],
+    ["Myanmar", "Myanmar", 0],
+    ["Niger", "Niger", 1],
+    ["Eritrea", "Eritrea", 0],
+    ["Chad", "Tšad", 1],
+    ["Moldova", "Moldova", 1],
+    ["Suriname", "Suriname", 0]
+  ]
+},
+{
+  "topic": "sci",
+  "cat": {
+    "en": "Which of these are dwarf planets?",
+    "fi": "Mitkä näistä ovat kääpiöplaneettoja?"
+  },
+  "o": [
+    ["Pluto", "Pluto", 1],
+    ["Ceres", "Ceres", 1],
+    ["Europa", "Europa", 0],
+    ["Haumea", "Haumea", 1],
+    ["Titan", "Titan", 0],
+    ["Makemake", "Makemake", 1],
+    ["Eris", "Eris", 1],
+    ["Ganymede", "Ganymedes", 0],
+    ["Sedna", "Sedna", 0],
+    ["Mercury", "Merkurius", 0]
+  ]
+},
+{
+  "topic": "sci",
+  "cat": {
+    "en": "Which of these elements are noble gases?",
+    "fi": "Mitkä näistä alkuaineista ovat jalokaasuja?"
+  },
+  "o": [
+    ["Helium", "Helium", 1],
+    ["Neon", "Neon", 1],
+    ["Nitrogen", "Typpi", 0],
+    ["Argon", "Argon", 1],
+    ["Xenon", "Ksenon", 1],
+    ["Oxygen", "Happi", 0],
+    ["Krypton", "Krypton", 1],
+    ["Radon", "Radon", 1],
+    ["Hydrogen", "Vety", 0],
+    ["Chlorine", "Kloori", 0]
+  ]
+},
+{
+  "topic": "hist",
+  "cat": {
+    "en": "Which of these cities were capitals of the Roman Empire?",
+    "fi": "Mitkä näistä kaupungeista toimivat Rooman valtakunnan pääkaupunkeina?"
+  },
+  "o": [
+    ["Rome", "Rooma", 1],
+    ["Constantinople", "Konstantinopoli", 1],
+    ["Milan", "Milano", 1],
+    ["Athens", "Ateena", 0],
+    ["Ravenna", "Ravenna", 1],
+    ["Alexandria", "Aleksandria", 0],
+    ["Nicomedia", "Nikomedia", 1],
+    ["Jerusalem", "Jerusalem", 0],
+    ["Antioch", "Antiokia", 0],
+    ["Carthage", "Karthago", 0]
+  ]
+},
+{
+  "topic": "hist",
+  "cat": {
+    "en": "Which of these battles were fought during the Napoleonic Wars?",
+    "fi": "Mitkä näistä taisteluista käytiin Napoleonin sotien aikana?"
+  },
+  "o": [
+    ["Austerlitz", "Austerlitz", 1],
+    ["Waterloo", "Waterloo", 1],
+    ["Gettysburg", "Gettysburg", 0],
+    ["Borodino", "Borodino", 1],
+    ["Leipzig", "Leipzig", 1],
+    ["Hastings", "Hastings", 0],
+    ["Trafalgar", "Trafalgar", 1],
+    ["Verdun", "Verdun", 0],
+    ["Jena", "Jena", 1],
+    ["Somme", "Somme", 0]
+  ]
+},
+{
+  "topic": "arts",
+  "cat": {
+    "en": "Which of these composers were from the Romantic era?",
+    "fi": "Ketkä näistä säveltäjistä kuuluivat romantiikan aikakauteen?"
+  },
+  "o": [
+    ["Chopin", "Chopin", 1],
+    ["Liszt", "Liszt", 1],
+    ["Bach", "Bach", 0],
+    ["Tchaikovsky", "Tšaikovski", 1],
+    ["Brahms", "Brahms", 1],
+    ["Vivaldi", "Vivaldi", 0],
+    ["Mahler", "Mahler", 1],
+    ["Haydn", "Haydn", 0],
+    ["Schumann", "Schumann", 1],
+    ["Handel", "Händel", 0]
+  ]
+},
+{
+  "topic": "arts",
+  "cat": {
+    "en": "Which of these paintings were painted by Vincent van Gogh?",
+    "fi": "Mitkä näistä maalauksista ovat Vincent van Goghin maalaamia?"
+  },
+  "o": [
+    ["Starry Night", "Tähtikirkas yö", 1],
+    ["Sunflowers", "Auringonkukat", 1],
+    ["Guernica", "Guernica", 0],
+    ["Irises", "Kurjenmiekat", 1],
+    ["The Potato Eaters", "Perunansyöjät", 1],
+    ["The Persistence of Memory", "Muistin pysyvyys", 0],
+    ["Bedroom in Arles", "Makuuhuone Arlesissa", 1],
+    ["Mona Lisa", "Mona Lisa", 0],
+    ["Wheatfield with Crows", "Vehnäpelto variksineen", 1],
+    ["The Scream", "Huuto", 0]
+  ]
+},
+{
+  "topic": "sport",
+  "cat": {
+    "en": "Which of these countries have won the FIFA World Cup?",
+    "fi": "Mitkä näistä maista ovat voittaneet jalkapallon maailmanmestaruuden?"
+  },
+  "o": [
+    ["Uruguay", "Uruguay", 1],
+    ["Hungary", "Unkari", 0],
+    ["England", "Englanti", 1],
+    ["Netherlands", "Alankomaat", 0],
+    ["Spain", "Espanja", 1],
+    ["Croatia", "Kroatia", 0],
+    ["France", "Ranska", 1],
+    ["Portugal", "Portugali", 0],
+    ["Argentina", "Argentiina", 1],
+    ["Belgium", "Belgia", 0]
+  ]
+},
+{
+  "topic": "gen",
+  "cat": {
+    "en": "Which of these programming languages are primarily functional languages?",
+    "fi": "Mitkä näistä ohjelmointikielistä ovat ensisijaisesti funktionaalisia?"
+  },
+  "o": [
+    ["Haskell", "Haskell", 1],
+    ["Erlang", "Erlang", 1],
+    ["Java", "Java", 0],
+    ["OCaml", "OCaml", 1],
+    ["Elixir", "Elixir", 1],
+    ["C", "C", 0],
+    ["F#", "F#", 1],
+    ["Go", "Go", 0],
+    ["Clojure", "Clojure", 1],
+    ["PHP", "PHP", 0]
+  ]
+},
+{
+  "topic": "gen",
+  "cat": {
+    "en": "Which of these numbers are Fibonacci numbers?",
+    "fi": "Mitkä näistä ovat Fibonaccin lukuja?"
+  },
+  "o": [
+    ["21", "21", 1],
+    ["22", "22", 0],
+    ["34", "34", 1],
+    ["42", "42", 0],
+    ["55", "55", 1],
+    ["76", "76", 0],
+    ["89", "89", 1],
+    ["100", "100", 0],
+    ["144", "144", 1],
+    ["169", "169", 0]
+  ]
+},
+{
+  "topic": "sci",
+  "cat": {
+    "en": "Which of these scientists received a Nobel Prize in Physics?",
+    "fi": "Ketkä näistä tiedemiehistä saivat fysiikan Nobel-palkinnon?"
+  },
+  "o": [
+    ["Albert Einstein", "Albert Einstein", 1],
+    ["Niels Bohr", "Niels Bohr", 1],
+    ["Charles Darwin", "Charles Darwin", 0],
+    ["Marie Curie", "Marie Curie", 1],
+    ["Richard Feynman", "Richard Feynman", 1],
+    ["Nikola Tesla", "Nikola Tesla", 0],
+    ["Max Planck", "Max Planck", 1],
+    ["Gregor Mendel", "Gregor Mendel", 0],
+    ["Werner Heisenberg", "Werner Heisenberg", 1],
+    ["Galileo Galilei", "Galileo Galilei", 0]
+  ]
+},
+[
+  {
+    "topic": "geo",
+    "cat": {
+      "en": "Which of these countries border the Caspian Sea?",
+      "fi": "Mitkä näistä maista rajoittuvat Kaspianmereen?"
+    },
+    "o": [
+      ["Russia", "Venäjä", 1],
+      ["Ukraine", "Ukraina", 0],
+      ["Kazakhstan", "Kazakstan", 1],
+      ["Georgia", "Georgia", 0],
+      ["Azerbaijan", "Azerbaidžan", 1],
+      ["Armenia", "Armenia", 0],
+      ["Turkmenistan", "Turkmenistan", 1],
+      ["Uzbekistan", "Uzbekistan", 0],
+      ["Iran", "Iran", 1],
+      ["Turkey", "Turkki", 0]
+    ]
+  },
+  {
+    "topic": "geo",
+    "cat": {
+      "en": "Which of these countries were part of Yugoslavia?",
+      "fi": "Mitkä näistä maista kuuluivat Jugoslaviaan?"
+    },
+    "o": [
+      ["Slovenia", "Slovenia", 1],
+      ["Croatia", "Kroatia", 1],
+      ["Albania", "Albania", 0],
+      ["Bosnia and Herzegovina", "Bosnia ja Hertsegovina", 1],
+      ["North Macedonia", "Pohjois-Makedonia", 1],
+      ["Bulgaria", "Bulgaria", 0],
+      ["Serbia", "Serbia", 1],
+      ["Montenegro", "Montenegro", 1],
+      ["Romania", "Romania", 0],
+      ["Kosovo", "Kosovo", 1]
+    ]
+  },
+  {
+    "topic": "geo",
+    "cat": {
+      "en": "Which of these countries are landlocked?",
+      "fi": "Mitkä näistä valtioista ovat sisämaavaltioita?"
+    },
+    "o": [
+      ["Paraguay", "Paraguay", 1],
+      ["Uruguay", "Uruguay", 0],
+      ["Bolivia", "Bolivia", 1],
+      ["Peru", "Peru", 0],
+      ["Chad", "Tšad", 1],
+      ["Eritrea", "Eritrea", 0],
+      ["Laos", "Laos", 1],
+      ["Vietnam", "Vietnam", 0],
+      ["Moldova", "Moldova", 1],
+      ["Belarus", "Valko-Venäjä", 1]
+    ]
+  },
+  {
+    "topic": "sci",
+    "cat": {
+      "en": "Which of these are dwarf planets?",
+      "fi": "Mitkä näistä ovat kääpiöplaneettoja?"
+    },
+    "o": [
+      ["Pluto", "Pluto", 1],
+      ["Europa", "Europa", 0],
+      ["Ceres", "Ceres", 1],
+      ["Titan", "Titan", 0],
+      ["Haumea", "Haumea", 1],
+      ["Makemake", "Makemake", 1],
+      ["Eris", "Eris", 1],
+      ["Ganymede", "Ganymedes", 0],
+      ["Mercury", "Merkurius", 0],
+      ["Mars", "Mars", 0]
+    ]
+  },
+  {
+    "topic": "sci",
+    "cat": {
+      "en": "Which of these are noble gases?",
+      "fi": "Mitkä näistä ovat jalokaasuja?"
+    },
+    "o": [
+      ["Helium", "Helium", 1],
+      ["Nitrogen", "Typpi", 0],
+      ["Neon", "Neon", 1],
+      ["Argon", "Argon", 1],
+      ["Oxygen", "Happi", 0],
+      ["Krypton", "Krypton", 1],
+      ["Xenon", "Ksenon", 1],
+      ["Hydrogen", "Vety", 0],
+      ["Radon", "Radon", 1],
+      ["Chlorine", "Kloori", 0]
+    ]
+  },
+  {
+    "topic": "sci",
+    "cat": {
+      "en": "Which of these planets have rings?",
+      "fi": "Millä näistä planeetoista on rengasjärjestelmä?"
+    },
+    "o": [
+      ["Mercury", "Merkurius", 0],
+      ["Venus", "Venus", 0],
+      ["Earth", "Maa", 0],
+      ["Mars", "Mars", 0],
+      ["Jupiter", "Jupiter", 1],
+      ["Saturn", "Saturnus", 1],
+      ["Uranus", "Uranus", 1],
+      ["Neptune", "Neptunus", 1],
+      ["Pluto", "Pluto", 0],
+      ["Ceres", "Ceres", 0]
+    ]
+  },
+  {
+    "topic": "hist",
+    "cat": {
+      "en": "Which of these battles were fought during the Napoleonic Wars?",
+      "fi": "Mitkä näistä taisteluista käytiin Napoleonin sotien aikana?"
+    },
+    "o": [
+      ["Austerlitz", "Austerlitz", 1],
+      ["Gettysburg", "Gettysburg", 0],
+      ["Waterloo", "Waterloo", 1],
+      ["Borodino", "Borodino", 1],
+      ["Verdun", "Verdun", 0],
+      ["Leipzig", "Leipzig", 1],
+      ["Trafalgar", "Trafalgar", 1],
+      ["Somme", "Somme", 0],
+      ["Jena", "Jena", 1],
+      ["Hastings", "Hastings", 0]
+    ]
+  },
+  {
+    "topic": "hist",
+    "cat": {
+      "en": "Which of these civilizations used cuneiform writing?",
+      "fi": "Mitkä näistä sivilisaatioista käyttivät nuolenpääkirjoitusta?"
+    },
+    "o": [
+      ["Sumerians", "Sumerilaiset", 1],
+      ["Babylonians", "Babylonialaiset", 1],
+      ["Romans", "Roomalaiset", 0],
+      ["Assyrians", "Assyrialaiset", 1],
+      ["Egyptians", "Egyptiläiset", 0],
+      ["Akkadians", "Akkadilaiset", 1],
+      ["Persians", "Persialaiset", 1],
+      ["Greeks", "Kreikkalaiset", 0],
+      ["Hittites", "Heettiläiset", 1],
+      ["Phoenicians", "Foinikialaiset", 0]
+    ]
+  },
+  {
+    "topic": "arts",
+    "cat": {
+      "en": "Which of these composers belonged to the Romantic era?",
+      "fi": "Ketkä näistä säveltäjistä kuuluivat romantiikan aikakauteen?"
+    },
+    "o": [
+      ["Chopin", "Chopin", 1],
+      ["Bach", "Bach", 0],
+      ["Liszt", "Liszt", 1],
+      ["Tchaikovsky", "Tšaikovski", 1],
+      ["Haydn", "Haydn", 0],
+      ["Brahms", "Brahms", 1],
+      ["Mahler", "Mahler", 1],
+      ["Vivaldi", "Vivaldi", 0],
+      ["Schumann", "Schumann", 1],
+      ["Handel", "Händel", 0]
+    ]
+  },
+  {
+    "topic": "arts",
+    "cat": {
+      "en": "Which of these paintings were painted by Vincent van Gogh?",
+      "fi": "Mitkä näistä maalauksista ovat Vincent van Goghin maalaamia?"
+    },
+    "o": [
+      ["Starry Night", "Tähtikirkas yö", 1],
+      ["Guernica", "Guernica", 0],
+      ["Sunflowers", "Auringonkukat", 1],
+      ["The Scream", "Huuto", 0],
+      ["Irises", "Kurjenmiekat", 1],
+      ["The Potato Eaters", "Perunansyöjät", 1],
+      ["Mona Lisa", "Mona Lisa", 0],
+      ["Bedroom in Arles", "Makuuhuone Arlesissa", 1],
+      ["The Persistence of Memory", "Muistin pysyvyys", 0],
+      ["Wheatfield with Crows", "Vehnäpelto variksineen", 1]
+    ]
+  },
+  {
+    "topic": "sport",
+    "cat": {
+      "en": "Which of these countries have won the FIFA World Cup?",
+      "fi": "Mitkä näistä maista ovat voittaneet jalkapallon maailmanmestaruuden?"
+    },
+    "o": [
+      ["Brazil", "Brasilia", 1],
+      ["Netherlands", "Alankomaat", 0],
+      ["Argentina", "Argentiina", 1],
+      ["Hungary", "Unkari", 0],
+      ["Germany", "Saksa", 1],
+      ["Croatia", "Kroatia", 0],
+      ["France", "Ranska", 1],
+      ["Portugal", "Portugali", 0],
+      ["Uruguay", "Uruguay", 1],
+      ["England", "Englanti", 1]
+    ]
+  },
+  {
+    "topic": "gen",
+    "cat": {
+      "en": "Which of these programming languages are primarily functional languages?",
+      "fi": "Mitkä näistä ohjelmointikielistä ovat ensisijaisesti funktionaalisia?"
+    },
+    "o": [
+      ["Haskell", "Haskell", 1],
+      ["Java", "Java", 0],
+      ["Erlang", "Erlang", 1],
+      ["C", "C", 0],
+      ["OCaml", "OCaml", 1],
+      ["Elixir", "Elixir", 1],
+      ["Go", "Go", 0],
+      ["F#", "F#", 1],
+      ["Clojure", "Clojure", 1],
+      ["PHP", "PHP", 0]
+    ]
+  },
+  {
+    "topic": "gen",
+    "cat": {
+      "en": "Which of these numbers are Fibonacci numbers?",
+      "fi": "Mitkä näistä ovat Fibonaccin lukuja?"
+    },
+    "o": [
+      ["21", "21", 1],
+      ["22", "22", 0],
+      ["34", "34", 1],
+      ["42", "42", 0],
+      ["55", "55", 1],
+      ["76", "76", 0],
+      ["89", "89", 1],
+      ["100", "100", 0],
+      ["144", "144", 1],
+      ["169", "169", 0]
+    ]
+  },
+  {
+    "topic": "gen",
+    "cat": {
+      "en": "Which of these mathematical constants are irrational?",
+      "fi": "Mitkä näistä matemaattisista vakioista ovat irrationaalilukuja?"
+    },
+    "o": [
+      ["π", "π", 1],
+      ["1", "1", 0],
+      ["e", "e", 1],
+      ["√2", "√2", 1],
+      ["2", "2", 0],
+      ["φ", "φ", 1],
+      ["√3", "√3", 1],
+      ["0", "0", 0],
+      ["ln(2)", "ln(2)", 1],
+      ["10", "10", 0]
+    ]
+  }
 ]
