@@ -270,24 +270,24 @@
   .btn.disabled{opacity:.4; pointer-events:none}
 
   /* topic grid */
-  .topic-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(10px,1.6vw,20px); width:min(860px,92vw)}
+  .topic-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(10px,1.6vw,20px); width:min(860px,100%)}
   .btn.topic{flex-direction:column; gap:.35em; padding:clamp(14px,2.2vh,26px) clamp(10px,1.5vw,20px)}
   .btn.topic .ticon{font-size:clamp(30px,4vw,52px); line-height:1}
   .btn.topic .tlabel{font-size:calc(clamp(14px,1.6vw,22px) * var(--fs)); font-weight:700; text-align:center}
   @media (max-width:560px){ .topic-grid{grid-template-columns:repeat(2,1fr)} }
 
   /* settings rows */
-  .set-list{display:flex; flex-direction:column; gap:clamp(14px,2.4vh,26px); width:min(640px,92vw)}
-  .set-row{display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap}
+  .set-list{display:flex; flex-direction:column; gap:clamp(16px,2.8vh,30px); width:100%; max-width:680px}
+  .set-row{display:flex; flex-direction:column; align-items:flex-start; gap:10px}
   .set-label{font-size:calc(clamp(15px,1.8vw,24px) * var(--fs)); font-weight:700; color:var(--ink)}
-  .set-opts{display:flex; gap:clamp(8px,1vw,14px); flex-wrap:wrap}
+  .set-opts{display:flex; gap:clamp(8px,1vw,14px); flex-wrap:wrap; width:100%}
   .btn.chip{padding:clamp(10px,1.4vh,16px) clamp(16px,1.8vw,26px); font-size:calc(clamp(15px,1.7vw,22px) * var(--fs)); border-radius:12px}
   .btn.chip.sel{background:var(--gold); border-color:var(--gold); color:#241a05}
   .btn.chip.sel.focused, body.kbd .btn.chip.sel.focused{background:var(--gold)}
   .sw{width:clamp(30px,3.4vw,44px); height:clamp(30px,3.4vw,44px); display:inline-flex; align-items:center; justify-content:center; font-size:1.1em}
 
   /* size slider */
-  .slider{display:flex; align-items:center; gap:clamp(12px,1.6vw,20px); width:min(520px,72vw); padding:10px 8px; cursor:pointer; border-radius:14px; border:2px solid transparent}
+  .slider{display:flex; align-items:center; gap:clamp(12px,1.6vw,20px); width:min(520px,100%); padding:10px 8px; cursor:pointer; border-radius:14px; border:2px solid transparent}
   body.kbd .slider.focused{border-color:var(--focus); box-shadow:0 0 0 4px rgba(255,224,138,.3)}
   .slider .track{position:relative; flex:1; height:14px; background:var(--panel2); border:1px solid var(--line); border-radius:999px}
   .slider .fill{position:absolute; left:0; top:0; bottom:0; background:var(--gold); border-radius:999px}
@@ -747,7 +747,7 @@ const QUESTIONS = [
 
 const PLAYER_COLORS = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
-const APP_VERSION = '1.0';
+const APP_VERSION = '1.1';
 
 /* Load an external questions.json (served alongside the app) if present.
    Falls back silently to the built-in bank when missing or invalid. */
