@@ -1,0 +1,1385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QUIZ 10</title>
+<style>
+  :root{
+    --fs:1;                 /* font scale (settings) */
+    --grad:#1c2647;         /* background glow */
+    --bg:#0E1428;
+    --bg2:#0A0F1F;
+    --panel:#18213B;
+    --panel2:#1F2A49;
+    --line:#2C3A5F;
+    --ink:#F5F1E6;
+    --muted:#8A93AD;
+    --gold:#F2B138;
+    --gold-dim:#9c7526;
+    --good:#34D399;
+    --bad:#F05252;
+    --focus:#FFE08A;
+    --p1:#F2B138; --p2:#34D399; --p3:#57B9FF; --p4:#F472B6;
+    --p5:#A78BFA; --p6:#FB923C; --p7:#2DD4BF; --p8:#F87171;
+  }
+  /* ---- Colour themes ---- */
+  body[data-theme="forest"]{
+    --grad:#123024; --bg:#0C1F17; --bg2:#08140F; --panel:#14352A; --panel2:#1B4636;
+    --line:#2C5C48; --ink:#F1F6EF; --muted:#8FB0A0; --gold:#E7B24A; --gold-dim:#8f6f2c;
+    --good:#4ADE80; --bad:#F87171; --focus:#F4D98A;
+  }
+  body[data-theme="neon"]{
+    --grad:#1a1030; --bg:#08060F; --bg2:#040308; --panel:#160F28; --panel2:#241640;
+    --line:#3B2A66; --ink:#F5F0FF; --muted:#9A8BC2; --gold:#F5C542; --gold-dim:#9c7a1f;
+    --good:#22E6A5; --bad:#FF4D6D; --focus:#7CF9FF;
+    --p1:#F5C542; --p2:#22E6A5; --p3:#4CC9FF; --p4:#FF6FD8; --p5:#B18CFF; --p6:#FF9E45; --p7:#3DF5D0; --p8:#FF5C7A;
+  }
+  body[data-theme="light"]{
+    --grad:#e9eef7; --bg:#F3F5FA; --bg2:#E4E9F2; --panel:#FFFFFF; --panel2:#EDF1F8;
+    --line:#CBD5E6; --ink:#1C2540; --muted:#6B7690; --gold:#D69422; --gold-dim:#b07a1a;
+    --good:#159C6B; --bad:#D6453F; --focus:#E0A93A;
+    --p1:#C88413; --p2:#159C6B; --p3:#2C7BD6; --p4:#D24C97; --p5:#7A5CE0; --p6:#E07A1F; --p7:#159A8F; --p8:#D6453F;
+  }
+  body[data-theme="ocean"]{
+    --grad:#0c2a3a; --bg:#08202E; --bg2:#05161F; --panel:#0F3346; --panel2:#164459;
+    --line:#245D73; --ink:#EAF6FB; --muted:#88AEC0; --gold:#4FC3E8; --gold-dim:#2b7f9c;
+    --good:#3FE0C5; --bad:#FF6B6B; --focus:#9EE7FF;
+  }
+  body[data-theme="sunset"]{
+    --grad:#3a1330; --bg:#2A1226; --bg2:#1A0A18; --panel:#3D1C34; --panel2:#4F2743;
+    --line:#6B3A5A; --ink:#FDEEE6; --muted:#C89FB4; --gold:#FF9E45; --gold-dim:#b06a24;
+    --good:#57E0A6; --bad:#FF5C7A; --focus:#FFC58A;
+  }
+  body[data-theme="grape"]{
+    --grad:#241442; --bg:#1A0F33; --bg2:#0F0820; --panel:#271847; --panel2:#33205C;
+    --line:#463075; --ink:#F1EBFF; --muted:#A99AD0; --gold:#C9A0FF; --gold-dim:#7d5bb0;
+    --good:#4ADE80; --bad:#FF6B9A; --focus:#DCC6FF;
+  }
+  body[data-theme="mono"]{
+    --grad:#141414; --bg:#0A0A0A; --bg2:#000000; --panel:#161616; --panel2:#222222;
+    --line:#3A3A3A; --ink:#FFFFFF; --muted:#9A9A9A; --gold:#FFD400; --gold-dim:#a08a00;
+    --good:#00E676; --bad:#FF3B30; --focus:#FFEB3B;
+  }
+  body[data-theme="sepia"]{
+    --grad:#efe3cf; --bg:#F3E9D6; --bg2:#E6D8BF; --panel:#FBF4E6; --panel2:#F0E6D0;
+    --line:#D8C6A2; --ink:#3B2E1E; --muted:#8A7A5E; --gold:#B5791F; --gold-dim:#8f5f16;
+    --good:#2E8B57; --bad:#C0392B; --focus:#D8A63A;
+    --p1:#A9701A; --p2:#2E8B57; --p3:#2C6FB0; --p4:#B0417F; --p5:#6B4FB0; --p6:#C06A1A; --p7:#158080; --p8:#C0392B;
+  }
+  *{box-sizing:border-box; margin:0; padding:0}
+  html,body{height:100%}
+  body{
+    background:radial-gradient(120% 120% at 50% -10%, var(--grad) 0%, var(--bg) 45%, var(--bg2) 100%);
+    color:var(--ink);
+    font-family:"Segoe UI",Roboto,system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+    overflow:hidden;
+    -webkit-font-smoothing:antialiased;
+    user-select:none;
+  }
+  /* Overscan-safe stage for TVs */
+  #stage{
+    position:fixed; inset:0;
+    padding:5.5vh 5vw;
+    display:flex; flex-direction:column;
+  }
+  .screen{display:none; flex:1; min-height:0; flex-direction:column; overflow-y:auto; overflow-x:hidden}
+  .screen.active{display:flex}
+  .screen::-webkit-scrollbar{width:10px}
+  .screen::-webkit-scrollbar-thumb{background:var(--line); border-radius:999px}
+
+  /* Wordmark */
+  .brand{
+    font-weight:800; letter-spacing:.28em; text-transform:uppercase;
+    font-size:clamp(20px,3.2vw,44px); line-height:1;
+    color:var(--ink);
+  }
+  .brand b{color:var(--gold)}
+  .brand .num{
+    display:inline-block; margin-left:.15em;
+    color:var(--bg); background:var(--gold);
+    padding:.08em .3em; border-radius:.18em; letter-spacing:.05em;
+    box-shadow:0 0 0 3px rgba(242,177,56,.25);
+  }
+  .tagline{color:var(--muted); font-size:clamp(12px,1.4vw,18px); letter-spacing:.22em; text-transform:uppercase; margin-top:.7em}
+
+  /* Generic centered card layout */
+  .center{flex:none; min-height:100%; display:flex; flex-direction:column; align-items:center; justify-content:flex-start; gap:clamp(18px,3vh,40px); padding:clamp(10px,2vh,24px) 0}
+  .center>*:first-child{margin-top:auto}
+  .center>*:last-child{margin-bottom:auto}
+  .stack{display:flex; flex-direction:column; align-items:center; gap:clamp(14px,2.4vh,28px); width:100%}
+
+  h2.q-title{font-size:calc(clamp(22px,3vw,40px) * var(--fs)); font-weight:800; letter-spacing:.02em; text-align:center}
+  .sub{color:var(--muted); font-size:clamp(13px,1.5vw,20px); text-align:center; max-width:60ch}
+
+  /* Focusable buttons */
+  .btn{
+    position:relative;
+    background:var(--panel);
+    border:2px solid var(--line);
+    color:var(--ink);
+    border-radius:16px;
+    font-size:calc(clamp(18px,2.1vw,30px) * var(--fs));
+    font-weight:700;
+    letter-spacing:.02em;
+    cursor:pointer;
+    transition:transform .08s ease, background .15s ease, border-color .15s ease;
+    outline:none;
+    display:inline-flex; align-items:center; justify-content:center; gap:.5em;
+  }
+  .btn .k{color:var(--muted); font-weight:600; font-size:.7em}
+  .btn.wide{width:min(560px,80vw)}
+  .btn.ghost{background:transparent}
+  .btn.gold{background:linear-gradient(180deg,#F5BE52,#E09B22); border-color:#caa23f; color:#241a05}
+  .btn.good{background:linear-gradient(180deg,#3ee0a6,#25b487); border-color:#2aa87f; color:#062018}
+  body.kbd .btn.focused{
+    border-color:var(--focus);
+    background:var(--panel2);
+    transform:scale(1.045);
+    box-shadow:0 0 0 4px rgba(255,224,138,.35), 0 12px 34px rgba(0,0,0,.45);
+  }
+  body.kbd .btn.gold.focused{background:linear-gradient(180deg,#FFD277,#F0AB2E)}
+  body.kbd .btn.good.focused{background:linear-gradient(180deg,#57efb6,#2fc793)}
+
+  .row{display:flex; gap:clamp(12px,1.6vw,22px); flex-wrap:wrap; justify-content:center; align-items:center}
+
+  /* Language screen big flags */
+  .lang-row{display:flex; gap:clamp(20px,3vw,48px)}
+  .lang{
+    width:min(340px,38vw); aspect-ratio:4/3;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px;
+  }
+  .lang .flag{font-size:clamp(48px,8vw,110px); line-height:1}
+  .lang .name{font-size:clamp(20px,2.4vw,34px); font-weight:800; letter-spacing:.06em}
+
+  /* Setup steppers */
+  .stepper{display:flex; align-items:center; gap:clamp(16px,2vw,30px)}
+  .stepper .val{min-width:2.4ch; text-align:center; font-size:clamp(40px,6vw,86px); font-weight:800; color:var(--gold)}
+  .stepper .val small{display:block; font-size:.28em; color:var(--muted); letter-spacing:.2em; text-transform:uppercase; font-weight:700; margin-top:.4em}
+  .arrow{
+    width:clamp(56px,7vw,86px); height:clamp(56px,7vw,86px); border-radius:50%;
+    background:var(--panel); border:2px solid var(--line);
+    display:flex; align-items:center; justify-content:center;
+    font-size:clamp(26px,3vw,40px); cursor:pointer; color:var(--ink);
+  }
+  body.kbd .arrow.focused{border-color:var(--focus); background:var(--panel2); transform:scale(1.08); box-shadow:0 0 0 4px rgba(255,224,138,.35)}
+
+  /* GAME screen */
+  #screen-game{gap:clamp(10px,1.6vh,20px)}
+  .scorebar{display:flex; gap:clamp(8px,1vw,14px); flex-wrap:wrap; align-items:stretch}
+  .pchip{
+    flex:1 1 0; min-width:90px;
+    background:var(--panel); border:2px solid var(--line); border-radius:12px;
+    padding:clamp(8px,1.1vh,14px) clamp(10px,1vw,16px);
+    display:flex; flex-direction:column; gap:2px; position:relative; overflow:hidden;
+  }
+  .pchip .pname{font-size:clamp(12px,1.3vw,18px); font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; color:var(--muted)}
+  .pchip .pscore{font-size:calc(clamp(22px,2.6vw,40px) * var(--fs)); font-weight:800; line-height:1}
+  .pchip .bar{position:absolute; left:0; top:0; bottom:0; width:6px; background:var(--c)}
+  .pchip.active{border-color:var(--c); background:var(--panel2); box-shadow:0 0 0 3px color-mix(in srgb, var(--c) 40%, transparent)}
+  .pchip.active .pname{color:var(--ink)}
+  .pchip.out{opacity:.5}
+  .pchip .tag{position:absolute; right:8px; top:6px; font-size:clamp(10px,1vw,13px); font-weight:800; letter-spacing:.04em}
+  .pchip.passed .tag{color:var(--good)}
+  .pchip.busted .tag{color:var(--bad)}
+
+  .qhead{display:flex; align-items:baseline; justify-content:space-between; gap:16px; margin-top:clamp(4px,.8vh,10px)}
+  .turnlabel{color:var(--muted); font-size:clamp(13px,1.5vw,20px); letter-spacing:.06em}
+  .turnlabel b{color:var(--c-turn,var(--gold))}
+  .roundbank{
+    font-size:clamp(14px,1.7vw,22px); font-weight:800;
+    background:rgba(242,177,56,.14); color:var(--gold);
+    border:1px solid var(--gold-dim); padding:.35em .8em; border-radius:999px; white-space:nowrap;
+  }
+  .category{
+    font-size:calc(clamp(22px,3.1vw,46px) * var(--fs)); font-weight:800; letter-spacing:.01em;
+    line-height:1.1; margin:clamp(2px,.6vh,8px) 0 clamp(6px,1vh,14px);
+  }
+  .category .pick{color:var(--gold)}
+
+  .board{
+    flex:1; min-height:0;
+    display:grid; grid-template-columns:1fr 1fr; grid-auto-rows:1fr;
+    gap:clamp(8px,1.1vw,16px);
+  }
+  .opt{
+    position:relative;
+    background:var(--panel); border:2px solid var(--line); border-radius:14px;
+    display:flex; align-items:center; gap:clamp(10px,1.2vw,18px);
+    padding:0 clamp(14px,1.6vw,26px);
+    font-size:calc(clamp(16px,2vw,30px) * var(--fs)); font-weight:700; cursor:pointer;
+    transition:transform .07s ease, border-color .12s ease, background .12s ease;
+    overflow:hidden;
+  }
+  .opt .idx{
+    flex:none; width:1.9em; height:1.9em; border-radius:9px;
+    background:var(--panel2); color:var(--muted);
+    display:flex; align-items:center; justify-content:center;
+    font-size:.72em; font-weight:800;
+  }
+  .opt .txt{flex:1; min-width:0; white-space:normal; overflow-wrap:break-word; word-break:normal; line-height:1.12}
+  body.kbd .opt.focused{border-color:var(--focus); background:var(--panel2); transform:scale(1.02); box-shadow:0 0 0 4px rgba(255,224,138,.32), 0 10px 28px rgba(0,0,0,.4); z-index:2}
+  .opt.claimed{border-color:var(--c,var(--good)); background:var(--bg2); box-shadow:inset 5px 0 0 var(--c,var(--good))}
+  .opt.claimed .idx{background:var(--c,var(--good)); color:#0c1226}
+  .opt.claimed .txt{color:var(--ink)}
+  .opt.wrong{border-color:var(--c,var(--bad)); background:var(--bg2); box-shadow:inset 5px 0 0 var(--c,var(--bad)), inset 0 0 0 2px rgba(240,82,82,.45)}
+  .opt.wrong .idx{background:var(--c,var(--bad)); color:#0c1226}
+  .opt.wrong .tick{color:var(--bad)}
+  .opt.claimed .tick{color:var(--good)}
+  .opt.dim{opacity:.4}
+  .opt .tick{margin-left:auto; font-size:1.1em; flex:none}
+
+  .actions{display:flex; gap:clamp(10px,1.4vw,20px); justify-content:center; margin-top:clamp(4px,.8vh,10px)}
+
+  /* Toast / turn banner */
+  .banner{
+    position:fixed; inset:0; display:none; align-items:center; justify-content:center;
+    background:rgba(6,10,22,.72); z-index:50; backdrop-filter:blur(3px);
+  }
+  .banner.show{display:flex}
+  .banner .card{
+    background:var(--panel); border:2px solid var(--line); border-radius:22px;
+    padding:clamp(28px,4vh,56px) clamp(34px,5vw,72px); text-align:center;
+    max-width:80vw; box-shadow:0 30px 80px rgba(0,0,0,.6);
+  }
+  .banner .big{font-size:clamp(30px,5vw,64px); font-weight:800; line-height:1.05}
+  .banner .mid{font-size:clamp(18px,2.4vw,34px); color:var(--muted); margin-top:.6em}
+  .banner .pts{font-size:clamp(40px,7vw,96px); font-weight:800; margin:.2em 0}
+  .banner .good{color:var(--good)} .banner .bad{color:var(--bad)} .banner .gold{color:var(--gold)}
+
+  /* Win confetti-ish crown */
+  .crown{font-size:clamp(50px,9vw,120px); line-height:1}
+
+  /* turn announcement */
+  #turnBanner .card{cursor:pointer}
+  .tb-eye{color:var(--muted); letter-spacing:.32em; font-size:clamp(14px,1.8vw,24px); font-weight:800; text-transform:uppercase}
+  .tb-name{font-size:clamp(40px,8vw,96px); font-weight:800; line-height:1.05; margin:.15em 0 .35em; color:var(--tc,var(--gold))}
+  .tb-hint{color:var(--muted); font-size:clamp(14px,1.9vw,26px); font-weight:600}
+  .tb-hint .press{
+    display:inline-block; margin-right:.4em; color:var(--ink);
+    background:var(--panel2); border:1px solid var(--line); border-radius:8px; padding:.05em .5em;
+  }
+
+  .hint{position:fixed; left:0; right:0; bottom:1.2vh; text-align:center; color:var(--muted); font-size:clamp(11px,1.2vw,15px); letter-spacing:.04em; opacity:.85}
+  .hint kbd{background:var(--panel); border:1px solid var(--line); border-radius:6px; padding:.1em .5em; font-family:inherit; margin:0 .15em}
+
+  /* menu buttons */
+  .menu-col{display:flex; flex-direction:column; gap:clamp(12px,2vh,20px); width:min(460px,82vw)}
+  .btn.block{width:100%; justify-content:flex-start; gap:.6em}
+  .btn.block .mi{font-size:1.2em}
+  .btn.disabled{opacity:.4; pointer-events:none}
+
+  /* topic grid */
+  .topic-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(10px,1.6vw,20px); width:min(860px,92vw)}
+  .btn.topic{flex-direction:column; gap:.35em; padding:clamp(14px,2.2vh,26px) clamp(10px,1.5vw,20px)}
+  .btn.topic .ticon{font-size:clamp(30px,4vw,52px); line-height:1}
+  .btn.topic .tlabel{font-size:calc(clamp(14px,1.6vw,22px) * var(--fs)); font-weight:700; text-align:center}
+  @media (max-width:560px){ .topic-grid{grid-template-columns:repeat(2,1fr)} }
+
+  /* settings rows */
+  .set-list{display:flex; flex-direction:column; gap:clamp(14px,2.4vh,26px); width:min(640px,92vw)}
+  .set-row{display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap}
+  .set-label{font-size:calc(clamp(15px,1.8vw,24px) * var(--fs)); font-weight:700; color:var(--ink)}
+  .set-opts{display:flex; gap:clamp(8px,1vw,14px); flex-wrap:wrap}
+  .btn.chip{padding:clamp(10px,1.4vh,16px) clamp(16px,1.8vw,26px); font-size:calc(clamp(15px,1.7vw,22px) * var(--fs)); border-radius:12px}
+  .btn.chip.sel{background:var(--gold); border-color:var(--gold); color:#241a05}
+  .btn.chip.sel.focused, body.kbd .btn.chip.sel.focused{background:var(--gold)}
+  .sw{width:clamp(30px,3.4vw,44px); height:clamp(30px,3.4vw,44px); display:inline-flex; align-items:center; justify-content:center; font-size:1.1em}
+
+  /* size slider */
+  .slider{display:flex; align-items:center; gap:clamp(12px,1.6vw,20px); width:min(520px,72vw); padding:10px 8px; cursor:pointer; border-radius:14px; border:2px solid transparent}
+  body.kbd .slider.focused{border-color:var(--focus); box-shadow:0 0 0 4px rgba(255,224,138,.3)}
+  .slider .track{position:relative; flex:1; height:14px; background:var(--panel2); border:1px solid var(--line); border-radius:999px}
+  .slider .fill{position:absolute; left:0; top:0; bottom:0; background:var(--gold); border-radius:999px}
+  .slider .thumb{position:absolute; top:50%; left:0; width:clamp(26px,3vw,34px); height:clamp(26px,3vw,34px); border-radius:50%; background:var(--gold); border:3px solid var(--bg); transform:translate(-50%,-50%); box-shadow:0 2px 10px rgba(0,0,0,.45)}
+  .slider .slabel{min-width:3.4ch; text-align:center; font-weight:800; font-size:calc(clamp(16px,1.9vw,26px) * var(--fs)); color:var(--gold)}
+
+  /* confirm overlay */
+  #confirmBox .card{max-width:min(560px,86vw)}
+  #confirmBox .cmsg{font-size:calc(clamp(20px,2.6vw,34px) * var(--fs)); font-weight:800; line-height:1.2; margin-bottom:1em}
+  #confirmBox .crow{display:flex; gap:clamp(12px,1.6vw,20px); justify-content:center}
+</style>
+</head>
+<body>
+<div id="stage">
+
+  <!-- MAIN MENU -->
+  <section id="screen-menu" class="screen active">
+    <div class="center">
+      <div style="text-align:center">
+        <div class="brand">QUIZ<span class="num">10</span></div>
+        <div class="tagline" data-i="tagline">The push-your-luck trivia game</div>
+      </div>
+      <div class="menu-col">
+        <button class="btn gold block focusable" data-focus data-action="newgame"><span class="mi">▶</span><span data-i="newGame">New game</span></button>
+        <button class="btn block focusable" data-action="settings"><span class="mi">⚙</span><span data-i="settings">Settings</span></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SETTINGS -->
+  <section id="screen-settings" class="screen">
+    <div class="center">
+      <h2 class="q-title" data-i="settingsTitle">Settings</h2>
+      <div class="set-list">
+        <div class="set-row">
+          <span class="set-label" data-i="textSize">Text &amp; card size</span>
+          <div class="set-opts">
+            <div class="slider focusable" id="sizeSlider" data-role="slider">
+              <div class="track" id="sizeTrack"><div class="fill" id="sizeFill"></div><div class="thumb" id="sizeThumb"></div></div>
+              <div class="slabel" id="sizeLabel">M</div>
+            </div>
+          </div>
+        </div>
+        <div class="set-row">
+          <span class="set-label" data-i="theme">Colour theme</span>
+          <div class="set-opts">
+            <button class="btn chip focusable" data-action="setTheme" data-v="default" data-i="themeMid">Midnight</button>
+            <button class="btn chip focusable" data-action="setTheme" data-v="forest" data-i="themeForest">Forest</button>
+            <button class="btn chip focusable" data-action="setTheme" data-v="ocean" data-i="themeOcean">Ocean</button>
+            <button class="btn chip focusable" data-action="setTheme" data-v="sunset" data-i="themeSunset">Sunset</button>
+            <button class="btn chip focusable" data-action="setTheme" data-v="grape" data-i="themeGrape">Grape</button>
+            <button class="btn chip focusable" data-action="setTheme" data-v="neon" data-i="themeNeon">Neon</button>
+            <button class="btn chip focusable" data-action="setTheme" data-v="mono" data-i="themeMono">Mono</button>
+            <button class="btn chip focusable" data-action="setTheme" data-v="light" data-i="themeLight">Light</button>
+            <button class="btn chip focusable" data-action="setTheme" data-v="sepia" data-i="themeSepia">Sepia</button>
+          </div>
+        </div>
+        <div class="set-row">
+          <span class="set-label" data-i="language">Language</span>
+          <div class="set-opts">
+            <button class="btn chip focusable" data-action="setLang" data-v="en">English</button>
+            <button class="btn chip focusable" data-action="setLang" data-v="fi">Suomi</button>
+          </div>
+        </div>
+        <div class="set-row">
+          <span class="set-label" data-i="confirmAnswersLabel">Confirm each answer</span>
+          <div class="set-opts">
+            <button class="btn chip focusable" data-action="toggleA"><span class="sw" id="swA">✓</span></button>
+          </div>
+        </div>
+        <div class="set-row">
+          <span class="set-label" data-i="confirmBankLabel">Confirm banking</span>
+          <div class="set-opts">
+            <button class="btn chip focusable" data-action="toggleB"><span class="sw" id="swB">✓</span></button>
+          </div>
+        </div>
+        <div class="set-row">
+          <span class="set-label"><span data-i="appVersion">Version</span> <span id="verNum"></span></span>
+          <div class="set-opts">
+            <button class="btn chip focusable" data-action="update" data-i="checkUpdates">Check for updates</button>
+          </div>
+        </div>
+      </div>
+      <button class="btn wide focusable" data-action="menu" data-i="back">◂ Back</button>
+    </div>
+  </section>
+
+  <!-- LANGUAGE -->
+  <section id="screen-lang" class="screen">
+    <div class="center">
+      <div style="text-align:center">
+        <div class="brand">QUIZ<span class="num">10</span></div>
+        <div class="tagline" data-i="tagline">The push-your-luck trivia game</div>
+      </div>
+      <div class="sub" data-i>Choose your language</div>
+      <div class="lang-row">
+        <button class="btn lang focusable" data-focus data-action="lang" data-lang="en">
+          <span class="flag">🇬🇧</span><span class="name">English</span>
+        </button>
+        <button class="btn lang focusable" data-action="lang" data-lang="fi">
+          <span class="flag">🇫🇮</span><span class="name">Suomi</span>
+        </button>
+      </div>
+      <button class="btn ghost focusable" data-action="mainmenu" data-i="back">◂ Back</button>
+    </div>
+  </section>
+
+  <!-- TOPIC SELECT -->
+  <section id="screen-topic" class="screen">
+    <div class="center">
+      <h2 class="q-title" id="topicTitle"></h2>
+      <div class="topic-grid" id="topicGrid"></div>
+      <button class="btn ghost focusable" data-action="mainmenu" data-i="back">◂ Back</button>
+    </div>
+  </section>
+
+  <!-- SETUP -->
+  <section id="screen-setup" class="screen">
+    <div class="center">
+      <h2 class="q-title" data-i="setupTitle">Set up the game</h2>
+
+      <div class="stack">
+        <div class="sub" data-i="playersLabel">Number of players</div>
+        <div class="stepper">
+          <button class="arrow focusable" data-focus data-action="players" data-d="-1">−</button>
+          <div class="val"><span id="playersVal">3</span><small data-i="playersUnit">players</small></div>
+          <button class="arrow focusable" data-action="players" data-d="1">+</button>
+        </div>
+      </div>
+
+      <div class="stack">
+        <div class="sub" data-i="targetLabel">Points to win</div>
+        <div class="row" id="targetRow">
+          <button class="btn focusable" data-action="target" data-v="15">15</button>
+          <button class="btn focusable" data-action="target" data-v="25">25</button>
+          <button class="btn focusable" data-action="target" data-v="40">40</button>
+        </div>
+      </div>
+
+      <div class="row">
+        <button class="btn ghost focusable" data-action="backToLang" data-i="back">◂ Back</button>
+        <button class="btn gold focusable" data-action="start" data-i="startBtn">Start game ▸</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- GAME -->
+  <section id="screen-game" class="screen">
+    <div class="scorebar" id="scorebar"></div>
+
+    <div class="qhead">
+      <div class="turnlabel" id="turnLabel"></div>
+      <div class="roundbank" id="roundBank"></div>
+    </div>
+    <div class="category" id="category"></div>
+
+    <div class="board" id="board"></div>
+
+    <div class="actions" id="gameActions">
+      <button class="btn good focusable" id="passBtn" data-action="pass"></button>
+    </div>
+  </section>
+
+  <!-- WIN -->
+  <section id="screen-win" class="screen">
+    <div class="center">
+      <div class="crown">👑</div>
+      <h2 class="q-title" id="winName"></h2>
+      <div class="sub" id="winSub"></div>
+      <div class="row">
+        <button class="btn gold focusable" data-focus data-action="again" data-i="playAgain">Play again</button>
+        <button class="btn ghost focusable" data-action="mainmenu" data-i="mainMenu">Main menu</button>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- TURN announcement overlay -->
+<div class="banner turn" id="turnBanner">
+  <div class="card">
+    <div class="tb-eye" id="tbEye"></div>
+    <div class="tb-name" id="tbName"></div>
+    <div class="tb-hint" id="tbHint"></div>
+  </div>
+</div>
+
+<!-- CONFIRM overlay -->
+<div class="banner" id="confirmBox">
+  <div class="card">
+    <div class="cmsg" id="confirmMsg"></div>
+    <div class="crow">
+      <button class="btn gold focusable" id="confirmYes" data-action="confirmYes"></button>
+      <button class="btn ghost focusable" id="confirmNo" data-action="confirmNo"></button>
+    </div>
+  </div>
+</div>
+
+<!-- BANNER overlay -->
+<div class="banner" id="banner">
+  <div class="card">
+    <div class="big" id="bannerBig"></div>
+    <div class="pts" id="bannerPts"></div>
+    <div class="mid" id="bannerMid"></div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   QUIZ 10 — single-file trivia (Fire TV remote friendly)
+   ============================================================ */
+
+/* ---------- UI strings ---------- */
+const T = {
+  en:{
+    chooseLang:"Choose your language",
+    setupTitle:"Set up the game",
+    playersLabel:"Number of players",
+    playersUnit:"players",
+    targetLabel:"Points to win",
+    startBtn:"Start game ▸",
+    playAgain:"Play again",
+    mainMenu:"Main menu",
+    bank:"Bank points",
+    bankZero:"End turn",
+    turn:"'s turn",
+    roundBank:"Round: ",
+    pointsShort:"pt",
+    correctBanner:"Correct!",
+    wrongBanner:"Wrong!",
+    lostRound:"Turn over — round points lost",
+    bankedPts:"banked",
+    nextUp:"Next up:",
+    winSub:"reached the target first!",
+    finalScores:"Final scores",
+    pickOne:"Pick one you think is correct",
+    pass:"Pass & bank",
+    roundLabel:"This round:",
+    passedTag:"PASSED",
+    bustedTag:"OUT",
+    roundOver:"Round over",
+    upNext:"Up next",
+    startHint:"<span class='press'>OK</span> or tap to start",
+    tagline:"The push-your-luck trivia game",
+    newGame:"New game",
+    loadGame:"Load game",
+    settings:"Settings",
+    settingsTitle:"Settings",
+    textSize:"Text & card size",
+    theme:"Colour theme",
+    themeMid:"Midnight", themeForest:"Forest", themeNeon:"Neon", themeLight:"Light",
+    themeOcean:"Ocean", themeSunset:"Sunset", themeGrape:"Grape", themeMono:"Mono", themeSepia:"Sepia",
+    language:"Language",
+    confirmAnswersLabel:"Confirm each answer",
+    confirmBankLabel:"Confirm banking",
+    back:"◂ Back",
+    saveExit:"💾 Save & quit to menu",
+    topicPrompt:"choose this round's topic",
+    confirmAnswerQ:"Answer",
+    confirmBankQ:"Bank",
+    andPass:"and pass?",
+    yes:"Yes", no:"Cancel",
+    saved:"Game saved",
+    appVersion:"Version",
+    checkUpdates:"Check for updates",
+    updating:"Updating…",
+    hint:"Move with the D-pad · <kbd>OK</kbd> answers · <kbd>Back</kbd> to pass & bank"
+  },
+  fi:{
+    chooseLang:"Valitse kieli",
+    setupTitle:"Pelin asetukset",
+    playersLabel:"Pelaajien määrä",
+    playersUnit:"pelaajaa",
+    targetLabel:"Voittoon vaadittavat pisteet",
+    startBtn:"Aloita peli ▸",
+    playAgain:"Pelaa uudelleen",
+    mainMenu:"Päävalikko",
+    bank:"Talleta pisteet",
+    bankZero:"Lopeta vuoro",
+    turn:":n vuoro",
+    roundBank:"Kierros: ",
+    pointsShort:"p",
+    correctBanner:"Oikein!",
+    wrongBanner:"Väärin!",
+    lostRound:"Vuoro päättyi — kierroksen pisteet menetetty",
+    bankedPts:"talletettu",
+    nextUp:"Seuraavaksi:",
+    winSub:"saavutti tavoitteen ensimmäisenä!",
+    finalScores:"Loppupisteet",
+    pickOne:"Valitse yksi jonka uskot oikeaksi",
+    pass:"Passaa & talleta",
+    roundLabel:"Tällä kierroksella:",
+    passedTag:"PASSASI",
+    bustedTag:"ULKONA",
+    roundOver:"Kierros ohi",
+    upNext:"Vuorossa",
+    startHint:"<span class='press'>OK</span> tai napauta aloittaaksesi",
+    tagline:"Uskalla tai passaa -tietovisa",
+    newGame:"Uusi peli",
+    loadGame:"Lataa peli",
+    settings:"Asetukset",
+    settingsTitle:"Asetukset",
+    textSize:"Tekstin & korttien koko",
+    theme:"Väriteema",
+    themeMid:"Yö", themeForest:"Metsä", themeNeon:"Neon", themeLight:"Vaalea",
+    themeOcean:"Meri", themeSunset:"Auringonlasku", themeGrape:"Viini", themeMono:"Mono", themeSepia:"Seepia",
+    language:"Kieli",
+    confirmAnswersLabel:"Varmista jokainen vastaus",
+    confirmBankLabel:"Varmista tallennus",
+    back:"◂ Takaisin",
+    saveExit:"💾 Tallenna & palaa valikkoon",
+    topicPrompt:"valitse tämän kierroksen aihe",
+    confirmAnswerQ:"Vastaus",
+    confirmBankQ:"Talleta",
+    andPass:"ja passaa?",
+    yes:"Kyllä", no:"Peruuta",
+    saved:"Peli tallennettu",
+    appVersion:"Versio",
+    checkUpdates:"Tarkista päivitykset",
+    updating:"Päivitetään…",
+    hint:"Liiku D-padilla · <kbd>OK</kbd> vastaa · <kbd>Back</kbd> passaa & talleta"
+  }
+};
+
+/* ---------- Topics ---------- */
+const TOPICS = [
+  { key:'geo',   icon:'🌍', en:'Geography',       fi:'Maantiede' },
+  { key:'sci',   icon:'🔬', en:'Science & Nature',fi:'Tiede & luonto' },
+  { key:'arts',  icon:'🎭', en:'Arts & Music',    fi:'Taide & musiikki' },
+  { key:'sport', icon:'⚽', en:'Sport & Games',   fi:'Urheilu & pelit' },
+  { key:'hist',  icon:'🏛️', en:'History',          fi:'Historia' },
+  { key:'gen',   icon:'🧠', en:'General',          fi:'Yleistieto' },
+  { key:'mixed', icon:'🎲', en:'Mixed',            fi:'Sekaisin' }
+];
+
+/* ---------- Question bank ----------
+   Each: topic; category {en,fi}; options: [en,fi,correct(1/0)] (always 10) */
+const QUESTIONS = [
+  /* ---- GEOGRAPHY ---- */
+  { topic:'geo', cat:{en:"Which of these are countries in the EU?", fi:"Mitkä näistä ovat EU-maita?"},
+    o:[["France","Ranska",1],["Germany","Saksa",1],["Norway","Norja",0],["Spain","Espanja",1],
+       ["Switzerland","Sveitsi",0],["Italy","Italia",1],["Finland","Suomi",1],["United Kingdom","Iso-Britannia",0],
+       ["Poland","Puola",1],["Iceland","Islanti",0]] },
+  { topic:'geo', cat:{en:"Which of these are US states?", fi:"Mitkä näistä ovat Yhdysvaltain osavaltioita?"},
+    o:[["Texas","Texas",1],["Chicago","Chicago",0],["Florida","Florida",1],["Toronto","Toronto",0],
+       ["Nevada","Nevada",1],["Ohio","Ohio",1],["Vancouver","Vancouver",0],["Arizona","Arizona",1],
+       ["Boston","Boston",0],["Oregon","Oregon",1]] },
+  { topic:'geo', cat:{en:"Which of these countries are in Africa?", fi:"Mitkä näistä maista sijaitsevat Afrikassa?"},
+    o:[["Kenya","Kenia",1],["Peru","Peru",0],["Egypt","Egypti",1],["Nepal","Nepal",0],
+       ["Nigeria","Nigeria",1],["Chile","Chile",0],["Morocco","Marokko",1],["Ghana","Ghana",1],
+       ["Bolivia","Bolivia",0],["Ethiopia","Etiopia",1]] },
+  { topic:'geo', cat:{en:"Which of these are oceans or seas?", fi:"Mitkä näistä ovat valtameriä tai meriä?"},
+    o:[["Pacific","Tyyni valtameri",1],["Baltic Sea","Itämeri",1],["Sahara","Sahara",0],["Atlantic","Atlantti",1],
+       ["Amazon","Amazon",0],["Mediterranean","Välimeri",1],["Everest","Everest",0],["Arctic Ocean","Jäämeri",1],
+       ["Nile","Niili",0],["Red Sea","Punainenmeri",1]] },
+  { topic:'geo', cat:{en:"Which of these countries border Finland?", fi:"Mitkä näistä maista rajoittuvat Suomeen?"},
+    o:[["Sweden","Ruotsi",1],["Norway","Norja",1],["Russia","Venäjä",1],["Denmark","Tanska",0],
+       ["Estonia","Viro",0],["Germany","Saksa",0],["Latvia","Latvia",0],["Poland","Puola",0],
+       ["Lithuania","Liettua",0],["Ukraine","Ukraina",0]] },
+  { topic:'geo', cat:{en:"Which of these are capital cities?", fi:"Mitkä näistä ovat pääkaupunkeja?"},
+    o:[["Paris","Pariisi",1],["Sydney","Sydney",0],["Tokyo","Tokio",1],["Barcelona","Barcelona",0],
+       ["Cairo","Kairo",1],["Rio de Janeiro","Rio de Janeiro",0],["Ottawa","Ottawa",1],["Munich","München",0],
+       ["Canberra","Canberra",1],["Istanbul","Istanbul",0]] },
+
+  /* ---- SCIENCE & NATURE ---- */
+  { topic:'sci', cat:{en:"Which of these are planets in our Solar System?", fi:"Mitkä näistä ovat Aurinkokunnan planeettoja?"},
+    o:[["Mars","Mars",1],["Venus","Venus",1],["Pluto","Pluto",0],["Jupiter","Jupiter",1],
+       ["The Moon","Kuu",0],["Saturn","Saturnus",1],["Mercury","Merkurius",1],["The Sun","Aurinko",0],
+       ["Neptune","Neptunus",1],["Titan","Titan",0]] },
+  { topic:'sci', cat:{en:"Which of these are real chemical elements?", fi:"Mitkä näistä ovat oikeita alkuaineita?"},
+    o:[["Oxygen","Happi",1],["Titanium","Titaani",1],["Adamantium","Adamantium",0],["Osmium","Osmium",1],
+       ["Vibranium","Vibranium",0],["Krypton","Krypton",1],["Unobtanium","Unobtanium",0],["Cobalt","Koboltti",1],
+       ["Neon","Neon",1],["Aetherium","Aetherium",0]] },
+  { topic:'sci', cat:{en:"Which of these are metals?", fi:"Mitkä näistä ovat metalleja?"},
+    o:[["Copper","Kupari",1],["Oxygen","Happi",0],["Iron","Rauta",1],["Helium","Helium",0],
+       ["Gold","Kulta",1],["Carbon","Hiili",0],["Aluminium","Alumiini",1],["Neon","Neon",0],
+       ["Silver","Hopea",1],["Sulfur","Rikki",0]] },
+  { topic:'sci', cat:{en:"Which of these are citrus fruits?", fi:"Mitkä näistä ovat sitrushedelmiä?"},
+    o:[["Lemon","Sitruuna",1],["Apple","Omena",0],["Lime","Limetti",1],["Banana","Banaani",0],
+       ["Orange","Appelsiini",1],["Grape","Viinirypäle",0],["Grapefruit","Greippi",1],["Mango","Mango",0],
+       ["Mandarin","Mandariini",1],["Peach","Persikka",0]] },
+  { topic:'sci', cat:{en:"Which of these are colours of the rainbow?", fi:"Mitkä näistä ovat sateenkaaren värejä?"},
+    o:[["Red","Punainen",1],["Brown","Ruskea",0],["Orange","Oranssi",1],["Pink","Pinkki",0],
+       ["Yellow","Keltainen",1],["Green","Vihreä",1],["Black","Musta",0],["Blue","Sininen",1],
+       ["Grey","Harmaa",0],["Violet","Violetti",1]] },
+
+  /* ---- ARTS & MUSIC ---- */
+  { topic:'arts', cat:{en:"Which of these are plays by Shakespeare?", fi:"Mitkä näistä ovat Shakespearen näytelmiä?"},
+    o:[["Hamlet","Hamlet",1],["Macbeth","Macbeth",1],["Faust","Faust",0],["Othello","Othello",1],
+       ["The Odyssey","Odysseia",0],["King Lear","Kuningas Lear",1],["Don Quixote","Don Quijote",0],["The Tempest","Myrsky",1],
+       ["Romeo and Juliet","Romeo ja Julia",1],["Waiting for Godot","Huomenna hän tulee",0]] },
+  { topic:'arts', cat:{en:"Which of these are string instruments?", fi:"Mitkä näistä soittimista ovat kielisoittimia?"},
+    o:[["Violin","Viulu",1],["Trumpet","Trumpetti",0],["Cello","Sello",1],["Flute","Huilu",0],
+       ["Guitar","Kitara",1],["Drums","Rummut",0],["Harp","Harppu",1],["Clarinet","Klarinetti",0],
+       ["Double bass","Kontrabasso",1],["Saxophone","Saksofoni",0]] },
+  { topic:'arts', cat:{en:"Which of these are woodwind instruments?", fi:"Mitkä näistä ovat puupuhaltimia?"},
+    o:[["Flute","Huilu",1],["Clarinet","Klarinetti",1],["Oboe","Oboe",1],["Violin","Viulu",0],
+       ["Trumpet","Trumpetti",0],["Saxophone","Saksofoni",1],["Cello","Sello",0],["Bassoon","Fagotti",1],
+       ["Trombone","Pasuuna",0],["Harp","Harppu",0]] },
+  { topic:'arts', cat:{en:"Which of these are dances?", fi:"Mitkä näistä ovat tansseja?"},
+    o:[["Waltz","Valssi",1],["Tango","Tango",1],["Salsa","Salsa",1],["Origami","Origami",0],
+       ["Foxtrot","Foxtrot",1],["Sudoku","Sudoku",0],["Flamenco","Flamenco",1],["Karate","Karate",0],
+       ["Ballet","Baletti",1],["Yoga","Jooga",0]] },
+
+  /* ---- SPORT & GAMES ---- */
+  { topic:'sport', cat:{en:"Which of these are Summer Olympic sports?", fi:"Mitkä näistä ovat kesäolympialajeja?"},
+    o:[["Swimming","Uinti",1],["Archery","Jousiammunta",1],["Bobsleigh","Rattikelkka",0],["Fencing","Miekkailu",1],
+       ["Curling","Curling",0],["Rowing","Soutu",1],["Ski jumping","Mäkihyppy",0],["Judo","Judo",1],
+       ["Weightlifting","Painonnosto",1],["Biathlon","Ampumahiihto",0]] },
+  { topic:'sport', cat:{en:"Which of these are Winter Olympic sports?", fi:"Mitkä näistä ovat talviolympialajeja?"},
+    o:[["Curling","Curling",1],["Bobsleigh","Rattikelkka",1],["Ski jumping","Mäkihyppy",1],["Swimming","Uinti",0],
+       ["Biathlon","Ampumahiihto",1],["Fencing","Miekkailu",0],["Figure skating","Taitoluistelu",1],["Rowing","Soutu",0],
+       ["Ice hockey","Jääkiekko",1],["Archery","Jousiammunta",0]] },
+  { topic:'sport', cat:{en:"Which of these sports are played with a ball?", fi:"Mitkä näistä lajeista pelataan pallolla?"},
+    o:[["Football","Jalkapallo",1],["Basketball","Koripallo",1],["Tennis","Tennis",1],["Swimming","Uinti",0],
+       ["Golf","Golf",1],["Boxing","Nyrkkeily",0],["Volleyball","Lentopallo",1],["Cycling","Pyöräily",0],
+       ["Cricket","Kriketti",1],["Rowing","Soutu",0]] },
+  { topic:'sport', cat:{en:"Which of these are motorsports?", fi:"Mitkä näistä ovat moottoriurheilua?"},
+    o:[["Formula 1","Formula 1",1],["Rally","Ralli",1],["MotoGP","MotoGP",1],["Marathon","Maraton",0],
+       ["NASCAR","NASCAR",1],["Chess","Šakki",0],["Motocross","Motocross",1],["Curling","Curling",0],
+       ["Karting","Karting",1],["Rowing","Soutu",0]] },
+
+  /* ---- HISTORY ---- */
+  { topic:'hist', cat:{en:"Which of these were ancient civilizations?", fi:"Mitkä näistä olivat muinaisia sivilisaatioita?"},
+    o:[["Roman Empire","Rooman valtakunta",1],["Ancient Egypt","Muinainen Egypti",1],["Aztecs","Atsteekit",1],["Soviet Union","Neuvostoliitto",0],
+       ["Maya","Maya",1],["European Union","Euroopan unioni",0],["Ancient Greece","Antiikin Kreikka",1],["NATO","NATO",0],
+       ["Inca","Inka",1],["Babylon","Babylon",1]] },
+  { topic:'hist', cat:{en:"Which of these countries were part of the Soviet Union?", fi:"Mitkä näistä maista kuuluivat Neuvostoliittoon?"},
+    o:[["Estonia","Viro",1],["Sweden","Ruotsi",0],["Ukraine","Ukraina",1],["Finland","Suomi",0],
+       ["Latvia","Latvia",1],["Poland","Puola",0],["Lithuania","Liettua",1],["Norway","Norja",0],
+       ["Georgia","Georgia",1],["Kazakhstan","Kazakstan",1]] },
+  { topic:'hist', cat:{en:"Which of these are among the Seven Wonders of the Ancient World?", fi:"Mitkä näistä kuuluvat antiikin seitsemään ihmeeseen?"},
+    o:[["Great Pyramid of Giza","Gizan suuri pyramidi",1],["Colossus of Rhodes","Rhodoksen kolossi",1],["Eiffel Tower","Eiffel-torni",0],["Hanging Gardens of Babylon","Babylonin riippuvat puutarhat",1],
+       ["Statue of Liberty","Vapaudenpatsas",0],["Lighthouse of Alexandria","Aleksandrian majakka",1],["Great Wall of China","Kiinan muuri",0],["Temple of Artemis","Artemiin temppeli",1],
+       ["Taj Mahal","Taj Mahal",0],["Statue of Zeus at Olympia","Olympian Zeus-patsas",1]] },
+  { topic:'hist', cat:{en:"Which of these were real historical people?", fi:"Mitkä näistä olivat oikeita historiallisia henkilöitä?"},
+    o:[["Napoleon","Napoleon",1],["Sherlock Holmes","Sherlock Holmes",0],["Cleopatra","Kleopatra",1],["Robin Hood","Robin Hood",0],
+       ["Julius Caesar","Julius Caesar",1],["Harry Potter","Harry Potter",0],["Winston Churchill","Winston Churchill",1],["King Arthur","Kuningas Arthur",0],
+       ["Albert Einstein","Albert Einstein",1],["Genghis Khan","Tšingis-kaani",1]] },
+
+  /* ---- GENERAL ---- */
+  { topic:'gen', cat:{en:"Which of these numbers are prime?", fi:"Mitkä näistä luvuista ovat alkulukuja?"},
+    o:[["2","2",1],["9","9",0],["7","7",1],["15","15",0],["11","11",1],["21","21",0],
+       ["13","13",1],["27","27",0],["17","17",1],["1","1",0]] },
+  { topic:'gen', cat:{en:"Which of these are programming languages?", fi:"Mitkä näistä ovat ohjelmointikieliä?"},
+    o:[["Python","Python",1],["Rust","Rust",1],["Basilisk","Basilisk",0],["Java","Java",1],
+       ["Kotlin","Kotlin",1],["Viper","Viper",0],["Swift","Swift",1],["Dragon","Dragon",0],
+       ["Go","Go",1],["Wombat","Wombat",0]] },
+  { topic:'gen', cat:{en:"Which of these are square numbers?", fi:"Mitkä näistä ovat neliölukuja?"},
+    o:[["1","1",1],["4","4",1],["6","6",0],["9","9",1],["12","12",0],["16","16",1],
+       ["20","20",0],["25","25",1],["30","30",0],["36","36",1]] },
+  { topic:'gen', cat:{en:"Which of these are units of measurement?", fi:"Mitkä näistä ovat mittayksiköitä?"},
+    o:[["Metre","Metri",1],["Kelvin","Kelvin",1],["Litre","Litra",1],["Quartz","Kvartsi",0],
+       ["Ampere","Ampeeri",1],["Photon","Fotoni",0],["Gram","Gramma",1],["Neutron","Neutroni",0],
+       ["Second","Sekunti",1],["Proton","Protoni",0]] }
+];
+
+const PLAYER_COLORS = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
+
+const APP_VERSION = '1.0';
+
+/* Load an external questions.json (served alongside the app) if present.
+   Falls back silently to the built-in bank when missing or invalid. */
+async function loadQuestions(){
+  try{
+    const res = await fetch('questions.json', {cache:'no-store'});
+    if(!res.ok) return;
+    const data = await res.json();
+    if(Array.isArray(data)){
+      const valid = data.filter(q => q && q.cat && q.cat.en && q.cat.fi && Array.isArray(q.o) && q.o.length===10);
+      if(valid.length){ QUESTIONS.length=0; valid.forEach(q=>QUESTIONS.push(q)); topicDecks={}; }
+    }
+  }catch(e){ /* keep built-in questions */ }
+}
+
+/* ---------- State ---------- */
+let lang = 'en';
+let numPlayers = 3;
+let target = 25;
+let players = [];        // {name, score, color}
+let turnIdx = 0;
+let roundStarter = 0;    // who leads each new question (rotates)
+let roundTokens = [];    // provisional correct answers this round, per player
+let pstatus = [];        // 'active' | 'passed' | 'busted', per player
+let deck = [];
+let current = null;      // current question (localized) + shuffled options
+let turnActive = false;  // locked briefly between picks / at game end
+let awaitingTurn = false; // true while the "up next" banner is showing
+let currentTopic = 'mixed';
+let topicDecks = {};     // per-topic shuffled index queues
+let confirmCb = null;    // pending confirm callback
+let settings = { size:'1', theme:'default', confirmA:true, confirmB:true };
+const SIZES = [ {v:0.85,n:'S'}, {v:1.0,n:'M'}, {v:1.3,n:'L'}, {v:1.7,n:'XL'}, {v:2.2,n:'XXL'} ];
+
+/* ---------- Helpers ---------- */
+const $ = s => document.querySelector(s);
+const $$ = s => Array.from(document.querySelectorAll(s));
+function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0; [a[i],a[j]]=[a[j],a[i]];} return a; }
+function tr(k){ return T[lang][k]; }
+
+/* ---------- Sound effects (Web Audio, no files) ---------- */
+let actx = null;
+function audioInit(){
+  if(!actx){ try{ actx = new (window.AudioContext||window.webkitAudioContext)(); }catch(e){ return; } }
+  if(actx && actx.state==='suspended') actx.resume();
+}
+function tone(freq, dur, type, vol, when){
+  if(!actx) return;
+  const t0 = actx.currentTime + (when||0);
+  const o = actx.createOscillator(), g = actx.createGain();
+  o.type = type||'sine';
+  o.frequency.setValueAtTime(freq, t0);
+  g.gain.setValueAtTime(0.0001, t0);
+  g.gain.exponentialRampToValueAtTime(vol||0.2, t0+0.012);
+  g.gain.exponentialRampToValueAtTime(0.0001, t0+dur);
+  o.connect(g).connect(actx.destination);
+  o.start(t0); o.stop(t0+dur+0.03);
+}
+const sfx = {
+  correct(){ tone(660,0.12,'sine',0.28,0); tone(988,0.20,'sine',0.24,0.09); },
+  wrong(){ tone(196,0.30,'sawtooth',0.20,0); tone(146,0.34,'sawtooth',0.16,0.06); },
+  pass(){ tone(523,0.10,'triangle',0.18,0); tone(392,0.14,'triangle',0.15,0.07); },
+  turn(){ tone(784,0.14,'sine',0.20,0); },
+  win(){ [523,659,784,1047].forEach((f,i)=>tone(f,0.24,'sine',0.26,i*0.13)); },
+  select(){ tone(880,0.05,'square',0.09,0); }
+};
+
+function showScreen(id){
+  $$('.screen').forEach(s=>s.classList.remove('active'));
+  $('#'+id).classList.add('active');
+  // focus first default (or first focusable) on the new screen
+  requestAnimationFrame(()=>{
+    const scr = $('#'+id);
+    let f = scr.querySelector('[data-focus]') || scr.querySelector('.focusable');
+    setFocus(f);
+  });
+}
+
+/* ---------- Spatial focus system ---------- */
+let focused = null;
+function focusScope(){
+  const cb = $('#confirmBox');
+  if(cb.classList.contains('show')) return cb;
+  return $('.screen.active');
+}
+function focusables(){
+  const scr = focusScope();
+  if(!scr) return [];
+  return $$('.focusable').filter(el=>{
+    if(!scr.contains(el)) return false;
+    if(el.classList.contains('gone')) return false;
+    const r = el.getBoundingClientRect();
+    return r.width>0 && r.height>0 && el.offsetParent!==null;
+  });
+}
+function setFocus(el){
+  if(!el) return;
+  if(focused) focused.classList.remove('focused');
+  focused = el;
+  focused.classList.add('focused');
+  try{ el.scrollIntoView({block:'nearest', inline:'nearest'}); }catch(e){}
+}
+function move(dir){
+  const list = focusables();
+  if(!focused || !list.includes(focused)){ setFocus(list[0]); return; }
+  const cr = focused.getBoundingClientRect();
+  const cx = cr.left+cr.width/2, cy = cr.top+cr.height/2;
+  let best=null, bestScore=Infinity;
+  for(const el of list){
+    if(el===focused) continue;
+    const r = el.getBoundingClientRect();
+    const x = r.left+r.width/2, y = r.top+r.height/2;
+    const dx = x-cx, dy = y-cy;
+    let primary, cross;
+    if(dir==='right'){ if(dx<=8) continue; primary=dx; cross=Math.abs(dy); }
+    else if(dir==='left'){ if(dx>=-8) continue; primary=-dx; cross=Math.abs(dy); }
+    else if(dir==='down'){ if(dy<=8) continue; primary=dy; cross=Math.abs(dx); }
+    else { if(dy>=-8) continue; primary=-dy; cross=Math.abs(dx); }
+    const score = primary + cross*2;   // prefer aligned + close
+    if(score<bestScore){ bestScore=score; best=el; }
+  }
+  if(best) setFocus(best);
+}
+
+/* ---------- Localisation of static text ---------- */
+function applyStaticText(){
+  $('#screen-lang .sub').textContent = tr('chooseLang');
+  $$('[data-i]').forEach(el=>{
+    const k = el.getAttribute('data-i');
+    if(k && T[lang][k]!==undefined) el.textContent = T[lang][k];
+  });
+}
+
+/* ---------- Setup interactions ---------- */
+function refreshSetup(){
+  $('#playersVal').textContent = numPlayers;
+  $$('#targetRow .btn').forEach(b=>{
+    b.classList.toggle('gold', +b.dataset.v===target);
+  });
+}
+
+/* ---------- Game flow ---------- */
+function startGame(){
+  players = [];
+  for(let i=0;i<numPlayers;i++){
+    players.push({
+      name:(lang==='fi'?'Pelaaja ':'Player ')+(i+1),
+      score:0,
+      color:PLAYER_COLORS[i]
+    });
+  }
+  turnIdx = 0;
+  roundStarter = 0;
+  topicDecks = {};
+  buildScorebar();
+  chooseTopic();
+}
+
+function buildScorebar(){
+  const bar = $('#scorebar'); bar.innerHTML='';
+  players.forEach((p,i)=>{
+    const el = document.createElement('div');
+    el.className='pchip';
+    el.style.setProperty('--c', `var(${p.color})`);
+    el.dataset.i = i;
+    el.innerHTML = `<span class="bar"></span>
+      <span class="tag"></span>
+      <span class="pname">${p.name}</span>
+      <span class="pscore">${p.score}</span>`;
+    bar.appendChild(el);
+  });
+}
+function updateScorebar(){
+  $$('#scorebar .pchip').forEach((el,i)=>{
+    const base = players[i].score;
+    const prov = (pstatus[i]==='active' && roundTokens[i]>0) ? ` +${roundTokens[i]}` : '';
+    el.querySelector('.pscore').innerHTML = base + (prov?`<span style="color:var(--gold);font-size:.6em"> ${prov.trim()}</span>`:'');
+    el.classList.toggle('active', i===turnIdx && pstatus[i]==='active');
+    el.classList.toggle('passed', pstatus[i]==='passed');
+    el.classList.toggle('busted', pstatus[i]==='busted');
+    el.classList.toggle('out', pstatus[i]!=='active');
+    const tag = el.querySelector('.tag');
+    tag.textContent = pstatus[i]==='passed' ? tr('passedTag') : (pstatus[i]==='busted' ? tr('bustedTag') : '');
+  });
+}
+
+/* ---------- Topic selection (start of each round) ---------- */
+function poolFor(topic){
+  if(topic==='mixed') return QUESTIONS.map((_,i)=>i);
+  return QUESTIONS.map((q,i)=>q.topic===topic?i:-1).filter(i=>i>=0);
+}
+function chooseTopic(){
+  turnActive=false; awaitingTurn=false;
+  $('#turnBanner').classList.remove('show');
+  const p = players[roundStarter % players.length];
+  $('#topicTitle').innerHTML = `<span style="color:var(${p.color})">${p.name}</span> — ${tr('topicPrompt')}`;
+  renderTopics();
+  showScreen('screen-topic');
+}
+function renderTopics(){
+  const grid = $('#topicGrid'); grid.innerHTML='';
+  TOPICS.forEach(t=>{
+    const b = document.createElement('button');
+    b.className='btn topic focusable';
+    b.dataset.action='topic'; b.dataset.topic=t.key;
+    b.innerHTML = `<span class="ticon">${t.icon}</span><span class="tlabel">${t[lang]}</span>`;
+    grid.appendChild(b);
+  });
+}
+
+function drawQuestion(){
+  if(!topicDecks[currentTopic] || topicDecks[currentTopic].length===0){
+    topicDecks[currentTopic] = shuffle(poolFor(currentTopic));
+  }
+  const qi = topicDecks[currentTopic].pop();
+  const q = QUESTIONS[qi];
+  const opts = shuffle(q.o).map(o=>({label:o[lang==='fi'?1:0], correct:!!o[2], state:'idle'}));
+  current = { cat:q.cat[lang], opts };
+}
+
+/* Start the round with the chosen topic; opener plays immediately (no banner) */
+function newQuestion(){
+  drawQuestion();
+  pstatus = players.map(()=>'active');
+  roundTokens = players.map(()=>0);
+  turnIdx = roundStarter % players.length;
+  if(pstatus[turnIdx]!=='active') turnIdx = nextActive(turnIdx);
+  $('#category').textContent = current.cat;
+  renderBoard();
+  updateHeader();
+  updateScorebar();
+  showScreen('screen-game');
+  turnActive = true;
+  focusFirstOption();
+  requestAnimationFrame(fitBoard);
+}
+
+/* Show the "up next" banner; play begins only on OK / tap */
+function announceTurn(){
+  turnActive = false;
+  awaitingTurn = true;
+  const p = players[turnIdx];
+  $('#turnBanner').style.setProperty('--tc', `var(${p.color})`);
+  $('#tbEye').textContent = tr('upNext');
+  $('#tbName').textContent = p.name;
+  $('#tbHint').innerHTML = tr('startHint');
+  $('#turnBanner').classList.add('show');
+}
+
+function confirmTurn(){
+  if(!awaitingTurn) return;
+  awaitingTurn = false;
+  $('#turnBanner').classList.remove('show');
+  turnActive = true;
+  sfx.turn();
+  updateHeader();
+  updateScorebar();
+  focusFirstOption();
+}
+
+function renderBoard(){
+  const board = $('#board'); board.innerHTML='';
+  current.opts.forEach((o,i)=>{
+    const el = document.createElement('div');
+    el.className='opt focusable';
+    el.dataset.i=i;
+    el.dataset.action='pick';
+    el.innerHTML = `<span class="idx">${i+1}</span><span class="txt">${o.label}</span><span class="tick"></span>`;
+    board.appendChild(el);
+    syncOpt(el,o);
+  });
+}
+
+/* Shrink each option's text until it fits its card (width + height) */
+function fitBoard(){
+  $$('#board .opt').forEach(opt=>{
+    const txt = opt.querySelector('.txt');
+    if(!txt) return;
+    txt.style.fontSize = '';                 // reset to CSS-computed size
+    let fs = parseFloat(getComputedStyle(txt).fontSize) || 20;
+    const min = 10;
+    let guard = 0;
+    while(guard<60 && fs>min &&
+          (txt.scrollWidth > txt.clientWidth+1 || txt.scrollHeight > opt.clientHeight-6)){
+      fs -= 1;
+      txt.style.fontSize = fs + 'px';
+      guard++;
+    }
+  });
+}
+
+function syncOpt(el,o){
+  el.classList.remove('claimed','wrong');
+  const tick = el.querySelector('.tick');
+  if(o.state==='claimed'){
+    el.classList.add('claimed');
+    el.style.setProperty('--c', `var(${players[o.by].color})`);
+    tick.textContent = '✓';
+  } else if(o.state==='wrong'){
+    el.classList.add('wrong');
+    if(o.by!=null) el.style.setProperty('--c', `var(${players[o.by].color})`);
+    tick.textContent = '✕';
+  } else {
+    tick.textContent = '';
+  }
+  if(o.state!=='idle') el.classList.remove('focusable');
+}
+
+function updateHeader(){
+  const p = players[turnIdx];
+  $('#screen-game').style.setProperty('--c-turn', `var(${p.color})`);
+  $('#turnLabel').innerHTML = `<b style="color:var(${p.color})">${p.name}</b>${tr('turn')}`;
+  $('#roundBank').textContent = tr('roundLabel')+' '+roundTokens[turnIdx]+' '+tr('pointsShort');
+  const pb = $('#passBtn');
+  pb.textContent = `${tr('pass')}${roundTokens[turnIdx]>0?` (${roundTokens[turnIdx]})`:''}`;
+}
+
+function focusFirstOption(){
+  requestAnimationFrame(()=>{
+    const first = $('#board .opt.focusable');
+    setFocus(first || focusables()[0]);
+  });
+}
+
+function nextActive(from){
+  for(let k=1;k<=players.length;k++){
+    const idx=(from+k)%players.length;
+    if(pstatus[idx]==='active') return idx;
+  }
+  return from;
+}
+function anyActive(){ return pstatus.some(s=>s==='active'); }
+function idleLeft(){ return current.opts.some(o=>o.state==='idle'); }
+
+/* current player picks one option (optional confirm first) */
+function pickOption(i){
+  if(!turnActive || pstatus[turnIdx]!=='active') return;
+  const o = current.opts[i];
+  if(!o || o.state!=='idle') return;
+  if(settings.confirmA){
+    askConfirm(`${tr('confirmAnswerQ')}: "${o.label}"?`, ()=>doPick(i));
+  } else doPick(i);
+}
+function doPick(i){
+  const o = current.opts[i];
+  if(!o || o.state!=='idle') return;
+  const el = $(`#board .opt[data-i="${i}"]`);
+  if(o.correct){
+    o.state='claimed'; o.by=turnIdx;
+    roundTokens[turnIdx]++;
+    syncOpt(el,o);
+    sfx.correct();
+  } else {
+    o.state='wrong'; o.by=turnIdx;
+    syncOpt(el,o);
+    sfx.wrong();
+    bustPlayer(turnIdx);
+  }
+  updateHeader(); updateScorebar();
+  advance(o.correct ? 650 : 850);
+}
+
+/* current player passes: bank collected tokens, out for the round */
+function passTurn(){
+  if(!turnActive || pstatus[turnIdx]!=='active') return;
+  if(settings.confirmB){
+    const n = roundTokens[turnIdx];
+    askConfirm(`${tr('confirmBankQ')} ${n} ${tr('pointsShort')} ${tr('andPass')}`, ()=>doPass());
+  } else doPass();
+}
+function doPass(){
+  if(pstatus[turnIdx]!=='active') return;
+  players[turnIdx].score += roundTokens[turnIdx];
+  pstatus[turnIdx]='passed';
+  sfx.pass();
+  updateScorebar();
+  advance(300);
+}
+
+function bustPlayer(p){
+  // lose this round's points, but keep the player's colour visible on the board
+  roundTokens[p]=0;
+  pstatus[p]='busted';
+}
+
+function advance(delay){
+  turnActive=false; // brief lock
+  if(!anyActive() || !idleLeft()){
+    setTimeout(endRound, delay);
+  } else {
+    setTimeout(()=>{
+      turnIdx = nextActive(turnIdx);
+      updateHeader(); updateScorebar();
+      announceTurn();
+    }, delay);
+  }
+}
+
+function endRound(){
+  // if the round ended with the board exhausted, still-active players keep their tokens
+  players.forEach((p,i)=>{
+    if(pstatus[i]==='active'){ p.score += roundTokens[i]; pstatus[i]='passed'; }
+  });
+  updateScorebar();
+
+  const reached = players.map((p,i)=>({i,s:p.score})).filter(x=>x.s>=target);
+  if(reached.length){
+    reached.sort((a,b)=>b.s-a.s);
+    setTimeout(()=>endGame(reached[0].i), 700);
+    return;
+  }
+  // next round: rotate starter, pick a new topic
+  roundStarter = (roundStarter+1)%players.length;
+  setTimeout(chooseTopic, 900);
+}
+
+function endGame(winnerIdx){
+  hideBanner();
+  awaitingTurn=false; $('#turnBanner').classList.remove('show');
+  sfx.win();
+  const w = players[winnerIdx];
+  const sorted = players.slice().sort((a,b)=>b.score-a.score);
+  $('#winName').innerHTML = `<span style="color:var(${w.color})">${w.name}</span>`;
+  $('#winSub').innerHTML = tr('winSub') + '<br><br><b>'+tr('finalScores')+'</b><br>' +
+    sorted.map(p=>`${p.name}: ${p.score} ${tr('pointsShort')}`).join(' &nbsp;·&nbsp; ');
+  showScreen('screen-win');
+}
+
+/* ---------- Banner ---------- */
+function showBanner(kind, big, pts, mid){
+  $('#bannerBig').className='big '+kind; $('#bannerBig').textContent=big;
+  $('#bannerPts').className='pts '+kind;
+  $('#bannerPts').textContent = pts>0 ? ('+'+pts+' '+tr('pointsShort')) : '';
+  $('#bannerMid').textContent = mid||'';
+  $('#banner').classList.add('show');
+}
+function hideBanner(){ $('#banner').classList.remove('show'); }
+
+/* ---------- Confirm overlay ---------- */
+function askConfirm(msg, onYes){
+  confirmCb = onYes;
+  $('#confirmMsg').textContent = msg;
+  $('#confirmYes').textContent = tr('yes');
+  $('#confirmNo').textContent = tr('no');
+  $('#confirmBox').classList.add('show');
+  requestAnimationFrame(()=> setFocus($('#confirmYes')));
+}
+function closeConfirm(yes){
+  $('#confirmBox').classList.remove('show');
+  const cb = confirmCb; confirmCb = null;
+  if(yes && cb) cb();
+  else focusFirstOption();
+}
+function confirmOpen(){ return $('#confirmBox').classList.contains('show'); }
+
+/* ---------- Persistent storage (guarded for artifact preview) ---------- */
+function lsGet(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
+function lsSet(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+
+function loadSettings(){
+  const raw = lsGet('quiz10_settings');
+  if(raw){ try{ settings = Object.assign(settings, JSON.parse(raw)); }catch(e){} }
+  applySettings();
+}
+function saveSettings(){ lsSet('quiz10_settings', JSON.stringify(settings)); }
+function applySettings(){
+  document.body.setAttribute('data-theme', settings.theme==='default' ? '' : settings.theme);
+  document.body.style.setProperty('--fs', settings.size);
+  updateSlider();
+  $$('[data-action="setTheme"]').forEach(b=> b.classList.toggle('sel', b.dataset.v===settings.theme));
+  $$('[data-action="setLang"]').forEach(b=> b.classList.toggle('sel', b.dataset.v===lang));
+  const swA=$('#swA'), swB=$('#swB');
+  if(swA){ swA.textContent = settings.confirmA?'✓':'✕'; swA.parentElement.classList.toggle('sel', settings.confirmA); }
+  if(swB){ swB.textContent = settings.confirmB?'✓':'✕'; swB.parentElement.classList.toggle('sel', settings.confirmB); }
+}
+
+/* size slider */
+function sizeIndex(){
+  let best=0, bd=1e9;
+  SIZES.forEach((s,i)=>{ const d=Math.abs(s.v-parseFloat(settings.size)); if(d<bd){ bd=d; best=i; } });
+  return best;
+}
+function updateSlider(){
+  const idx=sizeIndex(), pct=idx/(SIZES.length-1)*100;
+  const fill=$('#sizeFill'), thumb=$('#sizeThumb'), lab=$('#sizeLabel');
+  if(fill) fill.style.width=pct+'%';
+  if(thumb) thumb.style.left=pct+'%';
+  if(lab) lab.textContent=SIZES[idx].n;
+}
+function setSizeIndex(idx){
+  idx=Math.max(0,Math.min(SIZES.length-1,idx));
+  const changed = idx!==sizeIndex();
+  settings.size=String(SIZES[idx].v);
+  applySettings(); saveSettings();
+  if(changed) sfx.select();
+}
+function sliderIdxFromX(x){
+  const t=$('#sizeTrack'); if(!t) return sizeIndex();
+  const r=t.getBoundingClientRect();
+  let ratio=(x-r.left)/r.width; ratio=Math.max(0,Math.min(1,ratio));
+  return Math.round(ratio*(SIZES.length-1));
+}
+
+/* ---------- Global click + key handling ---------- */
+function activate(el){
+  if(!el) return;
+  const a = el.dataset.action;
+  const menuSfx = ['lang','players','target','start','again','newgame','settings','menu','mainmenu','backToLang','setTheme','setLang','toggleA','toggleB','topic','confirmYes','confirmNo'];
+  if(menuSfx.includes(a)) sfx.select();
+
+  if(a==='newgame'){ showScreen('screen-lang'); }
+  else if(a==='backToLang'){ showScreen('screen-lang'); }
+  else if(a==='settings'){ applySettings(); showScreen('screen-settings'); }
+  else if(a==='menu'){ saveSettings(); showScreen('screen-menu'); }
+  else if(a==='mainmenu'){ showScreen('screen-menu'); }
+  else if(a==='setTheme'){ settings.theme=el.dataset.v; applySettings(); saveSettings(); }
+  else if(a==='setLang'){ lang=el.dataset.v; applyStaticText(); applySettings(); saveSettings(); }
+  else if(a==='toggleA'){ settings.confirmA=!settings.confirmA; applySettings(); saveSettings(); }
+  else if(a==='toggleB'){ settings.confirmB=!settings.confirmB; applySettings(); saveSettings(); }
+  else if(a==='update'){ doUpdate(el); }
+  else if(a==='lang'){ lang=el.dataset.lang; applyStaticText(); refreshSetup(); showScreen('screen-setup'); }
+  else if(a==='players'){ numPlayers = Math.min(8, Math.max(1, numPlayers + (+el.dataset.d))); refreshSetup(); }
+  else if(a==='target'){ target = +el.dataset.v; refreshSetup(); }
+  else if(a==='start'){ startGame(); }
+  else if(a==='topic'){ currentTopic = el.dataset.topic; newQuestion(); }
+  else if(a==='pick'){ pickOption(+el.dataset.i); }
+  else if(a==='pass'){ passTurn(); }
+  else if(a==='again'){ startGame(); }
+  else if(a==='confirmYes'){ closeConfirm(true); }
+  else if(a==='confirmNo'){ closeConfirm(false); }
+}
+
+document.addEventListener('click', e=>{
+  audioInit();
+  if(awaitingTurn){ confirmTurn(); return; }
+  const el = e.target.closest('.focusable');
+  if(el){ setFocus(el); activate(el); }
+});
+// Touch input hides the remote focus ring
+document.addEventListener('touchstart', ()=>{ document.body.classList.remove('kbd'); }, {passive:true});
+document.addEventListener('mousedown', ()=>{ document.body.classList.remove('kbd'); });
+window.addEventListener('resize', ()=>{ if($('#screen-game').classList.contains('active')) fitBoard(); });
+
+document.addEventListener('keydown', e=>{
+  audioInit();
+  const k = e.key;
+  const navKeys = ['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Enter',' '];
+  if(navKeys.includes(k)) document.body.classList.add('kbd');
+
+  // Confirm dialog captures input first
+  if(confirmOpen()){
+    if(k==='Enter'||k===' '){ e.preventDefault(); activate(focused); }
+    else if(k==='ArrowUp'){ e.preventDefault(); move('up'); }
+    else if(k==='ArrowDown'){ e.preventDefault(); move('down'); }
+    else if(k==='ArrowLeft'){ e.preventDefault(); move('left'); }
+    else if(k==='ArrowRight'){ e.preventDefault(); move('right'); }
+    else if(k==='Escape'||k==='Backspace'||k==='GoBack'){ e.preventDefault(); closeConfirm(false); }
+    return;
+  }
+
+  // While the "up next" banner is showing, any key starts the turn
+  if(awaitingTurn){
+    if(navKeys.includes(k)){ e.preventDefault(); confirmTurn(); }
+    return;
+  }
+
+  // Size slider: left/right adjust value; up/down fall through to focus move
+  if(focused && focused.id==='sizeSlider' && (k==='ArrowLeft'||k==='ArrowRight')){
+    e.preventDefault();
+    setSizeIndex(sizeIndex() + (k==='ArrowRight'?1:-1));
+    return;
+  }
+
+  if(k==='ArrowUp'){ e.preventDefault(); move('up'); }
+  else if(k==='ArrowDown'){ e.preventDefault(); move('down'); }
+  else if(k==='ArrowLeft'){ e.preventDefault(); move('left'); }
+  else if(k==='ArrowRight'){ e.preventDefault(); move('right'); }
+  else if(k==='Enter'||k===' '){ e.preventDefault(); activate(focused); }
+  else if(k==='Escape'||k==='Backspace'||k==='GoBack'){
+    e.preventDefault();
+    const active = $('.screen.active').id;
+    if(active==='screen-game' && turnActive){ passTurn(); }
+    else if(active==='screen-setup'){ showScreen('screen-lang'); }
+    else if(active==='screen-topic'){ showScreen('screen-menu'); }
+    else if(active==='screen-settings'){ saveSettings(); showScreen('screen-menu'); }
+    else if(active==='screen-lang'){ showScreen('screen-menu'); }
+    else if(active==='screen-win'){ showScreen('screen-menu'); }
+  }
+});
+
+/* ---------- Boot ---------- */
+loadSettings();
+applyStaticText();
+refreshSetup();
+const _ver = $('#verNum'); if(_ver) _ver.textContent = 'v'+APP_VERSION;
+setFocus($('#screen-menu [data-focus]'));
+loadQuestions();
+
+/* Service worker (offline + updates), only where supported/secure */
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('sw.js').catch(()=>{});
+}
+
+/* Check-for-updates: always pull the freshest copy from the server,
+   regardless of version — unregister SW, clear caches, cache-busted reload */
+function doUpdate(btn){
+  if(btn) btn.textContent = tr('updating');
+  (async()=>{
+    try{
+      if('serviceWorker' in navigator){
+        const regs = await navigator.serviceWorker.getRegistrations();
+        await Promise.all(regs.map(r=>r.unregister().catch(()=>{})));
+      }
+      if(window.caches){ const ks = await caches.keys(); await Promise.all(ks.map(k=>caches.delete(k))); }
+    }catch(e){}
+    // reload from the clean path with a cache-busting token so the browser
+    // fetches a fresh copy even if HTTP-cached
+    location.replace(location.pathname + '?u=' + Date.now());
+  })();
+}
+
+/* size slider drag (touch / mouse) */
+(function(){
+  const track = $('#sizeTrack');
+  if(!track) return;
+  let dragging=false;
+  const getX = e => (e.touches && e.touches[0]) ? e.touches[0].clientX : e.clientX;
+  const apply = e => { setSizeIndex(sliderIdxFromX(getX(e))); };
+  track.addEventListener('pointerdown', e=>{ dragging=true; setFocus($('#sizeSlider')); apply(e); e.preventDefault(); });
+  window.addEventListener('pointermove', e=>{ if(dragging) apply(e); });
+  window.addEventListener('pointerup', ()=>{ dragging=false; });
+})();
+</script>
+</body>
+</html>

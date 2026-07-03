@@ -1,0 +1,1595 @@
+[
+  {
+    "topic": "geo",
+    "cat": {
+      "en": "Which of these are countries in the EU?",
+      "fi": "Mitkä näistä ovat EU-maita?"
+    },
+    "o": [
+      [
+        "France",
+        "Ranska",
+        1
+      ],
+      [
+        "Germany",
+        "Saksa",
+        1
+      ],
+      [
+        "Norway",
+        "Norja",
+        0
+      ],
+      [
+        "Spain",
+        "Espanja",
+        1
+      ],
+      [
+        "Switzerland",
+        "Sveitsi",
+        0
+      ],
+      [
+        "Italy",
+        "Italia",
+        1
+      ],
+      [
+        "Finland",
+        "Suomi",
+        1
+      ],
+      [
+        "United Kingdom",
+        "Iso-Britannia",
+        0
+      ],
+      [
+        "Poland",
+        "Puola",
+        1
+      ],
+      [
+        "Iceland",
+        "Islanti",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "geo",
+    "cat": {
+      "en": "Which of these are US states?",
+      "fi": "Mitkä näistä ovat Yhdysvaltain osavaltioita?"
+    },
+    "o": [
+      [
+        "Texas",
+        "Texas",
+        1
+      ],
+      [
+        "Chicago",
+        "Chicago",
+        0
+      ],
+      [
+        "Florida",
+        "Florida",
+        1
+      ],
+      [
+        "Toronto",
+        "Toronto",
+        0
+      ],
+      [
+        "Nevada",
+        "Nevada",
+        1
+      ],
+      [
+        "Ohio",
+        "Ohio",
+        1
+      ],
+      [
+        "Vancouver",
+        "Vancouver",
+        0
+      ],
+      [
+        "Arizona",
+        "Arizona",
+        1
+      ],
+      [
+        "Boston",
+        "Boston",
+        0
+      ],
+      [
+        "Oregon",
+        "Oregon",
+        1
+      ]
+    ]
+  },
+  {
+    "topic": "geo",
+    "cat": {
+      "en": "Which of these countries are in Africa?",
+      "fi": "Mitkä näistä maista sijaitsevat Afrikassa?"
+    },
+    "o": [
+      [
+        "Kenya",
+        "Kenia",
+        1
+      ],
+      [
+        "Peru",
+        "Peru",
+        0
+      ],
+      [
+        "Egypt",
+        "Egypti",
+        1
+      ],
+      [
+        "Nepal",
+        "Nepal",
+        0
+      ],
+      [
+        "Nigeria",
+        "Nigeria",
+        1
+      ],
+      [
+        "Chile",
+        "Chile",
+        0
+      ],
+      [
+        "Morocco",
+        "Marokko",
+        1
+      ],
+      [
+        "Ghana",
+        "Ghana",
+        1
+      ],
+      [
+        "Bolivia",
+        "Bolivia",
+        0
+      ],
+      [
+        "Ethiopia",
+        "Etiopia",
+        1
+      ]
+    ]
+  },
+  {
+    "topic": "geo",
+    "cat": {
+      "en": "Which of these are oceans or seas?",
+      "fi": "Mitkä näistä ovat valtameriä tai meriä?"
+    },
+    "o": [
+      [
+        "Pacific",
+        "Tyyni valtameri",
+        1
+      ],
+      [
+        "Baltic Sea",
+        "Itämeri",
+        1
+      ],
+      [
+        "Sahara",
+        "Sahara",
+        0
+      ],
+      [
+        "Atlantic",
+        "Atlantti",
+        1
+      ],
+      [
+        "Amazon",
+        "Amazon",
+        0
+      ],
+      [
+        "Mediterranean",
+        "Välimeri",
+        1
+      ],
+      [
+        "Everest",
+        "Everest",
+        0
+      ],
+      [
+        "Arctic Ocean",
+        "Jäämeri",
+        1
+      ],
+      [
+        "Nile",
+        "Niili",
+        0
+      ],
+      [
+        "Red Sea",
+        "Punainenmeri",
+        1
+      ]
+    ]
+  },
+  {
+    "topic": "geo",
+    "cat": {
+      "en": "Which of these countries border Finland?",
+      "fi": "Mitkä näistä maista rajoittuvat Suomeen?"
+    },
+    "o": [
+      [
+        "Sweden",
+        "Ruotsi",
+        1
+      ],
+      [
+        "Norway",
+        "Norja",
+        1
+      ],
+      [
+        "Russia",
+        "Venäjä",
+        1
+      ],
+      [
+        "Denmark",
+        "Tanska",
+        0
+      ],
+      [
+        "Estonia",
+        "Viro",
+        0
+      ],
+      [
+        "Germany",
+        "Saksa",
+        0
+      ],
+      [
+        "Latvia",
+        "Latvia",
+        0
+      ],
+      [
+        "Poland",
+        "Puola",
+        0
+      ],
+      [
+        "Lithuania",
+        "Liettua",
+        0
+      ],
+      [
+        "Ukraine",
+        "Ukraina",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "geo",
+    "cat": {
+      "en": "Which of these are capital cities?",
+      "fi": "Mitkä näistä ovat pääkaupunkeja?"
+    },
+    "o": [
+      [
+        "Paris",
+        "Pariisi",
+        1
+      ],
+      [
+        "Sydney",
+        "Sydney",
+        0
+      ],
+      [
+        "Tokyo",
+        "Tokio",
+        1
+      ],
+      [
+        "Barcelona",
+        "Barcelona",
+        0
+      ],
+      [
+        "Cairo",
+        "Kairo",
+        1
+      ],
+      [
+        "Rio de Janeiro",
+        "Rio de Janeiro",
+        0
+      ],
+      [
+        "Ottawa",
+        "Ottawa",
+        1
+      ],
+      [
+        "Munich",
+        "München",
+        0
+      ],
+      [
+        "Canberra",
+        "Canberra",
+        1
+      ],
+      [
+        "Istanbul",
+        "Istanbul",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "sci",
+    "cat": {
+      "en": "Which of these are planets in our Solar System?",
+      "fi": "Mitkä näistä ovat Aurinkokunnan planeettoja?"
+    },
+    "o": [
+      [
+        "Mars",
+        "Mars",
+        1
+      ],
+      [
+        "Venus",
+        "Venus",
+        1
+      ],
+      [
+        "Pluto",
+        "Pluto",
+        0
+      ],
+      [
+        "Jupiter",
+        "Jupiter",
+        1
+      ],
+      [
+        "The Moon",
+        "Kuu",
+        0
+      ],
+      [
+        "Saturn",
+        "Saturnus",
+        1
+      ],
+      [
+        "Mercury",
+        "Merkurius",
+        1
+      ],
+      [
+        "The Sun",
+        "Aurinko",
+        0
+      ],
+      [
+        "Neptune",
+        "Neptunus",
+        1
+      ],
+      [
+        "Titan",
+        "Titan",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "sci",
+    "cat": {
+      "en": "Which of these are real chemical elements?",
+      "fi": "Mitkä näistä ovat oikeita alkuaineita?"
+    },
+    "o": [
+      [
+        "Oxygen",
+        "Happi",
+        1
+      ],
+      [
+        "Titanium",
+        "Titaani",
+        1
+      ],
+      [
+        "Adamantium",
+        "Adamantium",
+        0
+      ],
+      [
+        "Osmium",
+        "Osmium",
+        1
+      ],
+      [
+        "Vibranium",
+        "Vibranium",
+        0
+      ],
+      [
+        "Krypton",
+        "Krypton",
+        1
+      ],
+      [
+        "Unobtanium",
+        "Unobtanium",
+        0
+      ],
+      [
+        "Cobalt",
+        "Koboltti",
+        1
+      ],
+      [
+        "Neon",
+        "Neon",
+        1
+      ],
+      [
+        "Aetherium",
+        "Aetherium",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "sci",
+    "cat": {
+      "en": "Which of these are metals?",
+      "fi": "Mitkä näistä ovat metalleja?"
+    },
+    "o": [
+      [
+        "Copper",
+        "Kupari",
+        1
+      ],
+      [
+        "Oxygen",
+        "Happi",
+        0
+      ],
+      [
+        "Iron",
+        "Rauta",
+        1
+      ],
+      [
+        "Helium",
+        "Helium",
+        0
+      ],
+      [
+        "Gold",
+        "Kulta",
+        1
+      ],
+      [
+        "Carbon",
+        "Hiili",
+        0
+      ],
+      [
+        "Aluminium",
+        "Alumiini",
+        1
+      ],
+      [
+        "Neon",
+        "Neon",
+        0
+      ],
+      [
+        "Silver",
+        "Hopea",
+        1
+      ],
+      [
+        "Sulfur",
+        "Rikki",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "sci",
+    "cat": {
+      "en": "Which of these are citrus fruits?",
+      "fi": "Mitkä näistä ovat sitrushedelmiä?"
+    },
+    "o": [
+      [
+        "Lemon",
+        "Sitruuna",
+        1
+      ],
+      [
+        "Apple",
+        "Omena",
+        0
+      ],
+      [
+        "Lime",
+        "Limetti",
+        1
+      ],
+      [
+        "Banana",
+        "Banaani",
+        0
+      ],
+      [
+        "Orange",
+        "Appelsiini",
+        1
+      ],
+      [
+        "Grape",
+        "Viinirypäle",
+        0
+      ],
+      [
+        "Grapefruit",
+        "Greippi",
+        1
+      ],
+      [
+        "Mango",
+        "Mango",
+        0
+      ],
+      [
+        "Mandarin",
+        "Mandariini",
+        1
+      ],
+      [
+        "Peach",
+        "Persikka",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "sci",
+    "cat": {
+      "en": "Which of these are colours of the rainbow?",
+      "fi": "Mitkä näistä ovat sateenkaaren värejä?"
+    },
+    "o": [
+      [
+        "Red",
+        "Punainen",
+        1
+      ],
+      [
+        "Brown",
+        "Ruskea",
+        0
+      ],
+      [
+        "Orange",
+        "Oranssi",
+        1
+      ],
+      [
+        "Pink",
+        "Pinkki",
+        0
+      ],
+      [
+        "Yellow",
+        "Keltainen",
+        1
+      ],
+      [
+        "Green",
+        "Vihreä",
+        1
+      ],
+      [
+        "Black",
+        "Musta",
+        0
+      ],
+      [
+        "Blue",
+        "Sininen",
+        1
+      ],
+      [
+        "Grey",
+        "Harmaa",
+        0
+      ],
+      [
+        "Violet",
+        "Violetti",
+        1
+      ]
+    ]
+  },
+  {
+    "topic": "arts",
+    "cat": {
+      "en": "Which of these are plays by Shakespeare?",
+      "fi": "Mitkä näistä ovat Shakespearen näytelmiä?"
+    },
+    "o": [
+      [
+        "Hamlet",
+        "Hamlet",
+        1
+      ],
+      [
+        "Macbeth",
+        "Macbeth",
+        1
+      ],
+      [
+        "Faust",
+        "Faust",
+        0
+      ],
+      [
+        "Othello",
+        "Othello",
+        1
+      ],
+      [
+        "The Odyssey",
+        "Odysseia",
+        0
+      ],
+      [
+        "King Lear",
+        "Kuningas Lear",
+        1
+      ],
+      [
+        "Don Quixote",
+        "Don Quijote",
+        0
+      ],
+      [
+        "The Tempest",
+        "Myrsky",
+        1
+      ],
+      [
+        "Romeo and Juliet",
+        "Romeo ja Julia",
+        1
+      ],
+      [
+        "Waiting for Godot",
+        "Huomenna hän tulee",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "arts",
+    "cat": {
+      "en": "Which of these are string instruments?",
+      "fi": "Mitkä näistä soittimista ovat kielisoittimia?"
+    },
+    "o": [
+      [
+        "Violin",
+        "Viulu",
+        1
+      ],
+      [
+        "Trumpet",
+        "Trumpetti",
+        0
+      ],
+      [
+        "Cello",
+        "Sello",
+        1
+      ],
+      [
+        "Flute",
+        "Huilu",
+        0
+      ],
+      [
+        "Guitar",
+        "Kitara",
+        1
+      ],
+      [
+        "Drums",
+        "Rummut",
+        0
+      ],
+      [
+        "Harp",
+        "Harppu",
+        1
+      ],
+      [
+        "Clarinet",
+        "Klarinetti",
+        0
+      ],
+      [
+        "Double bass",
+        "Kontrabasso",
+        1
+      ],
+      [
+        "Saxophone",
+        "Saksofoni",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "arts",
+    "cat": {
+      "en": "Which of these are woodwind instruments?",
+      "fi": "Mitkä näistä ovat puupuhaltimia?"
+    },
+    "o": [
+      [
+        "Flute",
+        "Huilu",
+        1
+      ],
+      [
+        "Clarinet",
+        "Klarinetti",
+        1
+      ],
+      [
+        "Oboe",
+        "Oboe",
+        1
+      ],
+      [
+        "Violin",
+        "Viulu",
+        0
+      ],
+      [
+        "Trumpet",
+        "Trumpetti",
+        0
+      ],
+      [
+        "Saxophone",
+        "Saksofoni",
+        1
+      ],
+      [
+        "Cello",
+        "Sello",
+        0
+      ],
+      [
+        "Bassoon",
+        "Fagotti",
+        1
+      ],
+      [
+        "Trombone",
+        "Pasuuna",
+        0
+      ],
+      [
+        "Harp",
+        "Harppu",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "arts",
+    "cat": {
+      "en": "Which of these are dances?",
+      "fi": "Mitkä näistä ovat tansseja?"
+    },
+    "o": [
+      [
+        "Waltz",
+        "Valssi",
+        1
+      ],
+      [
+        "Tango",
+        "Tango",
+        1
+      ],
+      [
+        "Salsa",
+        "Salsa",
+        1
+      ],
+      [
+        "Origami",
+        "Origami",
+        0
+      ],
+      [
+        "Foxtrot",
+        "Foxtrot",
+        1
+      ],
+      [
+        "Sudoku",
+        "Sudoku",
+        0
+      ],
+      [
+        "Flamenco",
+        "Flamenco",
+        1
+      ],
+      [
+        "Karate",
+        "Karate",
+        0
+      ],
+      [
+        "Ballet",
+        "Baletti",
+        1
+      ],
+      [
+        "Yoga",
+        "Jooga",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "sport",
+    "cat": {
+      "en": "Which of these are Summer Olympic sports?",
+      "fi": "Mitkä näistä ovat kesäolympialajeja?"
+    },
+    "o": [
+      [
+        "Swimming",
+        "Uinti",
+        1
+      ],
+      [
+        "Archery",
+        "Jousiammunta",
+        1
+      ],
+      [
+        "Bobsleigh",
+        "Rattikelkka",
+        0
+      ],
+      [
+        "Fencing",
+        "Miekkailu",
+        1
+      ],
+      [
+        "Curling",
+        "Curling",
+        0
+      ],
+      [
+        "Rowing",
+        "Soutu",
+        1
+      ],
+      [
+        "Ski jumping",
+        "Mäkihyppy",
+        0
+      ],
+      [
+        "Judo",
+        "Judo",
+        1
+      ],
+      [
+        "Weightlifting",
+        "Painonnosto",
+        1
+      ],
+      [
+        "Biathlon",
+        "Ampumahiihto",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "sport",
+    "cat": {
+      "en": "Which of these are Winter Olympic sports?",
+      "fi": "Mitkä näistä ovat talviolympialajeja?"
+    },
+    "o": [
+      [
+        "Curling",
+        "Curling",
+        1
+      ],
+      [
+        "Bobsleigh",
+        "Rattikelkka",
+        1
+      ],
+      [
+        "Ski jumping",
+        "Mäkihyppy",
+        1
+      ],
+      [
+        "Swimming",
+        "Uinti",
+        0
+      ],
+      [
+        "Biathlon",
+        "Ampumahiihto",
+        1
+      ],
+      [
+        "Fencing",
+        "Miekkailu",
+        0
+      ],
+      [
+        "Figure skating",
+        "Taitoluistelu",
+        1
+      ],
+      [
+        "Rowing",
+        "Soutu",
+        0
+      ],
+      [
+        "Ice hockey",
+        "Jääkiekko",
+        1
+      ],
+      [
+        "Archery",
+        "Jousiammunta",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "sport",
+    "cat": {
+      "en": "Which of these sports are played with a ball?",
+      "fi": "Mitkä näistä lajeista pelataan pallolla?"
+    },
+    "o": [
+      [
+        "Football",
+        "Jalkapallo",
+        1
+      ],
+      [
+        "Basketball",
+        "Koripallo",
+        1
+      ],
+      [
+        "Tennis",
+        "Tennis",
+        1
+      ],
+      [
+        "Swimming",
+        "Uinti",
+        0
+      ],
+      [
+        "Golf",
+        "Golf",
+        1
+      ],
+      [
+        "Boxing",
+        "Nyrkkeily",
+        0
+      ],
+      [
+        "Volleyball",
+        "Lentopallo",
+        1
+      ],
+      [
+        "Cycling",
+        "Pyöräily",
+        0
+      ],
+      [
+        "Cricket",
+        "Kriketti",
+        1
+      ],
+      [
+        "Rowing",
+        "Soutu",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "sport",
+    "cat": {
+      "en": "Which of these are motorsports?",
+      "fi": "Mitkä näistä ovat moottoriurheilua?"
+    },
+    "o": [
+      [
+        "Formula 1",
+        "Formula 1",
+        1
+      ],
+      [
+        "Rally",
+        "Ralli",
+        1
+      ],
+      [
+        "MotoGP",
+        "MotoGP",
+        1
+      ],
+      [
+        "Marathon",
+        "Maraton",
+        0
+      ],
+      [
+        "NASCAR",
+        "NASCAR",
+        1
+      ],
+      [
+        "Chess",
+        "Šakki",
+        0
+      ],
+      [
+        "Motocross",
+        "Motocross",
+        1
+      ],
+      [
+        "Curling",
+        "Curling",
+        0
+      ],
+      [
+        "Karting",
+        "Karting",
+        1
+      ],
+      [
+        "Rowing",
+        "Soutu",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "hist",
+    "cat": {
+      "en": "Which of these were ancient civilizations?",
+      "fi": "Mitkä näistä olivat muinaisia sivilisaatioita?"
+    },
+    "o": [
+      [
+        "Roman Empire",
+        "Rooman valtakunta",
+        1
+      ],
+      [
+        "Ancient Egypt",
+        "Muinainen Egypti",
+        1
+      ],
+      [
+        "Aztecs",
+        "Atsteekit",
+        1
+      ],
+      [
+        "Soviet Union",
+        "Neuvostoliitto",
+        0
+      ],
+      [
+        "Maya",
+        "Maya",
+        1
+      ],
+      [
+        "European Union",
+        "Euroopan unioni",
+        0
+      ],
+      [
+        "Ancient Greece",
+        "Antiikin Kreikka",
+        1
+      ],
+      [
+        "NATO",
+        "NATO",
+        0
+      ],
+      [
+        "Inca",
+        "Inka",
+        1
+      ],
+      [
+        "Babylon",
+        "Babylon",
+        1
+      ]
+    ]
+  },
+  {
+    "topic": "hist",
+    "cat": {
+      "en": "Which of these countries were part of the Soviet Union?",
+      "fi": "Mitkä näistä maista kuuluivat Neuvostoliittoon?"
+    },
+    "o": [
+      [
+        "Estonia",
+        "Viro",
+        1
+      ],
+      [
+        "Sweden",
+        "Ruotsi",
+        0
+      ],
+      [
+        "Ukraine",
+        "Ukraina",
+        1
+      ],
+      [
+        "Finland",
+        "Suomi",
+        0
+      ],
+      [
+        "Latvia",
+        "Latvia",
+        1
+      ],
+      [
+        "Poland",
+        "Puola",
+        0
+      ],
+      [
+        "Lithuania",
+        "Liettua",
+        1
+      ],
+      [
+        "Norway",
+        "Norja",
+        0
+      ],
+      [
+        "Georgia",
+        "Georgia",
+        1
+      ],
+      [
+        "Kazakhstan",
+        "Kazakstan",
+        1
+      ]
+    ]
+  },
+  {
+    "topic": "hist",
+    "cat": {
+      "en": "Which of these are among the Seven Wonders of the Ancient World?",
+      "fi": "Mitkä näistä kuuluvat antiikin seitsemään ihmeeseen?"
+    },
+    "o": [
+      [
+        "Great Pyramid of Giza",
+        "Gizan suuri pyramidi",
+        1
+      ],
+      [
+        "Colossus of Rhodes",
+        "Rhodoksen kolossi",
+        1
+      ],
+      [
+        "Eiffel Tower",
+        "Eiffel-torni",
+        0
+      ],
+      [
+        "Hanging Gardens of Babylon",
+        "Babylonin riippuvat puutarhat",
+        1
+      ],
+      [
+        "Statue of Liberty",
+        "Vapaudenpatsas",
+        0
+      ],
+      [
+        "Lighthouse of Alexandria",
+        "Aleksandrian majakka",
+        1
+      ],
+      [
+        "Great Wall of China",
+        "Kiinan muuri",
+        0
+      ],
+      [
+        "Temple of Artemis",
+        "Artemiin temppeli",
+        1
+      ],
+      [
+        "Taj Mahal",
+        "Taj Mahal",
+        0
+      ],
+      [
+        "Statue of Zeus at Olympia",
+        "Olympian Zeus-patsas",
+        1
+      ]
+    ]
+  },
+  {
+    "topic": "hist",
+    "cat": {
+      "en": "Which of these were real historical people?",
+      "fi": "Mitkä näistä olivat oikeita historiallisia henkilöitä?"
+    },
+    "o": [
+      [
+        "Napoleon",
+        "Napoleon",
+        1
+      ],
+      [
+        "Sherlock Holmes",
+        "Sherlock Holmes",
+        0
+      ],
+      [
+        "Cleopatra",
+        "Kleopatra",
+        1
+      ],
+      [
+        "Robin Hood",
+        "Robin Hood",
+        0
+      ],
+      [
+        "Julius Caesar",
+        "Julius Caesar",
+        1
+      ],
+      [
+        "Harry Potter",
+        "Harry Potter",
+        0
+      ],
+      [
+        "Winston Churchill",
+        "Winston Churchill",
+        1
+      ],
+      [
+        "King Arthur",
+        "Kuningas Arthur",
+        0
+      ],
+      [
+        "Albert Einstein",
+        "Albert Einstein",
+        1
+      ],
+      [
+        "Genghis Khan",
+        "Tšingis-kaani",
+        1
+      ]
+    ]
+  },
+  {
+    "topic": "gen",
+    "cat": {
+      "en": "Which of these numbers are prime?",
+      "fi": "Mitkä näistä luvuista ovat alkulukuja?"
+    },
+    "o": [
+      [
+        "2",
+        "2",
+        1
+      ],
+      [
+        "9",
+        "9",
+        0
+      ],
+      [
+        "7",
+        "7",
+        1
+      ],
+      [
+        "15",
+        "15",
+        0
+      ],
+      [
+        "11",
+        "11",
+        1
+      ],
+      [
+        "21",
+        "21",
+        0
+      ],
+      [
+        "13",
+        "13",
+        1
+      ],
+      [
+        "27",
+        "27",
+        0
+      ],
+      [
+        "17",
+        "17",
+        1
+      ],
+      [
+        "1",
+        "1",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "gen",
+    "cat": {
+      "en": "Which of these are programming languages?",
+      "fi": "Mitkä näistä ovat ohjelmointikieliä?"
+    },
+    "o": [
+      [
+        "Python",
+        "Python",
+        1
+      ],
+      [
+        "Rust",
+        "Rust",
+        1
+      ],
+      [
+        "Basilisk",
+        "Basilisk",
+        0
+      ],
+      [
+        "Java",
+        "Java",
+        1
+      ],
+      [
+        "Kotlin",
+        "Kotlin",
+        1
+      ],
+      [
+        "Viper",
+        "Viper",
+        0
+      ],
+      [
+        "Swift",
+        "Swift",
+        1
+      ],
+      [
+        "Dragon",
+        "Dragon",
+        0
+      ],
+      [
+        "Go",
+        "Go",
+        1
+      ],
+      [
+        "Wombat",
+        "Wombat",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "gen",
+    "cat": {
+      "en": "Which of these are square numbers?",
+      "fi": "Mitkä näistä ovat neliölukuja?"
+    },
+    "o": [
+      [
+        "1",
+        "1",
+        1
+      ],
+      [
+        "4",
+        "4",
+        1
+      ],
+      [
+        "6",
+        "6",
+        0
+      ],
+      [
+        "9",
+        "9",
+        1
+      ],
+      [
+        "12",
+        "12",
+        0
+      ],
+      [
+        "16",
+        "16",
+        1
+      ],
+      [
+        "20",
+        "20",
+        0
+      ],
+      [
+        "25",
+        "25",
+        1
+      ],
+      [
+        "30",
+        "30",
+        0
+      ],
+      [
+        "36",
+        "36",
+        1
+      ]
+    ]
+  },
+  {
+    "topic": "gen",
+    "cat": {
+      "en": "Which of these are units of measurement?",
+      "fi": "Mitkä näistä ovat mittayksiköitä?"
+    },
+    "o": [
+      [
+        "Metre",
+        "Metri",
+        1
+      ],
+      [
+        "Kelvin",
+        "Kelvin",
+        1
+      ],
+      [
+        "Litre",
+        "Litra",
+        1
+      ],
+      [
+        "Quartz",
+        "Kvartsi",
+        0
+      ],
+      [
+        "Ampere",
+        "Ampeeri",
+        1
+      ],
+      [
+        "Photon",
+        "Fotoni",
+        0
+      ],
+      [
+        "Gram",
+        "Gramma",
+        1
+      ],
+      [
+        "Neutron",
+        "Neutroni",
+        0
+      ],
+      [
+        "Second",
+        "Sekunti",
+        1
+      ],
+      [
+        "Proton",
+        "Protoni",
+        0
+      ]
+    ]
+  }
+]
