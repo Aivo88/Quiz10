@@ -393,7 +393,7 @@
           </div>
         </div>
         <div class="set-row">
-          <span class="set-label"><span data-i="appVersion">Version</span> <span id="verNum"></span></span>
+          <span class="set-label"><span data-i="appVersion">Version</span> <span id="verNum"></span><br><span id="qStatus" style="font-weight:600;color:var(--muted);font-size:.8em"></span></span>
           <div class="set-opts">
             <button class="btn chip focusable" data-action="update" data-i="checkUpdates">Check for updates</button>
           </div>
@@ -779,20 +779,26 @@ const QUESTIONS = [
 
 const PLAYER_COLORS = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
-const APP_VERSION = '2.1';
+const APP_VERSION = '2.2';
 
-/* Load an external questions.json (served alongside the app) if present.
-   Falls back silently to the built-in bank when missing or invalid. */
+let questionsStatus = '';
 async function loadQuestions(){
   try{
-    const res = await fetch('questions.json', {cache:'no-store'});
-    if(!res.ok) return;
-    const data = await res.json();
-    if(Array.isArray(data)){
-      const valid = data.filter(q => q && q.cat && q.cat.en && q.cat.fi && Array.isArray(q.o) && q.o.length===10);
-      if(valid.length){ QUESTIONS.length=0; valid.forEach(q=>QUESTIONS.push(q)); topicDecks={}; }
-    }
-  }catch(e){ /* keep built-in questions */ }
+    const res = await fetch('questions.json?t=' + Date.now(), {cache:'no-store'});
+    if(!res.ok){ questionsStatus = 'json HTTP ' + res.status; updateQStatus(); return; }
+    let data;
+    try{ data = await res.json(); }
+    catch(e){ questionsStatus = 'JSON syntax error'; updateQStatus(); return; }
+    if(!Array.isArray(data)){ questionsStatus = 'JSON is not a list [ ]'; updateQStatus(); return; }
+    const valid = data.filter(q => q && q.cat && q.cat.en && q.cat.fi && Array.isArray(q.o) && q.o.length===10);
+    if(valid.length){ QUESTIONS.length=0; valid.forEach(q=>QUESTIONS.push(q)); topicDecks={}; }
+    questionsStatus = valid.length + ' loaded' + (valid.length!==data.length ? (' ('+(data.length-valid.length)+' skipped)') : '');
+    updateQStatus();
+  }catch(e){ questionsStatus = ''; updateQStatus(); }
+}
+function updateQStatus(){
+  const el = $('#qStatus'); if(!el) return;
+  el.textContent = 'Questions: ' + (questionsStatus || (QUESTIONS.length + ' built-in'));
 }
 
 /* ---------- State ---------- */
@@ -1326,7 +1332,7 @@ function activate(el){
 
   if(a==='newgame'){ showScreen('screen-lang'); }
   else if(a==='backToLang'){ showScreen('screen-lang'); }
-  else if(a==='settings'){ applySettings(); showScreen('screen-settings'); }
+  else if(a==='settings'){ applySettings(); updateQStatus(); showScreen('screen-settings'); }
   else if(a==='menu'){ saveSettings(); showScreen('screen-menu'); }
   else if(a==='mainmenu'){ showScreen('screen-menu'); }
   else if(a==='setTheme'){ settings.theme=el.dataset.v; applySettings(); saveSettings(); }
@@ -1440,6 +1446,7 @@ updateVer();
 window.addEventListener('resize', updateVer);
 setFocus($('#screen-menu [data-focus]'));
 loadQuestions();
+updateQStatus();
 
 /* Service worker (offline + updates), only where supported/secure */
 if('serviceWorker' in navigator){
