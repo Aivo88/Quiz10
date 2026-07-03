@@ -89,8 +89,12 @@
   /* Overscan-safe stage for TVs */
   #stage{
     position:fixed; inset:0;
-    padding:5.5vh 5vw;
+    padding:4.5vh 5vw;
     display:flex; flex-direction:column;
+  }
+  /* TVs overscan the edges — give landscape more safe margin */
+  @media (orientation:landscape){
+    #stage{ padding:6.5vh 8vw; }
   }
   .screen{display:none; flex:1; min-height:0; flex-direction:column; overflow-y:auto; overflow-x:hidden}
   .screen.active{display:flex}
@@ -765,7 +769,7 @@ const QUESTIONS = [
 
 const PLAYER_COLORS = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
-const APP_VERSION = '1.5';
+const APP_VERSION = '1.6';
 
 /* Load an external questions.json (served alongside the app) if present.
    Falls back silently to the built-in bank when missing or invalid. */
