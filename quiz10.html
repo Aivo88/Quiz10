@@ -241,6 +241,8 @@
   .actions{display:flex; gap:clamp(10px,1.4vw,20px); justify-content:center; margin-top:clamp(4px,.8vh,10px)}
   /* larger, clearer Back buttons */
   .btn.back{min-width:12ch; padding:clamp(15px,2.3vh,26px) clamp(38px,6vw,68px); font-size:calc(clamp(18px,2.2vw,28px) * var(--fs)); font-weight:800}
+  .btn.num{min-width:3.4ch; padding:clamp(14px,2vh,22px) clamp(24px,3.4vw,40px); font-size:calc(clamp(24px,2.8vw,38px) * var(--fs)); font-weight:800; border-radius:16px}
+  .btn.num.gold{background:linear-gradient(180deg,#F5BE52,#E09B22); border-color:#caa23f; color:#241a05}
   /* Pass & bank button — clear, distinct */
   #passBtn{min-width:14ch; padding:clamp(15px,2.2vh,24px) clamp(30px,4.5vw,56px); font-size:calc(clamp(18px,2.2vw,28px) * var(--fs)); font-weight:800; border-radius:16px; box-shadow:0 6px 20px rgba(0,0,0,.4)}
 
@@ -435,15 +437,15 @@
       <div class="stack">
         <div class="sub" data-i="targetLabel">Points to win</div>
         <div class="row" id="targetRow">
-          <button class="btn focusable" data-action="target" data-v="15">15</button>
-          <button class="btn focusable" data-action="target" data-v="25">25</button>
-          <button class="btn focusable" data-action="target" data-v="40">40</button>
+          <button class="btn num focusable" data-action="target" data-v="15">15</button>
+          <button class="btn num focusable" data-action="target" data-v="25">25</button>
+          <button class="btn num focusable" data-action="target" data-v="40">40</button>
         </div>
       </div>
 
       <div class="row">
         <button class="btn back focusable" data-action="backToLang" data-i="back">Back</button>
-        <button class="btn gold focusable" data-action="start" data-i="startBtn">Start game ▸</button>
+        <button class="btn gold back focusable" data-action="start" data-i="startBtn">Start game</button>
       </div>
     </div>
   </section>
@@ -522,7 +524,7 @@ const T = {
     playersLabel:"Number of players",
     playersUnit:"players",
     targetLabel:"Points to win",
-    startBtn:"Start game ▸",
+    startBtn:"Start game",
     playAgain:"Play again",
     mainMenu:"Main menu",
     bank:"Bank points",
@@ -577,7 +579,7 @@ const T = {
     playersLabel:"Pelaajien määrä",
     playersUnit:"pelaajaa",
     targetLabel:"Voittoon vaadittavat pisteet",
-    startBtn:"Aloita peli ▸",
+    startBtn:"Aloita peli",
     playAgain:"Pelaa uudelleen",
     mainMenu:"Päävalikko",
     bank:"Talleta pisteet",
@@ -763,7 +765,7 @@ const QUESTIONS = [
 
 const PLAYER_COLORS = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
-const APP_VERSION = '1.4';
+const APP_VERSION = '1.5';
 
 /* Load an external questions.json (served alongside the app) if present.
    Falls back silently to the built-in bank when missing or invalid. */
@@ -1344,14 +1346,35 @@ document.addEventListener('keydown', e=>{
   else if(k==='Enter'||k===' '){ e.preventDefault(); activate(focused); }
   else if(k==='Escape'||k==='Backspace'||k==='GoBack'){
     e.preventDefault();
-    const active = $('.screen.active').id;
-    if(active==='screen-game' && turnActive){ passTurn(); }
-    else if(active==='screen-setup'){ showScreen('screen-lang'); }
-    else if(active==='screen-topic'){ showScreen('screen-menu'); }
-    else if(active==='screen-settings'){ saveSettings(); showScreen('screen-menu'); }
-    else if(active==='screen-lang'){ showScreen('screen-menu'); }
-    else if(active==='screen-win'){ showScreen('screen-menu'); }
+    goBack();
   }
+});
+
+/* ---------- Back navigation (on-screen + hardware/remote back) ---------- */
+let _lastBack = 0;
+function goBack(){
+  const now = Date.now();
+  if(now - _lastBack < 250) return true; // debounce double events
+  _lastBack = now;
+  if(confirmOpen()){ closeConfirm(false); return true; }
+  if(awaitingTurn){ return true; }
+  const active = $('.screen.active').id;
+  if(active==='screen-setup'){ showScreen('screen-lang'); return true; }
+  if(active==='screen-topic'){ showScreen('screen-menu'); return true; }
+  if(active==='screen-settings'){ saveSettings(); showScreen('screen-menu'); return true; }
+  if(active==='screen-lang'){ showScreen('screen-menu'); return true; }
+  if(active==='screen-win'){ showScreen('screen-menu'); return true; }
+  if(active==='screen-game'){ if(turnActive) passTurn(); return true; }
+  return false; // on main menu → allow the browser/app to exit
+}
+
+/* Trap the hardware/remote back button so it navigates in-app instead of
+   closing the app. Uses the History API: keep one buffered state and re-arm
+   it after each back press we handle. */
+history.pushState(null, '', location.href);
+window.addEventListener('popstate', ()=>{
+  const handled = goBack();
+  if(handled){ history.pushState(null, '', location.href); }
 });
 
 /* ---------- Boot ---------- */
