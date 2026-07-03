@@ -281,20 +281,20 @@
   .hint kbd{background:var(--panel); border:1px solid var(--line); border-radius:6px; padding:.1em .5em; font-family:inherit; margin:0 .15em}
 
   /* menu buttons */
-  .menu-col{display:flex; flex-direction:column; gap:clamp(12px,2vh,20px); width:min(460px,82vw)}
+  .menu-col{display:flex; flex-direction:column; gap:clamp(12px,2vh,20px); width:min(560px,86vw)}
   .btn.block{width:100%; justify-content:flex-start; gap:.6em}
   .btn.block .mi{font-size:1.2em}
   .btn.disabled{opacity:.4; pointer-events:none}
 
   /* topic grid */
-  .topic-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(10px,1.6vw,20px); width:min(860px,100%)}
+  .topic-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(10px,1.6vw,20px); width:min(1100px,100%)}
   .btn.topic{flex-direction:column; gap:.35em; padding:clamp(14px,2.2vh,26px) clamp(10px,1.5vw,20px)}
   .btn.topic .ticon{font-size:clamp(30px,4vw,52px); line-height:1}
   .btn.topic .tlabel{font-size:calc(clamp(14px,1.6vw,22px) * var(--fs)); font-weight:700; text-align:center}
   @media (max-width:560px){ .topic-grid{grid-template-columns:repeat(2,1fr)} }
 
   /* settings rows */
-  .set-list{display:flex; flex-direction:column; gap:clamp(16px,2.8vh,30px); width:100%; max-width:680px}
+  .set-list{display:flex; flex-direction:column; gap:clamp(16px,2.8vh,30px); width:100%; max-width:760px}
   .set-row{display:flex; flex-direction:column; align-items:flex-start; gap:10px}
   .set-label{font-size:calc(clamp(15px,1.8vw,24px) * var(--fs)); font-weight:700; color:var(--ink)}
   .set-opts{display:flex; gap:clamp(8px,1vw,14px); flex-wrap:wrap; width:100%}
@@ -779,7 +779,7 @@ const QUESTIONS = [
 
 const PLAYER_COLORS = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
-const APP_VERSION = '1.8';
+const APP_VERSION = '1.9';
 
 /* Load an external questions.json (served alongside the app) if present.
    Falls back silently to the built-in bank when missing or invalid. */
@@ -1434,7 +1434,10 @@ window.addEventListener('popstate', ()=>{
 loadSettings();
 applyStaticText();
 refreshSetup();
-const _ver = $('#verNum'); if(_ver) _ver.textContent = 'v'+APP_VERSION;
+const _ver = $('#verNum');
+function updateVer(){ if(_ver) _ver.textContent = 'v'+APP_VERSION+' · '+Math.round(window.innerWidth)+'×'+Math.round(window.innerHeight); }
+updateVer();
+window.addEventListener('resize', updateVer);
 setFocus($('#screen-menu [data-focus]'));
 loadQuestions();
 
