@@ -298,6 +298,13 @@
   .set-row{display:flex; flex-direction:column; align-items:flex-start; gap:10px}
   .set-label{font-size:calc(clamp(15px,1.8vw,24px) * var(--fs)); font-weight:700; color:var(--ink)}
   .set-opts{display:flex; gap:clamp(8px,1vw,14px); flex-wrap:wrap; width:100%}
+  /* Landscape (TV): put label and controls on one row to fill the width */
+  @media (orientation:landscape){
+    .set-list{max-width:960px}
+    .set-row{flex-direction:row; align-items:center; justify-content:space-between; gap:clamp(20px,3vw,48px)}
+    .set-row .set-label{flex:none}
+    .set-row .set-opts{width:auto; flex:1 1 auto; justify-content:flex-end}
+  }
   .btn.chip{padding:clamp(10px,1.4vh,16px) clamp(16px,1.8vw,26px); font-size:calc(clamp(15px,1.7vw,22px) * var(--fs)); border-radius:12px}
   .btn.chip.sel{background:var(--gold); border-color:var(--gold); color:#241a05}
   .btn.chip.sel.focused, body.kbd .btn.chip.sel.focused{background:var(--gold)}
@@ -779,7 +786,7 @@ const QUESTIONS = [
 
 const PLAYER_COLORS = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
-const APP_VERSION = '1.9';
+const APP_VERSION = '2.0';
 
 /* Load an external questions.json (served alongside the app) if present.
    Falls back silently to the built-in bank when missing or invalid. */
