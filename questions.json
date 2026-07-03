@@ -4978,5 +4978,785 @@
         0
       ]
     ]
+  },
+  {
+    "topic": "geo",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these are among the world's largest countries by area?",
+      "fi": "Mitkä näistä ovat maailman suurimpia maita pinta-alaltaan?"
+    },
+    "o": [
+      [
+        "Russia",
+        "Venäjä",
+        1
+      ],
+      [
+        "Canada",
+        "Kanada",
+        1
+      ],
+      [
+        "China",
+        "Kiina",
+        1
+      ],
+      [
+        "Japan",
+        "Japani",
+        0
+      ],
+      [
+        "Brazil",
+        "Brasilia",
+        1
+      ],
+      [
+        "Australia",
+        "Australia",
+        1
+      ],
+      [
+        "India",
+        "Intia",
+        1
+      ],
+      [
+        "France",
+        "Ranska",
+        0
+      ],
+      [
+        "Kazakhstan",
+        "Kazakstan",
+        1
+      ],
+      [
+        "Egypt",
+        "Egypti",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "geo",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these are capitals of African countries?",
+      "fi": "Mitkä näistä ovat Afrikan maiden pääkaupunkeja?"
+    },
+    "o": [
+      [
+        "Nairobi",
+        "Nairobi",
+        1
+      ],
+      [
+        "Cairo",
+        "Kairo",
+        1
+      ],
+      [
+        "Lagos",
+        "Lagos",
+        0
+      ],
+      [
+        "Accra",
+        "Accra",
+        1
+      ],
+      [
+        "Casablanca",
+        "Casablanca",
+        0
+      ],
+      [
+        "Addis Ababa",
+        "Addis Abeba",
+        1
+      ],
+      [
+        "Johannesburg",
+        "Johannesburg",
+        0
+      ],
+      [
+        "Dakar",
+        "Dakar",
+        1
+      ],
+      [
+        "Marrakech",
+        "Marrakech",
+        0
+      ],
+      [
+        "Kampala",
+        "Kampala",
+        1
+      ]
+    ]
+  },
+  {
+    "topic": "sci",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these are components of blood?",
+      "fi": "Mitkä näistä ovat veren osia?"
+    },
+    "o": [
+      [
+        "Red blood cells",
+        "Punasolut",
+        1
+      ],
+      [
+        "Platelets",
+        "Verihiutaleet",
+        1
+      ],
+      [
+        "White blood cells",
+        "Valkosolut",
+        1
+      ],
+      [
+        "Neurons",
+        "Neuronit",
+        0
+      ],
+      [
+        "Plasma",
+        "Plasma",
+        1
+      ],
+      [
+        "Alveoli",
+        "Keuhkorakkulat",
+        0
+      ],
+      [
+        "Hemoglobin",
+        "Hemoglobiini",
+        1
+      ],
+      [
+        "Nephrons",
+        "Nefronit",
+        0
+      ],
+      [
+        "Villi",
+        "Suolinukka",
+        0
+      ],
+      [
+        "Dendrites",
+        "Dendriitit",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "sci",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these scientists won a Nobel Prize?",
+      "fi": "Kuka näistä tiedemiehistä voitti Nobel-palkinnon?"
+    },
+    "o": [
+      [
+        "Einstein",
+        "Einstein",
+        1
+      ],
+      [
+        "Marie Curie",
+        "Marie Curie",
+        1
+      ],
+      [
+        "Newton",
+        "Newton",
+        0
+      ],
+      [
+        "Darwin",
+        "Darwin",
+        0
+      ],
+      [
+        "Feynman",
+        "Feynman",
+        1
+      ],
+      [
+        "Tesla",
+        "Tesla",
+        0
+      ],
+      [
+        "Bohr",
+        "Bohr",
+        1
+      ],
+      [
+        "Hawking",
+        "Hawking",
+        0
+      ],
+      [
+        "Heisenberg",
+        "Heisenberg",
+        1
+      ],
+      [
+        "Galileo",
+        "Galilei",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "sci",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these are real constellations?",
+      "fi": "Mitkä näistä ovat oikeita tähtikuvioita?"
+    },
+    "o": [
+      [
+        "Orion",
+        "Orion",
+        1
+      ],
+      [
+        "Ursa Major",
+        "Iso karhu",
+        1
+      ],
+      [
+        "Pegasus",
+        "Pegasus",
+        1
+      ],
+      [
+        "Andromeda",
+        "Andromeda",
+        1
+      ],
+      [
+        "Voyager",
+        "Voyager",
+        0
+      ],
+      [
+        "Draco",
+        "Lohikäärme",
+        1
+      ],
+      [
+        "Apollo",
+        "Apollo",
+        0
+      ],
+      [
+        "Cassiopeia",
+        "Kassiopeia",
+        1
+      ],
+      [
+        "Sputnik",
+        "Sputnik",
+        0
+      ],
+      [
+        "Nebula",
+        "Sumu",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "hist",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these people were assassinated?",
+      "fi": "Kuka näistä henkilöistä murhattiin?"
+    },
+    "o": [
+      [
+        "Abraham Lincoln",
+        "Abraham Lincoln",
+        1
+      ],
+      [
+        "John F. Kennedy",
+        "John F. Kennedy",
+        1
+      ],
+      [
+        "Julius Caesar",
+        "Julius Caesar",
+        1
+      ],
+      [
+        "Napoleon",
+        "Napoleon",
+        0
+      ],
+      [
+        "Mahatma Gandhi",
+        "Mahatma Gandhi",
+        1
+      ],
+      [
+        "Winston Churchill",
+        "Winston Churchill",
+        0
+      ],
+      [
+        "Franz Ferdinand",
+        "Franz Ferdinand",
+        1
+      ],
+      [
+        "Joseph Stalin",
+        "Josif Stalin",
+        0
+      ],
+      [
+        "Martin Luther King",
+        "Martin Luther King",
+        1
+      ],
+      [
+        "Franklin Roosevelt",
+        "Franklin Roosevelt",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "hist",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these countries were Axis powers in WWII?",
+      "fi": "Mitkä näistä maista olivat akselivaltoja toisessa maailmansodassa?"
+    },
+    "o": [
+      [
+        "Germany",
+        "Saksa",
+        1
+      ],
+      [
+        "Italy",
+        "Italia",
+        1
+      ],
+      [
+        "Japan",
+        "Japani",
+        1
+      ],
+      [
+        "Soviet Union",
+        "Neuvostoliitto",
+        0
+      ],
+      [
+        "USA",
+        "Yhdysvallat",
+        0
+      ],
+      [
+        "Hungary",
+        "Unkari",
+        1
+      ],
+      [
+        "United Kingdom",
+        "Iso-Britannia",
+        0
+      ],
+      [
+        "Romania",
+        "Romania",
+        1
+      ],
+      [
+        "France",
+        "Ranska",
+        0
+      ],
+      [
+        "Bulgaria",
+        "Bulgaria",
+        1
+      ]
+    ]
+  },
+  {
+    "topic": "arts",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these plays were written by Anton Chekhov?",
+      "fi": "Mitkä näistä näytelmistä kirjoitti Anton Tšehov?"
+    },
+    "o": [
+      [
+        "The Seagull",
+        "Lokki",
+        1
+      ],
+      [
+        "Uncle Vanya",
+        "Vanja-eno",
+        1
+      ],
+      [
+        "Three Sisters",
+        "Kolme sisarta",
+        1
+      ],
+      [
+        "Hamlet",
+        "Hamlet",
+        0
+      ],
+      [
+        "The Cherry Orchard",
+        "Kirsikkapuisto",
+        1
+      ],
+      [
+        "Faust",
+        "Faust",
+        0
+      ],
+      [
+        "Waiting for Godot",
+        "Huomenna hän tulee",
+        0
+      ],
+      [
+        "A Doll's House",
+        "Nukkekoti",
+        0
+      ],
+      [
+        "The Tempest",
+        "Myrsky",
+        0
+      ],
+      [
+        "An Enemy of the People",
+        "Kansanvihollinen",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "arts",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these bands are from the UK?",
+      "fi": "Mitkä näistä yhtyeistä ovat Britanniasta?"
+    },
+    "o": [
+      [
+        "The Beatles",
+        "The Beatles",
+        1
+      ],
+      [
+        "ABBA",
+        "ABBA",
+        0
+      ],
+      [
+        "The Rolling Stones",
+        "The Rolling Stones",
+        1
+      ],
+      [
+        "Nirvana",
+        "Nirvana",
+        0
+      ],
+      [
+        "Queen",
+        "Queen",
+        1
+      ],
+      [
+        "Metallica",
+        "Metallica",
+        0
+      ],
+      [
+        "Led Zeppelin",
+        "Led Zeppelin",
+        1
+      ],
+      [
+        "U2",
+        "U2",
+        0
+      ],
+      [
+        "Pink Floyd",
+        "Pink Floyd",
+        1
+      ],
+      [
+        "AC/DC",
+        "AC/DC",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "sport",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these athletes are tennis players?",
+      "fi": "Ketkä näistä urheilijoista ovat tennispelaajia?"
+    },
+    "o": [
+      [
+        "Federer",
+        "Federer",
+        1
+      ],
+      [
+        "Nadal",
+        "Nadal",
+        1
+      ],
+      [
+        "Messi",
+        "Messi",
+        0
+      ],
+      [
+        "Serena Williams",
+        "Serena Williams",
+        1
+      ],
+      [
+        "Bolt",
+        "Bolt",
+        0
+      ],
+      [
+        "Djokovic",
+        "Djokovic",
+        1
+      ],
+      [
+        "Ronaldo",
+        "Ronaldo",
+        0
+      ],
+      [
+        "Sharapova",
+        "Sharapova",
+        1
+      ],
+      [
+        "Phelps",
+        "Phelps",
+        0
+      ],
+      [
+        "Murray",
+        "Murray",
+        1
+      ]
+    ]
+  },
+  {
+    "topic": "sport",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these are Formula 1 world champions?",
+      "fi": "Ketkä näistä ovat Formula 1 -maailmanmestareita?"
+    },
+    "o": [
+      [
+        "Hamilton",
+        "Hamilton",
+        1
+      ],
+      [
+        "Schumacher",
+        "Schumacher",
+        1
+      ],
+      [
+        "Senna",
+        "Senna",
+        1
+      ],
+      [
+        "Valentino Rossi",
+        "Valentino Rossi",
+        0
+      ],
+      [
+        "Vettel",
+        "Vettel",
+        1
+      ],
+      [
+        "Räikkönen",
+        "Räikkönen",
+        1
+      ],
+      [
+        "Marc Márquez",
+        "Marc Márquez",
+        0
+      ],
+      [
+        "Sébastien Loeb",
+        "Sébastien Loeb",
+        0
+      ],
+      [
+        "Prost",
+        "Prost",
+        1
+      ],
+      [
+        "Ogier",
+        "Ogier",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "gen",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these are correct metric (SI) prefixes?",
+      "fi": "Mitkä näistä ovat oikeita SI-etuliitteitä?"
+    },
+    "o": [
+      [
+        "Kilo",
+        "Kilo",
+        1
+      ],
+      [
+        "Mega",
+        "Mega",
+        1
+      ],
+      [
+        "Giga",
+        "Giga",
+        1
+      ],
+      [
+        "Ultra",
+        "Ultra",
+        0
+      ],
+      [
+        "Milli",
+        "Milli",
+        1
+      ],
+      [
+        "Super",
+        "Super",
+        0
+      ],
+      [
+        "Nano",
+        "Nano",
+        1
+      ],
+      [
+        "Hyper",
+        "Hyper",
+        0
+      ],
+      [
+        "Tera",
+        "Tera",
+        1
+      ],
+      [
+        "Mini",
+        "Mini",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "gen",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these numbers are prime?",
+      "fi": "Mitkä näistä luvuista ovat alkulukuja?"
+    },
+    "o": [
+      [
+        "101",
+        "101",
+        1
+      ],
+      [
+        "111",
+        "111",
+        0
+      ],
+      [
+        "113",
+        "113",
+        1
+      ],
+      [
+        "121",
+        "121",
+        0
+      ],
+      [
+        "127",
+        "127",
+        1
+      ],
+      [
+        "143",
+        "143",
+        0
+      ],
+      [
+        "131",
+        "131",
+        1
+      ],
+      [
+        "133",
+        "133",
+        0
+      ],
+      [
+        "137",
+        "137",
+        1
+      ],
+      [
+        "129",
+        "129",
+        0
+      ]
+    ]
   }
 ]
