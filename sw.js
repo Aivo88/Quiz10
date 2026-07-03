@@ -6,7 +6,11 @@ const CACHE = 'quiz10-v1';
 self.addEventListener('install', e => {
   self.skipWaiting();
   e.waitUntil(
-    caches.open(CACHE).then(c => c.addAll(['./', './questions.json']).catch(() => {}))
+    caches.open(CACHE).then(c => c.addAll([
+      './', './questions.json', './manifest.json',
+      './icon-192.png', './icon-512.png', './icon-512-maskable.png',
+      './apple-touch-icon.png', './favicon-32.png'
+    ]).catch(() => {}))
   );
 });
 
