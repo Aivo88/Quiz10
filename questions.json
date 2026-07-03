@@ -56,7 +56,8 @@
         "Islanti",
         0
       ]
-    ]
+    ],
+    "d": "easy"
   },
   {
     "topic": "geo",
@@ -115,7 +116,8 @@
         "Oregon",
         1
       ]
-    ]
+    ],
+    "d": "easy"
   },
   {
     "topic": "geo",
@@ -174,7 +176,8 @@
         "Etiopia",
         1
       ]
-    ]
+    ],
+    "d": "normal"
   },
   {
     "topic": "geo",
@@ -233,7 +236,8 @@
         "Punainenmeri",
         1
       ]
-    ]
+    ],
+    "d": "normal"
   },
   {
     "topic": "geo",
@@ -292,7 +296,8 @@
         "Ukraina",
         0
       ]
-    ]
+    ],
+    "d": "normal"
   },
   {
     "topic": "geo",
@@ -351,7 +356,8 @@
         "Istanbul",
         0
       ]
-    ]
+    ],
+    "d": "normal"
   },
   {
     "topic": "sci",
@@ -410,7 +416,8 @@
         "Titan",
         0
       ]
-    ]
+    ],
+    "d": "easy"
   },
   {
     "topic": "sci",
@@ -469,7 +476,8 @@
         "Aetherium",
         0
       ]
-    ]
+    ],
+    "d": "normal"
   },
   {
     "topic": "sci",
@@ -528,7 +536,8 @@
         "Rikki",
         0
       ]
-    ]
+    ],
+    "d": "normal"
   },
   {
     "topic": "sci",
@@ -587,7 +596,8 @@
         "Persikka",
         0
       ]
-    ]
+    ],
+    "d": "easy"
   },
   {
     "topic": "sci",
@@ -646,7 +656,8 @@
         "Violetti",
         1
       ]
-    ]
+    ],
+    "d": "easy"
   },
   {
     "topic": "arts",
@@ -705,7 +716,8 @@
         "Huomenna hän tulee",
         0
       ]
-    ]
+    ],
+    "d": "normal"
   },
   {
     "topic": "arts",
@@ -764,7 +776,8 @@
         "Saksofoni",
         0
       ]
-    ]
+    ],
+    "d": "normal"
   },
   {
     "topic": "arts",
@@ -823,7 +836,8 @@
         "Harppu",
         0
       ]
-    ]
+    ],
+    "d": "normal"
   },
   {
     "topic": "arts",
@@ -882,7 +896,8 @@
         "Jooga",
         0
       ]
-    ]
+    ],
+    "d": "easy"
   },
   {
     "topic": "sport",
@@ -941,7 +956,8 @@
         "Ampumahiihto",
         0
       ]
-    ]
+    ],
+    "d": "easy"
   },
   {
     "topic": "sport",
@@ -1000,7 +1016,8 @@
         "Jousiammunta",
         0
       ]
-    ]
+    ],
+    "d": "normal"
   },
   {
     "topic": "sport",
@@ -1059,7 +1076,8 @@
         "Soutu",
         0
       ]
-    ]
+    ],
+    "d": "easy"
   },
   {
     "topic": "sport",
@@ -1118,7 +1136,8 @@
         "Soutu",
         0
       ]
-    ]
+    ],
+    "d": "normal"
   },
   {
     "topic": "hist",
@@ -1177,7 +1196,8 @@
         "Babylon",
         1
       ]
-    ]
+    ],
+    "d": "normal"
   },
   {
     "topic": "hist",
@@ -1236,7 +1256,8 @@
         "Kazakstan",
         1
       ]
-    ]
+    ],
+    "d": "normal"
   },
   {
     "topic": "hist",
@@ -1295,7 +1316,8 @@
         "Olympian Zeus-patsas",
         1
       ]
-    ]
+    ],
+    "d": "normal"
   },
   {
     "topic": "hist",
@@ -1354,7 +1376,8 @@
         "Tšingis-kaani",
         1
       ]
-    ]
+    ],
+    "d": "normal"
   },
   {
     "topic": "gen",
@@ -1413,7 +1436,8 @@
         "1",
         0
       ]
-    ]
+    ],
+    "d": "easy"
   },
   {
     "topic": "gen",
@@ -1472,7 +1496,8 @@
         "Wombat",
         0
       ]
-    ]
+    ],
+    "d": "normal"
   },
   {
     "topic": "gen",
@@ -1531,7 +1556,8 @@
         "36",
         1
       ]
-    ]
+    ],
+    "d": "normal"
   },
   {
     "topic": "gen",
@@ -1590,7 +1616,8 @@
         "Protoni",
         0
       ]
-    ]
+    ],
+    "d": "normal"
   },
   {
     "topic": "geo",
@@ -1649,7 +1676,8 @@
         "Aarhus",
         0
       ]
-    ]
+    ],
+    "d": "normal"
   },
   {
     "topic": "geo",
@@ -1708,7 +1736,8 @@
         "Rein",
         1
       ]
-    ]
+    ],
+    "d": "normal"
   },
   {
     "topic": "geo",
@@ -1767,7 +1796,8 @@
         "Mongolia",
         0
       ]
-    ]
+    ],
+    "d": "normal"
   },
   {
     "topic": "geo",
@@ -1826,7 +1856,8 @@
         "Etelä-Korea",
         1
       ]
-    ]
+    ],
+    "d": "easy"
   },
   {
     "topic": "geo",
@@ -1885,7 +1916,8 @@
         "K2",
         1
       ]
-    ]
+    ],
+    "d": "normal"
   },
   {
     "topic": "sci",
@@ -1944,7 +1976,8 @@
         "Radon",
         1
       ]
-    ]
+    ],
+    "d": "normal"
   },
   {
     "topic": "sci",
@@ -2003,7 +2036,8 @@
         "Ihminen",
         1
       ]
-    ]
+    ],
+    "d": "easy"
   },
   {
     "topic": "sci",
@@ -2062,7 +2096,8 @@
         "Metaani",
         1
       ]
-    ]
+    ],
+    "d": "normal"
   },
   {
     "topic": "sci",
@@ -2121,7 +2156,8 @@
         "Sydän",
         0
       ]
-    ]
+    ],
+    "d": "normal"
   },
   {
     "topic": "sci",
@@ -2180,7 +2216,8 @@
         "Kala",
         1
       ]
-    ]
+    ],
+    "d": "normal"
   },
   {
     "topic": "arts",
@@ -2239,7 +2276,8 @@
         "Da Vinci",
         1
       ]
-    ]
+    ],
+    "d": "normal"
   },
   {
     "topic": "arts",
@@ -2298,7 +2336,8 @@
         "Rummut",
         0
       ]
-    ]
+    ],
+    "d": "normal"
   },
   {
     "topic": "arts",
@@ -2357,7 +2396,8 @@
         "Tšaikovski",
         1
       ]
-    ]
+    ],
+    "d": "normal"
   },
   {
     "topic": "sport",
@@ -2416,7 +2456,8 @@
         "Racquetball",
         1
       ]
-    ]
+    ],
+    "d": "normal"
   },
   {
     "topic": "sport",
@@ -2475,7 +2516,8 @@
         "Käsipallo",
         1
       ]
-    ]
+    ],
+    "d": "normal"
   },
   {
     "topic": "sport",
@@ -2534,7 +2576,8 @@
         "Soutu",
         0
       ]
-    ]
+    ],
+    "d": "normal"
   },
   {
     "topic": "sport",
@@ -2593,7 +2636,8 @@
         "Pyöräily",
         0
       ]
-    ]
+    ],
+    "d": "normal"
   },
   {
     "topic": "hist",
@@ -2652,7 +2696,8 @@
         "Jefferson",
         1
       ]
-    ]
+    ],
+    "d": "normal"
   },
   {
     "topic": "hist",
@@ -2711,7 +2756,8 @@
         "Yhdysvaltain sisällissota",
         0
       ]
-    ]
+    ],
+    "d": "normal"
   },
   {
     "topic": "hist",
@@ -2770,7 +2816,8 @@
         "Senaatti",
         1
       ]
-    ]
+    ],
+    "d": "normal"
   },
   {
     "topic": "hist",
@@ -2829,7 +2876,8 @@
         "Tesla",
         1
       ]
-    ]
+    ],
+    "d": "normal"
   },
   {
     "topic": "gen",
@@ -2888,7 +2936,8 @@
         "Tiistai",
         1
       ]
-    ]
+    ],
+    "d": "easy"
   },
   {
     "topic": "gen",
@@ -2947,7 +2996,8 @@
         "100",
         1
       ]
-    ]
+    ],
+    "d": "easy"
   },
   {
     "topic": "gen",
@@ -3006,7 +3056,8 @@
         "Peso",
         1
       ]
-    ]
+    ],
+    "d": "normal"
   },
   {
     "topic": "gen",
@@ -3065,7 +3116,8 @@
         "Kahdeksankulmio",
         1
       ]
-    ]
+    ],
+    "d": "normal"
   },
   {
     "topic": "gen",
@@ -3124,7 +3176,8 @@
         "Tonni",
         1
       ]
-    ]
+    ],
+    "d": "normal"
   },
   {
     "topic": "hist",
@@ -3183,7 +3236,8 @@
         "John F. Kennedy",
         0
       ]
-    ]
+    ],
+    "d": "hard"
   },
   {
     "topic": "hist",
@@ -3242,7 +3296,8 @@
         "Marcus Antonius",
         0
       ]
-    ]
+    ],
+    "d": "hard"
   },
   {
     "topic": "hist",
@@ -3301,7 +3356,8 @@
         "Agincourt",
         0
       ]
-    ]
+    ],
+    "d": "hard"
   },
   {
     "topic": "sci",
@@ -3360,7 +3416,8 @@
         "Pronssi",
         0
       ]
-    ]
+    ],
+    "d": "hard"
   },
   {
     "topic": "sci",
@@ -3419,7 +3476,8 @@
         "Ohmi",
         0
       ]
-    ]
+    ],
+    "d": "hard"
   },
   {
     "topic": "sci",
@@ -3478,7 +3536,8 @@
         "Kurkunpää",
         0
       ]
-    ]
+    ],
+    "d": "hard"
   },
   {
     "topic": "sci",
@@ -3537,7 +3596,8 @@
         "Aurinko",
         0
       ]
-    ]
+    ],
+    "d": "hard"
   },
   {
     "topic": "geo",
@@ -3596,7 +3656,8 @@
         "Unkari",
         1
       ]
-    ]
+    ],
+    "d": "hard"
   },
   {
     "topic": "geo",
@@ -3655,7 +3716,8 @@
         "Zürich",
         0
       ]
-    ]
+    ],
+    "d": "hard"
   },
   {
     "topic": "geo",
@@ -3714,7 +3776,8 @@
         "Venezuela",
         1
       ]
-    ]
+    ],
+    "d": "hard"
   },
   {
     "topic": "geo",
@@ -3773,7 +3836,8 @@
         "Tonava",
         0
       ]
-    ]
+    ],
+    "d": "hard"
   },
   {
     "topic": "arts",
@@ -3832,7 +3896,8 @@
         "Tosca",
         0
       ]
-    ]
+    ],
+    "d": "hard"
   },
   {
     "topic": "arts",
@@ -3891,7 +3956,8 @@
         "Lolita",
         0
       ]
-    ]
+    ],
+    "d": "hard"
   },
   {
     "topic": "sport",
@@ -3950,7 +4016,8 @@
         "Iso-Britannia",
         1
       ]
-    ]
+    ],
+    "d": "hard"
   },
   {
     "topic": "sport",
@@ -4009,7 +4076,8 @@
         "Madridin turnaus",
         0
       ]
-    ]
+    ],
+    "d": "hard"
   },
   {
     "topic": "gen",
@@ -4068,7 +4136,8 @@
         "57",
         0
       ]
-    ]
+    ],
+    "d": "hard"
   },
   {
     "topic": "gen",
@@ -4126,6 +4195,787 @@
         "Mongolian",
         "Mongolia",
         1
+      ]
+    ],
+    "d": "hard"
+  },
+  {
+    "topic": "gen",
+    "d": "easy",
+    "cat": {
+      "en": "Which of these are animals?",
+      "fi": "Mitkä näistä ovat eläimiä?"
+    },
+    "o": [
+      [
+        "Dog",
+        "Koira",
+        1
+      ],
+      [
+        "Cat",
+        "Kissa",
+        1
+      ],
+      [
+        "Rose",
+        "Ruusu",
+        0
+      ],
+      [
+        "Horse",
+        "Hevonen",
+        1
+      ],
+      [
+        "Table",
+        "Pöytä",
+        0
+      ],
+      [
+        "Cow",
+        "Lehmä",
+        1
+      ],
+      [
+        "Chair",
+        "Tuoli",
+        0
+      ],
+      [
+        "Sheep",
+        "Lammas",
+        1
+      ],
+      [
+        "Car",
+        "Auto",
+        0
+      ],
+      [
+        "Duck",
+        "Ankka",
+        1
+      ]
+    ]
+  },
+  {
+    "topic": "sci",
+    "d": "easy",
+    "cat": {
+      "en": "Which of these are fruits?",
+      "fi": "Mitkä näistä ovat hedelmiä?"
+    },
+    "o": [
+      [
+        "Apple",
+        "Omena",
+        1
+      ],
+      [
+        "Carrot",
+        "Porkkana",
+        0
+      ],
+      [
+        "Banana",
+        "Banaani",
+        1
+      ],
+      [
+        "Potato",
+        "Peruna",
+        0
+      ],
+      [
+        "Orange",
+        "Appelsiini",
+        1
+      ],
+      [
+        "Onion",
+        "Sipuli",
+        0
+      ],
+      [
+        "Strawberry",
+        "Mansikka",
+        1
+      ],
+      [
+        "Broccoli",
+        "Parsakaali",
+        0
+      ],
+      [
+        "Grape",
+        "Viinirypäle",
+        1
+      ],
+      [
+        "Cherry",
+        "Kirsikka",
+        1
+      ]
+    ]
+  },
+  {
+    "topic": "gen",
+    "d": "easy",
+    "cat": {
+      "en": "Which of these are body parts?",
+      "fi": "Mitkä näistä ovat kehonosia?"
+    },
+    "o": [
+      [
+        "Arm",
+        "Käsivarsi",
+        1
+      ],
+      [
+        "Leg",
+        "Jalka",
+        1
+      ],
+      [
+        "Table",
+        "Pöytä",
+        0
+      ],
+      [
+        "Nose",
+        "Nenä",
+        1
+      ],
+      [
+        "Wheel",
+        "Pyörä",
+        0
+      ],
+      [
+        "Ear",
+        "Korva",
+        1
+      ],
+      [
+        "Roof",
+        "Katto",
+        0
+      ],
+      [
+        "Hand",
+        "Käsi",
+        1
+      ],
+      [
+        "Cloud",
+        "Pilvi",
+        0
+      ],
+      [
+        "Foot",
+        "Jalkaterä",
+        1
+      ]
+    ]
+  },
+  {
+    "topic": "gen",
+    "d": "easy",
+    "cat": {
+      "en": "Which of these are colours?",
+      "fi": "Mitkä näistä ovat värejä?"
+    },
+    "o": [
+      [
+        "Red",
+        "Punainen",
+        1
+      ],
+      [
+        "Dog",
+        "Koira",
+        0
+      ],
+      [
+        "Blue",
+        "Sininen",
+        1
+      ],
+      [
+        "Chair",
+        "Tuoli",
+        0
+      ],
+      [
+        "Green",
+        "Vihreä",
+        1
+      ],
+      [
+        "Apple",
+        "Omena",
+        0
+      ],
+      [
+        "Yellow",
+        "Keltainen",
+        1
+      ],
+      [
+        "Car",
+        "Auto",
+        0
+      ],
+      [
+        "Purple",
+        "Violetti",
+        1
+      ],
+      [
+        "Pink",
+        "Pinkki",
+        1
+      ]
+    ]
+  },
+  {
+    "topic": "geo",
+    "d": "normal",
+    "cat": {
+      "en": "Which of these are seas?",
+      "fi": "Mitkä näistä ovat meriä?"
+    },
+    "o": [
+      [
+        "Mediterranean",
+        "Välimeri",
+        1
+      ],
+      [
+        "Caspian Sea",
+        "Kaspianmeri",
+        1
+      ],
+      [
+        "Baltic Sea",
+        "Itämeri",
+        1
+      ],
+      [
+        "Sahara",
+        "Sahara",
+        0
+      ],
+      [
+        "Caribbean",
+        "Karibianmeri",
+        1
+      ],
+      [
+        "Everest",
+        "Everest",
+        0
+      ],
+      [
+        "North Sea",
+        "Pohjanmeri",
+        1
+      ],
+      [
+        "Amazon",
+        "Amazon",
+        0
+      ],
+      [
+        "Black Sea",
+        "Mustameri",
+        1
+      ],
+      [
+        "Nile",
+        "Niili",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "geo",
+    "d": "normal",
+    "cat": {
+      "en": "Which of these are European countries?",
+      "fi": "Mitkä näistä ovat Euroopan maita?"
+    },
+    "o": [
+      [
+        "France",
+        "Ranska",
+        1
+      ],
+      [
+        "Brazil",
+        "Brasilia",
+        0
+      ],
+      [
+        "Germany",
+        "Saksa",
+        1
+      ],
+      [
+        "Egypt",
+        "Egypti",
+        0
+      ],
+      [
+        "Spain",
+        "Espanja",
+        1
+      ],
+      [
+        "Japan",
+        "Japani",
+        0
+      ],
+      [
+        "Italy",
+        "Italia",
+        1
+      ],
+      [
+        "Canada",
+        "Kanada",
+        0
+      ],
+      [
+        "Greece",
+        "Kreikka",
+        1
+      ],
+      [
+        "Sweden",
+        "Ruotsi",
+        1
+      ]
+    ]
+  },
+  {
+    "topic": "gen",
+    "d": "normal",
+    "cat": {
+      "en": "Which of these are types of triangle?",
+      "fi": "Mitkä näistä ovat kolmiotyyppejä?"
+    },
+    "o": [
+      [
+        "Equilateral",
+        "Tasasivuinen",
+        1
+      ],
+      [
+        "Isosceles",
+        "Tasakylkinen",
+        1
+      ],
+      [
+        "Scalene",
+        "Erisivuinen",
+        1
+      ],
+      [
+        "Rhombus",
+        "Vinoneliö",
+        0
+      ],
+      [
+        "Right-angled",
+        "Suorakulmainen",
+        1
+      ],
+      [
+        "Hexagon",
+        "Kuusikulmio",
+        0
+      ],
+      [
+        "Obtuse",
+        "Tylppäkulmainen",
+        1
+      ],
+      [
+        "Circle",
+        "Ympyrä",
+        0
+      ],
+      [
+        "Acute",
+        "Teräväkulmainen",
+        1
+      ],
+      [
+        "Square",
+        "Neliö",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "sport",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these countries have won the men's FIFA World Cup?",
+      "fi": "Mitkä näistä maista ovat voittaneet miesten jalkapallon MM-kisat?"
+    },
+    "o": [
+      [
+        "Brazil",
+        "Brasilia",
+        1
+      ],
+      [
+        "Germany",
+        "Saksa",
+        1
+      ],
+      [
+        "Italy",
+        "Italia",
+        1
+      ],
+      [
+        "Netherlands",
+        "Alankomaat",
+        0
+      ],
+      [
+        "Argentina",
+        "Argentiina",
+        1
+      ],
+      [
+        "Portugal",
+        "Portugali",
+        0
+      ],
+      [
+        "France",
+        "Ranska",
+        1
+      ],
+      [
+        "Sweden",
+        "Ruotsi",
+        0
+      ],
+      [
+        "Uruguay",
+        "Uruguay",
+        1
+      ],
+      [
+        "Mexico",
+        "Meksiko",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "gen",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these are Nobel Prize categories?",
+      "fi": "Mitkä näistä ovat Nobel-palkinnon kategorioita?"
+    },
+    "o": [
+      [
+        "Physics",
+        "Fysiikka",
+        1
+      ],
+      [
+        "Chemistry",
+        "Kemia",
+        1
+      ],
+      [
+        "Mathematics",
+        "Matematiikka",
+        0
+      ],
+      [
+        "Peace",
+        "Rauha",
+        1
+      ],
+      [
+        "Literature",
+        "Kirjallisuus",
+        1
+      ],
+      [
+        "Engineering",
+        "Tekniikka",
+        0
+      ],
+      [
+        "Medicine",
+        "Lääketiede",
+        1
+      ],
+      [
+        "Philosophy",
+        "Filosofia",
+        0
+      ],
+      [
+        "Economics",
+        "Taloustiede",
+        1
+      ],
+      [
+        "Astronomy",
+        "Tähtitiede",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "sci",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these elements are named after a place?",
+      "fi": "Mitkä näistä alkuaineista on nimetty paikan mukaan?"
+    },
+    "o": [
+      [
+        "Polonium",
+        "Polonium",
+        1
+      ],
+      [
+        "Francium",
+        "Francium",
+        1
+      ],
+      [
+        "Germanium",
+        "Germanium",
+        1
+      ],
+      [
+        "Helium",
+        "Helium",
+        0
+      ],
+      [
+        "Californium",
+        "Kalifornium",
+        1
+      ],
+      [
+        "Oxygen",
+        "Happi",
+        0
+      ],
+      [
+        "Americium",
+        "Amerikium",
+        1
+      ],
+      [
+        "Carbon",
+        "Hiili",
+        0
+      ],
+      [
+        "Berkelium",
+        "Berkelium",
+        1
+      ],
+      [
+        "Hydrogen",
+        "Vety",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "sci",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these are SI base units?",
+      "fi": "Mitkä näistä ovat SI-perusyksiköitä?"
+    },
+    "o": [
+      [
+        "Metre",
+        "Metri",
+        1
+      ],
+      [
+        "Kilogram",
+        "Kilogramma",
+        1
+      ],
+      [
+        "Second",
+        "Sekunti",
+        1
+      ],
+      [
+        "Litre",
+        "Litra",
+        0
+      ],
+      [
+        "Ampere",
+        "Ampeeri",
+        1
+      ],
+      [
+        "Newton",
+        "Newton",
+        0
+      ],
+      [
+        "Kelvin",
+        "Kelvin",
+        1
+      ],
+      [
+        "Watt",
+        "Watti",
+        0
+      ],
+      [
+        "Mole",
+        "Mooli",
+        1
+      ],
+      [
+        "Volt",
+        "Voltti",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "geo",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these countries use the euro?",
+      "fi": "Mitkä näistä maista käyttävät euroa?"
+    },
+    "o": [
+      [
+        "Germany",
+        "Saksa",
+        1
+      ],
+      [
+        "Sweden",
+        "Ruotsi",
+        0
+      ],
+      [
+        "France",
+        "Ranska",
+        1
+      ],
+      [
+        "Denmark",
+        "Tanska",
+        0
+      ],
+      [
+        "Finland",
+        "Suomi",
+        1
+      ],
+      [
+        "Poland",
+        "Puola",
+        0
+      ],
+      [
+        "Ireland",
+        "Irlanti",
+        1
+      ],
+      [
+        "Norway",
+        "Norja",
+        0
+      ],
+      [
+        "Spain",
+        "Espanja",
+        1
+      ],
+      [
+        "Portugal",
+        "Portugali",
+        1
+      ]
+    ]
+  },
+  {
+    "topic": "hist",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these were ancient Greek philosophers?",
+      "fi": "Ketkä näistä olivat antiikin kreikkalaisia filosofeja?"
+    },
+    "o": [
+      [
+        "Socrates",
+        "Sokrates",
+        1
+      ],
+      [
+        "Plato",
+        "Platon",
+        1
+      ],
+      [
+        "Aristotle",
+        "Aristoteles",
+        1
+      ],
+      [
+        "Julius Caesar",
+        "Julius Caesar",
+        0
+      ],
+      [
+        "Pythagoras",
+        "Pythagoras",
+        1
+      ],
+      [
+        "Napoleon",
+        "Napoleon",
+        0
+      ],
+      [
+        "Epicurus",
+        "Epikuros",
+        1
+      ],
+      [
+        "Newton",
+        "Newton",
+        0
+      ],
+      [
+        "Diogenes",
+        "Diogenes",
+        1
+      ],
+      [
+        "Einstein",
+        "Einstein",
+        0
       ]
     ]
   }

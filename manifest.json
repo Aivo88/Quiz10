@@ -1,7 +1,7 @@
 {
-  "name": "QUIZ 10",
-  "short_name": "QUIZ 10",
-  "description": "The push-your-luck trivia game / Uskalla tai passaa -tietovisa",
+  "name": "Pub Quiz",
+  "short_name": "Pub Quiz",
+  "description": "The push-your-luck pub trivia game / Uskalla tai passaa -tietovisa",
   "start_url": "./quiz10.html",
   "scope": "./",
   "display": "standalone",

@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>QUIZ 10</title>
+<title>Pub Quiz</title>
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0E1428">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="QUIZ 10">
+<meta name="apple-mobile-web-app-title" content="Pub Quiz">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
@@ -325,7 +325,7 @@
   <section id="screen-menu" class="screen active">
     <div class="center">
       <div style="text-align:center">
-        <div class="brand">QUIZ<span class="num">10</span></div>
+        <div class="brand">PUB QUIZ<span class="num">10</span></div>
         <div class="tagline" data-i="tagline">The push-your-luck trivia game</div>
       </div>
       <div class="menu-col">
@@ -407,7 +407,7 @@
   <section id="screen-lang" class="screen">
     <div class="center">
       <div style="text-align:center">
-        <div class="brand">QUIZ<span class="num">10</span></div>
+        <div class="brand">PUB QUIZ<span class="num">10</span></div>
         <div class="tagline" data-i="tagline">The push-your-luck trivia game</div>
       </div>
       <div class="sub" data-i>Choose your language</div>
@@ -452,6 +452,16 @@
           <button class="btn num focusable" data-action="target" data-v="15">15</button>
           <button class="btn num focusable" data-action="target" data-v="25">25</button>
           <button class="btn num focusable" data-action="target" data-v="40">40</button>
+        </div>
+      </div>
+
+      <div class="stack">
+        <div class="sub" data-i="difficultyLabel">Difficulty</div>
+        <div class="row" id="diffRow">
+          <button class="btn focusable" data-action="difficulty" data-v="easy" data-i="diffEasy">Easy</button>
+          <button class="btn focusable" data-action="difficulty" data-v="normal" data-i="diffNormal">Normal</button>
+          <button class="btn focusable" data-action="difficulty" data-v="hard" data-i="diffHard">Hard</button>
+          <button class="btn focusable" data-action="difficulty" data-v="all" data-i="diffAll">All</button>
         </div>
       </div>
 
@@ -536,6 +546,8 @@ const T = {
     playersLabel:"Number of players",
     playersUnit:"players",
     targetLabel:"Points to win",
+    difficultyLabel:"Difficulty",
+    diffEasy:"Easy", diffNormal:"Normal", diffHard:"Hard", diffAll:"All",
     startBtn:"Start game",
     playAgain:"Play again",
     mainMenu:"Main menu",
@@ -592,6 +604,8 @@ const T = {
     playersLabel:"Pelaajien määrä",
     playersUnit:"pelaajaa",
     targetLabel:"Voittoon vaadittavat pisteet",
+    difficultyLabel:"Vaikeustaso",
+    diffEasy:"Helppo", diffNormal:"Normaali", diffHard:"Vaikea", diffAll:"Kaikki",
     startBtn:"Aloita peli",
     playAgain:"Pelaa uudelleen",
     mainMenu:"Päävalikko",
@@ -779,7 +793,7 @@ const QUESTIONS = [
 
 const PLAYER_COLORS = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
-const APP_VERSION = '2.2';
+const APP_VERSION = '2.3';
 
 let questionsStatus = '';
 async function loadQuestions(){
@@ -815,6 +829,7 @@ let current = null;      // current question (localized) + shuffled options
 let turnActive = false;  // locked briefly between picks / at game end
 let awaitingTurn = false; // true while the "up next" banner is showing
 let currentTopic = 'mixed';
+let difficulty = 'all';   // 'easy' | 'normal' | 'hard' | 'all'
 let topicDecks = {};     // per-topic shuffled index queues
 let confirmCb = null;    // pending confirm callback
 let settings = { size:'1', edge:'1', theme:'default', confirmA:true, confirmB:true };
@@ -926,6 +941,9 @@ function refreshSetup(){
   $$('#targetRow .btn').forEach(b=>{
     b.classList.toggle('gold', +b.dataset.v===target);
   });
+  $$('#diffRow .btn').forEach(b=>{
+    b.classList.toggle('gold', b.dataset.v===difficulty);
+  });
 }
 
 /* ---------- Game flow ---------- */
@@ -975,8 +993,12 @@ function updateScorebar(){
 
 /* ---------- Topic selection (start of each round) ---------- */
 function poolFor(topic){
-  if(topic==='mixed') return QUESTIONS.map((_,i)=>i);
-  return QUESTIONS.map((q,i)=>q.topic===topic?i:-1).filter(i=>i>=0);
+  let idx = QUESTIONS.map((q,i)=> ((topic==='mixed' || q.topic===topic) ? i : -1)).filter(i=>i>=0);
+  if(difficulty!=='all'){
+    const f = idx.filter(i => (QUESTIONS[i].d||'normal')===difficulty);
+    if(f.length) idx = f;   // fall back to all difficulties if none match this topic
+  }
+  return idx;
 }
 function chooseTopic(){
   turnActive=false; awaitingTurn=false;
@@ -998,10 +1020,11 @@ function renderTopics(){
 }
 
 function drawQuestion(){
-  if(!topicDecks[currentTopic] || topicDecks[currentTopic].length===0){
-    topicDecks[currentTopic] = shuffle(poolFor(currentTopic));
+  const key = currentTopic + '|' + difficulty;
+  if(!topicDecks[key] || topicDecks[key].length===0){
+    topicDecks[key] = shuffle(poolFor(currentTopic));
   }
-  const qi = topicDecks[currentTopic].pop();
+  const qi = topicDecks[key].pop();
   const q = QUESTIONS[qi];
   const opts = shuffle(q.o).map(o=>({label:o[lang==='fi'?1:0], correct:!!o[2], state:'idle'}));
   current = { cat:q.cat[lang], opts };
@@ -1327,7 +1350,7 @@ function edgeIdxFromX(x){
 function activate(el){
   if(!el) return;
   const a = el.dataset.action;
-  const menuSfx = ['lang','players','target','start','again','newgame','settings','menu','mainmenu','backToLang','setTheme','setLang','toggleA','toggleB','topic','confirmYes','confirmNo'];
+  const menuSfx = ['lang','players','target','difficulty','start','again','newgame','settings','menu','mainmenu','backToLang','setTheme','setLang','toggleA','toggleB','topic','confirmYes','confirmNo'];
   if(menuSfx.includes(a)) sfx.select();
 
   if(a==='newgame'){ showScreen('screen-lang'); }
@@ -1343,6 +1366,7 @@ function activate(el){
   else if(a==='lang'){ lang=el.dataset.lang; applyStaticText(); refreshSetup(); showScreen('screen-setup'); }
   else if(a==='players'){ numPlayers = Math.min(8, Math.max(1, numPlayers + (+el.dataset.d))); refreshSetup(); }
   else if(a==='target'){ target = +el.dataset.v; refreshSetup(); }
+  else if(a==='difficulty'){ difficulty = el.dataset.v; refreshSetup(); }
   else if(a==='start'){ startGame(); }
   else if(a==='topic'){ currentTopic = el.dataset.topic; newQuestion(); }
   else if(a==='pick'){ pickOption(+el.dataset.i); }
