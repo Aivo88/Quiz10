@@ -89,12 +89,8 @@
   /* Overscan-safe stage for TVs */
   #stage{
     position:fixed; inset:0;
-    padding:4.5vh 5vw;
+    padding:calc(4.5vh + var(--edge,0) * 0.7vh) calc(5vw + var(--edge,0) * 1vw);
     display:flex; flex-direction:column;
-  }
-  /* TVs overscan the edges — give landscape more safe margin */
-  @media (orientation:landscape){
-    #stage{ padding:6.5vh 8vw; }
   }
   .screen{display:none; flex:1; min-height:0; flex-direction:column; overflow-y:auto; overflow-x:hidden}
   .screen.active{display:flex}
@@ -352,6 +348,16 @@
           </div>
         </div>
         <div class="set-row">
+          <span class="set-label" data-i="edgeLabel">Screen margin (TV)</span>
+          <div class="set-opts">
+            <div class="slider focusable" id="edgeSlider" data-role="slider">
+              <div class="track" id="edgeTrack"><div class="fill" id="edgeFill"></div><div class="thumb" id="edgeThumb"></div></div>
+              <div class="slabel" id="edgeValLabel">0</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="set-row">
           <span class="set-label" data-i="theme">Colour theme</span>
           <div class="set-opts">
             <button class="btn chip focusable" data-action="setTheme" data-v="default" data-i="themeMid">Midnight</button>
@@ -575,6 +581,7 @@ const T = {
     checkUpdates:"Check for updates",
     updating:"Updating…",
     pointsWord:"points",
+    edgeLabel:"Screen margin (TV)",
     hint:"Move with the D-pad · <kbd>OK</kbd> answers · <kbd>Back</kbd> to pass & bank"
   },
   fi:{
@@ -630,6 +637,7 @@ const T = {
     checkUpdates:"Tarkista päivitykset",
     updating:"Päivitetään…",
     pointsWord:"pistettä",
+    edgeLabel:"Reunamarginaali (TV)",
     hint:"Liiku D-padilla · <kbd>OK</kbd> vastaa · <kbd>Back</kbd> passaa & talleta"
   }
 };
@@ -769,7 +777,7 @@ const QUESTIONS = [
 
 const PLAYER_COLORS = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
-const APP_VERSION = '1.6';
+const APP_VERSION = '1.7';
 
 /* Load an external questions.json (served alongside the app) if present.
    Falls back silently to the built-in bank when missing or invalid. */
@@ -801,8 +809,9 @@ let awaitingTurn = false; // true while the "up next" banner is showing
 let currentTopic = 'mixed';
 let topicDecks = {};     // per-topic shuffled index queues
 let confirmCb = null;    // pending confirm callback
-let settings = { size:'1', theme:'default', confirmA:true, confirmB:true };
+let settings = { size:'1', edge:'0', theme:'default', confirmA:true, confirmB:true };
 const SIZES = [ {v:0.85,n:'S'}, {v:1.0,n:'M'}, {v:1.3,n:'L'}, {v:1.7,n:'XL'}, {v:2.2,n:'XXL'} ];
+const EDGES = [0, 2, 4, 6, 8, 10, 12];   // extra TV overscan margin steps
 
 /* ---------- Helpers ---------- */
 const $ = s => document.querySelector(s);
@@ -1238,7 +1247,9 @@ function saveSettings(){ lsSet('quiz10_settings', JSON.stringify(settings)); }
 function applySettings(){
   document.body.setAttribute('data-theme', settings.theme==='default' ? '' : settings.theme);
   document.body.style.setProperty('--fs', settings.size);
+  document.body.style.setProperty('--edge', settings.edge);
   updateSlider();
+  updateEdgeSlider();
   $$('[data-action="setTheme"]').forEach(b=> b.classList.toggle('sel', b.dataset.v===settings.theme));
   $$('[data-action="setLang"]').forEach(b=> b.classList.toggle('sel', b.dataset.v===lang));
   const swA=$('#swA'), swB=$('#swB');
@@ -1271,6 +1282,34 @@ function sliderIdxFromX(x){
   const r=t.getBoundingClientRect();
   let ratio=(x-r.left)/r.width; ratio=Math.max(0,Math.min(1,ratio));
   return Math.round(ratio*(SIZES.length-1));
+}
+
+/* edge (TV margin) slider */
+function edgeIndex(){
+  const v=parseFloat(settings.edge)||0;
+  let best=0, bd=1e9;
+  EDGES.forEach((e,i)=>{ const d=Math.abs(e-v); if(d<bd){ bd=d; best=i; } });
+  return best;
+}
+function updateEdgeSlider(){
+  const idx=edgeIndex(), pct=idx/(EDGES.length-1)*100;
+  const fill=$('#edgeFill'), thumb=$('#edgeThumb'), lab=$('#edgeValLabel');
+  if(fill) fill.style.width=pct+'%';
+  if(thumb) thumb.style.left=pct+'%';
+  if(lab) lab.textContent=String(EDGES[idx]);
+}
+function setEdgeIndex(idx){
+  idx=Math.max(0,Math.min(EDGES.length-1,idx));
+  const changed = idx!==edgeIndex();
+  settings.edge=String(EDGES[idx]);
+  applySettings(); saveSettings();
+  if(changed) sfx.select();
+}
+function edgeIdxFromX(x){
+  const t=$('#edgeTrack'); if(!t) return edgeIndex();
+  const r=t.getBoundingClientRect();
+  let ratio=(x-r.left)/r.width; ratio=Math.max(0,Math.min(1,ratio));
+  return Math.round(ratio*(EDGES.length-1));
 }
 
 /* ---------- Global click + key handling ---------- */
@@ -1340,6 +1379,11 @@ document.addEventListener('keydown', e=>{
   if(focused && focused.id==='sizeSlider' && (k==='ArrowLeft'||k==='ArrowRight')){
     e.preventDefault();
     setSizeIndex(sizeIndex() + (k==='ArrowRight'?1:-1));
+    return;
+  }
+  if(focused && focused.id==='edgeSlider' && (k==='ArrowLeft'||k==='ArrowRight')){
+    e.preventDefault();
+    setEdgeIndex(edgeIndex() + (k==='ArrowRight'?1:-1));
     return;
   }
 
@@ -1420,6 +1464,18 @@ function doUpdate(btn){
   const getX = e => (e.touches && e.touches[0]) ? e.touches[0].clientX : e.clientX;
   const apply = e => { setSizeIndex(sliderIdxFromX(getX(e))); };
   track.addEventListener('pointerdown', e=>{ dragging=true; setFocus($('#sizeSlider')); apply(e); e.preventDefault(); });
+  window.addEventListener('pointermove', e=>{ if(dragging) apply(e); });
+  window.addEventListener('pointerup', ()=>{ dragging=false; });
+})();
+
+/* edge (TV margin) slider drag (touch / mouse) */
+(function(){
+  const track = $('#edgeTrack');
+  if(!track) return;
+  let dragging=false;
+  const getX = e => (e.touches && e.touches[0]) ? e.touches[0].clientX : e.clientX;
+  const apply = e => { setEdgeIndex(edgeIdxFromX(getX(e))); };
+  track.addEventListener('pointerdown', e=>{ dragging=true; setFocus($('#edgeSlider')); apply(e); e.preventDefault(); });
   window.addEventListener('pointermove', e=>{ if(dragging) apply(e); });
   window.addEventListener('pointerup', ()=>{ dragging=false; });
 })();
