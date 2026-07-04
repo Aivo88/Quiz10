@@ -194,7 +194,14 @@
   .pchip.passed .tag{color:var(--good)}
   .pchip.busted .tag{color:var(--bad)}
 
-  .qhead{display:flex; align-items:baseline; justify-content:space-between; gap:16px; margin-top:clamp(4px,.8vh,10px)}
+  .qhead{display:flex; align-items:center; justify-content:space-between; gap:16px; margin-top:clamp(4px,.8vh,10px)}
+  .turnwrap{display:flex; align-items:center; gap:clamp(8px,1.2vw,16px); min-width:0}
+  .langflag{
+    flex:none; cursor:pointer; background:var(--panel); border:2px solid var(--line);
+    border-radius:12px; padding:clamp(4px,.7vh,8px) clamp(8px,1vw,12px);
+    font-size:calc(clamp(20px,2.4vw,32px) * var(--fs)); line-height:1;
+  }
+  body.kbd .langflag.focused{border-color:var(--focus); box-shadow:0 0 0 4px rgba(255,224,138,.4); background:var(--panel2)}
   .turnlabel{color:var(--muted); font-size:clamp(13px,1.5vw,20px); letter-spacing:.06em}
   .turnlabel b{color:var(--c-turn,var(--gold))}
   .roundbank{
@@ -497,7 +504,10 @@
     <div class="scorebar" id="scorebar"></div>
 
     <div class="qhead">
-      <div class="turnlabel" id="turnLabel"></div>
+      <div class="turnwrap">
+        <button class="langflag focusable" id="langFlag" data-action="cyclelang" title="Language">🇬🇧</button>
+        <div class="turnlabel" id="turnLabel"></div>
+      </div>
       <div class="roundbank" id="roundBank"></div>
     </div>
     <div class="category" id="category"></div>
@@ -871,7 +881,7 @@ const QUESTIONS = [
 
 const PLAYER_COLORS = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
-const APP_VERSION = '2.6';
+const APP_VERSION = '2.7';
 
 let questionsStatus = '';
 async function loadQuestions(){
@@ -908,6 +918,12 @@ let turnActive = false;  // locked briefly between picks / at game end
 let awaitingTurn = false; // true while the "up next" banner is showing
 let currentTopic = 'mixed';
 let difficulty = 'all';   // 'easy' | 'normal' | 'hard' | 'all'
+let playerLang = [];      // per-player question language, remembered for the game
+const LANG_ORDER = ['en','fi','es'];
+const LANG_FLAG = { en:'🇬🇧', fi:'🇫🇮', es:'🇪🇸' };
+function dispLang(){ return playerLang[turnIdx] || lang; }
+function labelFor(o, L){ return (L==='es' ? o.es : L==='fi' ? o.fi : o.en) || o.en; }
+function catFor(c, L){ return c[L] || c.en; }
 let topicDecks = {};     // per-topic shuffled index queues
 let confirmCb = null;    // pending confirm callback
 let settings = { size:'1', edge:'1', theme:'light', confirmA:true, confirmB:true };
@@ -1037,6 +1053,7 @@ function startGame(){
   turnIdx = 0;
   roundStarter = 0;
   topicDecks = {};
+  playerLang = players.map(()=> lang);   // each player starts in the chosen language
   buildScorebar();
   chooseTopic();
 }
@@ -1104,14 +1121,11 @@ function drawQuestion(){
   }
   const qi = topicDecks[key].pop();
   const q = QUESTIONS[qi];
-  const li = lang==='es' ? 2 : lang==='fi' ? 1 : 0;
-  const opts = shuffle(q.o).map(o=>{
-    const correct = !!o[o.length-1];
-    let label = o[li];
-    if(typeof label !== 'string') label = o[0];   // fall back to English
-    return { label, correct, state:'idle' };
-  });
-  current = { cat: (q.cat[lang] || q.cat.en), opts };
+  const opts = shuffle(q.o).map(o=>({
+    en:o[0], fi:o[1], es:(typeof o[2]==='string' ? o[2] : o[0]),
+    correct:!!o[o.length-1], state:'idle', by:null
+  }));
+  current = { cat:q.cat, opts };   // cat holds {en,fi,es}
 }
 
 /* Start the round with the chosen topic; opener plays immediately (no banner) */
@@ -1121,12 +1135,12 @@ function newQuestion(){
   roundTokens = players.map(()=>0);
   turnIdx = roundStarter % players.length;
   if(pstatus[turnIdx]!=='active') turnIdx = nextActive(turnIdx);
-  $('#category').textContent = current.cat;
   renderBoard();
   updateHeader();
   updateScorebar();
   showScreen('screen-game');
   turnActive = true;
+  applyLang();
   focusFirstOption();
   requestAnimationFrame(fitBoard);
 }
@@ -1151,20 +1165,44 @@ function confirmTurn(){
   sfx.turn();
   updateHeader();
   updateScorebar();
+  applyLang();
   focusFirstOption();
 }
 
 function renderBoard(){
   const board = $('#board'); board.innerHTML='';
+  const L = dispLang();
   current.opts.forEach((o,i)=>{
     const el = document.createElement('div');
     el.className='opt focusable';
     el.dataset.i=i;
     el.dataset.action='pick';
-    el.innerHTML = `<span class="idx">${i+1}</span><span class="txt">${o.label}</span><span class="tick"></span>`;
+    el.innerHTML = `<span class="idx">${i+1}</span><span class="txt">${labelFor(o,L)}</span><span class="tick"></span>`;
     board.appendChild(el);
     syncOpt(el,o);
   });
+}
+
+/* Show category + option labels in the active player's language */
+function applyLang(){
+  if(!current) return;
+  const L = dispLang();
+  $('#category').textContent = catFor(current.cat, L);
+  $$('#board .opt').forEach((el,i)=>{
+    const t = el.querySelector('.txt');
+    if(t && current.opts[i]) t.textContent = labelFor(current.opts[i], L);
+  });
+  updateFlag();
+  fitBoard();
+}
+function updateFlag(){
+  const f = $('#langFlag'); if(f) f.textContent = LANG_FLAG[dispLang()] || '🏳️';
+}
+function cycleLang(){
+  const cur = playerLang[turnIdx] || lang;
+  playerLang[turnIdx] = LANG_ORDER[(LANG_ORDER.indexOf(cur)+1) % LANG_ORDER.length];
+  sfx.select();
+  applyLang();
 }
 
 /* Shrink each option's text until it fits its card (width + height) */
@@ -1234,7 +1272,7 @@ function pickOption(i){
   const o = current.opts[i];
   if(!o || o.state!=='idle') return;
   if(settings.confirmA){
-    askConfirm(`${tr('confirmAnswerQ')}: "${o.label}"?`, ()=>doPick(i));
+    askConfirm(`${tr('confirmAnswerQ')}: "${labelFor(o, dispLang())}"?`, ()=>doPick(i));
   } else doPick(i);
 }
 function doPick(i){
@@ -1455,6 +1493,7 @@ function activate(el){
   else if(a==='topic'){ currentTopic = el.dataset.topic; newQuestion(); }
   else if(a==='pick'){ pickOption(+el.dataset.i); }
   else if(a==='pass'){ passTurn(); }
+  else if(a==='cyclelang'){ cycleLang(); }
   else if(a==='again'){ startGame(); }
   else if(a==='confirmYes'){ closeConfirm(true); }
   else if(a==='confirmNo'){ closeConfirm(false); }
