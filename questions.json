@@ -6601,5 +6601,24 @@
         0
       ]
     ]
-  }
-]
+  },
+{
+  "topic": "geo",
+  "d": "normal",
+  "cat": {
+    "en": "Which of these countries are in Central America?",
+    "fi": "Mitkä näistä maista sijaitsevat Keski-Amerikassa?",
+    "es": "¿Cuáles de estos países están en Centroamérica?"
+  },
+  "o": [
+    ["Guatemala", "Guatemala", "Guatemala", 1],
+    ["Honduras", "Honduras", "Honduras", 1],
+    ["Colombia", "Kolumbia", "Colombia", 0],
+    ["Nicaragua", "Nicaragua", "Nicaragua", 1],
+    ["Panama", "Panama", "Panamá", 1],
+    ["Cuba", "Kuuba", "Cuba", 0],
+    ["Costa Rica", "Costa Rica", "Costa Rica", 1],
+    ["Belize", "Belize", "Belice", 1],
+    ["Ecuador", "Ecuador", "Ecuador", 0],
+    ["Jamaica", "Jamaika", "Jamaica", 0]
+  ]
