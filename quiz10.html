@@ -89,7 +89,7 @@
   /* Overscan-safe stage for TVs */
   #stage{
     position:fixed; inset:0;
-    padding:3vh 3vw;
+    padding:1.5vh 1.8vw;
     display:flex; flex-direction:column;
     transform:scale(var(--scale,1));
     transform-origin:center center;
@@ -881,7 +881,7 @@ const QUESTIONS = [
 
 const PLAYER_COLORS = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
-const APP_VERSION = '2.9';
+const APP_VERSION = '3.1';
 
 let questionsStatus = '';
 async function loadQuestions(){
@@ -1589,11 +1589,13 @@ function goBack(){
 
 /* Trap the hardware/remote back button so it navigates in-app instead of
    closing the app. Uses the History API: keep one buffered state and re-arm
-   it after each back press we handle. */
-history.pushState(null, '', location.href);
+   it after each back press we handle. Guarded because file:// origins can
+   throw a SecurityError on pushState. */
+function armBack(){ try{ history.pushState(null, '', location.href); }catch(e){} }
+armBack();
 window.addEventListener('popstate', ()=>{
   const handled = goBack();
-  if(handled){ history.pushState(null, '', location.href); }
+  if(handled){ armBack(); }
 });
 
 /* ---------- Boot ---------- */
@@ -1608,9 +1610,9 @@ setFocus($('#screen-menu [data-focus]'));
 loadQuestions();
 updateQStatus();
 
-/* Service worker (offline + updates), only where supported/secure */
-if('serviceWorker' in navigator){
-  navigator.serviceWorker.register('sw.js').catch(()=>{});
+/* Service worker (offline + updates), only on http/https (not file://) */
+if('serviceWorker' in navigator && location.protocol.startsWith('http')){
+  try{ navigator.serviceWorker.register('sw.js').catch(()=>{}); }catch(e){}
 }
 
 /* Check-for-updates: always pull the freshest copy from the server,
