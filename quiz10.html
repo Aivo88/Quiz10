@@ -155,9 +155,9 @@
   .row{display:flex; gap:clamp(12px,1.6vw,22px); flex-wrap:wrap; justify-content:center; align-items:center}
 
   /* Language screen big flags */
-  .lang-row{display:flex; gap:clamp(20px,3vw,48px)}
+  .lang-row{display:flex; gap:clamp(14px,2.2vw,32px); flex-wrap:wrap; justify-content:center}
   .lang{
-    width:min(340px,38vw); aspect-ratio:4/3;
+    width:min(280px,28vw); aspect-ratio:4/3;
     display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px;
   }
   .lang .flag{font-size:clamp(48px,8vw,110px); line-height:1}
@@ -243,11 +243,11 @@
   .actions{display:flex; gap:clamp(10px,1.4vw,20px); justify-content:center; margin-top:clamp(4px,.8vh,10px)}
   /* larger, clearer Back buttons */
   .btn.back{min-width:12ch; padding:clamp(15px,2.3vh,26px) clamp(38px,6vw,68px); font-size:calc(clamp(18px,2.2vw,28px) * var(--fs)); font-weight:800}
-  .btn.num{min-width:3.4ch; padding:clamp(14px,2vh,22px) clamp(24px,3.4vw,40px); font-size:calc(clamp(24px,2.8vw,38px) * var(--fs)); font-weight:800; border-radius:16px}
+  .btn.num{flex:0 0 auto; min-width:3.4ch; padding:clamp(14px,2vh,22px) clamp(24px,3.4vw,40px); font-size:calc(clamp(24px,2.8vw,38px) * var(--fs)); font-weight:800; border-radius:16px}
   .btn.num.gold{background:linear-gradient(180deg,#F5BE52,#E09B22); border-color:#caa23f; color:#241a05}
 
   /* difficulty buttons — colour coded, clear selected state */
-  .btn.diff{border-width:2px; font-weight:800; min-width:6.5ch}
+  .btn.diff{flex:0 0 auto; border-width:2px; font-weight:800; padding:clamp(13px,2vh,22px) clamp(22px,3vw,40px); font-size:calc(clamp(17px,2.1vw,28px) * var(--fs)); border-radius:14px}
   .btn.diff[data-v="easy"]{border-color:var(--good); color:var(--good)}
   .btn.diff[data-v="normal"]{border-color:var(--gold); color:var(--gold)}
   .btn.diff[data-v="hard"]{border-color:var(--bad); color:var(--bad)}
@@ -394,6 +394,7 @@
           <div class="set-opts">
             <button class="btn chip focusable" data-action="setLang" data-v="en">English</button>
             <button class="btn chip focusable" data-action="setLang" data-v="fi">Suomi</button>
+            <button class="btn chip focusable" data-action="setLang" data-v="es">Español</button>
           </div>
         </div>
         <div class="set-row">
@@ -433,6 +434,9 @@
         </button>
         <button class="btn lang focusable" data-action="lang" data-lang="fi">
           <span class="flag">🇫🇮</span><span class="name">Suomi</span>
+        </button>
+        <button class="btn lang focusable" data-action="lang" data-lang="es">
+          <span class="flag">🇪🇸</span><span class="name">Español</span>
         </button>
       </div>
       <button class="btn back focusable" data-action="mainmenu" data-i="back">Back</button>
@@ -671,18 +675,76 @@ const T = {
     pointsWord:"pistettä",
     edgeLabel:"Sovita ruutuun (TV)",
     hint:"Liiku D-padilla · <kbd>OK</kbd> vastaa · <kbd>Back</kbd> passaa & talleta"
+  },
+  es:{
+    chooseLang:"Elige tu idioma",
+    setupTitle:"Configurar el juego",
+    playersLabel:"Número de jugadores",
+    playersUnit:"jugadores",
+    targetLabel:"Puntos para ganar",
+    difficultyLabel:"Dificultad",
+    diffEasy:"Fácil", diffNormal:"Normal", diffHard:"Difícil", diffAll:"Todas",
+    startBtn:"Empezar juego",
+    playAgain:"Jugar de nuevo",
+    mainMenu:"Menú principal",
+    bank:"Guardar puntos",
+    bankZero:"Terminar turno",
+    turn:", tu turno",
+    roundBank:"Ronda: ",
+    pointsShort:"pt",
+    correctBanner:"¡Correcto!",
+    wrongBanner:"¡Incorrecto!",
+    lostRound:"Turno terminado — puntos de la ronda perdidos",
+    bankedPts:"guardó",
+    nextUp:"Siguiente:",
+    winSub:"¡ha llegado primero a la meta!",
+    finalScores:"Puntuación final",
+    pickOne:"Elige una que creas correcta",
+    pass:"Pasar y guardar",
+    roundLabel:"En esta ronda:",
+    passedTag:"PASÓ",
+    bustedTag:"FUERA",
+    roundOver:"Ronda terminada",
+    upNext:"Turno de",
+    startHint:"<span class='press'>OK</span> o toca para empezar",
+    tagline:"El concurso de arriesgar o pasar",
+    newGame:"Nuevo juego",
+    loadGame:"Cargar juego",
+    settings:"Ajustes",
+    settingsTitle:"Ajustes",
+    textSize:"Tamaño de texto y tarjetas",
+    theme:"Tema de color",
+    themeMid:"Medianoche", themeForest:"Bosque", themeNeon:"Neón", themeLight:"Claro",
+    themeOcean:"Océano", themeSunset:"Atardecer", themeGrape:"Uva", themeMono:"Mono", themeSepia:"Sepia",
+    language:"Idioma",
+    confirmAnswersLabel:"Confirmar cada respuesta",
+    confirmBankLabel:"Confirmar guardado",
+    back:"Atrás",
+    saveExit:"💾 Guardar y salir al menú",
+    topicPrompt:"elige el tema de esta ronda",
+    confirmAnswerQ:"Respuesta",
+    confirmBankQ:"Guardar",
+    andPass:"¿y pasar?",
+    yes:"Sí", no:"Cancelar",
+    saved:"Juego guardado",
+    appVersion:"Versión",
+    checkUpdates:"Buscar actualizaciones",
+    updating:"Actualizando…",
+    pointsWord:"puntos",
+    edgeLabel:"Ajustar a pantalla (TV)",
+    hint:"Muévete con el D-pad · <kbd>OK</kbd> responde · <kbd>Atrás</kbd> pasar y guardar"
   }
 };
 
 /* ---------- Topics ---------- */
 const TOPICS = [
-  { key:'geo',   icon:'🌍', en:'Geography',       fi:'Maantiede' },
-  { key:'sci',   icon:'🔬', en:'Science & Nature',fi:'Tiede & luonto' },
-  { key:'arts',  icon:'🎭', en:'Arts & Music',    fi:'Taide & musiikki' },
-  { key:'sport', icon:'⚽', en:'Sport & Games',   fi:'Urheilu & pelit' },
-  { key:'hist',  icon:'🏛️', en:'History',          fi:'Historia' },
-  { key:'gen',   icon:'🧠', en:'General',          fi:'Yleistieto' },
-  { key:'mixed', icon:'🎲', en:'Mixed',            fi:'Sekaisin' }
+  { key:'geo',   icon:'🌍', en:'Geography',       fi:'Maantiede',        es:'Geografía' },
+  { key:'sci',   icon:'🔬', en:'Science & Nature',fi:'Tiede & luonto',   es:'Ciencia y naturaleza' },
+  { key:'arts',  icon:'🎭', en:'Arts & Music',    fi:'Taide & musiikki', es:'Arte y música' },
+  { key:'sport', icon:'⚽', en:'Sport & Games',   fi:'Urheilu & pelit',  es:'Deporte y juegos' },
+  { key:'hist',  icon:'🏛️', en:'History',          fi:'Historia',         es:'Historia' },
+  { key:'gen',   icon:'🧠', en:'General',          fi:'Yleistieto',       es:'General' },
+  { key:'mixed', icon:'🎲', en:'Mixed',            fi:'Sekaisin',         es:'Variado' }
 ];
 
 /* ---------- Question bank ----------
@@ -809,7 +871,7 @@ const QUESTIONS = [
 
 const PLAYER_COLORS = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
-const APP_VERSION = '2.5';
+const APP_VERSION = '2.6';
 
 let questionsStatus = '';
 async function loadQuestions(){
@@ -967,7 +1029,7 @@ function startGame(){
   players = [];
   for(let i=0;i<numPlayers;i++){
     players.push({
-      name:(lang==='fi'?'Pelaaja ':'Player ')+(i+1),
+      name:(lang==='fi'?'Pelaaja ':lang==='es'?'Jugador ':'Player ')+(i+1),
       score:0,
       color:PLAYER_COLORS[i]
     });
@@ -1042,8 +1104,14 @@ function drawQuestion(){
   }
   const qi = topicDecks[key].pop();
   const q = QUESTIONS[qi];
-  const opts = shuffle(q.o).map(o=>({label:o[lang==='fi'?1:0], correct:!!o[2], state:'idle'}));
-  current = { cat:q.cat[lang], opts };
+  const li = lang==='es' ? 2 : lang==='fi' ? 1 : 0;
+  const opts = shuffle(q.o).map(o=>{
+    const correct = !!o[o.length-1];
+    let label = o[li];
+    if(typeof label !== 'string') label = o[0];   // fall back to English
+    return { label, correct, state:'idle' };
+  });
+  current = { cat: (q.cat[lang] || q.cat.en), opts };
 }
 
 /* Start the round with the chosen topic; opener plays immediately (no banner) */
