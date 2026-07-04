@@ -553,6 +553,7 @@
   </div>
 </div>
 
+
 <!-- BANNER overlay -->
 <div class="banner" id="banner">
   <div class="card">
@@ -880,7 +881,7 @@ const QUESTIONS = [
 
 const PLAYER_COLORS = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
-const APP_VERSION = '3.2';
+const APP_VERSION = '3.4';
 
 let questionsStatus = '';
 async function loadQuestions(){
@@ -1583,8 +1584,10 @@ function goBack(){
   if(active==='screen-lang'){ showScreen('screen-menu'); return true; }
   if(active==='screen-win'){ showScreen('screen-menu'); return true; }
   if(active==='screen-game'){ if(turnActive) passTurn(); return true; }
-  return false; // on main menu → allow the browser/app to exit
+  return false; // on main menu → let the system handle it (Fire TV: press Back again to exit)
 }
+// Android wrapper calls this on hardware Back; returns true if handled in-app.
+window.appBack = goBack;
 
 /* Trap the hardware/remote back button so it navigates in-app instead of
    closing the app. Uses the History API: keep one buffered state and re-arm
