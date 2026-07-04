@@ -881,7 +881,7 @@ const QUESTIONS = [
 
 const PLAYER_COLORS = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
-const APP_VERSION = '2.7';
+const APP_VERSION = '2.9';
 
 let questionsStatus = '';
 async function loadQuestions(){
@@ -922,6 +922,9 @@ let playerLang = [];      // per-player question language, remembered for the ga
 const LANG_ORDER = ['en','fi','es'];
 const LANG_FLAG = { en:'🇬🇧', fi:'🇫🇮', es:'🇪🇸' };
 function dispLang(){ return playerLang[turnIdx] || lang; }
+function nameIn(i, L){ return (L==='fi'?'Pelaaja ':L==='es'?'Jugador ':'Player ')+(i+1); }
+function pName(i){ return nameIn(i, dispLang()); }
+function tg(k){ return (T[dispLang()]||T[lang])[k]; }
 function labelFor(o, L){ return (L==='es' ? o.es : L==='fi' ? o.fi : o.en) || o.en; }
 function catFor(c, L){ return c[L] || c.en; }
 let topicDecks = {};     // per-topic shuffled index queues
@@ -1067,7 +1070,7 @@ function buildScorebar(){
     el.dataset.i = i;
     el.innerHTML = `<span class="bar"></span>
       <span class="tag"></span>
-      <span class="pname">${p.name}</span>
+      <span class="pname">${pName(i)}</span>
       <span class="pscore">${p.score}</span>`;
     bar.appendChild(el);
   });
@@ -1076,13 +1079,14 @@ function updateScorebar(){
   $$('#scorebar .pchip').forEach((el,i)=>{
     const base = players[i].score;
     const prov = (pstatus[i]==='active' && roundTokens[i]>0) ? ` +${roundTokens[i]}` : '';
+    el.querySelector('.pname').textContent = pName(i);
     el.querySelector('.pscore').innerHTML = base + (prov?`<span style="color:var(--gold);font-size:.6em"> ${prov.trim()}</span>`:'');
     el.classList.toggle('active', i===turnIdx && pstatus[i]==='active');
     el.classList.toggle('passed', pstatus[i]==='passed');
     el.classList.toggle('busted', pstatus[i]==='busted');
     el.classList.toggle('out', pstatus[i]!=='active');
     const tag = el.querySelector('.tag');
-    tag.textContent = pstatus[i]==='passed' ? tr('passedTag') : (pstatus[i]==='busted' ? tr('bustedTag') : '');
+    tag.textContent = pstatus[i]==='passed' ? tg('passedTag') : (pstatus[i]==='busted' ? tg('bustedTag') : '');
   });
 }
 
@@ -1098,18 +1102,21 @@ function poolFor(topic){
 function chooseTopic(){
   turnActive=false; awaitingTurn=false;
   $('#turnBanner').classList.remove('show');
-  const p = players[roundStarter % players.length];
-  $('#topicTitle').innerHTML = `<span style="color:var(${p.color})">${p.name}</span> — ${tr('topicPrompt')}`;
-  renderTopics();
+  const si = roundStarter % players.length;
+  const sl = playerLang[si] || lang;
+  const prompt = (T[sl]||T[lang]).topicPrompt;
+  $('#topicTitle').innerHTML = `<span style="color:var(${players[si].color})">${nameIn(si, sl)}</span> — ${prompt}`;
+  renderTopics(sl);
   showScreen('screen-topic');
 }
-function renderTopics(){
+function renderTopics(L){
+  L = L || lang;
   const grid = $('#topicGrid'); grid.innerHTML='';
   TOPICS.forEach(t=>{
     const b = document.createElement('button');
     b.className='btn topic focusable';
     b.dataset.action='topic'; b.dataset.topic=t.key;
-    b.innerHTML = `<span class="ticon">${t.icon}</span><span class="tlabel">${t[lang]}</span>`;
+    b.innerHTML = `<span class="ticon">${t.icon}</span><span class="tlabel">${t[L]||t.en}</span>`;
     grid.appendChild(b);
   });
 }
@@ -1151,9 +1158,9 @@ function announceTurn(){
   awaitingTurn = true;
   const p = players[turnIdx];
   $('#turnBanner').style.setProperty('--tc', `var(${p.color})`);
-  $('#tbEye').textContent = tr('upNext');
-  $('#tbName').textContent = p.name;
-  $('#tbHint').innerHTML = tr('startHint');
+  $('#tbEye').textContent = tg('upNext');
+  $('#tbName').textContent = pName(turnIdx);
+  $('#tbHint').innerHTML = tg('startHint');
   $('#turnBanner').classList.add('show');
 }
 
@@ -1193,6 +1200,8 @@ function applyLang(){
     if(t && current.opts[i]) t.textContent = labelFor(current.opts[i], L);
   });
   updateFlag();
+  updateHeader();
+  updateScorebar();
   fitBoard();
 }
 function updateFlag(){
@@ -1243,10 +1252,10 @@ function syncOpt(el,o){
 function updateHeader(){
   const p = players[turnIdx];
   $('#screen-game').style.setProperty('--c-turn', `var(${p.color})`);
-  $('#turnLabel').innerHTML = `<b style="color:var(${p.color})">${p.name}</b>${tr('turn')}`;
-  $('#roundBank').textContent = tr('roundLabel')+' '+roundTokens[turnIdx]+' '+tr('pointsShort');
+  $('#turnLabel').innerHTML = `<b style="color:var(${p.color})">${pName(turnIdx)}</b>${tg('turn')}`;
+  $('#roundBank').textContent = tg('roundLabel')+' '+roundTokens[turnIdx]+' '+tg('pointsShort');
   const pb = $('#passBtn');
-  pb.textContent = `💰 ${tr('pass')}${roundTokens[turnIdx]>0?` (${roundTokens[turnIdx]})`:''}`;
+  pb.textContent = `💰 ${tg('pass')}${roundTokens[turnIdx]>0?` (${roundTokens[turnIdx]})`:''}`;
 }
 
 function focusFirstOption(){
@@ -1272,7 +1281,7 @@ function pickOption(i){
   const o = current.opts[i];
   if(!o || o.state!=='idle') return;
   if(settings.confirmA){
-    askConfirm(`${tr('confirmAnswerQ')}: "${labelFor(o, dispLang())}"?`, ()=>doPick(i));
+    askConfirm(`${tg('confirmAnswerQ')}: "${labelFor(o, dispLang())}"?`, ()=>doPick(i));
   } else doPick(i);
 }
 function doPick(i){
@@ -1299,7 +1308,7 @@ function passTurn(){
   if(!turnActive || pstatus[turnIdx]!=='active') return;
   if(settings.confirmB){
     const n = roundTokens[turnIdx];
-    askConfirm(`${tr('confirmBankQ')} ${n} ${tr('pointsWord')} ${tr('andPass')}`, ()=>doPass());
+    askConfirm(`${tg('confirmBankQ')} ${n} ${tg('pointsWord')} ${tg('andPass')}`, ()=>doPass());
   } else doPass();
 }
 function doPass(){
@@ -1352,11 +1361,15 @@ function endGame(winnerIdx){
   hideBanner();
   awaitingTurn=false; $('#turnBanner').classList.remove('show');
   sfx.win();
+  const WL = playerLang[winnerIdx] || lang;
+  const TW = T[WL] || T[lang];
   const w = players[winnerIdx];
-  const sorted = players.slice().sort((a,b)=>b.score-a.score);
-  $('#winName').innerHTML = `<span style="color:var(${w.color})">${w.name}</span>`;
-  $('#winSub').innerHTML = tr('winSub') + '<br><br><b>'+tr('finalScores')+'</b><br>' +
-    sorted.map(p=>`${p.name}: ${p.score} ${tr('pointsShort')}`).join(' &nbsp;·&nbsp; ');
+  const order = players.map((p,i)=>({i, score:p.score})).sort((a,b)=>b.score-a.score);
+  $('#winName').innerHTML = `<span style="color:var(${w.color})">${nameIn(winnerIdx, WL)}</span>`;
+  $('#winSub').innerHTML = TW.winSub + '<br><br><b>'+TW.finalScores+'</b><br>' +
+    order.map(o=>`${nameIn(o.i, WL)}: ${o.score} ${TW.pointsShort}`).join(' &nbsp;·&nbsp; ');
+  const pa=$('#screen-win [data-action="again"]'); if(pa) pa.textContent = TW.playAgain;
+  const mm=$('#screen-win [data-action="mainmenu"]'); if(mm) mm.textContent = TW.mainMenu;
   showScreen('screen-win');
 }
 
@@ -1374,8 +1387,8 @@ function hideBanner(){ $('#banner').classList.remove('show'); }
 function askConfirm(msg, onYes){
   confirmCb = onYes;
   $('#confirmMsg').textContent = msg;
-  $('#confirmYes').textContent = tr('yes');
-  $('#confirmNo').textContent = tr('no');
+  $('#confirmYes').textContent = tg('yes');
+  $('#confirmNo').textContent = tg('no');
   $('#confirmBox').classList.add('show');
   requestAnimationFrame(()=> setFocus($('#confirmYes')));
 }
