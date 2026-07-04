@@ -1,1 +1,85 @@
+name: Build APK
 
+# Fully self-contained: creates the whole Android project in CI, bundles the
+# game from the repo root, generates an icon, and builds a shareable APK.
+# You only need THIS file in the repo (plus quiz10.html and questions.json).
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+
+      - name: Generate Android project files
+        run: |
+          mkdir -p "$(dirname android/settings.gradle)"
+          echo cGx1Z2luTWFuYWdlbWVudCB7CiAgICByZXBvc2l0b3JpZXMgewogICAgICAgIGdvb2dsZSgpCiAgICAgICAgbWF2ZW5DZW50cmFsKCkKICAgICAgICBncmFkbGVQbHVnaW5Qb3J0YWwoKQogICAgfQp9CmRlcGVuZGVuY3lSZXNvbHV0aW9uTWFuYWdlbWVudCB7CiAgICByZXBvc2l0b3JpZXNNb2RlLnNldChSZXBvc2l0b3JpZXNNb2RlLkZBSUxfT05fUFJPSkVDVF9SRVBPUykKICAgIHJlcG9zaXRvcmllcyB7CiAgICAgICAgZ29vZ2xlKCkKICAgICAgICBtYXZlbkNlbnRyYWwoKQogICAgfQp9CnJvb3RQcm9qZWN0Lm5hbWUgPSAiUHViIFF1aXoiCmluY2x1ZGUgJzphcHAnCg== | base64 -d > android/settings.gradle
+          mkdir -p "$(dirname android/build.gradle)"
+          echo cGx1Z2lucyB7CiAgICBpZCAnY29tLmFuZHJvaWQuYXBwbGljYXRpb24nIHZlcnNpb24gJzguNi4xJyBhcHBseSBmYWxzZQp9Cg== | base64 -d > android/build.gradle
+          mkdir -p "$(dirname android/gradle.properties)"
+          echo YW5kcm9pZC51c2VBbmRyb2lkWD10cnVlCm9yZy5ncmFkbGUuanZtYXJncz0tWG14MjA0OG0gLURmaWxlLmVuY29kaW5nPVVURi04Cm9yZy5ncmFkbGUuY2FjaGluZz10cnVlCg== | base64 -d > android/gradle.properties
+          mkdir -p "$(dirname android/app/build.gradle)"
+          echo cGx1Z2lucyB7CiAgICBpZCAnY29tLmFuZHJvaWQuYXBwbGljYXRpb24nCn0KCmFuZHJvaWQgewogICAgbmFtZXNwYWNlICdjb20uYWl2by5wdWJxdWl6JwogICAgY29tcGlsZVNkayAzNQoKICAgIGRlZmF1bHRDb25maWcgewogICAgICAgIGFwcGxpY2F0aW9uSWQgImNvbS5haXZvLnB1YnF1aXoiCiAgICAgICAgbWluU2RrIDIxCiAgICAgICAgdGFyZ2V0U2RrIDM1CiAgICAgICAgdmVyc2lvbkNvZGUgMQogICAgICAgIHZlcnNpb25OYW1lICIxLjAiCiAgICB9CgogICAgYnVpbGRUeXBlcyB7CiAgICAgICAgcmVsZWFzZSB7CiAgICAgICAgICAgIG1pbmlmeUVuYWJsZWQgZmFsc2UKICAgICAgICAgICAgcHJvZ3VhcmRGaWxlcyBnZXREZWZhdWx0UHJvZ3VhcmRGaWxlKCdwcm9ndWFyZC1hbmRyb2lkLW9wdGltaXplLnR4dCcpLCAncHJvZ3VhcmQtcnVsZXMucHJvJwogICAgICAgIH0KICAgIH0KCiAgICBjb21waWxlT3B0aW9ucyB7CiAgICAgICAgc291cmNlQ29tcGF0aWJpbGl0eSBKYXZhVmVyc2lvbi5WRVJTSU9OXzE3CiAgICAgICAgdGFyZ2V0Q29tcGF0aWJpbGl0eSBKYXZhVmVyc2lvbi5WRVJTSU9OXzE3CiAgICB9Cn0KCmRlcGVuZGVuY2llcyB7CiAgICBpbXBsZW1lbnRhdGlvbiAnYW5kcm9pZHguYXBwY29tcGF0OmFwcGNvbXBhdDoxLjcuMCcKICAgIGltcGxlbWVudGF0aW9uICdhbmRyb2lkeC53ZWJraXQ6d2Via2l0OjEuMTEuMCcKfQo= | base64 -d > android/app/build.gradle
+          mkdir -p "$(dirname android/app/proguard-rules.pro)"
+          echo IyBLZWVwIGRlZmF1bHQgcnVsZXMuIE5vdGhpbmcgY3VzdG9tIG5lZWRlZCBmb3IgdGhpcyBXZWJWaWV3IGFwcC4K | base64 -d > android/app/proguard-rules.pro
+          mkdir -p "$(dirname android/app/src/main/AndroidManifest.xml)"
+          echo PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPG1hbmlmZXN0IHhtbG5zOmFuZHJvaWQ9Imh0dHA6Ly9zY2hlbWFzLmFuZHJvaWQuY29tL2Fway9yZXMvYW5kcm9pZCI+CgogICAgPHVzZXMtcGVybWlzc2lvbiBhbmRyb2lkOm5hbWU9ImFuZHJvaWQucGVybWlzc2lvbi5JTlRFUk5FVCIgLz4KCiAgICA8YXBwbGljYXRpb24KICAgICAgICBhbmRyb2lkOmFsbG93QmFja3VwPSJ0cnVlIgogICAgICAgIGFuZHJvaWQ6aWNvbj0iQG1pcG1hcC9pY19sYXVuY2hlciIKICAgICAgICBhbmRyb2lkOmxhYmVsPSJAc3RyaW5nL2FwcF9uYW1lIgogICAgICAgIGFuZHJvaWQ6cm91bmRJY29uPSJAbWlwbWFwL2ljX2xhdW5jaGVyX3JvdW5kIgogICAgICAgIGFuZHJvaWQ6c3VwcG9ydHNSdGw9InRydWUiCiAgICAgICAgYW5kcm9pZDp0aGVtZT0iQHN0eWxlL1RoZW1lLkFwcENvbXBhdC5Ob0FjdGlvbkJhciI+CgogICAgICAgIDxhY3Rpdml0eQogICAgICAgICAgICBhbmRyb2lkOm5hbWU9Ii5NYWluQWN0aXZpdHkiCiAgICAgICAgICAgIGFuZHJvaWQ6ZXhwb3J0ZWQ9InRydWUiCiAgICAgICAgICAgIGFuZHJvaWQ6c2NyZWVuT3JpZW50YXRpb249ImZ1bGxTZW5zb3IiCiAgICAgICAgICAgIGFuZHJvaWQ6Y29uZmlnQ2hhbmdlcz0ib3JpZW50YXRpb258c2NyZWVuU2l6ZXxrZXlib2FyZEhpZGRlbnxzY3JlZW5MYXlvdXQiPgogICAgICAgICAgICA8aW50ZW50LWZpbHRlcj4KICAgICAgICAgICAgICAgIDxhY3Rpb24gYW5kcm9pZDpuYW1lPSJhbmRyb2lkLmludGVudC5hY3Rpb24uTUFJTiIgLz4KICAgICAgICAgICAgICAgIDxjYXRlZ29yeSBhbmRyb2lkOm5hbWU9ImFuZHJvaWQuaW50ZW50LmNhdGVnb3J5LkxBVU5DSEVSIiAvPgogICAgICAgICAgICA8L2ludGVudC1maWx0ZXI+CiAgICAgICAgPC9hY3Rpdml0eT4KCiAgICA8L2FwcGxpY2F0aW9uPgo8L21hbmlmZXN0Pgo= | base64 -d > android/app/src/main/AndroidManifest.xml
+          mkdir -p "$(dirname android/app/src/main/java/com/aivo/pubquiz/MainActivity.java)"
+          echo cGFja2FnZSBjb20uYWl2by5wdWJxdWl6OwoKaW1wb3J0IGFuZHJvaWQuYW5ub3RhdGlvbi5TdXBwcmVzc0xpbnQ7CmltcG9ydCBhbmRyb2lkLm9zLkJ1bmRsZTsKaW1wb3J0IGFuZHJvaWQudmlldy5WaWV3OwppbXBvcnQgYW5kcm9pZC53ZWJraXQuV2ViUmVzb3VyY2VSZXF1ZXN0OwppbXBvcnQgYW5kcm9pZC53ZWJraXQuV2ViUmVzb3VyY2VSZXNwb25zZTsKaW1wb3J0IGFuZHJvaWQud2Via2l0LldlYlNldHRpbmdzOwppbXBvcnQgYW5kcm9pZC53ZWJraXQuV2ViVmlldzsKaW1wb3J0IGFuZHJvaWQud2Via2l0LldlYlZpZXdDbGllbnQ7CgppbXBvcnQgYW5kcm9pZHguYXBwY29tcGF0LmFwcC5BcHBDb21wYXRBY3Rpdml0eTsKaW1wb3J0IGFuZHJvaWR4LndlYmtpdC5XZWJWaWV3QXNzZXRMb2FkZXI7CgpwdWJsaWMgY2xhc3MgTWFpbkFjdGl2aXR5IGV4dGVuZHMgQXBwQ29tcGF0QWN0aXZpdHkgewoKICAgIHByaXZhdGUgV2ViVmlldyB3ZWI7CgogICAgLy8gTG9hZCB0aGUgZ2FtZSBidW5kbGVkIGluc2lkZSB0aGUgQVBLICh3b3JrcyBvZmZsaW5lKS4gVG8gbG9hZCB0aGUgbGl2ZQogICAgLy8gR2l0SHViIFBhZ2VzIHNpdGUgaW5zdGVhZCAoYXV0by11cGRhdGVzLCBuZWVkcyBpbnRlcm5ldCksIHNldCB0aGlzIGZhbHNlLgogICAgcHJpdmF0ZSBzdGF0aWMgZmluYWwgYm9vbGVhbiBVU0VfQlVORExFRCA9IHRydWU7CiAgICBwcml2YXRlIHN0YXRpYyBmaW5hbCBTdHJpbmcgQlVORExFRF9VUkwgPSAiaHR0cHM6Ly9hcHBhc3NldHMuYW5kcm9pZHBsYXRmb3JtLm5ldC9hc3NldHMvcXVpejEwLmh0bWwiOwogICAgcHJpdmF0ZSBzdGF0aWMgZmluYWwgU3RyaW5nIExJVkVfVVJMICAgID0gImh0dHBzOi8vYWl2bzg4LmdpdGh1Yi5pby9RdWl6MTAvcXVpejEwLmh0bWwiOwoKICAgIEBTdXBwcmVzc0xpbnQoIlNldEphdmFTY3JpcHRFbmFibGVkIikKICAgIEBPdmVycmlkZQogICAgcHJvdGVjdGVkIHZvaWQgb25DcmVhdGUoQnVuZGxlIHNhdmVkSW5zdGFuY2VTdGF0ZSkgewogICAgICAgIHN1cGVyLm9uQ3JlYXRlKHNhdmVkSW5zdGFuY2VTdGF0ZSk7CgogICAgICAgIGZpbmFsIFdlYlZpZXdBc3NldExvYWRlciBhc3NldExvYWRlciA9IG5ldyBXZWJWaWV3QXNzZXRMb2FkZXIuQnVpbGRlcigpCiAgICAgICAgICAgICAgICAuYWRkUGF0aEhhbmRsZXIoIi9hc3NldHMvIiwgbmV3IFdlYlZpZXdBc3NldExvYWRlci5Bc3NldHNQYXRoSGFuZGxlcih0aGlzKSkKICAgICAgICAgICAgICAgIC5idWlsZCgpOwoKICAgICAgICB3ZWIgPSBuZXcgV2ViVmlldyh0aGlzKTsKICAgICAgICBzZXRDb250ZW50Vmlldyh3ZWIpOwoKICAgICAgICBXZWJTZXR0aW5ncyBzID0gd2ViLmdldFNldHRpbmdzKCk7CiAgICAgICAgcy5zZXRKYXZhU2NyaXB0RW5hYmxlZCh0cnVlKTsKICAgICAgICBzLnNldERvbVN0b3JhZ2VFbmFibGVkKHRydWUpOyAgICAgICAgICAgICAgICAgICAgICAgLy8gbG9jYWxTdG9yYWdlIChzZXR0aW5ncykKICAgICAgICBzLnNldE1lZGlhUGxheWJhY2tSZXF1aXJlc1VzZXJHZXN0dXJlKGZhbHNlKTsgICAgICAgLy8gYWxsb3cgc291bmQgZWZmZWN0cwogICAgICAgIHMuc2V0Q2FjaGVNb2RlKFdlYlNldHRpbmdzLkxPQURfREVGQVVMVCk7CgogICAgICAgIHdlYi5zZXRXZWJWaWV3Q2xpZW50KG5ldyBXZWJWaWV3Q2xpZW50KCkgewogICAgICAgICAgICBAT3ZlcnJpZGUKICAgICAgICAgICAgcHVibGljIFdlYlJlc291cmNlUmVzcG9uc2Ugc2hvdWxkSW50ZXJjZXB0UmVxdWVzdChXZWJWaWV3IHZpZXcsIFdlYlJlc291cmNlUmVxdWVzdCByZXF1ZXN0KSB7CiAgICAgICAgICAgICAgICByZXR1cm4gYXNzZXRMb2FkZXIuc2hvdWxkSW50ZXJjZXB0UmVxdWVzdChyZXF1ZXN0LmdldFVybCgpKTsKICAgICAgICAgICAgfQogICAgICAgICAgICBAT3ZlcnJpZGUKICAgICAgICAgICAgcHVibGljIGJvb2xlYW4gc2hvdWxkT3ZlcnJpZGVVcmxMb2FkaW5nKFdlYlZpZXcgdmlldywgV2ViUmVzb3VyY2VSZXF1ZXN0IHJlcXVlc3QpIHsKICAgICAgICAgICAgICAgIHJldHVybiBmYWxzZTsgLy8ga2VlcCBhbGwgbmF2aWdhdGlvbiBpbnNpZGUgdGhlIFdlYlZpZXcKICAgICAgICAgICAgfQogICAgICAgIH0pOwoKICAgICAgICB3ZWIuc2V0S2VlcFNjcmVlbk9uKHRydWUpOwogICAgICAgIGhpZGVTeXN0ZW1CYXJzKCk7CgogICAgICAgIHdlYi5sb2FkVXJsKFVTRV9CVU5ETEVEID8gQlVORExFRF9VUkwgOiBMSVZFX1VSTCk7CiAgICB9CgogICAgcHJpdmF0ZSB2b2lkIGhpZGVTeXN0ZW1CYXJzKCkgewogICAgICAgIFZpZXcgZGVjb3IgPSBnZXRXaW5kb3coKS5nZXREZWNvclZpZXcoKTsKICAgICAgICBkZWNvci5zZXRTeXN0ZW1VaVZpc2liaWxpdHkoCiAgICAgICAgICAgICAgICBWaWV3LlNZU1RFTV9VSV9GTEFHX0lNTUVSU0lWRV9TVElDS1kKICAgICAgICAgICAgICAgICAgICAgICAgfCBWaWV3LlNZU1RFTV9VSV9GTEFHX0ZVTExTQ1JFRU4KICAgICAgICAgICAgICAgICAgICAgICAgfCBWaWV3LlNZU1RFTV9VSV9GTEFHX0hJREVfTkFWSUdBVElPTgogICAgICAgICAgICAgICAgICAgICAgICB8IFZpZXcuU1lTVEVNX1VJX0ZMQUdfTEFZT1VUX1NUQUJMRQogICAgICAgICAgICAgICAgICAgICAgICB8IFZpZXcuU1lTVEVNX1VJX0ZMQUdfTEFZT1VUX0ZVTExTQ1JFRU4KICAgICAgICAgICAgICAgICAgICAgICAgfCBWaWV3LlNZU1RFTV9VSV9GTEFHX0xBWU9VVF9ISURFX05BVklHQVRJT04pOwogICAgfQoKICAgIEBPdmVycmlkZQogICAgcHVibGljIHZvaWQgb25XaW5kb3dGb2N1c0NoYW5nZWQoYm9vbGVhbiBoYXNGb2N1cykgewogICAgICAgIHN1cGVyLm9uV2luZG93Rm9jdXNDaGFuZ2VkKGhhc0ZvY3VzKTsKICAgICAgICBpZiAoaGFzRm9jdXMpIGhpZGVTeXN0ZW1CYXJzKCk7CiAgICB9CgogICAgQE92ZXJyaWRlCiAgICBwdWJsaWMgdm9pZCBvbkJhY2tQcmVzc2VkKCkgewogICAgICAgIC8vIExldCB0aGUgZ2FtZSdzIG93biBpbi1wYWdlIGJhY2sgbmF2aWdhdGlvbiB3b3JrIGZpcnN0CiAgICAgICAgaWYgKHdlYiAhPSBudWxsICYmIHdlYi5jYW5Hb0JhY2soKSkgewogICAgICAgICAgICB3ZWIuZ29CYWNrKCk7CiAgICAgICAgfSBlbHNlIHsKICAgICAgICAgICAgc3VwZXIub25CYWNrUHJlc3NlZCgpOwogICAgICAgIH0KICAgIH0KfQo= | base64 -d > android/app/src/main/java/com/aivo/pubquiz/MainActivity.java
+          mkdir -p "$(dirname android/app/src/main/res/values/strings.xml)"
+          echo PHJlc291cmNlcz4KICAgIDxzdHJpbmcgbmFtZT0iYXBwX25hbWUiPlB1YiBRdWl6PC9zdHJpbmc+CjwvcmVzb3VyY2VzPgo= | base64 -d > android/app/src/main/res/values/strings.xml
+
+      - name: Generate launcher icon
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq imagemagick fonts-dejavu-core
+          FONT=/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf
+          convert -size 432x432 xc:'#0E1428' \
+            -font "$FONT" \
+            -fill '#F5F1E6' -pointsize 96  -gravity North -annotate +0+70  'PUB' \
+            -fill '#F2B138' -draw 'roundrectangle 62,235 370,378 30,30' \
+            -fill '#12142A' -pointsize 90  -gravity North -annotate +0+250 'QUIZ' \
+            /tmp/ic.png
+          for pair in mdpi:48 hdpi:72 xhdpi:96 xxhdpi:144 xxxhdpi:192; do
+            name="${pair%%:*}"; size="${pair##*:}"
+            dir="android/app/src/main/res/mipmap-$name"
+            mkdir -p "$dir"
+            convert /tmp/ic.png -resize "${size}x${size}" "$dir/ic_launcher.png"
+            cp "$dir/ic_launcher.png" "$dir/ic_launcher_round.png"
+          done
+
+      - name: Bundle game + questions into app assets
+        run: |
+          mkdir -p android/app/src/main/assets
+          cp quiz10.html    android/app/src/main/assets/quiz10.html
+          cp questions.json android/app/src/main/assets/questions.json
+
+      - name: Build debug APK
+        working-directory: android
+        run: gradle assembleDebug --no-daemon --stacktrace
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: PubQuiz-apk
+          path: android/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
