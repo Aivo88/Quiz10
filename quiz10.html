@@ -146,8 +146,7 @@
   body.kbd .btn.focused{
     border-color:var(--focus);
     background:var(--panel2);
-    transform:scale(1.045);
-    box-shadow:0 0 0 4px rgba(255,224,138,.35), 0 12px 34px rgba(0,0,0,.45);
+    box-shadow:inset 0 0 0 3px var(--focus);
   }
   body.kbd .btn.gold.focused{background:linear-gradient(180deg,#FFD277,#F0AB2E)}
   body.kbd .btn.good.focused{background:linear-gradient(180deg,#57efb6,#2fc793)}
@@ -881,7 +880,7 @@ const QUESTIONS = [
 
 const PLAYER_COLORS = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
-const APP_VERSION = '3.1';
+const APP_VERSION = '3.2';
 
 let questionsStatus = '';
 async function loadQuestions(){
