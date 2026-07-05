@@ -288,6 +288,20 @@
 
   /* Win confetti-ish crown */
   .crown{font-size:clamp(50px,9vw,120px); line-height:1}
+  .wb-title{ font-weight:800; color:var(--muted); letter-spacing:.06em; text-transform:uppercase;
+             font-size:calc(clamp(13px,1.5vw,18px) * var(--fs)); margin-top:clamp(10px,2vh,20px); }
+  .winboard{ display:flex; flex-direction:column; gap:clamp(8px,1.2vh,14px);
+             width:min(620px,94vw); margin:clamp(12px,2vh,20px) auto 0; }
+  .wb-row{ display:flex; align-items:center; gap:clamp(12px,2vw,22px);
+           background:var(--panel); border:2px solid var(--line); border-left:8px solid var(--c);
+           border-radius:14px; padding:clamp(10px,1.7vh,18px) clamp(16px,2.6vw,28px); }
+  .wb-row.first{ border-color:var(--gold); background:var(--panel2); }
+  .wb-rank{ min-width:1.7em; text-align:center; font-weight:800; color:var(--muted);
+            font-size:calc(clamp(20px,2.6vw,34px) * var(--fs)); }
+  .wb-name{ flex:1; text-align:left; font-weight:800; color:var(--ink);
+            font-size:calc(clamp(17px,2vw,26px) * var(--fs)); }
+  .wb-score{ font-weight:800; color:var(--gold);
+             font-size:calc(clamp(17px,2vw,26px) * var(--fs)); }
 
   /* turn announcement */
   #turnBanner .card{cursor:pointer}
@@ -574,6 +588,8 @@
       <div class="crown">👑</div>
       <h2 class="q-title" id="winName"></h2>
       <div class="sub" id="winSub"></div>
+      <div class="wb-title" id="winBoardTitle"></div>
+      <div class="winboard" id="winBoard"></div>
       <div class="row">
         <button class="btn gold focusable" data-focus data-action="again" data-i="playAgain">Play again</button>
         <button class="btn ghost focusable" data-action="mainmenu" data-i="mainMenu">Main menu</button>
@@ -952,7 +968,7 @@ const QUESTIONS = [
 
 const PLAYER_COLORS = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
-const APP_VERSION = '3.6';
+const APP_VERSION = '3.7';
 
 let questionsStatus = '';
 const QCACHE_KEY = 'quiz10_qcache';
@@ -1575,6 +1591,7 @@ function endRound(){
   setTimeout(chooseTopic, 900);
 }
 
+function rankMedal(rank){ return rank===1?'🥇':rank===2?'🥈':rank===3?'🥉':(rank+'.'); }
 function endGame(winnerIdx){
   hideBanner();
   awaitingTurn=false; $('#turnBanner').classList.remove('show');
@@ -1582,10 +1599,21 @@ function endGame(winnerIdx){
   const WL = playerLang[winnerIdx] || lang;
   const TW = T[WL] || T[lang];
   const w = players[winnerIdx];
-  const order = players.map((p,i)=>({i, score:p.score})).sort((a,b)=>b.score-a.score);
   $('#winName').innerHTML = `<span style="color:var(${w.color})">${nameIn(winnerIdx, WL)}</span>`;
-  $('#winSub').innerHTML = TW.winSub + '<br><br><b>'+TW.finalScores+'</b><br>' +
-    order.map(o=>`${nameIn(o.i, WL)}: ${o.score} ${TW.pointsShort}`).join(' &nbsp;·&nbsp; ');
+  $('#winSub').innerHTML = TW.winSub;
+  $('#winBoardTitle').textContent = TW.finalScores;
+
+  // Rank by score, with shared places for equal scores
+  const order = players.map((p,i)=>({i, score:p.score, color:p.color}))
+                       .sort((a,b)=> b.score - a.score);
+  order.forEach(o => { o.rank = 1 + order.filter(x => x.score > o.score).length; });
+  $('#winBoard').innerHTML = order.map(o=>`
+    <div class="wb-row${o.rank===1?' first':''}" style="--c:var(${o.color})">
+      <span class="wb-rank">${rankMedal(o.rank)}</span>
+      <span class="wb-name">${nameIn(o.i, WL)}</span>
+      <span class="wb-score">${o.score} ${TW.pointsShort}</span>
+    </div>`).join('');
+
   const pa=$('#screen-win [data-action="again"]'); if(pa) pa.textContent = TW.playAgain;
   const mm=$('#screen-win [data-action="mainmenu"]'); if(mm) mm.textContent = TW.mainMenu;
   showScreen('screen-win');
