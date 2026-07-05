@@ -14269,5 +14269,2348 @@
         0
       ]
     ]
+  },
+  {
+    "topic": "gen",
+    "d": "easy",
+    "cat": {
+      "en": "Which of these are found in a car?",
+      "fi": "Mitä näistä on autossa?",
+      "es": "¿Cuáles de estos hay en un coche?"
+    },
+    "o": [
+      [
+        "Steering wheel",
+        "Ohjauspyörä",
+        "Volante",
+        1
+      ],
+      [
+        "Seatbelt",
+        "Turvavyö",
+        "Cinturón",
+        1
+      ],
+      [
+        "Engine",
+        "Moottori",
+        "Motor",
+        1
+      ],
+      [
+        "Pillow",
+        "Tyyny",
+        "Almohada",
+        0
+      ],
+      [
+        "Tyres",
+        "Renkaat",
+        "Neumáticos",
+        1
+      ],
+      [
+        "Sofa",
+        "Sohva",
+        "Sofá",
+        0
+      ],
+      [
+        "Mirror",
+        "Peili",
+        "Espejo",
+        1
+      ],
+      [
+        "Bathtub",
+        "Kylpyamme",
+        "Bañera",
+        0
+      ],
+      [
+        "Brakes",
+        "Jarrut",
+        "Frenos",
+        1
+      ],
+      [
+        "Headlights",
+        "Ajovalot",
+        "Faros",
+        1
+      ]
+    ]
+  },
+  {
+    "topic": "gen",
+    "d": "easy",
+    "cat": {
+      "en": "Which of these are cold?",
+      "fi": "Mitkä näistä ovat kylmiä?",
+      "es": "¿Cuáles de estos son fríos?"
+    },
+    "o": [
+      [
+        "Ice",
+        "Jää",
+        "Hielo",
+        1
+      ],
+      [
+        "Snow",
+        "Lumi",
+        "Nieve",
+        1
+      ],
+      [
+        "Fridge",
+        "Jääkaappi",
+        "Nevera",
+        1
+      ],
+      [
+        "Fire",
+        "Tuli",
+        "Fuego",
+        0
+      ],
+      [
+        "Winter",
+        "Talvi",
+        "Invierno",
+        1
+      ],
+      [
+        "Sun",
+        "Aurinko",
+        "Sol",
+        0
+      ],
+      [
+        "Ice cream",
+        "Jäätelö",
+        "Helado",
+        1
+      ],
+      [
+        "Lava",
+        "Laava",
+        "Lava",
+        0
+      ],
+      [
+        "Freezer",
+        "Pakastin",
+        "Congelador",
+        1
+      ],
+      [
+        "Iceberg",
+        "Jäävuori",
+        "Iceberg",
+        1
+      ]
+    ]
+  },
+  {
+    "topic": "gen",
+    "d": "easy",
+    "cat": {
+      "en": "Which of these are hot?",
+      "fi": "Mitkä näistä ovat kuumia?",
+      "es": "¿Cuáles de estos son calientes?"
+    },
+    "o": [
+      [
+        "Sun",
+        "Aurinko",
+        "Sol",
+        1
+      ],
+      [
+        "Fire",
+        "Tuli",
+        "Fuego",
+        1
+      ],
+      [
+        "Lava",
+        "Laava",
+        "Lava",
+        1
+      ],
+      [
+        "Ice",
+        "Jää",
+        "Hielo",
+        0
+      ],
+      [
+        "Oven",
+        "Uuni",
+        "Horno",
+        1
+      ],
+      [
+        "Snow",
+        "Lumi",
+        "Nieve",
+        0
+      ],
+      [
+        "Coffee",
+        "Kahvi",
+        "Café",
+        1
+      ],
+      [
+        "Iceberg",
+        "Jäävuori",
+        "Iceberg",
+        0
+      ],
+      [
+        "Steam",
+        "Höyry",
+        "Vapor",
+        1
+      ],
+      [
+        "Desert",
+        "Aavikko",
+        "Desierto",
+        1
+      ]
+    ]
+  },
+  {
+    "topic": "gen",
+    "d": "easy",
+    "cat": {
+      "en": "Which of these have legs?",
+      "fi": "Millä näistä on jalat?",
+      "es": "¿Cuáles de estos tienen patas?"
+    },
+    "o": [
+      [
+        "Dog",
+        "Koira",
+        "Perro",
+        1
+      ],
+      [
+        "Table",
+        "Pöytä",
+        "Mesa",
+        1
+      ],
+      [
+        "Chair",
+        "Tuoli",
+        "Silla",
+        1
+      ],
+      [
+        "Fish",
+        "Kala",
+        "Pez",
+        0
+      ],
+      [
+        "Horse",
+        "Hevonen",
+        "Caballo",
+        1
+      ],
+      [
+        "Snake",
+        "Käärme",
+        "Serpiente",
+        0
+      ],
+      [
+        "Human",
+        "Ihminen",
+        "Humano",
+        1
+      ],
+      [
+        "Ball",
+        "Pallo",
+        "Pelota",
+        0
+      ],
+      [
+        "Spider",
+        "Hämähäkki",
+        "Araña",
+        1
+      ],
+      [
+        "Cow",
+        "Lehmä",
+        "Vaca",
+        1
+      ]
+    ]
+  },
+  {
+    "topic": "sci",
+    "d": "easy",
+    "cat": {
+      "en": "Which of these can swim?",
+      "fi": "Mitkä näistä osaavat uida?",
+      "es": "¿Cuáles de estos pueden nadar?"
+    },
+    "o": [
+      [
+        "Fish",
+        "Kala",
+        "Pez",
+        1
+      ],
+      [
+        "Duck",
+        "Ankka",
+        "Pato",
+        1
+      ],
+      [
+        "Dolphin",
+        "Delfiini",
+        "Delfín",
+        1
+      ],
+      [
+        "Chicken",
+        "Kana",
+        "Gallina",
+        0
+      ],
+      [
+        "Whale",
+        "Valas",
+        "Ballena",
+        1
+      ],
+      [
+        "Eagle",
+        "Kotka",
+        "Águila",
+        0
+      ],
+      [
+        "Frog",
+        "Sammakko",
+        "Rana",
+        1
+      ],
+      [
+        "Lion",
+        "Leijona",
+        "León",
+        0
+      ],
+      [
+        "Penguin",
+        "Pingviini",
+        "Pingüino",
+        1
+      ],
+      [
+        "Shark",
+        "Hai",
+        "Tiburón",
+        1
+      ]
+    ]
+  },
+  {
+    "topic": "gen",
+    "d": "easy",
+    "cat": {
+      "en": "Which of these are green?",
+      "fi": "Mitkä näistä ovat vihreitä?",
+      "es": "¿Cuáles de estos son verdes?"
+    },
+    "o": [
+      [
+        "Grass",
+        "Ruoho",
+        "Hierba",
+        1
+      ],
+      [
+        "Leaf",
+        "Lehti",
+        "Hoja",
+        1
+      ],
+      [
+        "Frog",
+        "Sammakko",
+        "Rana",
+        1
+      ],
+      [
+        "Sun",
+        "Aurinko",
+        "Sol",
+        0
+      ],
+      [
+        "Cucumber",
+        "Kurkku",
+        "Pepino",
+        1
+      ],
+      [
+        "Fire",
+        "Tuli",
+        "Fuego",
+        0
+      ],
+      [
+        "Lime",
+        "Lime",
+        "Lima",
+        1
+      ],
+      [
+        "Snow",
+        "Lumi",
+        "Nieve",
+        0
+      ],
+      [
+        "Broccoli",
+        "Parsakaali",
+        "Brócoli",
+        1
+      ],
+      [
+        "Lettuce",
+        "Salaatti",
+        "Lechuga",
+        1
+      ]
+    ]
+  },
+  {
+    "topic": "gen",
+    "d": "easy",
+    "cat": {
+      "en": "Which of these are yellow?",
+      "fi": "Mitkä näistä ovat keltaisia?",
+      "es": "¿Cuáles de estos son amarillos?"
+    },
+    "o": [
+      [
+        "Banana",
+        "Banaani",
+        "Plátano",
+        1
+      ],
+      [
+        "Sun",
+        "Aurinko",
+        "Sol",
+        1
+      ],
+      [
+        "Lemon",
+        "Sitruuna",
+        "Limón",
+        1
+      ],
+      [
+        "Grass",
+        "Ruoho",
+        "Hierba",
+        0
+      ],
+      [
+        "Corn",
+        "Maissi",
+        "Maíz",
+        1
+      ],
+      [
+        "Sky",
+        "Taivas",
+        "Cielo",
+        0
+      ],
+      [
+        "Cheese",
+        "Juusto",
+        "Queso",
+        1
+      ],
+      [
+        "Snow",
+        "Lumi",
+        "Nieve",
+        0
+      ],
+      [
+        "Sunflower",
+        "Auringonkukka",
+        "Girasol",
+        1
+      ],
+      [
+        "Chick",
+        "Tipu",
+        "Pollito",
+        1
+      ]
+    ]
+  },
+  {
+    "topic": "gen",
+    "d": "easy",
+    "cat": {
+      "en": "Which of these are in a bedroom?",
+      "fi": "Mitä näistä on makuuhuoneessa?",
+      "es": "¿Cuáles de estos hay en un dormitorio?"
+    },
+    "o": [
+      [
+        "Bed",
+        "Sänky",
+        "Cama",
+        1
+      ],
+      [
+        "Pillow",
+        "Tyyny",
+        "Almohada",
+        1
+      ],
+      [
+        "Wardrobe",
+        "Vaatekaappi",
+        "Armario",
+        1
+      ],
+      [
+        "Oven",
+        "Uuni",
+        "Horno",
+        0
+      ],
+      [
+        "Blanket",
+        "Peitto",
+        "Manta",
+        1
+      ],
+      [
+        "Toilet",
+        "WC",
+        "Inodoro",
+        0
+      ],
+      [
+        "Lamp",
+        "Lamppu",
+        "Lámpara",
+        1
+      ],
+      [
+        "Stove",
+        "Liesi",
+        "Fogón",
+        0
+      ],
+      [
+        "Alarm clock",
+        "Herätyskello",
+        "Despertador",
+        1
+      ],
+      [
+        "Dresser",
+        "Lipasto",
+        "Cómoda",
+        1
+      ]
+    ]
+  },
+  {
+    "topic": "gen",
+    "d": "easy",
+    "cat": {
+      "en": "Which of these give light?",
+      "fi": "Mitkä näistä antavat valoa?",
+      "es": "¿Cuáles de estos dan luz?"
+    },
+    "o": [
+      [
+        "Sun",
+        "Aurinko",
+        "Sol",
+        1
+      ],
+      [
+        "Lamp",
+        "Lamppu",
+        "Lámpara",
+        1
+      ],
+      [
+        "Candle",
+        "Kynttilä",
+        "Vela",
+        1
+      ],
+      [
+        "Rock",
+        "Kivi",
+        "Piedra",
+        0
+      ],
+      [
+        "Torch",
+        "Taskulamppu",
+        "Linterna",
+        1
+      ],
+      [
+        "Book",
+        "Kirja",
+        "Libro",
+        0
+      ],
+      [
+        "Fire",
+        "Tuli",
+        "Fuego",
+        1
+      ],
+      [
+        "Water",
+        "Vesi",
+        "Agua",
+        0
+      ],
+      [
+        "Lightbulb",
+        "Hehkulamppu",
+        "Bombilla",
+        1
+      ],
+      [
+        "Stars",
+        "Tähdet",
+        "Estrellas",
+        1
+      ]
+    ]
+  },
+  {
+    "topic": "gen",
+    "d": "easy",
+    "cat": {
+      "en": "Which of these are toys?",
+      "fi": "Mitkä näistä ovat leluja?",
+      "es": "¿Cuáles de estos son juguetes?"
+    },
+    "o": [
+      [
+        "Ball",
+        "Pallo",
+        "Pelota",
+        1
+      ],
+      [
+        "Doll",
+        "Nukke",
+        "Muñeca",
+        1
+      ],
+      [
+        "Teddy bear",
+        "Nalle",
+        "Osito de peluche",
+        1
+      ],
+      [
+        "Hammer",
+        "Vasara",
+        "Martillo",
+        0
+      ],
+      [
+        "Kite",
+        "Leija",
+        "Cometa",
+        1
+      ],
+      [
+        "Fridge",
+        "Jääkaappi",
+        "Nevera",
+        0
+      ],
+      [
+        "Puzzle",
+        "Palapeli",
+        "Rompecabezas",
+        1
+      ],
+      [
+        "Oven",
+        "Uuni",
+        "Horno",
+        0
+      ],
+      [
+        "Blocks",
+        "Palikat",
+        "Bloques",
+        1
+      ],
+      [
+        "Toy car",
+        "Leikkiauto",
+        "Coche de juguete",
+        1
+      ]
+    ]
+  },
+  {
+    "topic": "sci",
+    "d": "easy",
+    "cat": {
+      "en": "Which of these grow on trees?",
+      "fi": "Mitkä näistä kasvavat puissa?",
+      "es": "¿Cuáles de estos crecen en árboles?"
+    },
+    "o": [
+      [
+        "Apple",
+        "Omena",
+        "Manzana",
+        1
+      ],
+      [
+        "Orange",
+        "Appelsiini",
+        "Naranja",
+        1
+      ],
+      [
+        "Pear",
+        "Päärynä",
+        "Pera",
+        1
+      ],
+      [
+        "Potato",
+        "Peruna",
+        "Patata",
+        0
+      ],
+      [
+        "Cherry",
+        "Kirsikka",
+        "Cereza",
+        1
+      ],
+      [
+        "Carrot",
+        "Porkkana",
+        "Zanahoria",
+        0
+      ],
+      [
+        "Lemon",
+        "Sitruuna",
+        "Limón",
+        1
+      ],
+      [
+        "Onion",
+        "Sipuli",
+        "Cebolla",
+        0
+      ],
+      [
+        "Peach",
+        "Persikka",
+        "Melocotón",
+        1
+      ],
+      [
+        "Coconut",
+        "Kookospähkinä",
+        "Coco",
+        1
+      ]
+    ]
+  },
+  {
+    "topic": "sci",
+    "d": "easy",
+    "cat": {
+      "en": "Which of these live in a forest?",
+      "fi": "Mitkä näistä elävät metsässä?",
+      "es": "¿Cuáles de estos viven en el bosque?"
+    },
+    "o": [
+      [
+        "Deer",
+        "Peura",
+        "Ciervo",
+        1
+      ],
+      [
+        "Mushrooms",
+        "Sienet",
+        "Setas",
+        1
+      ],
+      [
+        "Squirrel",
+        "Orava",
+        "Ardilla",
+        1
+      ],
+      [
+        "Shark",
+        "Hai",
+        "Tiburón",
+        0
+      ],
+      [
+        "Moss",
+        "Sammal",
+        "Musgo",
+        1
+      ],
+      [
+        "Whale",
+        "Valas",
+        "Ballena",
+        0
+      ],
+      [
+        "Fox",
+        "Kettu",
+        "Zorro",
+        1
+      ],
+      [
+        "Dolphin",
+        "Delfiini",
+        "Delfín",
+        0
+      ],
+      [
+        "Owl",
+        "Pöllö",
+        "Búho",
+        1
+      ],
+      [
+        "Bear",
+        "Karhu",
+        "Oso",
+        1
+      ]
+    ]
+  },
+  {
+    "topic": "gen",
+    "d": "easy",
+    "cat": {
+      "en": "Which of these can you write with?",
+      "fi": "Millä näistä voi kirjoittaa?",
+      "es": "¿Con cuáles de estos se puede escribir?"
+    },
+    "o": [
+      [
+        "Pen",
+        "Kynä",
+        "Bolígrafo",
+        1
+      ],
+      [
+        "Pencil",
+        "Lyijykynä",
+        "Lápiz",
+        1
+      ],
+      [
+        "Marker",
+        "Tussi",
+        "Rotulador",
+        1
+      ],
+      [
+        "Spoon",
+        "Lusikka",
+        "Cuchara",
+        0
+      ],
+      [
+        "Crayon",
+        "Vahaliitu",
+        "Cera",
+        1
+      ],
+      [
+        "Fork",
+        "Haarukka",
+        "Tenedor",
+        0
+      ],
+      [
+        "Chalk",
+        "Liitu",
+        "Tiza",
+        1
+      ],
+      [
+        "Cup",
+        "Kuppi",
+        "Taza",
+        0
+      ],
+      [
+        "Highlighter",
+        "Korostuskynä",
+        "Marcador",
+        1
+      ],
+      [
+        "Quill",
+        "Sulkakynä",
+        "Pluma",
+        1
+      ]
+    ]
+  },
+  {
+    "topic": "gen",
+    "d": "easy",
+    "cat": {
+      "en": "Which of these float on water?",
+      "fi": "Mitkä näistä kelluvat vedessä?",
+      "es": "¿Cuáles de estos flotan en el agua?"
+    },
+    "o": [
+      [
+        "Boat",
+        "Vene",
+        "Barco",
+        1
+      ],
+      [
+        "Duck",
+        "Ankka",
+        "Pato",
+        1
+      ],
+      [
+        "Wood",
+        "Puu",
+        "Madera",
+        1
+      ],
+      [
+        "Rock",
+        "Kivi",
+        "Piedra",
+        0
+      ],
+      [
+        "Leaf",
+        "Lehti",
+        "Hoja",
+        1
+      ],
+      [
+        "Iron",
+        "Rauta",
+        "Hierro",
+        0
+      ],
+      [
+        "Cork",
+        "Korkki",
+        "Corcho",
+        1
+      ],
+      [
+        "Anchor",
+        "Ankkuri",
+        "Ancla",
+        0
+      ],
+      [
+        "Ice",
+        "Jää",
+        "Hielo",
+        1
+      ],
+      [
+        "Brick",
+        "Tiili",
+        "Ladrillo",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "gen",
+    "d": "easy",
+    "cat": {
+      "en": "Which of these work with animals?",
+      "fi": "Ketkä näistä työskentelevät eläinten kanssa?",
+      "es": "¿Cuáles de estos trabajan con animales?"
+    },
+    "o": [
+      [
+        "Vet",
+        "Eläinlääkäri",
+        "Veterinario",
+        1
+      ],
+      [
+        "Farmer",
+        "Maanviljelijä",
+        "Agricultor",
+        1
+      ],
+      [
+        "Zookeeper",
+        "Eläintenhoitaja",
+        "Cuidador de zoo",
+        1
+      ],
+      [
+        "Pilot",
+        "Lentäjä",
+        "Piloto",
+        0
+      ],
+      [
+        "Shepherd",
+        "Paimen",
+        "Pastor",
+        1
+      ],
+      [
+        "Chef",
+        "Kokki",
+        "Cocinero",
+        0
+      ],
+      [
+        "Dog trainer",
+        "Koirankouluttaja",
+        "Adiestrador",
+        1
+      ],
+      [
+        "Astronaut",
+        "Astronautti",
+        "Astronauta",
+        0
+      ],
+      [
+        "Beekeeper",
+        "Mehiläistarhaaja",
+        "Apicultor",
+        1
+      ],
+      [
+        "Fisherman",
+        "Kalastaja",
+        "Pescador",
+        1
+      ]
+    ]
+  },
+  {
+    "topic": "geo",
+    "d": "normal",
+    "cat": {
+      "en": "Which of these are rivers of the world?",
+      "fi": "Mitkä näistä ovat maailman jokia?",
+      "es": "¿Cuáles de estos son ríos del mundo?"
+    },
+    "o": [
+      [
+        "Nile",
+        "Niili",
+        "Nilo",
+        1
+      ],
+      [
+        "Amazon",
+        "Amazon",
+        "Amazonas",
+        1
+      ],
+      [
+        "Mississippi",
+        "Mississippi",
+        "Misisipi",
+        1
+      ],
+      [
+        "Everest",
+        "Everest",
+        "Everest",
+        0
+      ],
+      [
+        "Yangtze",
+        "Jangtse",
+        "Yangtsé",
+        1
+      ],
+      [
+        "Sahara",
+        "Sahara",
+        "Sahara",
+        0
+      ],
+      [
+        "Ganges",
+        "Ganges",
+        "Ganges",
+        1
+      ],
+      [
+        "Alps",
+        "Alpit",
+        "Alpes",
+        0
+      ],
+      [
+        "Congo",
+        "Kongo",
+        "Congo",
+        1
+      ],
+      [
+        "Mekong",
+        "Mekong",
+        "Mekong",
+        1
+      ]
+    ]
+  },
+  {
+    "topic": "geo",
+    "d": "normal",
+    "cat": {
+      "en": "Which of these are mountains of the world?",
+      "fi": "Mitkä näistä ovat maailman vuoria?",
+      "es": "¿Cuáles de estas son montañas del mundo?"
+    },
+    "o": [
+      [
+        "Everest",
+        "Everest",
+        "Everest",
+        1
+      ],
+      [
+        "K2",
+        "K2",
+        "K2",
+        1
+      ],
+      [
+        "Kilimanjaro",
+        "Kilimanjaro",
+        "Kilimanjaro",
+        1
+      ],
+      [
+        "Nile",
+        "Niili",
+        "Nilo",
+        0
+      ],
+      [
+        "Mont Blanc",
+        "Mont Blanc",
+        "Mont Blanc",
+        1
+      ],
+      [
+        "Amazon",
+        "Amazon",
+        "Amazonas",
+        0
+      ],
+      [
+        "Denali",
+        "Denali",
+        "Denali",
+        1
+      ],
+      [
+        "Danube",
+        "Tonava",
+        "Danubio",
+        0
+      ],
+      [
+        "Aconcagua",
+        "Aconcagua",
+        "Aconcagua",
+        1
+      ],
+      [
+        "Elbrus",
+        "Elbrus",
+        "Elbrús",
+        1
+      ]
+    ]
+  },
+  {
+    "topic": "gen",
+    "d": "normal",
+    "cat": {
+      "en": "Which of these are mythological creatures?",
+      "fi": "Mitkä näistä ovat myyttisiä olentoja?",
+      "es": "¿Cuáles de estas son criaturas mitológicas?"
+    },
+    "o": [
+      [
+        "Dragon",
+        "Lohikäärme",
+        "Dragón",
+        1
+      ],
+      [
+        "Unicorn",
+        "Yksisarvinen",
+        "Unicornio",
+        1
+      ],
+      [
+        "Mermaid",
+        "Merenneito",
+        "Sirena",
+        1
+      ],
+      [
+        "Elephant",
+        "Norsu",
+        "Elefante",
+        0
+      ],
+      [
+        "Centaur",
+        "Kentauri",
+        "Centauro",
+        1
+      ],
+      [
+        "Horse",
+        "Hevonen",
+        "Caballo",
+        0
+      ],
+      [
+        "Phoenix",
+        "Feeniks",
+        "Fénix",
+        1
+      ],
+      [
+        "Dog",
+        "Koira",
+        "Perro",
+        0
+      ],
+      [
+        "Minotaur",
+        "Minotauros",
+        "Minotauro",
+        1
+      ],
+      [
+        "Cat",
+        "Kissa",
+        "Gato",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "arts",
+    "d": "normal",
+    "cat": {
+      "en": "Which of these are percussion instruments?",
+      "fi": "Mitkä näistä ovat lyömäsoittimia?",
+      "es": "¿Cuáles de estos son instrumentos de percusión?"
+    },
+    "o": [
+      [
+        "Drums",
+        "Rummut",
+        "Batería",
+        1
+      ],
+      [
+        "Xylophone",
+        "Ksylofoni",
+        "Xilófono",
+        1
+      ],
+      [
+        "Cymbals",
+        "Symbaalit",
+        "Platillos",
+        1
+      ],
+      [
+        "Violin",
+        "Viulu",
+        "Violín",
+        0
+      ],
+      [
+        "Tambourine",
+        "Tamburiini",
+        "Pandereta",
+        1
+      ],
+      [
+        "Flute",
+        "Huilu",
+        "Flauta",
+        0
+      ],
+      [
+        "Timpani",
+        "Patarummut",
+        "Timbales",
+        1
+      ],
+      [
+        "Trumpet",
+        "Trumpetti",
+        "Trompeta",
+        0
+      ],
+      [
+        "Triangle",
+        "Triangeli",
+        "Triángulo",
+        1
+      ],
+      [
+        "Maracas",
+        "Marakassit",
+        "Maracas",
+        1
+      ]
+    ]
+  },
+  {
+    "topic": "gen",
+    "d": "normal",
+    "cat": {
+      "en": "Which of these are Romance languages?",
+      "fi": "Mitkä näistä ovat romaanisia kieliä?",
+      "es": "¿Cuáles de estos son lenguas romances?"
+    },
+    "o": [
+      [
+        "Spanish",
+        "espanja",
+        "español",
+        1
+      ],
+      [
+        "French",
+        "ranska",
+        "francés",
+        1
+      ],
+      [
+        "Italian",
+        "italia",
+        "italiano",
+        1
+      ],
+      [
+        "German",
+        "saksa",
+        "alemán",
+        0
+      ],
+      [
+        "Portuguese",
+        "portugali",
+        "portugués",
+        1
+      ],
+      [
+        "Russian",
+        "venäjä",
+        "ruso",
+        0
+      ],
+      [
+        "Romanian",
+        "romania",
+        "rumano",
+        1
+      ],
+      [
+        "English",
+        "englanti",
+        "inglés",
+        0
+      ],
+      [
+        "Catalan",
+        "katalaani",
+        "catalán",
+        1
+      ],
+      [
+        "Galician",
+        "galicia",
+        "gallego",
+        1
+      ]
+    ]
+  },
+  {
+    "topic": "gen",
+    "d": "normal",
+    "cat": {
+      "en": "Which of these are Slavic languages?",
+      "fi": "Mitkä näistä ovat slaavilaisia kieliä?",
+      "es": "¿Cuáles de estos son lenguas eslavas?"
+    },
+    "o": [
+      [
+        "Russian",
+        "venäjä",
+        "ruso",
+        1
+      ],
+      [
+        "Polish",
+        "puola",
+        "polaco",
+        1
+      ],
+      [
+        "Czech",
+        "tšekki",
+        "checo",
+        1
+      ],
+      [
+        "Spanish",
+        "espanja",
+        "español",
+        0
+      ],
+      [
+        "Serbian",
+        "serbia",
+        "serbio",
+        1
+      ],
+      [
+        "French",
+        "ranska",
+        "francés",
+        0
+      ],
+      [
+        "Ukrainian",
+        "ukraina",
+        "ucraniano",
+        1
+      ],
+      [
+        "German",
+        "saksa",
+        "alemán",
+        0
+      ],
+      [
+        "Bulgarian",
+        "bulgaria",
+        "búlgaro",
+        1
+      ],
+      [
+        "Slovak",
+        "slovakki",
+        "eslovaco",
+        1
+      ]
+    ]
+  },
+  {
+    "topic": "sci",
+    "d": "normal",
+    "cat": {
+      "en": "Which of these are dinosaurs?",
+      "fi": "Mitkä näistä ovat dinosauruksia?",
+      "es": "¿Cuáles de estos son dinosaurios?"
+    },
+    "o": [
+      [
+        "T. rex",
+        "Tyrannosaurus",
+        "Tiranosaurio",
+        1
+      ],
+      [
+        "Triceratops",
+        "Triceratops",
+        "Triceratops",
+        1
+      ],
+      [
+        "Stegosaurus",
+        "Stegosaurus",
+        "Estegosaurio",
+        1
+      ],
+      [
+        "Mammoth",
+        "Mammutti",
+        "Mamut",
+        0
+      ],
+      [
+        "Velociraptor",
+        "Velociraptor",
+        "Velociraptor",
+        1
+      ],
+      [
+        "Sabre-tooth tiger",
+        "Sapelihammastiikeri",
+        "Tigre dientes de sable",
+        0
+      ],
+      [
+        "Brachiosaurus",
+        "Brakiosaurus",
+        "Braquiosaurio",
+        1
+      ],
+      [
+        "Dodo",
+        "Dodo",
+        "Dodo",
+        0
+      ],
+      [
+        "Diplodocus",
+        "Diplodocus",
+        "Diplodoco",
+        1
+      ],
+      [
+        "Ankylosaurus",
+        "Ankylosaurus",
+        "Anquilosaurio",
+        1
+      ]
+    ]
+  },
+  {
+    "topic": "sci",
+    "d": "normal",
+    "cat": {
+      "en": "Which of these are flowers?",
+      "fi": "Mitkä näistä ovat kukkia?",
+      "es": "¿Cuáles de estas son flores?"
+    },
+    "o": [
+      [
+        "Rose",
+        "Ruusu",
+        "Rosa",
+        1
+      ],
+      [
+        "Tulip",
+        "Tulppaani",
+        "Tulipán",
+        1
+      ],
+      [
+        "Daisy",
+        "Päivänkakkara",
+        "Margarita",
+        1
+      ],
+      [
+        "Oak",
+        "Tammi",
+        "Roble",
+        0
+      ],
+      [
+        "Sunflower",
+        "Auringonkukka",
+        "Girasol",
+        1
+      ],
+      [
+        "Pine",
+        "Mänty",
+        "Pino",
+        0
+      ],
+      [
+        "Lily",
+        "Lilja",
+        "Lirio",
+        1
+      ],
+      [
+        "Birch",
+        "Koivu",
+        "Abedul",
+        0
+      ],
+      [
+        "Orchid",
+        "Orkidea",
+        "Orquídea",
+        1
+      ],
+      [
+        "Daffodil",
+        "Narsissi",
+        "Narciso",
+        1
+      ]
+    ]
+  },
+  {
+    "topic": "sci",
+    "d": "normal",
+    "cat": {
+      "en": "Which of these are types of tree?",
+      "fi": "Mitkä näistä ovat puulajeja?",
+      "es": "¿Cuáles de estos son tipos de árbol?"
+    },
+    "o": [
+      [
+        "Oak",
+        "Tammi",
+        "Roble",
+        1
+      ],
+      [
+        "Pine",
+        "Mänty",
+        "Pino",
+        1
+      ],
+      [
+        "Birch",
+        "Koivu",
+        "Abedul",
+        1
+      ],
+      [
+        "Rose",
+        "Ruusu",
+        "Rosa",
+        0
+      ],
+      [
+        "Maple",
+        "Vaahtera",
+        "Arce",
+        1
+      ],
+      [
+        "Tulip",
+        "Tulppaani",
+        "Tulipán",
+        0
+      ],
+      [
+        "Willow",
+        "Paju",
+        "Sauce",
+        1
+      ],
+      [
+        "Daisy",
+        "Päivänkakkara",
+        "Margarita",
+        0
+      ],
+      [
+        "Spruce",
+        "Kuusi",
+        "Abeto",
+        1
+      ],
+      [
+        "Cedar",
+        "Setri",
+        "Cedro",
+        1
+      ]
+    ]
+  },
+  {
+    "topic": "arts",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these were Surrealist artists?",
+      "fi": "Ketkä näistä olivat surrealistitaiteilijoita?",
+      "es": "¿Cuáles de estos fueron artistas surrealistas?"
+    },
+    "o": [
+      [
+        "Dalí",
+        "Dalí",
+        "Dalí",
+        1
+      ],
+      [
+        "Magritte",
+        "Magritte",
+        "Magritte",
+        1
+      ],
+      [
+        "Miró",
+        "Miró",
+        "Miró",
+        1
+      ],
+      [
+        "Monet",
+        "Monet",
+        "Monet",
+        0
+      ],
+      [
+        "Ernst",
+        "Ernst",
+        "Ernst",
+        1
+      ],
+      [
+        "Renoir",
+        "Renoir",
+        "Renoir",
+        0
+      ],
+      [
+        "Tanguy",
+        "Tanguy",
+        "Tanguy",
+        1
+      ],
+      [
+        "Degas",
+        "Degas",
+        "Degas",
+        0
+      ],
+      [
+        "De Chirico",
+        "De Chirico",
+        "De Chirico",
+        1
+      ],
+      [
+        "Man Ray",
+        "Man Ray",
+        "Man Ray",
+        1
+      ]
+    ]
+  },
+  {
+    "topic": "hist",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these were ancient Greek city-states?",
+      "fi": "Mitkä näistä olivat antiikin Kreikan kaupunkivaltioita?",
+      "es": "¿Cuáles de estas fueron ciudades-estado de la antigua Grecia?"
+    },
+    "o": [
+      [
+        "Athens",
+        "Ateena",
+        "Atenas",
+        1
+      ],
+      [
+        "Sparta",
+        "Sparta",
+        "Esparta",
+        1
+      ],
+      [
+        "Corinth",
+        "Korintti",
+        "Corinto",
+        1
+      ],
+      [
+        "Rome",
+        "Rooma",
+        "Roma",
+        0
+      ],
+      [
+        "Thebes",
+        "Theba",
+        "Tebas",
+        1
+      ],
+      [
+        "Cairo",
+        "Kairo",
+        "El Cairo",
+        0
+      ],
+      [
+        "Argos",
+        "Argos",
+        "Argos",
+        1
+      ],
+      [
+        "Babylon",
+        "Babylon",
+        "Babilonia",
+        0
+      ],
+      [
+        "Delphi",
+        "Delfoi",
+        "Delfos",
+        1
+      ],
+      [
+        "Olympia",
+        "Olympia",
+        "Olimpia",
+        1
+      ]
+    ]
+  },
+  {
+    "topic": "hist",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these were British monarchs?",
+      "fi": "Ketkä näistä olivat Britannian hallitsijoita?",
+      "es": "¿Cuáles de estos fueron monarcas británicos?"
+    },
+    "o": [
+      [
+        "Henry VIII",
+        "Henrik VIII",
+        "Enrique VIII",
+        1
+      ],
+      [
+        "Elizabeth I",
+        "Elisabet I",
+        "Isabel I",
+        1
+      ],
+      [
+        "Victoria",
+        "Viktoria",
+        "Victoria",
+        1
+      ],
+      [
+        "Napoleon",
+        "Napoleon",
+        "Napoleón",
+        0
+      ],
+      [
+        "George III",
+        "Yrjö III",
+        "Jorge III",
+        1
+      ],
+      [
+        "Charlemagne",
+        "Kaarle Suuri",
+        "Carlomagno",
+        0
+      ],
+      [
+        "Richard the Lionheart",
+        "Rikard Leijonamieli",
+        "Ricardo Corazón de León",
+        1
+      ],
+      [
+        "Louis XIV",
+        "Ludvig XIV",
+        "Luis XIV",
+        0
+      ],
+      [
+        "William the Conqueror",
+        "Vilhelm Valloittaja",
+        "Guillermo el Conquistador",
+        1
+      ],
+      [
+        "Edward I",
+        "Edvard I",
+        "Eduardo I",
+        1
+      ]
+    ]
+  },
+  {
+    "topic": "sci",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these are moons of Saturn?",
+      "fi": "Mitkä näistä ovat Saturnuksen kuita?",
+      "es": "¿Cuáles de estas son lunas de Saturno?"
+    },
+    "o": [
+      [
+        "Titan",
+        "Titan",
+        "Titán",
+        1
+      ],
+      [
+        "Enceladus",
+        "Enceladus",
+        "Encélado",
+        1
+      ],
+      [
+        "Rhea",
+        "Rhea",
+        "Rea",
+        1
+      ],
+      [
+        "Europa",
+        "Europa",
+        "Europa",
+        0
+      ],
+      [
+        "Mimas",
+        "Mimas",
+        "Mimas",
+        1
+      ],
+      [
+        "Io",
+        "Io",
+        "Ío",
+        0
+      ],
+      [
+        "Iapetus",
+        "Iapetus",
+        "Jápeto",
+        1
+      ],
+      [
+        "Ganymede",
+        "Ganymedes",
+        "Ganímedes",
+        0
+      ],
+      [
+        "Dione",
+        "Dione",
+        "Dione",
+        1
+      ],
+      [
+        "Tethys",
+        "Tethys",
+        "Tetis",
+        1
+      ]
+    ]
+  },
+  {
+    "topic": "sci",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these are the classical Greek elements?",
+      "fi": "Mitkä näistä ovat antiikin Kreikan alkuaineita?",
+      "es": "¿Cuáles de estos son los elementos clásicos griegos?"
+    },
+    "o": [
+      [
+        "Earth",
+        "Maa",
+        "Tierra",
+        1
+      ],
+      [
+        "Water",
+        "Vesi",
+        "Agua",
+        1
+      ],
+      [
+        "Air",
+        "Ilma",
+        "Aire",
+        1
+      ],
+      [
+        "Metal",
+        "Metalli",
+        "Metal",
+        0
+      ],
+      [
+        "Fire",
+        "Tuli",
+        "Fuego",
+        1
+      ],
+      [
+        "Wood",
+        "Puu",
+        "Madera",
+        0
+      ],
+      [
+        "Aether",
+        "Eetteri",
+        "Éter",
+        1
+      ],
+      [
+        "Lightning",
+        "Salama",
+        "Rayo",
+        0
+      ],
+      [
+        "Ice",
+        "Jää",
+        "Hielo",
+        0
+      ],
+      [
+        "Stone",
+        "Kivi",
+        "Piedra",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "geo",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these countries were part of Yugoslavia?",
+      "fi": "Mitkä näistä maista kuuluivat Jugoslaviaan?",
+      "es": "¿Cuáles de estos países formaron parte de Yugoslavia?"
+    },
+    "o": [
+      [
+        "Serbia",
+        "Serbia",
+        "Serbia",
+        1
+      ],
+      [
+        "Croatia",
+        "Kroatia",
+        "Croacia",
+        1
+      ],
+      [
+        "Bosnia",
+        "Bosnia",
+        "Bosnia",
+        1
+      ],
+      [
+        "Poland",
+        "Puola",
+        "Polonia",
+        0
+      ],
+      [
+        "Slovenia",
+        "Slovenia",
+        "Eslovenia",
+        1
+      ],
+      [
+        "Hungary",
+        "Unkari",
+        "Hungría",
+        0
+      ],
+      [
+        "Montenegro",
+        "Montenegro",
+        "Montenegro",
+        1
+      ],
+      [
+        "Austria",
+        "Itävalta",
+        "Austria",
+        0
+      ],
+      [
+        "North Macedonia",
+        "Pohjois-Makedonia",
+        "Macedonia del Norte",
+        1
+      ],
+      [
+        "Romania",
+        "Romania",
+        "Rumanía",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "gen",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these are Greek letters?",
+      "fi": "Mitkä näistä ovat kreikkalaisia kirjaimia?",
+      "es": "¿Cuáles de estas son letras griegas?"
+    },
+    "o": [
+      [
+        "Alpha",
+        "Alfa",
+        "Alfa",
+        1
+      ],
+      [
+        "Beta",
+        "Beeta",
+        "Beta",
+        1
+      ],
+      [
+        "Gamma",
+        "Gamma",
+        "Gamma",
+        1
+      ],
+      [
+        "Vega",
+        "Vega",
+        "Vega",
+        0
+      ],
+      [
+        "Omega",
+        "Omega",
+        "Omega",
+        1
+      ],
+      [
+        "Cosmos",
+        "Kosmos",
+        "Cosmos",
+        0
+      ],
+      [
+        "Delta",
+        "Delta",
+        "Delta",
+        1
+      ],
+      [
+        "Zenith",
+        "Zeniitti",
+        "Cénit",
+        0
+      ],
+      [
+        "Sigma",
+        "Sigma",
+        "Sigma",
+        1
+      ],
+      [
+        "Lambda",
+        "Lambda",
+        "Lambda",
+        1
+      ]
+    ]
+  },
+  {
+    "topic": "sci",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these are dwarf planets?",
+      "fi": "Mitkä näistä ovat kääpiöplaneettoja?",
+      "es": "¿Cuáles de estos son planetas enanos?"
+    },
+    "o": [
+      [
+        "Pluto",
+        "Pluto",
+        "Plutón",
+        1
+      ],
+      [
+        "Ceres",
+        "Ceres",
+        "Ceres",
+        1
+      ],
+      [
+        "Eris",
+        "Eris",
+        "Eris",
+        1
+      ],
+      [
+        "Mars",
+        "Mars",
+        "Marte",
+        0
+      ],
+      [
+        "Haumea",
+        "Haumea",
+        "Haumea",
+        1
+      ],
+      [
+        "Jupiter",
+        "Jupiter",
+        "Júpiter",
+        0
+      ],
+      [
+        "Makemake",
+        "Makemake",
+        "Makemake",
+        1
+      ],
+      [
+        "Venus",
+        "Venus",
+        "Venus",
+        0
+      ],
+      [
+        "Titan",
+        "Titan",
+        "Titán",
+        0
+      ],
+      [
+        "Neptune",
+        "Neptunus",
+        "Neptuno",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "sci",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these are halogens?",
+      "fi": "Mitkä näistä ovat halogeeneja?",
+      "es": "¿Cuáles de estos son halógenos?"
+    },
+    "o": [
+      [
+        "Fluorine",
+        "Fluori",
+        "Flúor",
+        1
+      ],
+      [
+        "Chlorine",
+        "Kloori",
+        "Cloro",
+        1
+      ],
+      [
+        "Bromine",
+        "Bromi",
+        "Bromo",
+        1
+      ],
+      [
+        "Sodium",
+        "Natrium",
+        "Sodio",
+        0
+      ],
+      [
+        "Iodine",
+        "Jodi",
+        "Yodo",
+        1
+      ],
+      [
+        "Helium",
+        "Helium",
+        "Helio",
+        0
+      ],
+      [
+        "Astatine",
+        "Astatiini",
+        "Astato",
+        1
+      ],
+      [
+        "Argon",
+        "Argon",
+        "Argón",
+        0
+      ],
+      [
+        "Neon",
+        "Neon",
+        "Neón",
+        0
+      ],
+      [
+        "Oxygen",
+        "Happi",
+        "Oxígeno",
+        0
+      ]
+    ]
   }
 ]

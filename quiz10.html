@@ -320,6 +320,34 @@
   .set-row{display:flex; flex-direction:column; align-items:flex-start; gap:10px}
   .set-label{font-size:calc(clamp(15px,1.8vw,24px) * var(--fs)); font-weight:700; color:var(--ink)}
   .set-opts{display:flex; gap:clamp(8px,1vw,14px); flex-wrap:wrap; width:100%}
+  .toast{
+    position:fixed; left:50%; bottom:6vh; transform:translateX(-50%) translateY(20px);
+    background:rgba(20,24,42,.96); color:#fff; font-weight:700;
+    padding:14px 26px; border-radius:999px; border:1px solid rgba(255,255,255,.18);
+    font-size:clamp(15px,1.8vw,22px); box-shadow:0 10px 30px rgba(0,0,0,.5);
+    opacity:0; pointer-events:none; transition:opacity .25s, transform .25s; z-index:9999;
+    max-width:90vw; text-align:center;
+  }
+  .toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+  /* Settings tabs */
+  .tabbar{display:flex; gap:12px; justify-content:center; margin-bottom:clamp(14px,2.4vh,24px); flex-wrap:wrap}
+  .tab{ background:var(--panel); border:2px solid var(--line); color:var(--muted); font-weight:800;
+        padding:clamp(10px,1.6vh,16px) clamp(22px,3.4vw,40px); border-radius:14px; cursor:pointer;
+        font-size:calc(clamp(15px,1.9vw,24px) * var(--fs)); }
+  .tab.sel{ background:var(--gold); color:#241a05; border-color:var(--gold); }
+  body.kbd .tab.focused{ box-shadow:inset 0 0 0 3px var(--focus); border-color:var(--focus); }
+  .tabpane{display:none}
+  .tabpane.active{display:block}
+  /* Question packs */
+  .pack-row{display:flex; align-items:center; justify-content:space-between; gap:clamp(10px,1.5vw,18px);
+            padding:clamp(10px,1.6vh,16px) 0; border-top:1px solid var(--line);}
+  .pack-info{min-width:0}
+  .pack-name{font-weight:700; color:var(--ink); font-size:calc(clamp(15px,1.8vw,22px) * var(--fs));}
+  .pack-meta{color:var(--muted); font-size:.82em}
+  .pack-actions{display:flex; gap:8px; flex:0 0 auto}
+  .set-hint{color:var(--muted); font-size:calc(clamp(12px,1.4vw,16px) * var(--fs)); margin-top:16px; line-height:1.55}
+  .chip.on{ background:var(--good); color:#06251b; border-color:var(--good); }
+  .chip.danger{ border-color:var(--bad); color:var(--bad); }
   .btn.chip{padding:clamp(10px,1.4vh,16px) clamp(16px,1.8vw,26px); font-size:calc(clamp(15px,1.7vw,22px) * var(--fs)); border-radius:12px}
   .btn.chip.sel{background:var(--gold); border-color:var(--gold); color:#241a05}
   .btn.chip.sel.focused, body.kbd .btn.chip.sel.focused{background:var(--gold)}
@@ -361,6 +389,13 @@
   <section id="screen-settings" class="screen">
     <div class="center">
       <h2 class="q-title" data-i="settingsTitle">Settings</h2>
+
+      <div class="tabbar">
+        <button class="tab focusable sel" data-action="settab" data-tab="settings" data-i="tabSettings">Settings</button>
+        <button class="tab focusable" data-action="settab" data-tab="questions" data-i="tabQuestions">Questions</button>
+      </div>
+
+      <div class="tabpane active" id="tab-settings">
       <div class="set-list">
         <div class="set-row">
           <span class="set-label" data-i="textSize">Text &amp; card size</span>
@@ -416,12 +451,28 @@
           </div>
         </div>
         <div class="set-row">
-          <span class="set-label"><span data-i="appVersion">Version</span> <span id="verNum"></span><br><span id="qStatus" style="font-weight:600;color:var(--muted);font-size:.8em"></span></span>
+          <span class="set-label"><span data-i="appVersion">Version</span> <span id="verNum"></span></span>
           <div class="set-opts">
             <button class="btn chip focusable" data-action="update" data-i="checkUpdates">Check for updates</button>
           </div>
         </div>
       </div>
+      </div>
+
+      <div class="tabpane" id="tab-questions">
+      <div class="set-list">
+        <div class="set-row">
+          <span class="set-label"><span data-i="baseQuestionsLabel">Question bank</span><br><span id="qStatus" style="font-weight:600;color:var(--muted);font-size:.85em"></span></span>
+          <div class="set-opts">
+            <button class="btn chip focusable" data-action="importQuestions" data-i="loadFromFile">Load from file</button>
+          </div>
+        </div>
+        <div id="packList"></div>
+        <div class="set-hint" data-i="packHint"></div>
+      </div>
+      </div>
+
+      <input type="file" id="packFile" accept=".json,application/json" style="display:none">
       <button class="btn back focusable" data-action="menu" data-i="back">Back</button>
     </div>
   </section>
@@ -484,10 +535,9 @@
       <div class="stack">
         <div class="sub" data-i="difficultyLabel">Difficulty</div>
         <div class="row" id="diffRow">
-          <button class="btn diff focusable" data-action="difficulty" data-v="easy" data-i="diffEasy">Easy</button>
-          <button class="btn diff focusable" data-action="difficulty" data-v="normal" data-i="diffNormal">Normal</button>
-          <button class="btn diff focusable" data-action="difficulty" data-v="hard" data-i="diffHard">Hard</button>
-          <button class="btn diff focusable" data-action="difficulty" data-v="all" data-i="diffAll">All</button>
+          <button class="btn diff focusable" data-action="toggleDiff" data-v="easy" data-i="diffEasy">Easy</button>
+          <button class="btn diff focusable" data-action="toggleDiff" data-v="normal" data-i="diffNormal">Normal</button>
+          <button class="btn diff focusable" data-action="toggleDiff" data-v="hard" data-i="diffHard">Hard</button>
         </div>
       </div>
 
@@ -623,6 +673,12 @@ const T = {
     saved:"Game saved",
     appVersion:"Version",
     checkUpdates:"Check for updates",
+    tabSettings:"Settings", tabQuestions:"Questions",
+    baseQuestionsLabel:"Question bank", loadFromFile:"Load from file",
+    noPacks:"No question packs added yet. Load a .json file to add more categories.",
+    packHint:"Load extra question packs as a .json file. Once loaded they are saved on this device and mixed into the game when active. In the future you'll be able to download packs here too.",
+    questionsWord:"questions", activeWord:"On", offWord:"Off", deleteWord:"Delete",
+    fromPacksWord:"from packs", packAdded:"Pack added", packError:"Could not load file",
     updating:"Updating…",
     pointsWord:"points",
     edgeLabel:"Fit to screen (TV)",
@@ -681,6 +737,12 @@ const T = {
     saved:"Peli tallennettu",
     appVersion:"Versio",
     checkUpdates:"Tarkista päivitykset",
+    tabSettings:"Asetukset", tabQuestions:"Kysymykset",
+    baseQuestionsLabel:"Kysymyspankki", loadFromFile:"Lataa tiedostosta",
+    noPacks:"Ei vielä lisättyjä kysymyspaketteja. Lataa .json-tiedosto lisätäksesi kategorioita.",
+    packHint:"Lataa lisää kysymyspaketteja .json-tiedostona. Ladatut paketit tallentuvat tälle laitteelle ja sekoittuvat peliin, kun ne ovat aktiivisia. Tulevaisuudessa paketteja voi ladata myös täältä.",
+    questionsWord:"kysymystä", activeWord:"Päällä", offWord:"Pois", deleteWord:"Poista",
+    fromPacksWord:"paketeista", packAdded:"Paketti lisätty", packError:"Tiedostoa ei voitu ladata",
     updating:"Päivitetään…",
     pointsWord:"pistettä",
     edgeLabel:"Sovita ruutuun (TV)",
@@ -739,6 +801,12 @@ const T = {
     saved:"Juego guardado",
     appVersion:"Versión",
     checkUpdates:"Buscar actualizaciones",
+    tabSettings:"Ajustes", tabQuestions:"Preguntas",
+    baseQuestionsLabel:"Banco de preguntas", loadFromFile:"Cargar desde archivo",
+    noPacks:"Aún no hay paquetes de preguntas. Carga un archivo .json para añadir categorías.",
+    packHint:"Carga más paquetes de preguntas como archivo .json. Una vez cargados se guardan en este dispositivo y se mezclan en el juego cuando están activos. En el futuro también podrás descargar paquetes aquí.",
+    questionsWord:"preguntas", activeWord:"Activo", offWord:"Off", deleteWord:"Borrar",
+    fromPacksWord:"de paquetes", packAdded:"Paquete añadido", packError:"No se pudo cargar el archivo",
     updating:"Actualizando…",
     pointsWord:"puntos",
     edgeLabel:"Ajustar a pantalla (TV)",
@@ -881,26 +949,149 @@ const QUESTIONS = [
 
 const PLAYER_COLORS = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
-const APP_VERSION = '3.4';
+const APP_VERSION = '3.5';
 
 let questionsStatus = '';
+const QCACHE_KEY = 'quiz10_qcache';
+const PACKS_KEY  = 'quiz10_packs';
+
+let baseQuestions = QUESTIONS.slice();   // the built-in / downloaded base set
+let packs = [];                          // user-loaded question packs
+
+// Merge base set + active packs into the live QUESTIONS array.
+function rebuildQuestions(){
+  QUESTIONS.length = 0;
+  baseQuestions.forEach(q => QUESTIONS.push(q));
+  packs.forEach(p => { if(p.active && Array.isArray(p.questions)) p.questions.forEach(q => QUESTIONS.push(q)); });
+  usedQ = new Set();
+}
+
+function applyQuestionArray(arr){
+  const valid = arr.filter(q => q && q.cat && q.cat.en && q.cat.fi && Array.isArray(q.o) && q.o.length===10);
+  if(valid.length){ baseQuestions = valid.slice(); rebuildQuestions(); }
+  return valid;
+}
+
+/* ---- User question packs (loaded from a local .json file, saved on device) ---- */
+function loadPacks(){
+  try{ const raw = lsGet(PACKS_KEY); if(raw){ const arr = JSON.parse(raw); if(Array.isArray(arr)) packs = arr; } }catch(e){}
+}
+function savePacks(){ try{ lsSet(PACKS_KEY, JSON.stringify(packs)); }catch(e){} }
+
+const TOPIC_KEYS = ['geo','sci','arts','sport','hist','gen','mixed'];
+// Accept and normalise questions from an imported file (lenient: only English required).
+function normalizePack(arr){
+  if(!Array.isArray(arr)) return [];
+  return arr.filter(q => q && q.cat && q.cat.en && Array.isArray(q.o) && q.o.length===10)
+    .map(q => ({
+      topic: TOPIC_KEYS.includes(q.topic) ? q.topic : 'gen',
+      d: ['easy','normal','hard'].includes(q.d) ? q.d : 'normal',
+      cat: { en:q.cat.en, fi:q.cat.fi||q.cat.en, es:q.cat.es||q.cat.en },
+      o: q.o
+    }));
+}
+function importPackFromText(text, name){
+  let data;
+  try{ data = JSON.parse(text); }catch(e){ return {ok:false, err:'JSON syntax error'}; }
+  // allow either a bare array, or {name, questions:[...]}
+  let arr = Array.isArray(data) ? data : (data && Array.isArray(data.questions) ? data.questions : null);
+  if(!arr) return {ok:false, err:'not a question list'};
+  const packName = (data && data.name) ? data.name : name;
+  const norm = normalizePack(arr);
+  if(!norm.length) return {ok:false, err:'no valid questions'};
+  packs.push({ id:'p'+Date.now(), name:packName||'Pack', questions:norm, active:true });
+  savePacks();
+  rebuildQuestions();
+  return {ok:true, count:norm.length, name:packName};
+}
+function renderPackList(){
+  const box = $('#packList'); if(!box) return;
+  if(!packs.length){ box.innerHTML = `<div class="set-hint">${tr('noPacks')}</div>`; return; }
+  box.innerHTML = packs.map(p=>`
+    <div class="pack-row">
+      <div class="pack-info">
+        <div class="pack-name">${escapeHtml(p.name)}</div>
+        <div class="pack-meta">${p.questions.length} ${tr('questionsWord')}</div>
+      </div>
+      <div class="pack-actions">
+        <button class="btn chip focusable ${p.active?'on':''}" data-action="togglePack" data-id="${p.id}">${p.active?tr('activeWord'):tr('offWord')}</button>
+        <button class="btn chip danger focusable" data-action="deletePack" data-id="${p.id}">${tr('deleteWord')}</button>
+      </div>
+    </div>`).join('');
+}
+function escapeHtml(s){ return String(s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+// Load the last downloaded set from device storage (so the full question bank,
+// incl. Spanish, is available instantly and offline instead of the small built-in set).
+function loadCachedQuestions(){
+  try{
+    const raw = lsGet(QCACHE_KEY);
+    if(!raw) return;
+    const arr = JSON.parse(raw);
+    if(Array.isArray(arr) && arr.length){
+      const valid = applyQuestionArray(arr);
+      if(valid.length){ questionsStatus = valid.length + ' saved'; }
+    }
+  }catch(e){}
+}
+
 async function loadQuestions(){
   try{
     const res = await fetch('questions.json?t=' + Date.now(), {cache:'no-store'});
-    if(!res.ok){ questionsStatus = 'json HTTP ' + res.status; updateQStatus(); return; }
+    if(!res.ok){ updateQStatus(); return; }              // keep cached/built-in
     let data;
     try{ data = await res.json(); }
     catch(e){ questionsStatus = 'JSON syntax error'; updateQStatus(); return; }
     if(!Array.isArray(data)){ questionsStatus = 'JSON is not a list [ ]'; updateQStatus(); return; }
-    const valid = data.filter(q => q && q.cat && q.cat.en && q.cat.fi && Array.isArray(q.o) && q.o.length===10);
-    if(valid.length){ QUESTIONS.length=0; valid.forEach(q=>QUESTIONS.push(q)); topicDecks={}; }
-    questionsStatus = valid.length + ' loaded' + (valid.length!==data.length ? (' ('+(data.length-valid.length)+' skipped)') : '');
+    const valid = applyQuestionArray(data);
+    if(valid.length){
+      lsSet(QCACHE_KEY, JSON.stringify(valid));           // save to device for offline
+      questionsStatus = valid.length + ' loaded' + (valid.length!==data.length ? (' ('+(data.length-valid.length)+' skipped)') : '');
+    }
     updateQStatus();
-  }catch(e){ questionsStatus = ''; updateQStatus(); }
+  }catch(e){
+    // network failed → keep whatever we already have (saved cache or built-in)
+    updateQStatus();
+  }
 }
 function updateQStatus(){
   const el = $('#qStatus'); if(!el) return;
-  el.textContent = 'Questions: ' + (questionsStatus || (QUESTIONS.length + ' built-in'));
+  const base = baseQuestions.length;
+  const packActive = packs.filter(p=>p.active).reduce((n,p)=>n+p.questions.length,0);
+  let s = (questionsStatus || (base + ' built-in'));
+  if(packActive>0) s += ' + ' + packActive + ' ' + tr('fromPacksWord');
+  el.textContent = s;
+}
+function setTab(name){
+  $$('#screen-settings .tab').forEach(b=> b.classList.toggle('sel', b.dataset.tab===name));
+  $$('#screen-settings .tabpane').forEach(p=> p.classList.toggle('active', p.id==='tab-'+name));
+  if(name==='questions'){ updateQStatus(); renderPackList(); }
+  const pane = $('#tab-'+name);
+  const first = pane && pane.querySelector('.focusable');
+  if(first) setFocus(first);
+}
+// Wire the hidden file input once the DOM is ready
+function initPackFileInput(){
+  const f = $('#packFile'); if(!f) return;
+  f.addEventListener('change', e=>{
+    const file = e.target.files && e.target.files[0]; if(!file) return;
+    const reader = new FileReader();
+    reader.onload = ()=>{
+      const nameGuess = file.name.replace(/\.json$/i,'');
+      const res = importPackFromText(String(reader.result), nameGuess);
+      if(res.ok){ renderPackList(); updateQStatus(); showToastMsg((tr('packAdded')||'Added')+': '+(res.name||nameGuess)+' ('+res.count+')'); }
+      else { showToastMsg(tr('packError')+': '+res.err); }
+    };
+    reader.onerror = ()=> showToastMsg(tr('packError'));
+    reader.readAsText(file);
+  });
+}
+// tiny inline toast for import feedback
+let _tmt=null;
+function showToastMsg(msg){
+  let t=$('#toast');
+  if(!t){ t=document.createElement('div'); t.id='toast'; t.className='toast'; document.body.appendChild(t); }
+  t.textContent=msg; t.classList.add('show'); clearTimeout(_tmt); _tmt=setTimeout(()=>t.classList.remove('show'), 2600);
 }
 
 /* ---------- State ---------- */
@@ -917,7 +1108,8 @@ let current = null;      // current question (localized) + shuffled options
 let turnActive = false;  // locked briefly between picks / at game end
 let awaitingTurn = false; // true while the "up next" banner is showing
 let currentTopic = 'mixed';
-let difficulty = 'all';   // 'easy' | 'normal' | 'hard' | 'all'
+let difficulties = { easy:false, normal:true, hard:true };   // default: Medium + Hard
+function selectedDiffs(){ return ['easy','normal','hard'].filter(k=>difficulties[k]); }
 let playerLang = [];      // per-player question language, remembered for the game
 const LANG_ORDER = ['en','fi','es'];
 const LANG_FLAG = { en:'🇬🇧', fi:'🇫🇮', es:'🇪🇸' };
@@ -927,7 +1119,8 @@ function pName(i){ return nameIn(i, dispLang()); }
 function tg(k){ return (T[dispLang()]||T[lang])[k]; }
 function labelFor(o, L){ return (L==='es' ? o.es : L==='fi' ? o.fi : o.en) || o.en; }
 function catFor(c, L){ return c[L] || c.en; }
-let topicDecks = {};     // per-topic shuffled index queues
+let topicDecks = {};     // (legacy, unused)
+let usedQ = new Set();   // question indices already shown this game
 let confirmCb = null;    // pending confirm callback
 let settings = { size:'1', edge:'1', theme:'light', confirmA:true, confirmB:true };
 const SIZES = [ {v:0.85,n:'S'}, {v:1.0,n:'M'}, {v:1.3,n:'L'}, {v:1.7,n:'XL'}, {v:2.2,n:'XXL'} ];
@@ -1039,7 +1232,7 @@ function refreshSetup(){
     b.classList.toggle('gold', +b.dataset.v===target);
   });
   $$('#diffRow .btn').forEach(b=>{
-    b.classList.toggle('sel', b.dataset.v===difficulty);
+    b.classList.toggle('sel', !!difficulties[b.dataset.v]);
   });
 }
 
@@ -1056,6 +1249,7 @@ function startGame(){
   turnIdx = 0;
   roundStarter = 0;
   topicDecks = {};
+  usedQ = new Set();
   playerLang = players.map(()=> lang);   // each player starts in the chosen language
   buildScorebar();
   chooseTopic();
@@ -1093,8 +1287,9 @@ function updateScorebar(){
 /* ---------- Topic selection (start of each round) ---------- */
 function poolFor(topic){
   let idx = QUESTIONS.map((q,i)=> ((topic==='mixed' || q.topic===topic) ? i : -1)).filter(i=>i>=0);
-  if(difficulty!=='all'){
-    const f = idx.filter(i => (QUESTIONS[i].d||'normal')===difficulty);
+  const sel = selectedDiffs();
+  if(sel.length && sel.length < 3){
+    const f = idx.filter(i => sel.includes(QUESTIONS[i].d || 'normal'));
     if(f.length) idx = f;   // fall back to all difficulties if none match this topic
   }
   return idx;
@@ -1122,11 +1317,12 @@ function renderTopics(L){
 }
 
 function drawQuestion(){
-  const key = currentTopic + '|' + difficulty;
-  if(!topicDecks[key] || topicDecks[key].length===0){
-    topicDecks[key] = shuffle(poolFor(currentTopic));
-  }
-  const qi = topicDecks[key].pop();
+  // Draw from the whole eligible pool, never repeating a question within one
+  // game (across topics/mixed) until the pool is exhausted.
+  let pool = poolFor(currentTopic).filter(i => !usedQ.has(i));
+  if(!pool.length) pool = poolFor(currentTopic);   // exhausted → allow reuse
+  const qi = pool[Math.random()*pool.length|0];
+  usedQ.add(qi);
   const q = QUESTIONS[qi];
   const opts = shuffle(q.o).map(o=>({
     en:o[0], fi:o[1], es:(typeof o[2]==='string' ? o[2] : o[0]),
@@ -1485,12 +1681,16 @@ function edgeIdxFromX(x){
 function activate(el){
   if(!el) return;
   const a = el.dataset.action;
-  const menuSfx = ['lang','players','target','difficulty','start','again','newgame','settings','menu','mainmenu','backToLang','setTheme','setLang','toggleA','toggleB','topic','confirmYes','confirmNo'];
+  const menuSfx = ['lang','players','target','toggleDiff','start','again','newgame','settings','menu','mainmenu','backToLang','setTheme','setLang','toggleA','toggleB','topic','confirmYes','confirmNo','settab','togglePack','deletePack','importQuestions'];
   if(menuSfx.includes(a)) sfx.select();
 
   if(a==='newgame'){ showScreen('screen-lang'); }
   else if(a==='backToLang'){ showScreen('screen-lang'); }
-  else if(a==='settings'){ applySettings(); updateQStatus(); showScreen('screen-settings'); }
+  else if(a==='settings'){ applySettings(); setTab('settings'); updateQStatus(); renderPackList(); showScreen('screen-settings'); }
+  else if(a==='settab'){ setTab(el.dataset.tab); }
+  else if(a==='importQuestions'){ const f=$('#packFile'); if(f){ f.value=''; f.click(); } }
+  else if(a==='togglePack'){ const p=packs.find(x=>x.id===el.dataset.id); if(p){ p.active=!p.active; savePacks(); rebuildQuestions(); renderPackList(); updateQStatus(); } }
+  else if(a==='deletePack'){ packs=packs.filter(x=>x.id!==el.dataset.id); savePacks(); rebuildQuestions(); renderPackList(); updateQStatus(); }
   else if(a==='menu'){ saveSettings(); showScreen('screen-menu'); }
   else if(a==='mainmenu'){ showScreen('screen-menu'); }
   else if(a==='setTheme'){ settings.theme=el.dataset.v; applySettings(); saveSettings(); }
@@ -1501,7 +1701,14 @@ function activate(el){
   else if(a==='lang'){ lang=el.dataset.lang; applyStaticText(); refreshSetup(); showScreen('screen-setup'); }
   else if(a==='players'){ numPlayers = Math.min(8, Math.max(1, numPlayers + (+el.dataset.d))); refreshSetup(); }
   else if(a==='target'){ target = +el.dataset.v; refreshSetup(); }
-  else if(a==='difficulty'){ difficulty = el.dataset.v; refreshSetup(); }
+  else if(a==='toggleDiff'){
+    const v = el.dataset.v;
+    if(!(difficulties[v] && selectedDiffs().length===1)){  // never turn off the last one
+      difficulties[v] = !difficulties[v];
+    }
+    topicDecks = {};
+    refreshSetup();
+  }
   else if(a==='start'){ startGame(); }
   else if(a==='topic'){ currentTopic = el.dataset.topic; newQuestion(); }
   else if(a==='pick'){ pickOption(+el.dataset.i); }
@@ -1609,7 +1816,11 @@ function updateVer(){ if(_ver) _ver.textContent = 'v'+APP_VERSION+' · '+Math.ro
 updateVer();
 window.addEventListener('resize', updateVer);
 setFocus($('#screen-menu [data-focus]'));
-loadQuestions();
+loadPacks();
+rebuildQuestions();       // built-in base + active packs
+initPackFileInput();
+loadCachedQuestions();    // may replace base + rebuild
+loadQuestions();          // async network refresh + save
 updateQStatus();
 
 /* Service worker (offline + updates), only on http/https (not file://) */
