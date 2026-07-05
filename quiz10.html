@@ -679,6 +679,7 @@ const T = {
     packHint:"Load extra question packs as a .json file. Once loaded they are saved on this device and mixed into the game when active. In the future you'll be able to download packs here too.",
     questionsWord:"questions", activeWord:"On", offWord:"Off", deleteWord:"Delete",
     fromPacksWord:"from packs", packAdded:"Pack added", packError:"Could not load file",
+    baseBankName:"Default questions", inPlayWord:"questions in play", baseOffWord:"default off",
     updating:"Updating…",
     pointsWord:"points",
     edgeLabel:"Fit to screen (TV)",
@@ -743,6 +744,7 @@ const T = {
     packHint:"Lataa lisää kysymyspaketteja .json-tiedostona. Ladatut paketit tallentuvat tälle laitteelle ja sekoittuvat peliin, kun ne ovat aktiivisia. Tulevaisuudessa paketteja voi ladata myös täältä.",
     questionsWord:"kysymystä", activeWord:"Päällä", offWord:"Pois", deleteWord:"Poista",
     fromPacksWord:"paketeista", packAdded:"Paketti lisätty", packError:"Tiedostoa ei voitu ladata",
+    baseBankName:"Oletuskysymykset", inPlayWord:"kysymystä pelissä", baseOffWord:"oletus pois",
     updating:"Päivitetään…",
     pointsWord:"pistettä",
     edgeLabel:"Sovita ruutuun (TV)",
@@ -807,6 +809,7 @@ const T = {
     packHint:"Carga más paquetes de preguntas como archivo .json. Una vez cargados se guardan en este dispositivo y se mezclan en el juego cuando están activos. En el futuro también podrás descargar paquetes aquí.",
     questionsWord:"preguntas", activeWord:"Activo", offWord:"Off", deleteWord:"Borrar",
     fromPacksWord:"de paquetes", packAdded:"Paquete añadido", packError:"No se pudo cargar el archivo",
+    baseBankName:"Preguntas predeterminadas", inPlayWord:"preguntas en juego", baseOffWord:"predeterminadas off",
     updating:"Actualizando…",
     pointsWord:"puntos",
     edgeLabel:"Ajustar a pantalla (TV)",
@@ -949,22 +952,27 @@ const QUESTIONS = [
 
 const PLAYER_COLORS = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
-const APP_VERSION = '3.5';
+const APP_VERSION = '3.6';
 
 let questionsStatus = '';
 const QCACHE_KEY = 'quiz10_qcache';
 const PACKS_KEY  = 'quiz10_packs';
+const BASEON_KEY = 'quiz10_baseon';
 
 let baseQuestions = QUESTIONS.slice();   // the built-in / downloaded base set
 let packs = [];                          // user-loaded question packs
+let baseOn = true;                       // include the base question bank?
 
-// Merge base set + active packs into the live QUESTIONS array.
+// Merge base set (if on) + active packs into the live QUESTIONS array.
 function rebuildQuestions(){
   QUESTIONS.length = 0;
-  baseQuestions.forEach(q => QUESTIONS.push(q));
+  if(baseOn) baseQuestions.forEach(q => QUESTIONS.push(q));
   packs.forEach(p => { if(p.active && Array.isArray(p.questions)) p.questions.forEach(q => QUESTIONS.push(q)); });
+  if(!QUESTIONS.length) baseQuestions.forEach(q => QUESTIONS.push(q)); // never leave it empty
   usedQ = new Set();
 }
+function loadBaseOn(){ try{ const v=lsGet(BASEON_KEY); if(v==='0') baseOn=false; }catch(e){} }
+function saveBaseOn(){ try{ lsSet(BASEON_KEY, baseOn?'1':'0'); }catch(e){} }
 
 function applyQuestionArray(arr){
   const valid = arr.filter(q => q && q.cat && q.cat.en && q.cat.fi && Array.isArray(q.o) && q.o.length===10);
@@ -1006,8 +1014,20 @@ function importPackFromText(text, name){
 }
 function renderPackList(){
   const box = $('#packList'); if(!box) return;
-  if(!packs.length){ box.innerHTML = `<div class="set-hint">${tr('noPacks')}</div>`; return; }
-  box.innerHTML = packs.map(p=>`
+  let html = `
+    <div class="pack-row">
+      <div class="pack-info">
+        <div class="pack-name">${tr('baseBankName')}</div>
+        <div class="pack-meta">${baseQuestions.length} ${tr('questionsWord')}</div>
+      </div>
+      <div class="pack-actions">
+        <button class="btn chip focusable ${baseOn?'on':''}" data-action="toggleBase">${baseOn?tr('activeWord'):tr('offWord')}</button>
+      </div>
+    </div>`;
+  if(!packs.length){
+    html += `<div class="set-hint">${tr('noPacks')}</div>`;
+  } else {
+    html += packs.map(p=>`
     <div class="pack-row">
       <div class="pack-info">
         <div class="pack-name">${escapeHtml(p.name)}</div>
@@ -1018,6 +1038,8 @@ function renderPackList(){
         <button class="btn chip danger focusable" data-action="deletePack" data-id="${p.id}">${tr('deleteWord')}</button>
       </div>
     </div>`).join('');
+  }
+  box.innerHTML = html;
 }
 function escapeHtml(s){ return String(s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 
@@ -1056,10 +1078,10 @@ async function loadQuestions(){
 }
 function updateQStatus(){
   const el = $('#qStatus'); if(!el) return;
-  const base = baseQuestions.length;
   const packActive = packs.filter(p=>p.active).reduce((n,p)=>n+p.questions.length,0);
-  let s = (questionsStatus || (base + ' built-in'));
-  if(packActive>0) s += ' + ' + packActive + ' ' + tr('fromPacksWord');
+  const total = QUESTIONS.length;
+  let s = total + ' ' + tr('inPlayWord');
+  if(!baseOn) s += ' (' + tr('baseOffWord') + ')';
   el.textContent = s;
 }
 function setTab(name){
@@ -1681,7 +1703,7 @@ function edgeIdxFromX(x){
 function activate(el){
   if(!el) return;
   const a = el.dataset.action;
-  const menuSfx = ['lang','players','target','toggleDiff','start','again','newgame','settings','menu','mainmenu','backToLang','setTheme','setLang','toggleA','toggleB','topic','confirmYes','confirmNo','settab','togglePack','deletePack','importQuestions'];
+  const menuSfx = ['lang','players','target','toggleDiff','toggleBase','start','again','newgame','settings','menu','mainmenu','backToLang','setTheme','setLang','toggleA','toggleB','topic','confirmYes','confirmNo','settab','togglePack','deletePack','importQuestions'];
   if(menuSfx.includes(a)) sfx.select();
 
   if(a==='newgame'){ showScreen('screen-lang'); }
@@ -1689,6 +1711,7 @@ function activate(el){
   else if(a==='settings'){ applySettings(); setTab('settings'); updateQStatus(); renderPackList(); showScreen('screen-settings'); }
   else if(a==='settab'){ setTab(el.dataset.tab); }
   else if(a==='importQuestions'){ const f=$('#packFile'); if(f){ f.value=''; f.click(); } }
+  else if(a==='toggleBase'){ baseOn=!baseOn; saveBaseOn(); rebuildQuestions(); renderPackList(); updateQStatus(); }
   else if(a==='togglePack'){ const p=packs.find(x=>x.id===el.dataset.id); if(p){ p.active=!p.active; savePacks(); rebuildQuestions(); renderPackList(); updateQStatus(); } }
   else if(a==='deletePack'){ packs=packs.filter(x=>x.id!==el.dataset.id); savePacks(); rebuildQuestions(); renderPackList(); updateQStatus(); }
   else if(a==='menu'){ saveSettings(); showScreen('screen-menu'); }
@@ -1817,6 +1840,7 @@ updateVer();
 window.addEventListener('resize', updateVer);
 setFocus($('#screen-menu [data-focus]'));
 loadPacks();
+loadBaseOn();
 rebuildQuestions();       // built-in base + active packs
 initPackFileInput();
 loadCachedQuestions();    // may replace base + rebuild
