@@ -288,6 +288,13 @@
 
   /* Win confetti-ish crown */
   .crown{font-size:clamp(50px,9vw,120px); line-height:1}
+  .corner-flag{
+    position:fixed; top:clamp(8px,1.6vh,20px); right:clamp(8px,1.6vw,22px); z-index:30;
+    background:var(--panel); border:2px solid var(--line); border-radius:12px;
+    padding:clamp(4px,.7vh,8px) clamp(9px,1.1vw,13px); line-height:1; cursor:pointer;
+    font-size:calc(clamp(22px,2.6vw,34px) * var(--fs));
+  }
+  body.kbd .corner-flag.focused{ border-color:var(--focus); box-shadow:0 0 0 4px rgba(255,224,138,.45); background:var(--panel2); }
   .wb-title{ font-weight:800; color:var(--muted); letter-spacing:.06em; text-transform:uppercase;
              font-size:calc(clamp(13px,1.5vw,18px) * var(--fs)); margin-top:clamp(10px,2vh,20px); }
   .winboard{ display:flex; flex-direction:column; gap:clamp(8px,1.2vh,14px);
@@ -387,6 +394,7 @@
 
   <!-- MAIN MENU -->
   <section id="screen-menu" class="screen active">
+    <button class="corner-flag focusable" data-action="cyclelangglobal" id="menuFlag" title="Language">🇬🇧</button>
     <div class="center">
       <div style="text-align:center">
         <div class="brand">PUB <b>QUIZ</b></div>
@@ -584,6 +592,7 @@
 
   <!-- WIN -->
   <section id="screen-win" class="screen">
+    <button class="corner-flag focusable" data-action="cyclelangglobal" id="winFlag" title="Language">🇬🇧</button>
     <div class="center">
       <div class="crown">👑</div>
       <h2 class="q-title" id="winName"></h2>
@@ -696,6 +705,7 @@ const T = {
     questionsWord:"questions", activeWord:"On", offWord:"Off", deleteWord:"Delete",
     fromPacksWord:"from packs", packAdded:"Pack added", packError:"Could not load file",
     baseBankName:"Default questions", inPlayWord:"questions in play", baseOffWord:"default off",
+    confirmDeletePack:"Delete pack", needQuestions:"Turn on some questions first",
     updating:"Updating…",
     pointsWord:"points",
     edgeLabel:"Fit to screen (TV)",
@@ -761,6 +771,7 @@ const T = {
     questionsWord:"kysymystä", activeWord:"Päällä", offWord:"Pois", deleteWord:"Poista",
     fromPacksWord:"paketeista", packAdded:"Paketti lisätty", packError:"Tiedostoa ei voitu ladata",
     baseBankName:"Oletuskysymykset", inPlayWord:"kysymystä pelissä", baseOffWord:"oletus pois",
+    confirmDeletePack:"Poista paketti", needQuestions:"Laita ensin kysymyksiä päälle",
     updating:"Päivitetään…",
     pointsWord:"pistettä",
     edgeLabel:"Sovita ruutuun (TV)",
@@ -826,6 +837,7 @@ const T = {
     questionsWord:"preguntas", activeWord:"Activo", offWord:"Off", deleteWord:"Borrar",
     fromPacksWord:"de paquetes", packAdded:"Paquete añadido", packError:"No se pudo cargar el archivo",
     baseBankName:"Preguntas predeterminadas", inPlayWord:"preguntas en juego", baseOffWord:"predeterminadas off",
+    confirmDeletePack:"Borrar paquete", needQuestions:"Activa primero algunas preguntas",
     updating:"Actualizando…",
     pointsWord:"puntos",
     edgeLabel:"Ajustar a pantalla (TV)",
@@ -968,7 +980,7 @@ const QUESTIONS = [
 
 const PLAYER_COLORS = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
-const APP_VERSION = '3.7';
+const APP_VERSION = '3.8';
 
 let questionsStatus = '';
 const QCACHE_KEY = 'quiz10_qcache';
@@ -984,7 +996,6 @@ function rebuildQuestions(){
   QUESTIONS.length = 0;
   if(baseOn) baseQuestions.forEach(q => QUESTIONS.push(q));
   packs.forEach(p => { if(p.active && Array.isArray(p.questions)) p.questions.forEach(q => QUESTIONS.push(q)); });
-  if(!QUESTIONS.length) baseQuestions.forEach(q => QUESTIONS.push(q)); // never leave it empty
   usedQ = new Set();
 }
 function loadBaseOn(){ try{ const v=lsGet(BASEON_KEY); if(v==='0') baseOn=false; }catch(e){} }
@@ -1261,6 +1272,21 @@ function applyStaticText(){
     const k = el.getAttribute('data-i');
     if(k && T[lang][k]!==undefined) el.textContent = T[lang][k];
   });
+}
+let lastWinner = null;
+function updateCornerFlags(){
+  const f = LANG_FLAG[lang] || '🏳️';
+  const a=$('#menuFlag'), b=$('#winFlag');
+  if(a) a.textContent=f; if(b) b.textContent=f;
+}
+function saveLang(){ try{ lsSet('quiz10_lang', lang); }catch(e){} }
+function loadLang(){ try{ const v=lsGet('quiz10_lang'); if(v && LANG_ORDER.includes(v)) lang=v; }catch(e){} }
+function cycleGlobalLang(){
+  lang = LANG_ORDER[(LANG_ORDER.indexOf(lang)+1) % LANG_ORDER.length];
+  saveLang();
+  applyStaticText(); updateCornerFlags(); applySettings();
+  sfx.select();
+  if($('#screen-win').classList.contains('active') && lastWinner!=null) endGame(lastWinner);
 }
 
 /* ---------- Setup interactions ---------- */
@@ -1594,6 +1620,7 @@ function endRound(){
 function rankMedal(rank){ return rank===1?'🥇':rank===2?'🥈':rank===3?'🥉':(rank+'.'); }
 function endGame(winnerIdx){
   hideBanner();
+  lastWinner = winnerIdx;
   awaitingTurn=false; $('#turnBanner').classList.remove('show');
   sfx.win();
   const WL = playerLang[winnerIdx] || lang;
@@ -1734,18 +1761,32 @@ function activate(el){
   const menuSfx = ['lang','players','target','toggleDiff','toggleBase','start','again','newgame','settings','menu','mainmenu','backToLang','setTheme','setLang','toggleA','toggleB','topic','confirmYes','confirmNo','settab','togglePack','deletePack','importQuestions'];
   if(menuSfx.includes(a)) sfx.select();
 
-  if(a==='newgame'){ showScreen('screen-lang'); }
+  if(a==='newgame'){
+    if(QUESTIONS.length===0){   // base off and no active packs → nothing to play
+      showToastMsg(tr('needQuestions'));
+      applySettings(); setTab('questions'); renderPackList(); updateQStatus();
+      showScreen('screen-settings');
+      return;
+    }
+    showScreen('screen-lang');
+  }
   else if(a==='backToLang'){ showScreen('screen-lang'); }
   else if(a==='settings'){ applySettings(); setTab('settings'); updateQStatus(); renderPackList(); showScreen('screen-settings'); }
   else if(a==='settab'){ setTab(el.dataset.tab); }
   else if(a==='importQuestions'){ const f=$('#packFile'); if(f){ f.value=''; f.click(); } }
   else if(a==='toggleBase'){ baseOn=!baseOn; saveBaseOn(); rebuildQuestions(); renderPackList(); updateQStatus(); }
   else if(a==='togglePack'){ const p=packs.find(x=>x.id===el.dataset.id); if(p){ p.active=!p.active; savePacks(); rebuildQuestions(); renderPackList(); updateQStatus(); } }
-  else if(a==='deletePack'){ packs=packs.filter(x=>x.id!==el.dataset.id); savePacks(); rebuildQuestions(); renderPackList(); updateQStatus(); }
+  else if(a==='deletePack'){
+    const id=el.dataset.id; const p=packs.find(x=>x.id===id);
+    askConfirm(tr('confirmDeletePack') + (p?` "${p.name}"`:'') + '?', ()=>{
+      packs = packs.filter(x=>x.id!==id); savePacks(); rebuildQuestions(); renderPackList(); updateQStatus();
+    });
+  }
   else if(a==='menu'){ saveSettings(); showScreen('screen-menu'); }
   else if(a==='mainmenu'){ showScreen('screen-menu'); }
   else if(a==='setTheme'){ settings.theme=el.dataset.v; applySettings(); saveSettings(); }
-  else if(a==='setLang'){ lang=el.dataset.v; applyStaticText(); applySettings(); saveSettings(); }
+  else if(a==='cyclelangglobal'){ cycleGlobalLang(); }
+  else if(a==='setLang'){ lang=el.dataset.v; saveLang(); applyStaticText(); applySettings(); updateCornerFlags(); saveSettings(); }
   else if(a==='toggleA'){ settings.confirmA=!settings.confirmA; applySettings(); saveSettings(); }
   else if(a==='toggleB'){ settings.confirmB=!settings.confirmB; applySettings(); saveSettings(); }
   else if(a==='update'){ doUpdate(el); }
@@ -1860,7 +1901,9 @@ window.addEventListener('popstate', ()=>{
 
 /* ---------- Boot ---------- */
 loadSettings();
+loadLang();
 applyStaticText();
+updateCornerFlags();
 refreshSetup();
 const _ver = $('#verNum');
 function updateVer(){ if(_ver) _ver.textContent = 'v'+APP_VERSION+' · '+Math.round(window.innerWidth)+'×'+Math.round(window.innerHeight); }
