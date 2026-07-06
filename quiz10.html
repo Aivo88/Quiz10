@@ -675,7 +675,7 @@ const T = {
     lostRound:"Turn over — round points lost",
     bankedPts:"banked",
     nextUp:"Next up:",
-    winSub:"reached the target first!",
+    winSub:"reached the target first!", winTie:"It's a tie!",
     finalScores:"Final scores",
     pickOne:"Pick one you think is correct",
     pass:"Pass & bank",
@@ -741,7 +741,7 @@ const T = {
     lostRound:"Vuoro päättyi — kierroksen pisteet menetetty",
     bankedPts:"talletettu",
     nextUp:"Seuraavaksi:",
-    winSub:"saavutti tavoitteen ensimmäisenä!",
+    winSub:"saavutti tavoitteen ensimmäisenä!", winTie:"Tasapeli!",
     finalScores:"Loppupisteet",
     pickOne:"Valitse yksi jonka uskot oikeaksi",
     pass:"Passaa & talleta",
@@ -807,7 +807,7 @@ const T = {
     lostRound:"Turno terminado — puntos de la ronda perdidos",
     bankedPts:"guardó",
     nextUp:"Siguiente:",
-    winSub:"¡ha llegado primero a la meta!",
+    winSub:"¡ha llegado primero a la meta!", winTie:"¡Empate!",
     finalScores:"Puntuación final",
     pickOne:"Elige una que creas correcta",
     pass:"Pasar y guardar",
@@ -989,7 +989,7 @@ const QUESTIONS = [
 
 const PLAYER_COLORS = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
-const APP_VERSION = '3.8';
+const APP_VERSION = '3.9';
 
 let questionsStatus = '';
 const QCACHE_KEY = 'quiz10_qcache';
@@ -1172,8 +1172,15 @@ let playerLang = [];      // per-player question language, remembered for the ga
 const LANG_ORDER = ['en','fi','es'];
 const LANG_FLAG = { en:'🇬🇧', fi:'🇫🇮', es:'🇪🇸' };
 function dispLang(){ return playerLang[turnIdx] || lang; }
-function nameIn(i, L){ return (L==='fi'?'Pelaaja ':L==='es'?'Jugador ':'Player ')+(i+1); }
+function nameIn(i, L){
+  const n=i+1;
+  if(L==='fi') return 'Pelaaja '+n+' / Joukkue '+n;
+  if(L==='es') return 'Jugador '+n+' / Equipo '+n;
+  return 'Player '+n+' / Team '+n;
+}
+function nameShort(i, L){ return (L==='fi'?'Pelaaja ':L==='es'?'Jugador ':'Player ')+(i+1); }
 function pName(i){ return nameIn(i, dispLang()); }
+function pNameShort(i){ return nameShort(i, dispLang()); }
 function tg(k){ return (T[dispLang()]||T[lang])[k]; }
 function labelFor(o, L){ return (L==='es' ? o.es : L==='fi' ? o.fi : o.en) || o.en; }
 function catFor(c, L){ return c[L] || c.en; }
@@ -1337,7 +1344,7 @@ function buildScorebar(){
     el.dataset.i = i;
     el.innerHTML = `<span class="bar"></span>
       <span class="tag"></span>
-      <span class="pname">${pName(i)}</span>
+      <span class="pname">${pNameShort(i)}</span>
       <span class="pscore">${p.score}</span>`;
     bar.appendChild(el);
   });
@@ -1346,7 +1353,7 @@ function updateScorebar(){
   $$('#scorebar .pchip').forEach((el,i)=>{
     const base = players[i].score;
     const prov = (pstatus[i]==='active' && roundTokens[i]>0) ? ` +${roundTokens[i]}` : '';
-    el.querySelector('.pname').textContent = pName(i);
+    el.querySelector('.pname').textContent = pNameShort(i);
     el.querySelector('.pscore').innerHTML = base + (prov?`<span style="color:var(--gold);font-size:.6em"> ${prov.trim()}</span>`:'');
     el.classList.toggle('active', i===turnIdx && pstatus[i]==='active');
     el.classList.toggle('passed', pstatus[i]==='passed');
@@ -1634,9 +1641,17 @@ function endGame(winnerIdx){
   sfx.win();
   const WL = playerLang[winnerIdx] || lang;
   const TW = T[WL] || T[lang];
-  const w = players[winnerIdx];
-  $('#winName').innerHTML = `<span style="color:var(${w.color})">${nameIn(winnerIdx, WL)}</span>`;
-  $('#winSub').innerHTML = TW.winSub;
+  // Everyone sharing the top score is a winner
+  const top = Math.max(...players.map(p=>p.score));
+  const winners = players.map((p,i)=>i).filter(i=>players[i].score===top);
+  if(winners.length>1){
+    $('#winName').innerHTML = TW.winTie;
+    $('#winSub').innerHTML = winners.map(i=>`<span style="color:var(${players[i].color})">${nameShort(i, WL)}</span>`).join(' & ');
+  } else {
+    const wi = winners[0];
+    $('#winName').innerHTML = `<span style="color:var(${players[wi].color})">${nameIn(wi, WL)}</span>`;
+    $('#winSub').innerHTML = TW.winSub;
+  }
   $('#winBoardTitle').textContent = TW.finalScores;
 
   // Rank by score, with shared places for equal scores
@@ -1777,9 +1792,9 @@ function activate(el){
       showScreen('screen-settings');
       return;
     }
-    showScreen('screen-lang');
+    showScreen('screen-setup'); refreshSetup();
   }
-  else if(a==='backToLang'){ showScreen('screen-lang'); }
+  else if(a==='backToLang'){ showScreen('screen-menu'); }
   else if(a==='settings'){ applySettings(); setTab('settings'); updateQStatus(); renderPackList(); showScreen('screen-settings'); }
   else if(a==='settab'){ setTab(el.dataset.tab); }
   else if(a==='importQuestions'){ const f=$('#packFile'); if(f){ f.value=''; f.click(); } }
@@ -1886,7 +1901,7 @@ function goBack(){
   if(confirmOpen()){ closeConfirm(false); return true; }
   if(awaitingTurn){ return true; }
   const active = $('.screen.active').id;
-  if(active==='screen-setup'){ showScreen('screen-lang'); return true; }
+  if(active==='screen-setup'){ showScreen('screen-menu'); return true; }
   if(active==='screen-topic'){ showScreen('screen-menu'); return true; }
   if(active==='screen-settings'){ saveSettings(); showScreen('screen-menu'); return true; }
   if(active==='screen-lang'){ showScreen('screen-menu'); return true; }
