@@ -343,7 +343,7 @@
   @media (max-width:560px){ .topic-grid{grid-template-columns:repeat(2,1fr)} }
 
   /* settings rows */
-  .set-list{display:flex; flex-direction:column; gap:clamp(16px,2.8vh,30px); width:100%; max-width:760px}
+  .set-list{display:flex; flex-direction:column; gap:clamp(16px,2.8vh,30px); width:min(760px, 92vw); max-width:100%}
   .set-row{display:flex; flex-direction:column; align-items:flex-start; gap:10px}
   .set-label{font-size:calc(clamp(15px,1.8vw,24px) * var(--fs)); font-weight:700; color:var(--ink)}
   .set-opts{display:flex; gap:clamp(8px,1vw,14px); flex-wrap:wrap; width:100%}
@@ -1008,7 +1008,7 @@ const QUESTIONS = [
 
 const PLAYER_COLORS = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
-const APP_VERSION = '4.1';
+const APP_VERSION = '4.2';
 
 let questionsStatus = '';
 const QCACHE_KEY = 'quiz10_qcache';
