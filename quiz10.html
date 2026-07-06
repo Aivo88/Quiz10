@@ -299,7 +299,7 @@
   .wb-row{ display:flex; align-items:center; gap:clamp(12px,2vw,22px);
            background:var(--panel); border:2px solid var(--line); border-left:8px solid var(--c);
            border-radius:14px; padding:clamp(10px,1.7vh,18px) clamp(16px,2.6vw,28px); }
-  .wb-row.first{ border-color:var(--gold); background:var(--panel2); }
+  .wb-row.first{ background:var(--panel2); border-color:var(--c); }
   .wb-rank{ min-width:1.7em; text-align:center; font-weight:800; color:var(--muted);
             font-size:calc(clamp(20px,2.6vw,34px) * var(--fs)); }
   .wb-name{ flex:1; text-align:left; font-weight:800; color:var(--ink);
@@ -1009,7 +1009,7 @@ const QUESTIONS = [
 
 const PLAYER_COLORS = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
-const APP_VERSION = '4.4';
+const APP_VERSION = '4.5';
 
 let questionsStatus = '';
 const QCACHE_KEY = 'quiz10_qcache';
@@ -1406,7 +1406,7 @@ function cycleGlobalLang(){
   saveLang();
   applyStaticText(); updateCornerFlags(); applySettings();
   sfx.select();
-  if($('#screen-win').classList.contains('active') && lastWinner!=null) endGame(lastWinner);
+  if($('#screen-win').classList.contains('active') && lastWinner!=null) endGame(lastWinner, true);
 }
 
 /* ---------- Setup interactions ---------- */
@@ -1742,12 +1742,12 @@ function endRound(){
 }
 
 function rankMedal(rank){ return rank===1?'🥇':rank===2?'🥈':rank===3?'🥉':(rank+'.'); }
-function endGame(winnerIdx){
+function endGame(winnerIdx, silent){
   hideBanner();
   lastWinner = winnerIdx;
   awaitingTurn=false; $('#turnBanner').classList.remove('show');
-  sfx.win();
-  const WL = playerLang[winnerIdx] || lang;
+  if(!silent) sfx.win();
+  const WL = lang;   // show in the currently selected language (win-screen flag)
   const TW = T[WL] || T[lang];
   // Everyone sharing the top score is a winner
   const top = Math.max(...players.map(p=>p.score));
