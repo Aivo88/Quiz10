@@ -1009,7 +1009,7 @@ const QUESTIONS = [
 
 const PLAYER_COLORS = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
-const APP_VERSION = '4.3';
+const APP_VERSION = '4.4';
 
 let questionsStatus = '';
 const QCACHE_KEY = 'quiz10_qcache';
@@ -1275,6 +1275,21 @@ function labelFor(o, L){ return (L==='es' ? o.es : L==='fi' ? o.fi : o.en) || o.
 function catFor(c, L){ return c[L] || c.en; }
 let topicDecks = {};     // (legacy, unused)
 let usedQ = new Set();   // question indices already shown this game
+let usedIds = new Set(); // cat.en shown this game (stable ids)
+let recentGames = [];    // last few games' question-id lists (avoid repeats across games)
+const RECENT_GAMES = 5;
+const RECENT_KEY = 'quiz10_recentq';
+function recentUnion(){ const s=new Set(); recentGames.forEach(a=>a.forEach(id=>s.add(id))); return s; }
+function loadRecent(){ try{ const raw=lsGet(RECENT_KEY); if(raw){ const a=JSON.parse(raw); if(Array.isArray(a)) recentGames=a.slice(-RECENT_GAMES); } }catch(e){} }
+function saveRecent(){ try{ lsSet(RECENT_KEY, JSON.stringify(recentGames)); }catch(e){} }
+// Commit the questions shown in the just-played game into the rolling history.
+function commitRecentGame(){
+  if(usedIds && usedIds.size){
+    recentGames.push([...usedIds]);
+    while(recentGames.length > RECENT_GAMES) recentGames.shift();
+    saveRecent();
+  }
+}
 let confirmCb = null;    // pending confirm callback
 let settings = { size:'1', edge:'1', theme:'light', confirmA:true, confirmB:true };
 const SIZES = [ {v:0.85,n:'S'}, {v:1.0,n:'M'}, {v:1.3,n:'L'}, {v:1.7,n:'XL'}, {v:2.2,n:'XXL'} ];
@@ -1407,6 +1422,7 @@ function refreshSetup(){
 
 /* ---------- Game flow ---------- */
 function startGame(){
+  commitRecentGame();   // remember the just-played game's questions (skip in next 5 games)
   players = [];
   for(let i=0;i<numPlayers;i++){
     players.push({
@@ -1419,6 +1435,7 @@ function startGame(){
   roundStarter = 0;
   topicDecks = {};
   usedQ = new Set();
+  usedIds = new Set();
   playerLang = players.map(()=> lang);   // each player starts in the chosen language
   buildScorebar();
   chooseTopic();
@@ -1486,13 +1503,15 @@ function renderTopics(L){
 }
 
 function drawQuestion(){
-  // Draw from the whole eligible pool, never repeating a question within one
-  // game (across topics/mixed) until the pool is exhausted.
-  let pool = poolFor(currentTopic).filter(i => !usedQ.has(i));
-  if(!pool.length) pool = poolFor(currentTopic);   // exhausted → allow reuse
+  // Never repeat within one game; also avoid questions seen in the last 5 games.
+  const recent = recentUnion();
+  let pool = poolFor(currentTopic).filter(i => !usedQ.has(i) && !recent.has(QUESTIONS[i].cat.en));
+  if(!pool.length) pool = poolFor(currentTopic).filter(i => !usedQ.has(i)); // relax recent-history
+  if(!pool.length) pool = poolFor(currentTopic);                            // relax all
   const qi = pool[Math.random()*pool.length|0];
   usedQ.add(qi);
   const q = QUESTIONS[qi];
+  usedIds.add(q.cat.en);
   const opts = shuffle(q.o).map(o=>({
     en:o[0], fi:o[1], es:(typeof o[2]==='string' ? o[2] : o[0]),
     correct:!!o[o.length-1], state:'idle', by:null
@@ -2036,6 +2055,7 @@ setFocus($('#screen-menu [data-focus]'));
 loadPacks();
 loadBaseOn();
 loadDisabled();
+loadRecent();
 rebuildQuestions();       // built-in base + active packs
 initPackFileInput();
 loadCachedQuestions();    // may replace base + rebuild
