@@ -9730,77 +9730,6 @@
     "topic": "gen",
     "d": "easy",
     "cat": {
-      "en": "Which of these are vegetables?",
-      "fi": "Mitkä näistä ovat vihanneksia?",
-      "es": "¿Cuáles de estas son verduras?"
-    },
-    "o": [
-      [
-        "Carrot",
-        "Porkkana",
-        "Zanahoria",
-        1
-      ],
-      [
-        "Potato",
-        "Peruna",
-        "Patata",
-        1
-      ],
-      [
-        "Onion",
-        "Sipuli",
-        "Cebolla",
-        1
-      ],
-      [
-        "Apple",
-        "Omena",
-        "Manzana",
-        0
-      ],
-      [
-        "Tomato",
-        "Tomaatti",
-        "Tomate",
-        1
-      ],
-      [
-        "Banana",
-        "Banaani",
-        "Plátano",
-        0
-      ],
-      [
-        "Cucumber",
-        "Kurkku",
-        "Pepino",
-        1
-      ],
-      [
-        "Orange",
-        "Appelsiini",
-        "Naranja",
-        0
-      ],
-      [
-        "Lettuce",
-        "Salaatti",
-        "Lechuga",
-        1
-      ],
-      [
-        "Grape",
-        "Viinirypäle",
-        "Uva",
-        0
-      ]
-    ]
-  },
-  {
-    "topic": "gen",
-    "d": "easy",
-    "cat": {
       "en": "Which of these are drinks?",
       "fi": "Mitkä näistä ovat juomia?",
       "es": "¿Cuáles de estas son bebidas?"
@@ -10014,77 +9943,6 @@
     "topic": "gen",
     "d": "easy",
     "cat": {
-      "en": "Which of these are types of weather?",
-      "fi": "Mitkä näistä ovat säätyyppejä?",
-      "es": "¿Cuáles de estos son tipos de clima?"
-    },
-    "o": [
-      [
-        "Rain",
-        "Sade",
-        "Lluvia",
-        1
-      ],
-      [
-        "Snow",
-        "Lumi",
-        "Nieve",
-        1
-      ],
-      [
-        "Sunny",
-        "Aurinkoinen",
-        "Soleado",
-        1
-      ],
-      [
-        "Guitar",
-        "Kitara",
-        "Guitarra",
-        0
-      ],
-      [
-        "Windy",
-        "Tuulinen",
-        "Ventoso",
-        1
-      ],
-      [
-        "Table",
-        "Pöytä",
-        "Mesa",
-        0
-      ],
-      [
-        "Fog",
-        "Sumu",
-        "Niebla",
-        1
-      ],
-      [
-        "Apple",
-        "Omena",
-        "Manzana",
-        0
-      ],
-      [
-        "Storm",
-        "Myrsky",
-        "Tormenta",
-        1
-      ],
-      [
-        "Cloudy",
-        "Pilvinen",
-        "Nublado",
-        1
-      ]
-    ]
-  },
-  {
-    "topic": "gen",
-    "d": "easy",
-    "cat": {
       "en": "Which of these are furniture?",
       "fi": "Mitkä näistä ovat huonekaluja?",
       "es": "¿Cuáles de estos son muebles?"
@@ -10148,148 +10006,6 @@
         "Wardrobe",
         "Vaatekaappi",
         "Armario",
-        1
-      ]
-    ]
-  },
-  {
-    "topic": "gen",
-    "d": "easy",
-    "cat": {
-      "en": "Which of these are means of transport?",
-      "fi": "Mitkä näistä ovat kulkuvälineitä?",
-      "es": "¿Cuáles de estos son medios de transporte?"
-    },
-    "o": [
-      [
-        "Car",
-        "Auto",
-        "Coche",
-        1
-      ],
-      [
-        "Bus",
-        "Bussi",
-        "Autobús",
-        1
-      ],
-      [
-        "Train",
-        "Juna",
-        "Tren",
-        1
-      ],
-      [
-        "Apple",
-        "Omena",
-        "Manzana",
-        0
-      ],
-      [
-        "Bicycle",
-        "Polkupyörä",
-        "Bicicleta",
-        1
-      ],
-      [
-        "Chair",
-        "Tuoli",
-        "Silla",
-        0
-      ],
-      [
-        "Plane",
-        "Lentokone",
-        "Avión",
-        1
-      ],
-      [
-        "Table",
-        "Pöytä",
-        "Mesa",
-        0
-      ],
-      [
-        "Boat",
-        "Vene",
-        "Barco",
-        1
-      ],
-      [
-        "Motorcycle",
-        "Moottoripyörä",
-        "Motocicleta",
-        1
-      ]
-    ]
-  },
-  {
-    "topic": "sci",
-    "d": "easy",
-    "cat": {
-      "en": "Which of these are farm animals?",
-      "fi": "Mitkä näistä ovat maatilan eläimiä?",
-      "es": "¿Cuáles de estos son animales de granja?"
-    },
-    "o": [
-      [
-        "Cow",
-        "Lehmä",
-        "Vaca",
-        1
-      ],
-      [
-        "Pig",
-        "Sika",
-        "Cerdo",
-        1
-      ],
-      [
-        "Chicken",
-        "Kana",
-        "Gallina",
-        1
-      ],
-      [
-        "Lion",
-        "Leijona",
-        "León",
-        0
-      ],
-      [
-        "Sheep",
-        "Lammas",
-        "Oveja",
-        1
-      ],
-      [
-        "Shark",
-        "Hai",
-        "Tiburón",
-        0
-      ],
-      [
-        "Horse",
-        "Hevonen",
-        "Caballo",
-        1
-      ],
-      [
-        "Eagle",
-        "Kotka",
-        "Águila",
-        0
-      ],
-      [
-        "Goat",
-        "Vuohi",
-        "Cabra",
-        1
-      ],
-      [
-        "Duck",
-        "Ankka",
-        "Pato",
         1
       ]
     ]
@@ -10440,77 +10156,6 @@
     "topic": "sci",
     "d": "easy",
     "cat": {
-      "en": "Which of these are insects?",
-      "fi": "Mitkä näistä ovat hyönteisiä?",
-      "es": "¿Cuáles de estos son insectos?"
-    },
-    "o": [
-      [
-        "Ant",
-        "Muurahainen",
-        "Hormiga",
-        1
-      ],
-      [
-        "Bee",
-        "Mehiläinen",
-        "Abeja",
-        1
-      ],
-      [
-        "Butterfly",
-        "Perhonen",
-        "Mariposa",
-        1
-      ],
-      [
-        "Dog",
-        "Koira",
-        "Perro",
-        0
-      ],
-      [
-        "Fly",
-        "Kärpänen",
-        "Mosca",
-        1
-      ],
-      [
-        "Fish",
-        "Kala",
-        "Pez",
-        0
-      ],
-      [
-        "Beetle",
-        "Kovakuoriainen",
-        "Escarabajo",
-        1
-      ],
-      [
-        "Cat",
-        "Kissa",
-        "Gato",
-        0
-      ],
-      [
-        "Mosquito",
-        "Hyttynen",
-        "Mosquito",
-        1
-      ],
-      [
-        "Grasshopper",
-        "Heinäsirkka",
-        "Saltamontes",
-        1
-      ]
-    ]
-  },
-  {
-    "topic": "sci",
-    "d": "easy",
-    "cat": {
       "en": "Which of these are sea animals?",
       "fi": "Mitkä näistä ovat merieläimiä?",
       "es": "¿Cuáles de estos son animales marinos?"
@@ -10645,77 +10290,6 @@
         "Bee",
         "Mehiläinen",
         "Abeja",
-        1
-      ]
-    ]
-  },
-  {
-    "topic": "arts",
-    "d": "easy",
-    "cat": {
-      "en": "Which of these are musical instruments?",
-      "fi": "Mitkä näistä ovat soittimia?",
-      "es": "¿Cuáles de estos son instrumentos musicales?"
-    },
-    "o": [
-      [
-        "Guitar",
-        "Kitara",
-        "Guitarra",
-        1
-      ],
-      [
-        "Piano",
-        "Piano",
-        "Piano",
-        1
-      ],
-      [
-        "Drums",
-        "Rummut",
-        "Batería",
-        1
-      ],
-      [
-        "Apple",
-        "Omena",
-        "Manzana",
-        0
-      ],
-      [
-        "Violin",
-        "Viulu",
-        "Violín",
-        1
-      ],
-      [
-        "Table",
-        "Pöytä",
-        "Mesa",
-        0
-      ],
-      [
-        "Flute",
-        "Huilu",
-        "Flauta",
-        1
-      ],
-      [
-        "Car",
-        "Auto",
-        "Coche",
-        0
-      ],
-      [
-        "Trumpet",
-        "Trumpetti",
-        "Trompeta",
-        1
-      ],
-      [
-        "Harp",
-        "Harppu",
-        "Arpa",
         1
       ]
     ]
@@ -11568,77 +11142,6 @@
         "Borodin",
         "Borodin",
         "Borodín",
-        1
-      ]
-    ]
-  },
-  {
-    "topic": "geo",
-    "d": "hard",
-    "cat": {
-      "en": "Which of these countries border Germany?",
-      "fi": "Mitkä näistä maista rajoittuvat Saksaan?",
-      "es": "¿Cuáles de estos países limitan con Alemania?"
-    },
-    "o": [
-      [
-        "France",
-        "Ranska",
-        "Francia",
-        1
-      ],
-      [
-        "Poland",
-        "Puola",
-        "Polonia",
-        1
-      ],
-      [
-        "Austria",
-        "Itävalta",
-        "Austria",
-        1
-      ],
-      [
-        "Spain",
-        "Espanja",
-        "España",
-        0
-      ],
-      [
-        "Netherlands",
-        "Alankomaat",
-        "Países Bajos",
-        1
-      ],
-      [
-        "Italy",
-        "Italia",
-        "Italia",
-        0
-      ],
-      [
-        "Belgium",
-        "Belgia",
-        "Bélgica",
-        1
-      ],
-      [
-        "Sweden",
-        "Ruotsi",
-        "Suecia",
-        0
-      ],
-      [
-        "Denmark",
-        "Tanska",
-        "Dinamarca",
-        1
-      ],
-      [
-        "Czechia",
-        "Tšekki",
-        "Chequia",
         1
       ]
     ]
@@ -12704,77 +12207,6 @@
         "India",
         "Intia",
         "India",
-        1
-      ]
-    ]
-  },
-  {
-    "topic": "geo",
-    "d": "easy",
-    "cat": {
-      "en": "Which of these are cities?",
-      "fi": "Mitkä näistä ovat kaupunkeja?",
-      "es": "¿Cuáles de estas son ciudades?"
-    },
-    "o": [
-      [
-        "Paris",
-        "Pariisi",
-        "París",
-        1
-      ],
-      [
-        "London",
-        "Lontoo",
-        "Londres",
-        1
-      ],
-      [
-        "Tokyo",
-        "Tokio",
-        "Tokio",
-        1
-      ],
-      [
-        "France",
-        "Ranska",
-        "Francia",
-        0
-      ],
-      [
-        "Madrid",
-        "Madrid",
-        "Madrid",
-        1
-      ],
-      [
-        "Spain",
-        "Espanja",
-        "España",
-        0
-      ],
-      [
-        "Berlin",
-        "Berliini",
-        "Berlín",
-        1
-      ],
-      [
-        "Japan",
-        "Japani",
-        "Japón",
-        0
-      ],
-      [
-        "Rome",
-        "Rooma",
-        "Roma",
-        1
-      ],
-      [
-        "Sydney",
-        "Sydney",
-        "Sídney",
         1
       ]
     ]
@@ -15478,77 +14910,6 @@
     ]
   },
   {
-    "topic": "arts",
-    "d": "normal",
-    "cat": {
-      "en": "Which of these are percussion instruments?",
-      "fi": "Mitkä näistä ovat lyömäsoittimia?",
-      "es": "¿Cuáles de estos son instrumentos de percusión?"
-    },
-    "o": [
-      [
-        "Drums",
-        "Rummut",
-        "Batería",
-        1
-      ],
-      [
-        "Xylophone",
-        "Ksylofoni",
-        "Xilófono",
-        1
-      ],
-      [
-        "Cymbals",
-        "Symbaalit",
-        "Platillos",
-        1
-      ],
-      [
-        "Violin",
-        "Viulu",
-        "Violín",
-        0
-      ],
-      [
-        "Tambourine",
-        "Tamburiini",
-        "Pandereta",
-        1
-      ],
-      [
-        "Flute",
-        "Huilu",
-        "Flauta",
-        0
-      ],
-      [
-        "Timpani",
-        "Patarummut",
-        "Timbales",
-        1
-      ],
-      [
-        "Trumpet",
-        "Trumpetti",
-        "Trompeta",
-        0
-      ],
-      [
-        "Triangle",
-        "Triangeli",
-        "Triángulo",
-        1
-      ],
-      [
-        "Maracas",
-        "Marakassit",
-        "Maracas",
-        1
-      ]
-    ]
-  },
-  {
     "topic": "gen",
     "d": "normal",
     "cat": {
@@ -17182,77 +16543,6 @@
     ]
   },
   {
-    "topic": "gen",
-    "d": "easy",
-    "cat": {
-      "en": "Which of these are seasons?",
-      "fi": "Mitkä näistä ovat vuodenaikoja?",
-      "es": "¿Cuáles de estas son estaciones del año?"
-    },
-    "o": [
-      [
-        "Spring",
-        "Kevät",
-        "Primavera",
-        1
-      ],
-      [
-        "Summer",
-        "Kesä",
-        "Verano",
-        1
-      ],
-      [
-        "Autumn",
-        "Syksy",
-        "Otoño",
-        1
-      ],
-      [
-        "Monday",
-        "Maanantai",
-        "Lunes",
-        0
-      ],
-      [
-        "Winter",
-        "Talvi",
-        "Invierno",
-        1
-      ],
-      [
-        "July",
-        "Heinäkuu",
-        "Julio",
-        0
-      ],
-      [
-        "Morning",
-        "Aamu",
-        "Mañana",
-        0
-      ],
-      [
-        "Rain",
-        "Sade",
-        "Lluvia",
-        0
-      ],
-      [
-        "Night",
-        "Yö",
-        "Noche",
-        0
-      ],
-      [
-        "Snow",
-        "Lumi",
-        "Nieve",
-        0
-      ]
-    ]
-  },
-  {
     "topic": "sci",
     "d": "easy",
     "cat": {
@@ -18602,77 +17892,6 @@
     ]
   },
   {
-    "topic": "sci",
-    "d": "hard",
-    "cat": {
-      "en": "Which of these are transition metals?",
-      "fi": "Mitkä näistä ovat siirtymämetalleja?",
-      "es": "¿Cuáles de estos son metales de transición?"
-    },
-    "o": [
-      [
-        "Iron",
-        "Rauta",
-        "Hierro",
-        1
-      ],
-      [
-        "Copper",
-        "Kupari",
-        "Cobre",
-        1
-      ],
-      [
-        "Zinc",
-        "Sinkki",
-        "Zinc",
-        1
-      ],
-      [
-        "Sodium",
-        "Natrium",
-        "Sodio",
-        0
-      ],
-      [
-        "Nickel",
-        "Nikkeli",
-        "Níquel",
-        1
-      ],
-      [
-        "Calcium",
-        "Kalsium",
-        "Calcio",
-        0
-      ],
-      [
-        "Cobalt",
-        "Koboltti",
-        "Cobalto",
-        1
-      ],
-      [
-        "Potassium",
-        "Kalium",
-        "Potasio",
-        0
-      ],
-      [
-        "Chromium",
-        "Kromi",
-        "Cromo",
-        1
-      ],
-      [
-        "Magnesium",
-        "Magnesium",
-        "Magnesio",
-        0
-      ]
-    ]
-  },
-  {
     "topic": "geo",
     "d": "hard",
     "cat": {
@@ -18895,9 +18114,9 @@
     },
     "o": [
       [
-        "Everst",
-        "Everst",
-        "Everst",
+        "Everest",
+        "Everest",
+        "Everest",
         1
       ],
       [
@@ -18957,8 +18176,8 @@
     ]
   },
   {
-    "topic": "Sport",
-    "d": "Normal",
+    "topic": "sport",
+    "d": "normal",
     "cat": {
       "en": "Which of these countries has won the World Hockey Championship? Before 2026",
       "fi": "Mitkä näistä maista on voittanut jääkiekon maailmanmestaruuden? Ennen 2026",
@@ -19099,7 +18318,7 @@
     ]
   },
   {
-    "topic": "Hist",
+    "topic": "hist",
     "d": "hard",
     "cat": {
       "en": "Which of the following were independent states before the start of World War I in 1914?",
@@ -19236,6 +18455,1071 @@
         "Iceland",
         "Islanti",
         "Islandia",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "gen",
+    "d": "normal",
+    "cat": {
+      "en": "Which of the following regions are part of the United Kingdom?",
+      "fi": "Mitkä seuraavista alueista kuuluvat Yhdistyneeseen kuningaskuntaan?",
+      "es": "¿Cuáles de las siguientes regiones forman parte del Reino Unido?"
+    },
+    "o": [
+      [
+        "England",
+        "Englanti",
+        "Inglaterra",
+        1
+      ],
+      [
+        "Scotland",
+        "Skotlanti",
+        "Escocia",
+        1
+      ],
+      [
+        "Wales",
+        "Wales",
+        "Gales",
+        1
+      ],
+      [
+        "Northern Ireland",
+        "Pohjois-Irlanti",
+        "Irlanda del Norte",
+        1
+      ],
+      [
+        "Republic of Ireland",
+        "Irlanti",
+        "Irlanda",
+        0
+      ],
+      [
+        "Isle of Man",
+        "Mansaari",
+        "Isla de Man",
+        0
+      ],
+      [
+        "Jersey",
+        "Jersey",
+        "Jersey",
+        0
+      ],
+      [
+        "Guernsey",
+        "Guernsey",
+        "Guernsey",
+        0
+      ],
+      [
+        "Faroe Islands",
+        "Färsaaret",
+        "Islas Feroe",
+        0
+      ],
+      [
+        "Gibraltar",
+        "Gibraltar",
+        "Gibraltar",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "gen",
+    "d": "hard",
+    "cat": {
+      "en": "Which of the following are permanent members of the United Nations Security Council?",
+      "fi": "Mitkä seuraavista ovat Yhdistyneiden kansakuntien turvallisuusneuvoston pysyviä jäseniä?",
+      "es": "¿Cuáles de los siguientes son miembros permanentes del Consejo de Seguridad de las Naciones Unidas?"
+    },
+    "o": [
+      [
+        "China",
+        "Kiina",
+        "China",
+        1
+      ],
+      [
+        "France",
+        "Ranska",
+        "Francia",
+        1
+      ],
+      [
+        "Russia",
+        "Venäjä",
+        "Rusia",
+        1
+      ],
+      [
+        "United Kingdom",
+        "Yhdistynyt kuningaskunta",
+        "Reino Unido",
+        1
+      ],
+      [
+        "United States",
+        "Yhdysvallat",
+        "Estados Unidos",
+        1
+      ],
+      [
+        "Germany",
+        "Saksa",
+        "Alemania",
+        0
+      ],
+      [
+        "Japan",
+        "Japani",
+        "Japón",
+        0
+      ],
+      [
+        "India",
+        "Intia",
+        "India",
+        0
+      ],
+      [
+        "Brazil",
+        "Brasilia",
+        "Brasil",
+        0
+      ],
+      [
+        "Canada",
+        "Kanada",
+        "Canadá",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "gen",
+    "d": "normal",
+    "cat": {
+      "en": "Which of the following countries are members of the G7?",
+      "fi": "Mitkä seuraavista maista kuuluvat G7-ryhmään?",
+      "es": "¿Cuáles de los siguientes países son miembros del G7?"
+    },
+    "o": [
+      [
+        "Canada",
+        "Kanada",
+        "Canadá",
+        1
+      ],
+      [
+        "France",
+        "Ranska",
+        "Francia",
+        1
+      ],
+      [
+        "Germany",
+        "Saksa",
+        "Alemania",
+        1
+      ],
+      [
+        "Italy",
+        "Italia",
+        "Italia",
+        1
+      ],
+      [
+        "Japan",
+        "Japani",
+        "Japón",
+        1
+      ],
+      [
+        "Spain",
+        "Espanja",
+        "España",
+        0
+      ],
+      [
+        "Australia",
+        "Australia",
+        "Australia",
+        0
+      ],
+      [
+        "Russia",
+        "Venäjä",
+        "Rusia",
+        0
+      ],
+      [
+        "Brazil",
+        "Brasilia",
+        "Brasil",
+        0
+      ],
+      [
+        "South Korea",
+        "Etelä-Korea",
+        "Corea del Sur",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "arts",
+    "d": "normal",
+    "cat": {
+      "en": "Which of the following are paintings by Vincent van Gogh?",
+      "fi": "Mitkä seuraavista ovat Vincent van Goghin maalauksia?",
+      "es": "¿Cuáles de las siguientes son pinturas de Vincent van Gogh?"
+    },
+    "o": [
+      [
+        "The Starry Night",
+        "Tähtikirkas yö",
+        "La noche estrellada",
+        1
+      ],
+      [
+        "Sunflowers",
+        "Auringonkukat",
+        "Girasoles",
+        1
+      ],
+      [
+        "Irises",
+        "Iirikset",
+        "Lirios",
+        1
+      ],
+      [
+        "The Potato Eaters",
+        "Perunansyöjät",
+        "Los comedores de patatas",
+        1
+      ],
+      [
+        "Bedroom in Arles",
+        "Makuuhuone Arlesissa",
+        "Dormitorio en Arlés",
+        1
+      ],
+      [
+        "Guernica",
+        "Guernica",
+        "Guernica",
+        0
+      ],
+      [
+        "Mona Lisa",
+        "Mona Lisa",
+        "La Mona Lisa",
+        0
+      ],
+      [
+        "The Scream",
+        "Huuto",
+        "El grito",
+        0
+      ],
+      [
+        "The Persistence of Memory",
+        "Muistin pysyvyys",
+        "La persistencia de la memoria",
+        0
+      ],
+      [
+        "Girl with a Pearl Earring",
+        "Tyttö ja helmikorvakoru",
+        "La joven de la perla",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "arts",
+    "d": "normal",
+    "cat": {
+      "en": "Which of the following are famous sculptures?",
+      "fi": "Mitkä seuraavista ovat tunnettuja veistoksia?",
+      "es": "¿Cuáles de las siguientes son esculturas famosas?"
+    },
+    "o": [
+      [
+        "David",
+        "Daavid",
+        "David",
+        1
+      ],
+      [
+        "The Thinker",
+        "Ajattelija",
+        "El Pensador",
+        1
+      ],
+      [
+        "Venus de Milo",
+        "Venus de Milo",
+        "Venus de Milo",
+        1
+      ],
+      [
+        "Statue of Liberty",
+        "Vapaudenpatsas",
+        "Estatua de la Libertad",
+        1
+      ],
+      [
+        "Pietà",
+        "Pietà",
+        "Piedad",
+        1
+      ],
+      [
+        "Guernica",
+        "Guernica",
+        "Guernica",
+        0
+      ],
+      [
+        "Mona Lisa",
+        "Mona Lisa",
+        "La Mona Lisa",
+        0
+      ],
+      [
+        "The Scream",
+        "Huuto",
+        "El grito",
+        0
+      ],
+      [
+        "The Starry Night",
+        "Tähtikirkas yö",
+        "La noche estrellada",
+        0
+      ],
+      [
+        "The Last Supper",
+        "Viimeinen ehtoollinen",
+        "La última cena",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "sci",
+    "d": "normal",
+    "cat": {
+      "en": "Which of the following are famous astronomers?",
+      "fi": "Mitkä seuraavista ovat tunnettuja tähtitieteilijöitä?",
+      "es": "¿Cuáles de los siguientes son astrónomos famosos?"
+    },
+    "o": [
+      [
+        "Nicolaus Copernicus",
+        "Nikolaus Kopernikus",
+        "Nicolás Copérnico",
+        1
+      ],
+      [
+        "Galileo Galilei",
+        "Galileo Galilei",
+        "Galileo Galilei",
+        1
+      ],
+      [
+        "Johannes Kepler",
+        "Johannes Kepler",
+        "Johannes Kepler",
+        1
+      ],
+      [
+        "Edwin Hubble",
+        "Edwin Hubble",
+        "Edwin Hubble",
+        1
+      ],
+      [
+        "Carl Sagan",
+        "Carl Sagan",
+        "Carl Sagan",
+        1
+      ],
+      [
+        "Isaac Newton",
+        "Isaac Newton",
+        "Isaac Newton",
+        0
+      ],
+      [
+        "Albert Einstein",
+        "Albert Einstein",
+        "Albert Einstein",
+        0
+      ],
+      [
+        "Michael Faraday",
+        "Michael Faraday",
+        "Michael Faraday",
+        0
+      ],
+      [
+        "Dmitri Mendeleev",
+        "Dmitri Mendelejev",
+        "Dmitri Mendeléyev",
+        0
+      ],
+      [
+        "Louis Pasteur",
+        "Louis Pasteur",
+        "Louis Pasteur",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "sci",
+    "d": "normal",
+    "cat": {
+      "en": "Which of the following are space probes?",
+      "fi": "Mitkä seuraavista ovat avaruusluotaimia?",
+      "es": "¿Cuáles de las siguientes son sondas espaciales?"
+    },
+    "o": [
+      [
+        "Voyager 1",
+        "Voyager 1",
+        "Voyager 1",
+        1
+      ],
+      [
+        "Voyager 2",
+        "Voyager 2",
+        "Voyager 2",
+        1
+      ],
+      [
+        "Cassini",
+        "Cassini",
+        "Cassini",
+        1
+      ],
+      [
+        "Juno",
+        "Juno",
+        "Juno",
+        1
+      ],
+      [
+        "New Horizons",
+        "New Horizons",
+        "New Horizons",
+        1
+      ],
+      [
+        "Hubble",
+        "Hubble",
+        "Hubble",
+        0
+      ],
+      [
+        "ISS",
+        "ISS",
+        "ISS",
+        0
+      ],
+      [
+        "Mir",
+        "Mir",
+        "Mir",
+        0
+      ],
+      [
+        "Apollo 11",
+        "Apollo 11",
+        "Apollo 11",
+        0
+      ],
+      [
+        "Skylab",
+        "Skylab",
+        "Skylab",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "gen",
+    "d": "normal",
+    "cat": {
+      "en": "Which of the following movies were directed by Christopher Nolan?",
+      "fi": "Mitkä seuraavista elokuvista on ohjannut Christopher Nolan?",
+      "es": "¿Cuáles de las siguientes películas fueron dirigidas por Christopher Nolan?"
+    },
+    "o": [
+      [
+        "Inception",
+        "Inception",
+        "Inception",
+        1
+      ],
+      [
+        "Interstellar",
+        "Interstellar",
+        "Interstellar",
+        1
+      ],
+      [
+        "Dunkirk",
+        "Dunkirk",
+        "Dunkerque",
+        1
+      ],
+      [
+        "Oppenheimer",
+        "Oppenheimer",
+        "Oppenheimer",
+        1
+      ],
+      [
+        "The Dark Knight",
+        "Yön ritari",
+        "El caballero oscuro",
+        1
+      ],
+      [
+        "Pulp Fiction",
+        "Pulp Fiction",
+        "Pulp Fiction",
+        0
+      ],
+      [
+        "Avatar",
+        "Avatar",
+        "Avatar",
+        0
+      ],
+      [
+        "Gladiator",
+        "Gladiaattori",
+        "Gladiador",
+        0
+      ],
+      [
+        "Titanic",
+        "Titanic",
+        "Titanic",
+        0
+      ],
+      [
+        "The Godfather",
+        "Kummisetä",
+        "El padrino",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "gen",
+    "d": "normal",
+    "cat": {
+      "en": "Which of the following movies have won the Academy Award for Best Picture?",
+      "fi": "Mitkä seuraavista elokuvista ovat voittaneet parhaan elokuvan Oscarin?",
+      "es": "¿Cuáles de las siguientes películas ganaron el Óscar a la Mejor Película?"
+    },
+    "o": [
+      [
+        "Titanic",
+        "Titanic",
+        "Titanic",
+        1
+      ],
+      [
+        "Gladiator",
+        "Gladiaattori",
+        "Gladiador",
+        1
+      ],
+      [
+        "The Godfather",
+        "Kummisetä",
+        "El padrino",
+        1
+      ],
+      [
+        "Schindler's List",
+        "Schindlerin lista",
+        "La lista de Schindler",
+        1
+      ],
+      [
+        "Forrest Gump",
+        "Forrest Gump",
+        "Forrest Gump",
+        1
+      ],
+      [
+        "Inception",
+        "Inception",
+        "Inception",
+        0
+      ],
+      [
+        "Pulp Fiction",
+        "Pulp Fiction",
+        "Pulp Fiction",
+        0
+      ],
+      [
+        "Avatar",
+        "Avatar",
+        "Avatar",
+        0
+      ],
+      [
+        "Saving Private Ryan",
+        "Pelastakaa sotamies Ryan",
+        "Salvar al soldado Ryan",
+        0
+      ],
+      [
+        "The Shawshank Redemption",
+        "Rita Hayworth – avain pakoon",
+        "Cadena perpetua",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "gen",
+    "d": "normal",
+    "cat": {
+      "en": "Which of the following are animated films?",
+      "fi": "Mitkä seuraavista ovat animaatioelokuvia?",
+      "es": "¿Cuáles de las siguientes son películas de animación?"
+    },
+    "o": [
+      [
+        "Toy Story",
+        "Toy Story",
+        "Toy Story",
+        1
+      ],
+      [
+        "Shrek",
+        "Shrek",
+        "Shrek",
+        1
+      ],
+      [
+        "Frozen",
+        "Frozen",
+        "Frozen",
+        1
+      ],
+      [
+        "Spirited Away",
+        "Henkien kätkemä",
+        "El viaje de Chihiro",
+        1
+      ],
+      [
+        "The Lion King (1994)",
+        "Leijonakuningas (1994)",
+        "El rey león (1994)",
+        1
+      ],
+      [
+        "Titanic",
+        "Titanic",
+        "Titanic",
+        0
+      ],
+      [
+        "Gladiator",
+        "Gladiaattori",
+        "Gladiador",
+        0
+      ],
+      [
+        "Interstellar",
+        "Interstellar",
+        "Interstellar",
+        0
+      ],
+      [
+        "Joker",
+        "Joker",
+        "Joker",
+        0
+      ],
+      [
+        "The Godfather",
+        "Kummisetä",
+        "El padrino",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "gen",
+    "d": "normal",
+    "cat": {
+      "en": "Which of the following films are part of the Marvel Cinematic Universe?",
+      "fi": "Mitkä seuraavista elokuvista kuuluvat Marvel Cinematic Universeen?",
+      "es": "¿Cuáles de las siguientes películas forman parte del Universo Cinematográfico de Marvel?"
+    },
+    "o": [
+      [
+        "Iron Man",
+        "Iron Man",
+        "Iron Man",
+        1
+      ],
+      [
+        "Avengers: Endgame",
+        "Avengers: Endgame",
+        "Avengers: Endgame",
+        1
+      ],
+      [
+        "Black Panther",
+        "Black Panther",
+        "Black Panther",
+        1
+      ],
+      [
+        "Thor",
+        "Thor",
+        "Thor",
+        1
+      ],
+      [
+        "Doctor Strange",
+        "Doctor Strange",
+        "Doctor Strange",
+        1
+      ],
+      [
+        "Joker",
+        "Joker",
+        "Joker",
+        0
+      ],
+      [
+        "The Batman",
+        "The Batman",
+        "The Batman",
+        0
+      ],
+      [
+        "X-Men",
+        "X-Men",
+        "X-Men",
+        0
+      ],
+      [
+        "Deadpool",
+        "Deadpool",
+        "Deadpool",
+        0
+      ],
+      [
+        "Fantastic Four",
+        "Fantastic Four",
+        "Los Cuatro Fantásticos",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "gen",
+    "d": "normal",
+    "cat": {
+      "en": "Which of the following movies were directed by Steven Spielberg?",
+      "fi": "Mitkä seuraavista elokuvista on ohjannut Steven Spielberg?",
+      "es": "¿Cuáles de las siguientes películas fueron dirigidas por Steven Spielberg?"
+    },
+    "o": [
+      [
+        "Jaws",
+        "Tappajahai",
+        "Tiburón",
+        1
+      ],
+      [
+        "E.T. the Extra-Terrestrial",
+        "E.T.",
+        "E.T.",
+        1
+      ],
+      [
+        "Jurassic Park",
+        "Jurassic Park",
+        "Parque Jurásico",
+        1
+      ],
+      [
+        "Schindler's List",
+        "Schindlerin lista",
+        "La lista de Schindler",
+        1
+      ],
+      [
+        "Saving Private Ryan",
+        "Pelastakaa sotamies Ryan",
+        "Salvar al soldado Ryan",
+        1
+      ],
+      [
+        "Titanic",
+        "Titanic",
+        "Titanic",
+        0
+      ],
+      [
+        "Avatar",
+        "Avatar",
+        "Avatar",
+        0
+      ],
+      [
+        "The Godfather",
+        "Kummisetä",
+        "El padrino",
+        0
+      ],
+      [
+        "Gladiator",
+        "Gladiaattori",
+        "Gladiador",
+        0
+      ],
+      [
+        "Inception",
+        "Inception",
+        "Inception",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "hist",
+    "d": "hard",
+    "cat": {
+      "en": "Which of the following were Hanseatic League cities?",
+      "fi": "Mitkä seuraavista olivat Hansa-liiton kaupunkeja?",
+      "es": "¿Cuáles de las siguientes fueron ciudades de la Liga Hanseática?"
+    },
+    "o": [
+      [
+        "Lübeck",
+        "Lyypekki",
+        "Lübeck",
+        1
+      ],
+      [
+        "Hamburg",
+        "Hampuri",
+        "Hamburgo",
+        1
+      ],
+      [
+        "Bremen",
+        "Bremen",
+        "Bremen",
+        1
+      ],
+      [
+        "Tallinn",
+        "Tallinna",
+        "Tallin",
+        1
+      ],
+      [
+        "Riga",
+        "Riika",
+        "Riga",
+        1
+      ],
+      [
+        "Vienna",
+        "Wien",
+        "Viena",
+        0
+      ],
+      [
+        "Paris",
+        "Pariisi",
+        "París",
+        0
+      ],
+      [
+        "Rome",
+        "Rooma",
+        "Roma",
+        0
+      ],
+      [
+        "Madrid",
+        "Madrid",
+        "Madrid",
+        0
+      ],
+      [
+        "Athens",
+        "Ateena",
+        "Atenas",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "hist",
+    "d": "hard",
+    "cat": {
+      "en": "Which of the following were founded or significantly ruled by Vikings?",
+      "fi": "Mitkä seuraavista olivat viikinkien perustamia tai merkittävästi hallitsemia valtioita tai alueita?",
+      "es": "¿Cuáles de los siguientes fueron fundados o gobernados significativamente por los vikingos?"
+    },
+    "o": [
+      [
+        "Normandy",
+        "Normandia",
+        "Normandía",
+        1
+      ],
+      [
+        "Kingdom of Dublin",
+        "Dublinin kuningaskunta",
+        "Reino de Dublín",
+        1
+      ],
+      [
+        "Jórvík",
+        "Jórvík",
+        "Jórvík",
+        1
+      ],
+      [
+        "Iceland",
+        "Islanti",
+        "Islandia",
+        1
+      ],
+      [
+        "Greenland",
+        "Grönlanti",
+        "Groenlandia",
+        1
+      ],
+      [
+        "Scotland",
+        "Skotlanti",
+        "Escocia",
+        0
+      ],
+      [
+        "Wales",
+        "Wales",
+        "Gales",
+        0
+      ],
+      [
+        "Prussia",
+        "Preussi",
+        "Prusia",
+        0
+      ],
+      [
+        "Bohemia",
+        "Böömi",
+        "Bohemia",
+        0
+      ],
+      [
+        "Portugal",
+        "Portugali",
+        "Portugal",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "hist",
+    "d": "hard",
+    "cat": {
+      "en": "Which of the following were major city-states of ancient Greece?",
+      "fi": "Mitkä seuraavista olivat antiikin Kreikan merkittäviä kaupunkivaltioita?",
+      "es": "¿Cuáles de las siguientes fueron importantes ciudades-estado de la antigua Grecia?"
+    },
+    "o": [
+      [
+        "Athens",
+        "Ateena",
+        "Atenas",
+        1
+      ],
+      [
+        "Sparta",
+        "Sparta",
+        "Esparta",
+        1
+      ],
+      [
+        "Corinth",
+        "Korintti",
+        "Corinto",
+        1
+      ],
+      [
+        "Thebes",
+        "Theba",
+        "Tebas",
+        1
+      ],
+      [
+        "Argos",
+        "Argos",
+        "Argos",
+        1
+      ],
+      [
+        "Rome",
+        "Rooma",
+        "Roma",
+        0
+      ],
+      [
+        "Carthage",
+        "Karthago",
+        "Cartago",
+        0
+      ],
+      [
+        "Alexandria",
+        "Aleksandria",
+        "Alejandría",
+        0
+      ],
+      [
+        "Troy",
+        "Troija",
+        "Troya",
+        0
+      ],
+      [
+        "Pergamon",
+        "Pergamon",
+        "Pérgamo",
         0
       ]
     ]
