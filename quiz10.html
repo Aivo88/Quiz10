@@ -253,16 +253,13 @@
   .btn.num.gold{background:linear-gradient(180deg,#F5BE52,#E09B22); border-color:#caa23f; color:#241a05}
 
   /* difficulty buttons — colour coded, clear selected state */
-  .btn.diff{flex:0 0 auto; border-width:2px; font-weight:800; padding:clamp(13px,2vh,22px) clamp(22px,3vw,40px); font-size:calc(clamp(17px,2.1vw,28px) * var(--fs)); border-radius:14px}
-  .btn.diff[data-v="easy"]{border-color:var(--good); color:var(--good)}
-  .btn.diff[data-v="normal"]{border-color:var(--gold); color:var(--gold)}
-  .btn.diff[data-v="hard"]{border-color:var(--bad); color:var(--bad)}
-  .btn.diff[data-v="all"]{border-color:var(--muted); color:var(--ink)}
+  .btn.diff{flex:0 0 auto; border-width:2px; font-weight:800; padding:clamp(13px,2vh,22px) clamp(22px,3vw,40px); font-size:calc(clamp(17px,2.1vw,28px) * var(--fs)); border-radius:14px; border-color:var(--line); color:var(--muted); background:var(--panel)}
+  .btn.diff.sel::before{content:"✓ "}
   .btn.diff.sel[data-v="easy"]{background:var(--good); color:#06251b; border-color:var(--good)}
-  .btn.diff.sel[data-v="normal"]{background:var(--gold); color:#241a05; border-color:var(--gold)}
+  .btn.diff.sel[data-v="normal"]{background:#2e6fd6; color:#ffffff; border-color:#2e6fd6}
   .btn.diff.sel[data-v="hard"]{background:var(--bad); color:#2a0808; border-color:var(--bad)}
-  .btn.diff.sel[data-v="all"]{background:var(--muted); color:var(--bg); border-color:var(--muted)}
-  body.kbd .btn.diff.focused{background:none}
+  body.kbd .btn.diff.focused{box-shadow:inset 0 0 0 3px var(--focus); border-color:var(--focus)}
+  .diffhint{color:var(--muted); font-size:calc(clamp(12px,1.4vw,17px) * var(--fs)); margin:-4px 0 10px; text-align:center}
   body.kbd .btn.diff.sel[data-v="easy"].focused{background:var(--good)}
   body.kbd .btn.diff.sel[data-v="normal"].focused{background:var(--gold)}
   body.kbd .btn.diff.sel[data-v="hard"].focused{background:var(--bad)}
@@ -565,6 +562,7 @@
 
       <div class="stack">
         <div class="sub" data-i="difficultyLabel">Difficulty</div>
+        <div class="diffhint" data-i="difficultyHint">Choose one or more</div>
         <div class="row" id="diffRow">
           <button class="btn diff focusable" data-action="toggleDiff" data-v="easy" data-i="diffEasy">Easy</button>
           <button class="btn diff focusable" data-action="toggleDiff" data-v="normal" data-i="diffNormal">Normal</button>
@@ -657,8 +655,9 @@ const T = {
   en:{
     chooseLang:"Choose your language",
     setupTitle:"Set up the game",
-    playersLabel:"Number of players",
-    playersUnit:"players",
+    playersLabel:"Number of players / teams",
+    playersUnit:"players / teams",
+    difficultyHint:"Choose one or more",
     targetLabel:"Points to win",
     difficultyLabel:"Difficulty",
     diffEasy:"Easy", diffNormal:"Normal", diffHard:"Hard", diffAll:"All",
@@ -723,8 +722,9 @@ const T = {
   fi:{
     chooseLang:"Valitse kieli",
     setupTitle:"Pelin asetukset",
-    playersLabel:"Pelaajien määrä",
-    playersUnit:"pelaajaa",
+    playersLabel:"Pelaajien / joukkueiden määrä",
+    playersUnit:"pelaajaa / joukkuetta",
+    difficultyHint:"Valitse yksi tai useampi",
     targetLabel:"Voittoon vaadittavat pisteet",
     difficultyLabel:"Vaikeustaso",
     diffEasy:"Helppo", diffNormal:"Normaali", diffHard:"Vaikea", diffAll:"Kaikki",
@@ -789,8 +789,9 @@ const T = {
   es:{
     chooseLang:"Elige tu idioma",
     setupTitle:"Configurar el juego",
-    playersLabel:"Número de jugadores",
-    playersUnit:"jugadores",
+    playersLabel:"Número de jugadores / equipos",
+    playersUnit:"jugadores / equipos",
+    difficultyHint:"Elige uno o varios",
     targetLabel:"Puntos para ganar",
     difficultyLabel:"Dificultad",
     diffEasy:"Fácil", diffNormal:"Normal", diffHard:"Difícil", diffAll:"Todas",
@@ -989,7 +990,7 @@ const QUESTIONS = [
 
 const PLAYER_COLORS = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
-const APP_VERSION = '3.9';
+const APP_VERSION = '4.0';
 
 let questionsStatus = '';
 const QCACHE_KEY = 'quiz10_qcache';
