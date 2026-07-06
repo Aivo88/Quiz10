@@ -1918,77 +1918,6 @@
   },
   {
     "topic": "geo",
-    "d": "normal",
-    "cat": {
-      "en": "Which of these countries are islands?",
-      "fi": "Mitkä näistä maista ovat saaria?",
-      "es": "¿Cuáles de estos países son islas?"
-    },
-    "o": [
-      [
-        "Japan",
-        "Japani",
-        "Japón",
-        1
-      ],
-      [
-        "Iceland",
-        "Islanti",
-        "Islandia",
-        1
-      ],
-      [
-        "Ireland",
-        "Irlanti",
-        "Irlanda",
-        1
-      ],
-      [
-        "Switzerland",
-        "Sveitsi",
-        "Suiza",
-        0
-      ],
-      [
-        "Cuba",
-        "Kuuba",
-        "Cuba",
-        1
-      ],
-      [
-        "Austria",
-        "Itävalta",
-        "Austria",
-        0
-      ],
-      [
-        "Madagascar",
-        "Madagaskar",
-        "Madagascar",
-        1
-      ],
-      [
-        "Bolivia",
-        "Bolivia",
-        "Bolivia",
-        0
-      ],
-      [
-        "New Zealand",
-        "Uusi-Seelanti",
-        "Nueva Zelanda",
-        1
-      ],
-      [
-        "Mongolia",
-        "Mongolia",
-        "Mongolia",
-        0
-      ]
-    ]
-  },
-  {
-    "topic": "geo",
     "d": "easy",
     "cat": {
       "en": "Which of these countries are in Asia?",
@@ -19520,6 +19449,787 @@
         "Pergamon",
         "Pergamon",
         "Pérgamo",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "sport",
+    "d": "hard",
+    "cat": {
+      "en": "Which of the following cyclists have won the Tour de France?",
+      "fi": "Ketkä seuraavista pyöräilijöistä ovat voittaneet Tour de Francen?",
+      "es": "¿Cuáles de los siguientes ciclistas han ganado el Tour de Francia?"
+    },
+    "o": [
+      [
+        "Eddy Merckx",
+        "Eddy Merckx",
+        "Eddy Merckx",
+        1
+      ],
+      [
+        "Bernard Hinault",
+        "Bernard Hinault",
+        "Bernard Hinault",
+        1
+      ],
+      [
+        "Miguel Induráin",
+        "Miguel Induráin",
+        "Miguel Induráin",
+        1
+      ],
+      [
+        "Chris Froome",
+        "Chris Froome",
+        "Chris Froome",
+        1
+      ],
+      [
+        "Tadej Pogačar",
+        "Tadej Pogačar",
+        "Tadej Pogačar",
+        1
+      ],
+      [
+        "Peter Sagan",
+        "Peter Sagan",
+        "Peter Sagan",
+        0
+      ],
+      [
+        "Mark Cavendish",
+        "Mark Cavendish",
+        "Mark Cavendish",
+        0
+      ],
+      [
+        "Fabian Cancellara",
+        "Fabian Cancellara",
+        "Fabian Cancellara",
+        0
+      ],
+      [
+        "Tom Boonen",
+        "Tom Boonen",
+        "Tom Boonen",
+        0
+      ],
+      [
+        "Mathieu van der Poel",
+        "Mathieu van der Poel",
+        "Mathieu van der Poel",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "sport",
+    "d": "hard",
+    "cat": {
+      "en": "Which of the following drivers have won the World Rally Championship (WRC)?",
+      "fi": "Ketkä seuraavista kuljettajista ovat voittaneet rallin maailmanmestaruuden (WRC)?",
+      "es": "¿Cuáles de los siguientes pilotos han ganado el Campeonato Mundial de Rally (WRC)?"
+    },
+    "o": [
+      [
+        "Sébastien Loeb",
+        "Sébastien Loeb",
+        "Sébastien Loeb",
+        1
+      ],
+      [
+        "Sébastien Ogier",
+        "Sébastien Ogier",
+        "Sébastien Ogier",
+        1
+      ],
+      [
+        "Tommi Mäkinen",
+        "Tommi Mäkinen",
+        "Tommi Mäkinen",
+        1
+      ],
+      [
+        "Marcus Grönholm",
+        "Marcus Grönholm",
+        "Marcus Grönholm",
+        1
+      ],
+      [
+        "Carlos Sainz Sr.",
+        "Carlos Sainz Sr.",
+        "Carlos Sainz Sr.",
+        1
+      ],
+      [
+        "Mikko Hirvonen",
+        "Mikko Hirvonen",
+        "Mikko Hirvonen",
+        0
+      ],
+      [
+        "Jari-Matti Latvala",
+        "Jari-Matti Latvala",
+        "Jari-Matti Latvala",
+        0
+      ],
+      [
+        "Thierry Neuville",
+        "Thierry Neuville",
+        "Thierry Neuville",
+        1
+      ],
+      [
+        "Henri Toivonen",
+        "Henri Toivonen",
+        "Henri Toivonen",
+        0
+      ],
+      [
+        "Kris Meeke",
+        "Kris Meeke",
+        "Kris Meeke",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "sport",
+    "d": "hard",
+    "cat": {
+      "en": "Which of the following golfers have won the Masters Tournament?",
+      "fi": "Ketkä seuraavista golfareista ovat voittaneet Masters-turnauksen?",
+      "es": "¿Cuáles de los siguientes golfistas han ganado el Masters?"
+    },
+    "o": [
+      [
+        "Tiger Woods",
+        "Tiger Woods",
+        "Tiger Woods",
+        1
+      ],
+      [
+        "Jack Nicklaus",
+        "Jack Nicklaus",
+        "Jack Nicklaus",
+        1
+      ],
+      [
+        "Phil Mickelson",
+        "Phil Mickelson",
+        "Phil Mickelson",
+        1
+      ],
+      [
+        "Sergio García",
+        "Sergio García",
+        "Sergio García",
+        1
+      ],
+      [
+        "Scottie Scheffler",
+        "Scottie Scheffler",
+        "Scottie Scheffler",
+        1
+      ],
+      [
+        "Rory McIlroy",
+        "Rory McIlroy",
+        "Rory McIlroy",
+        0
+      ],
+      [
+        "Lee Westwood",
+        "Lee Westwood",
+        "Lee Westwood",
+        0
+      ],
+      [
+        "Colin Montgomerie",
+        "Colin Montgomerie",
+        "Colin Montgomerie",
+        0
+      ],
+      [
+        "Henrik Stenson",
+        "Henrik Stenson",
+        "Henrik Stenson",
+        0
+      ],
+      [
+        "Luke Donald",
+        "Luke Donald",
+        "Luke Donald",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "sport",
+    "d": "hard",
+    "cat": {
+      "en": "Which of the following countries have hosted the FIFA World Cup?",
+      "fi": "Mitkä seuraavista maista ovat isännöineet jalkapallon MM-kisoja?",
+      "es": "¿Cuáles de los siguientes países han sido anfitriones de la Copa Mundial de la FIFA?"
+    },
+    "o": [
+      [
+        "Uruguay",
+        "Uruguay",
+        "Uruguay",
+        1
+      ],
+      [
+        "Sweden",
+        "Ruotsi",
+        "Suecia",
+        1
+      ],
+      [
+        "South Africa",
+        "Etelä-Afrikka",
+        "Sudáfrica",
+        1
+      ],
+      [
+        "Qatar",
+        "Qatar",
+        "Qatar",
+        1
+      ],
+      [
+        "Russia",
+        "Venäjä",
+        "Rusia",
+        1
+      ],
+      [
+        "Finland",
+        "Suomi",
+        "Finlandia",
+        0
+      ],
+      [
+        "Denmark",
+        "Tanska",
+        "Dinamarca",
+        0
+      ],
+      [
+        "Belgium",
+        "Belgia",
+        "Bélgica",
+        0
+      ],
+      [
+        "Austria",
+        "Itävalta",
+        "Austria",
+        0
+      ],
+      [
+        "New Zealand",
+        "Uusi-Seelanti",
+        "Nueva Zelanda",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "sport",
+    "d": "hard",
+    "cat": {
+      "en": "Which of the following players have won the World Snooker Championship?",
+      "fi": "Ketkä seuraavista pelaajista ovat voittaneet snookerin maailmanmestaruuden?",
+      "es": "¿Cuáles de los siguientes jugadores han ganado el Campeonato Mundial de Snooker?"
+    },
+    "o": [
+      [
+        "Ronnie O'Sullivan",
+        "​Ronnie O'Sullivan",
+        "​Ronnie O'Sullivan",
+        1
+      ],
+      [
+        "Stephen Hendry",
+        "Stephen Hendry",
+        "Stephen Hendry",
+        1
+      ],
+      [
+        "Steve Davis",
+        "Steve Davis",
+        "Steve Davis",
+        1
+      ],
+      [
+        "John Higgins",
+        "John Higgins",
+        "John Higgins",
+        1
+      ],
+      [
+        "Mark Selby",
+        "Mark Selby",
+        "Mark Selby",
+        1
+      ],
+      [
+        "Jimmy White",
+        "Jimmy White",
+        "Jimmy White",
+        0
+      ],
+      [
+        "Ding Junhui",
+        "Ding Junhui",
+        "Ding Junhui",
+        0
+      ],
+      [
+        "Marco Fu",
+        "Marco Fu",
+        "Marco Fu",
+        0
+      ],
+      [
+        "Neil Robertson",
+        "Neil Robertson",
+        "Neil Robertson",
+        1
+      ],
+      [
+        "Judd Trump",
+        "Judd Trump",
+        "Judd Trump",
+        1
+      ]
+    ]
+  },
+  {
+    "topic": "geo",
+    "d": "normal",
+    "cat": {
+      "en": "Which of the following are autonomous territories or special administrative regions?",
+      "fi": "Mitkä seuraavista ovat autonomisia alueita tai erityishallintoalueita?",
+      "es": "¿Cuáles de los siguientes son territorios autónomos o regiones administrativas especiales?"
+    },
+    "o": [
+      [
+        "Greenland",
+        "Grönlanti",
+        "Groenlandia",
+        1
+      ],
+      [
+        "Faroe Islands",
+        "Färsaaret",
+        "Islas Feroe",
+        1
+      ],
+      [
+        "Hong Kong",
+        "Hongkong",
+        "Hong Kong",
+        1
+      ],
+      [
+        "Macau",
+        "Macao",
+        "Macao",
+        1
+      ],
+      [
+        "Åland",
+        "Ahvenanmaa",
+        "Åland",
+        1
+      ],
+      [
+        "Iceland",
+        "Islanti",
+        "Islandia",
+        0
+      ],
+      [
+        "New Zealand",
+        "Uusi-Seelanti",
+        "Nueva Zelanda",
+        0
+      ],
+      [
+        "Luxembourg",
+        "Luxemburg",
+        "Luxemburgo",
+        0
+      ],
+      [
+        "Monaco",
+        "Monaco",
+        "Mónaco",
+        0
+      ],
+      [
+        "Andorra",
+        "Andorra",
+        "Andorra",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "geo",
+    "d": "normal",
+    "cat": {
+      "en": "Which of the following countries have a coastline on the Mediterranean Sea?",
+      "fi": "Mitkä seuraavista valtioista sijaitsevat Välimeren rannalla?",
+      "es": "¿Cuáles de los siguientes países tienen costa en el mar Mediterráneo?"
+    },
+    "o": [
+      [
+        "Spain",
+        "Espanja",
+        "España",
+        1
+      ],
+      [
+        "Italy",
+        "Italia",
+        "Italia",
+        1
+      ],
+      [
+        "Greece",
+        "Kreikka",
+        "Grecia",
+        1
+      ],
+      [
+        "Egypt",
+        "Egypti",
+        "Egipto",
+        1
+      ],
+      [
+        "Algeria",
+        "Algeria",
+        "Argelia",
+        1
+      ],
+      [
+        "Croatia",
+        "Kroatia",
+        "Croacia",
+        1
+      ],
+      [
+        "Portugal",
+        "Portugali",
+        "Portugal",
+        0
+      ],
+      [
+        "Austria",
+        "Itävalta",
+        "Austria",
+        0
+      ],
+      [
+        "Serbia",
+        "Serbia",
+        "Serbia",
+        0
+      ],
+      [
+        "Switzerland",
+        "Sveitsi",
+        "Suiza",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "geo",
+    "d": "normal",
+    "cat": {
+      "en": "Which of the following are autonomous communities of Spain?",
+      "fi": "Mitkä seuraavista ovat Espanjan itsehallintoalueita?",
+      "es": "¿Cuáles de las siguientes son comunidades autónomas de España?"
+    },
+    "o": [
+      [
+        "Andalusia",
+        "Andalusia",
+        "Andalucía",
+        1
+      ],
+      [
+        "Catalonia",
+        "Katalonia",
+        "Cataluña",
+        1
+      ],
+      [
+        "Galicia",
+        "Galicia",
+        "Galicia",
+        1
+      ],
+      [
+        "Basque Country",
+        "Baskimaa",
+        "País Vasco",
+        1
+      ],
+      [
+        "Valencia",
+        "Valencia",
+        "Valencia",
+        1
+      ],
+      [
+        "Algarve",
+        "Algarve",
+        "Algarve",
+        0
+      ],
+      [
+        "Provence",
+        "Provence",
+        "Provenza",
+        0
+      ],
+      [
+        "Lombardy",
+        "Lombardia",
+        "Lombardía",
+        0
+      ],
+      [
+        "Bavaria",
+        "Baijeri",
+        "Baviera",
+        0
+      ],
+      [
+        "Sicily",
+        "Sisilia",
+        "Sicilia",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "geo",
+    "d": "normal",
+    "cat": {
+      "en": "In which of the following countries is German an official language?",
+      "fi": "Missä seuraavista valtioista saksa on virallinen kieli?",
+      "es": "¿En cuáles de los siguientes países el alemán es idioma oficial?"
+    },
+    "o": [
+      [
+        "Germany",
+        "Saksa",
+        "Alemania",
+        1
+      ],
+      [
+        "Austria",
+        "Itävalta",
+        "Austria",
+        1
+      ],
+      [
+        "Switzerland",
+        "Sveitsi",
+        "Suiza",
+        1
+      ],
+      [
+        "Belgium",
+        "Belgia",
+        "Bélgica",
+        1
+      ],
+      [
+        "Liechtenstein",
+        "Liechtenstein",
+        "Liechtenstein",
+        1
+      ],
+      [
+        "Netherlands",
+        "Alankomaat",
+        "Países Bajos",
+        0
+      ],
+      [
+        "Luxembourg",
+        "Luxemburg",
+        "Luxemburgo",
+        0
+      ],
+      [
+        "Denmark",
+        "Tanska",
+        "Dinamarca",
+        0
+      ],
+      [
+        "Poland",
+        "Puola",
+        "Polonia",
+        0
+      ],
+      [
+        "Czech Republic",
+        "Tšekki",
+        "Chequia",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "geo",
+    "d": "normal",
+    "cat": {
+      "en": "Which of the following countries have islands as part of their territory?",
+      "fi": "Missä seuraavista valtioista on saaria osana niiden aluetta?",
+      "es": "¿Cuáles de los siguientes países tienen islas como parte de su territorio?"
+    },
+    "o": [
+      [
+        "Finland",
+        "Suomi",
+        "Finlandia",
+        1
+      ],
+      [
+        "Japan",
+        "Japani",
+        "Japón",
+        1
+      ],
+      [
+        "Spain",
+        "Espanja",
+        "España",
+        1
+      ],
+      [
+        "Italy",
+        "Italia",
+        "Italia",
+        1
+      ],
+      [
+        "Greece",
+        "Kreikka",
+        "Grecia",
+        1
+      ],
+      [
+        "Austria",
+        "Itävalta",
+        "Austria",
+        0
+      ],
+      [
+        "Hungary",
+        "Unkari",
+        "Hungría",
+        0
+      ],
+      [
+        "Nepal",
+        "Nepal",
+        "Nepal",
+        0
+      ],
+      [
+        "Switzerland",
+        "Sveitsi",
+        "Suiza",
+        0
+      ],
+      [
+        "Mongolia",
+        "Mongolia",
+        "Mongolia",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "geo",
+    "d": "normal",
+    "cat": {
+      "en": "Which of the following countries have more than one official language?",
+      "fi": "Missä seuraavista valtioista on useampi kuin yksi virallinen kieli?",
+      "es": "¿Cuáles de los siguientes países tienen más de un idioma oficial?"
+    },
+    "o": [
+      [
+        "Switzerland",
+        "Sveitsi",
+        "Suiza",
+        1
+      ],
+      [
+        "Belgium",
+        "Belgia",
+        "Bélgica",
+        1
+      ],
+      [
+        "Canada",
+        "Kanada",
+        "Canadá",
+        1
+      ],
+      [
+        "Finland",
+        "Suomi",
+        "Finlandia",
+        1
+      ],
+      [
+        "South Africa",
+        "Etelä-Afrikka",
+        "Sudáfrica",
+        1
+      ],
+      [
+        "Japan",
+        "Japani",
+        "Japón",
+        0
+      ],
+      [
+        "Portugal",
+        "Portugali",
+        "Portugal",
+        0
+      ],
+      [
+        "Iceland",
+        "Islanti",
+        "Islandia",
+        0
+      ],
+      [
+        "South Korea",
+        "Etelä-Korea",
+        "Corea del Sur",
+        0
+      ],
+      [
+        "Hungary",
+        "Unkari",
+        "Hungría",
         0
       ]
     ]
