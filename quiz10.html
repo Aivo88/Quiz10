@@ -94,9 +94,14 @@
     transform:scale(var(--scale,1));
     transform-origin:center center;
   }
-  #bg{ position:fixed; inset:0; z-index:-1; background-size:cover; background-position:center;
-       opacity:0; transition:opacity .45s ease; pointer-events:none; }
+  #bg{ position:fixed; inset:0; z-index:-2; background-size:cover; background-position:center;
+       opacity:0; transition:opacity .45s ease; pointer-events:none; filter:blur(3px); transform:scale(1.06); }
   #bg.on{ opacity:1; }
+  #bgShade{ position:fixed; inset:0; z-index:-1; background:#0a0c14; opacity:0; transition:opacity .45s ease; pointer-events:none; }
+  body.has-bg #bgShade{ opacity:var(--bg-dark, .78); }
+  body.has-bg .q-title, body.has-bg .sub, body.has-bg .brand, body.has-bg .tagline,
+  body.has-bg .set-label, body.has-bg .diffhint, body.has-bg #topicTitle, body.has-bg .wb-title,
+  body.has-bg .qb-title, body.has-bg .qd-title, body.has-bg .hint{ text-shadow:0 2px 10px rgba(0,0,0,.72); }
   /* Confirm dialog buttons — high contrast so "Yes" never blends in */
   #confirmYes{ background:linear-gradient(180deg,#F5BE52,#DE9A1F); color:#241a05;
                border:2px solid #9a6f16; box-shadow:0 8px 22px rgba(0,0,0,.35); font-weight:900; }
@@ -424,6 +429,7 @@
 </head>
 <body>
 <div id="bg"></div>
+<div id="bgShade"></div>
 <div id="stage">
 
   <!-- MAIN MENU -->
@@ -511,6 +517,15 @@
           <div class="set-opts">
             <button class="btn chip focusable" data-action="chooseBg" data-i="bgChoose">Choose from device</button>
             <button class="btn chip focusable" data-action="resetBg" data-i="bgReset">Reset</button>
+          </div>
+        </div>
+        <div class="set-row">
+          <span class="set-label" data-i="bgDarkLabel">Background darkness</span>
+          <div class="set-opts">
+            <div class="slider focusable" id="bgDarkSlider" data-role="slider">
+              <div class="track" id="bgDarkTrack"><div class="fill" id="bgDarkFill"></div><div class="thumb" id="bgDarkThumb"></div></div>
+              <div class="slabel" id="bgDarkValLabel">78%</div>
+            </div>
           </div>
         </div>
         <div class="set-row">
@@ -743,7 +758,7 @@ const T = {
     appVersion:"Version",
     checkUpdates:"Check for updates",
     quitGameQ:"Quit the game?",
-    bgLabel:"Background image", bgChoose:"Choose from device", bgReset:"Reset",
+    bgLabel:"Background image", bgChoose:"Choose from device", bgReset:"Reset", bgDarkLabel:"Background darkness",
     bgSet:"Background updated", bgReset2:"Background reset", bgTooBig:"Image too large — try a smaller one", bgError:"Could not load image",
     tabSettings:"Settings", tabQuestions:"Questions",
     baseQuestionsLabel:"Question bank", loadFromFile:"Load from file",
@@ -813,7 +828,7 @@ const T = {
     appVersion:"Versio",
     checkUpdates:"Tarkista päivitykset",
     quitGameQ:"Lopetetaanko peli?",
-    bgLabel:"Taustakuva", bgChoose:"Valitse laitteelta", bgReset:"Palauta",
+    bgLabel:"Taustakuva", bgChoose:"Valitse laitteelta", bgReset:"Palauta", bgDarkLabel:"Taustan tummuus",
     bgSet:"Taustakuva päivitetty", bgReset2:"Taustakuva palautettu", bgTooBig:"Kuva liian suuri — kokeile pienempää", bgError:"Kuvaa ei voitu ladata",
     tabSettings:"Asetukset", tabQuestions:"Kysymykset",
     baseQuestionsLabel:"Kysymyspankki", loadFromFile:"Lataa tiedostosta",
@@ -883,7 +898,7 @@ const T = {
     appVersion:"Versión",
     checkUpdates:"Buscar actualizaciones",
     quitGameQ:"¿Salir del juego?",
-    bgLabel:"Imagen de fondo", bgChoose:"Elegir del dispositivo", bgReset:"Restablecer",
+    bgLabel:"Imagen de fondo", bgChoose:"Elegir del dispositivo", bgReset:"Restablecer", bgDarkLabel:"Oscuridad del fondo",
     bgSet:"Fondo actualizado", bgReset2:"Fondo restablecido", bgTooBig:"Imagen demasiado grande — prueba una más pequeña", bgError:"No se pudo cargar la imagen",
     tabSettings:"Ajustes", tabQuestions:"Preguntas",
     baseQuestionsLabel:"Banco de preguntas", loadFromFile:"Cargar desde archivo",
@@ -1035,7 +1050,7 @@ const QUESTIONS = [
 
 const PLAYER_COLORS = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
-const APP_VERSION = '4.6';
+const APP_VERSION = '4.7';
 
 let questionsStatus = '';
 const QCACHE_KEY = 'quiz10_qcache';
@@ -1271,17 +1286,25 @@ function showToastMsg(msg){
 const BG_KEY = 'quiz10_bgimg';
 function applyBg(url){
   const bg = $('#bg'); if(!bg) return;
-  bg.style.backgroundImage = `linear-gradient(rgba(8,10,18,.55), rgba(8,10,18,.72)), url("${url}")`;
+  bg.style.backgroundImage = `url("${url}")`;
   bg.classList.add('on');
+  document.body.classList.add('has-bg');
 }
-function clearBg(){ const bg=$('#bg'); if(bg){ bg.classList.remove('on'); bg.style.backgroundImage=''; } }
+function clearBg(){
+  const bg=$('#bg'); if(bg){ bg.classList.remove('on'); bg.style.backgroundImage=''; }
+  document.body.classList.remove('has-bg');
+}
+function tryRepoBg(names){
+  if(!names.length) return;                         // none found → keep gradient
+  const img = new Image();
+  img.onload = ()=> applyBg(names[0]);
+  img.onerror = ()=> tryRepoBg(names.slice(1));
+  img.src = names[0];
+}
 function loadBackground(){
   const custom = lsGet(BG_KEY);
-  if(custom){ applyBg(custom); return; }          // user's own image wins
-  const img = new Image();                          // otherwise try the repo image
-  img.onload = ()=> applyBg('background.jpeg');
-  img.onerror = ()=>{};                             // not there → keep the current gradient
-  img.src = 'background.jpeg';
+  if(custom){ applyBg(custom); return; }            // user's own image wins
+  tryRepoBg(['background.jpg','background.jpeg','background.png','background.webp']);
 }
 function initBgFileInput(){
   const f = $('#bgFile'); if(!f) return;
@@ -1367,9 +1390,10 @@ function commitRecentGame(){
   }
 }
 let confirmCb = null;    // pending confirm callback
-let settings = { size:'1', edge:'1', theme:'light', confirmA:true, confirmB:true };
+let settings = { size:'1', edge:'1', theme:'mono', confirmA:true, confirmB:true, bgdark:'0.78' };
 const SIZES = [ {v:0.85,n:'S'}, {v:1.0,n:'M'}, {v:1.3,n:'L'}, {v:1.7,n:'XL'}, {v:2.2,n:'XXL'} ];
 const EDGES = [1, 0.95, 0.9, 0.85, 0.8, 0.75, 0.7];   // fit-to-screen zoom steps
+const BGDARK = [0.45, 0.58, 0.7, 0.78, 0.86, 0.94];   // background darkness steps
 
 /* ---------- Helpers ---------- */
 const $ = s => document.querySelector(s);
@@ -1897,6 +1921,8 @@ function loadSettings(){
   // migrate: 'edge' is now a fit/zoom factor (0.7–1); reset legacy out-of-range values
   const f = parseFloat(settings.edge);
   if(!(f>=0.7 && f<=1)) settings.edge='1';
+  const b = parseFloat(settings.bgdark);
+  if(!(b>=0.4 && b<=1)) settings.bgdark='0.78';
   applySettings();
 }
 function saveSettings(){ lsSet('quiz10_settings', JSON.stringify(settings)); }
@@ -1904,8 +1930,10 @@ function applySettings(){
   document.body.setAttribute('data-theme', settings.theme==='default' ? '' : settings.theme);
   document.body.style.setProperty('--fs', settings.size);
   document.body.style.setProperty('--scale', settings.edge);
+  document.body.style.setProperty('--bg-dark', settings.bgdark);
   updateSlider();
   updateEdgeSlider();
+  updateBgDarkSlider();
   $$('[data-action="setTheme"]').forEach(b=> b.classList.toggle('sel', b.dataset.v===settings.theme));
   $$('[data-action="setLang"]').forEach(b=> b.classList.toggle('sel', b.dataset.v===lang));
   const swA=$('#swA'), swB=$('#swB');
@@ -1966,6 +1994,34 @@ function edgeIdxFromX(x){
   const r=t.getBoundingClientRect();
   let ratio=(x-r.left)/r.width; ratio=Math.max(0,Math.min(1,ratio));
   return Math.round(ratio*(EDGES.length-1));
+}
+
+/* background darkness slider */
+function bgDarkIndex(){
+  const v=parseFloat(settings.bgdark)||0.78;
+  let best=0, bd=1e9;
+  BGDARK.forEach((e,i)=>{ const d=Math.abs(e-v); if(d<bd){ bd=d; best=i; } });
+  return best;
+}
+function updateBgDarkSlider(){
+  const idx=bgDarkIndex(), pct=idx/(BGDARK.length-1)*100;
+  const fill=$('#bgDarkFill'), thumb=$('#bgDarkThumb'), lab=$('#bgDarkValLabel');
+  if(fill) fill.style.width=pct+'%';
+  if(thumb) thumb.style.left=pct+'%';
+  if(lab) lab.textContent=Math.round(BGDARK[idx]*100)+'%';
+}
+function setBgDarkIndex(idx){
+  idx=Math.max(0,Math.min(BGDARK.length-1,idx));
+  const changed = idx!==bgDarkIndex();
+  settings.bgdark=String(BGDARK[idx]);
+  applySettings(); saveSettings();
+  if(changed) sfx.select();
+}
+function bgDarkIdxFromX(x){
+  const t=$('#bgDarkTrack'); if(!t) return bgDarkIndex();
+  const r=t.getBoundingClientRect();
+  let ratio=(x-r.left)/r.width; ratio=Math.max(0,Math.min(1,ratio));
+  return Math.round(ratio*(BGDARK.length-1));
 }
 
 /* ---------- Global click + key handling ---------- */
@@ -2076,6 +2132,11 @@ document.addEventListener('keydown', e=>{
   if(focused && focused.id==='edgeSlider' && (k==='ArrowLeft'||k==='ArrowRight')){
     e.preventDefault();
     setEdgeIndex(edgeIndex() + (k==='ArrowRight'?1:-1));
+    return;
+  }
+  if(focused && focused.id==='bgDarkSlider' && (k==='ArrowLeft'||k==='ArrowRight')){
+    e.preventDefault();
+    setBgDarkIndex(bgDarkIndex() + (k==='ArrowRight'?1:-1));
     return;
   }
 
@@ -2195,6 +2256,18 @@ function doUpdate(btn){
   const getX = e => (e.touches && e.touches[0]) ? e.touches[0].clientX : e.clientX;
   const apply = e => { setEdgeIndex(edgeIdxFromX(getX(e))); };
   track.addEventListener('pointerdown', e=>{ dragging=true; setFocus($('#edgeSlider')); apply(e); e.preventDefault(); });
+  window.addEventListener('pointermove', e=>{ if(dragging) apply(e); });
+  window.addEventListener('pointerup', ()=>{ dragging=false; });
+})();
+
+/* background darkness slider drag (touch / mouse) */
+(function(){
+  const track = $('#bgDarkTrack');
+  if(!track) return;
+  let dragging=false;
+  const getX = e => (e.touches && e.touches[0]) ? e.touches[0].clientX : e.clientX;
+  const apply = e => { setBgDarkIndex(bgDarkIdxFromX(getX(e))); };
+  track.addEventListener('pointerdown', e=>{ dragging=true; setFocus($('#bgDarkSlider')); apply(e); e.preventDefault(); });
   window.addEventListener('pointermove', e=>{ if(dragging) apply(e); });
   window.addEventListener('pointerup', ()=>{ dragging=false; });
 })();
