@@ -94,6 +94,14 @@
     transform:scale(var(--scale,1));
     transform-origin:center center;
   }
+  #bg{ position:fixed; inset:0; z-index:-1; background-size:cover; background-position:center;
+       opacity:0; transition:opacity .45s ease; pointer-events:none; }
+  #bg.on{ opacity:1; }
+  /* Confirm dialog buttons — high contrast so "Yes" never blends in */
+  #confirmYes{ background:linear-gradient(180deg,#F5BE52,#DE9A1F); color:#241a05;
+               border:2px solid #9a6f16; box-shadow:0 8px 22px rgba(0,0,0,.35); font-weight:900; }
+  #confirmNo{ background:var(--panel2); color:var(--ink); border:2px solid var(--line); font-weight:800; }
+  body.kbd #confirmYes.focused{ box-shadow:0 0 0 4px var(--focus), 0 8px 22px rgba(0,0,0,.35); }
   .screen{display:none; flex:1; min-height:0; flex-direction:column; overflow-y:auto; overflow-x:hidden}
   .screen.active{display:flex}
   .screen::-webkit-scrollbar{width:10px}
@@ -415,6 +423,7 @@
 </style>
 </head>
 <body>
+<div id="bg"></div>
 <div id="stage">
 
   <!-- MAIN MENU -->
@@ -498,6 +507,13 @@
           </div>
         </div>
         <div class="set-row">
+          <span class="set-label" data-i="bgLabel">Background image</span>
+          <div class="set-opts">
+            <button class="btn chip focusable" data-action="chooseBg" data-i="bgChoose">Choose from device</button>
+            <button class="btn chip focusable" data-action="resetBg" data-i="bgReset">Reset</button>
+          </div>
+        </div>
+        <div class="set-row">
           <span class="set-label"><span data-i="appVersion">Version</span> <span id="verNum"></span></span>
           <div class="set-opts">
             <button class="btn chip focusable" data-action="update" data-i="checkUpdates">Check for updates</button>
@@ -520,6 +536,7 @@
       </div>
 
       <input type="file" id="packFile" accept=".json,application/json" style="display:none">
+      <input type="file" id="bgFile" accept="image/*" style="display:none">
       <button class="btn back focusable" data-action="menu" data-i="back">Back</button>
     </div>
   </section>
@@ -725,6 +742,9 @@ const T = {
     saved:"Game saved",
     appVersion:"Version",
     checkUpdates:"Check for updates",
+    quitGameQ:"Quit the game?",
+    bgLabel:"Background image", bgChoose:"Choose from device", bgReset:"Reset",
+    bgSet:"Background updated", bgReset2:"Background reset", bgTooBig:"Image too large — try a smaller one", bgError:"Could not load image",
     tabSettings:"Settings", tabQuestions:"Questions",
     baseQuestionsLabel:"Question bank", loadFromFile:"Load from file",
     noPacks:"No question packs added yet. Load a .json file to add more categories.",
@@ -736,7 +756,7 @@ const T = {
     updating:"Updating…",
     pointsWord:"points",
     edgeLabel:"Fit to screen (TV)",
-    hint:"Move with the D-pad · <kbd>OK</kbd> answers · <kbd>Back</kbd> to pass & bank"
+    hint:"Move with the D-pad · <kbd>OK</kbd> to answer · Pass button to bank · <kbd>Back</kbd> to quit"
   },
   fi:{
     chooseLang:"Valitse kieli",
@@ -792,6 +812,9 @@ const T = {
     saved:"Peli tallennettu",
     appVersion:"Versio",
     checkUpdates:"Tarkista päivitykset",
+    quitGameQ:"Lopetetaanko peli?",
+    bgLabel:"Taustakuva", bgChoose:"Valitse laitteelta", bgReset:"Palauta",
+    bgSet:"Taustakuva päivitetty", bgReset2:"Taustakuva palautettu", bgTooBig:"Kuva liian suuri — kokeile pienempää", bgError:"Kuvaa ei voitu ladata",
     tabSettings:"Asetukset", tabQuestions:"Kysymykset",
     baseQuestionsLabel:"Kysymyspankki", loadFromFile:"Lataa tiedostosta",
     noPacks:"Ei vielä lisättyjä kysymyspaketteja. Lataa .json-tiedosto lisätäksesi kategorioita.",
@@ -803,7 +826,7 @@ const T = {
     updating:"Päivitetään…",
     pointsWord:"pistettä",
     edgeLabel:"Sovita ruutuun (TV)",
-    hint:"Liiku D-padilla · <kbd>OK</kbd> vastaa · <kbd>Back</kbd> passaa & talleta"
+    hint:"Liiku D-padilla · <kbd>OK</kbd> vastaa · Passaa-napista talleta · <kbd>Back</kbd> lopeta"
   },
   es:{
     chooseLang:"Elige tu idioma",
@@ -859,6 +882,9 @@ const T = {
     saved:"Juego guardado",
     appVersion:"Versión",
     checkUpdates:"Buscar actualizaciones",
+    quitGameQ:"¿Salir del juego?",
+    bgLabel:"Imagen de fondo", bgChoose:"Elegir del dispositivo", bgReset:"Restablecer",
+    bgSet:"Fondo actualizado", bgReset2:"Fondo restablecido", bgTooBig:"Imagen demasiado grande — prueba una más pequeña", bgError:"No se pudo cargar la imagen",
     tabSettings:"Ajustes", tabQuestions:"Preguntas",
     baseQuestionsLabel:"Banco de preguntas", loadFromFile:"Cargar desde archivo",
     noPacks:"Aún no hay paquetes de preguntas. Carga un archivo .json para añadir categorías.",
@@ -870,7 +896,7 @@ const T = {
     updating:"Actualizando…",
     pointsWord:"puntos",
     edgeLabel:"Ajustar a pantalla (TV)",
-    hint:"Muévete con el D-pad · <kbd>OK</kbd> responde · <kbd>Atrás</kbd> pasar y guardar"
+    hint:"Muévete con el D-pad · <kbd>OK</kbd> responde · botón Pasar para guardar · <kbd>Atrás</kbd> salir"
   }
 };
 
@@ -1009,7 +1035,7 @@ const QUESTIONS = [
 
 const PLAYER_COLORS = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
-const APP_VERSION = '4.5';
+const APP_VERSION = '4.6';
 
 let questionsStatus = '';
 const QCACHE_KEY = 'quiz10_qcache';
@@ -1239,6 +1265,56 @@ function showToastMsg(msg){
   let t=$('#toast');
   if(!t){ t=document.createElement('div'); t.id='toast'; t.className='toast'; document.body.appendChild(t); }
   t.textContent=msg; t.classList.add('show'); clearTimeout(_tmt); _tmt=setTimeout(()=>t.classList.remove('show'), 2600);
+}
+
+/* ---- Background image (repo background.jpeg, or a custom one from the device) ---- */
+const BG_KEY = 'quiz10_bgimg';
+function applyBg(url){
+  const bg = $('#bg'); if(!bg) return;
+  bg.style.backgroundImage = `linear-gradient(rgba(8,10,18,.55), rgba(8,10,18,.72)), url("${url}")`;
+  bg.classList.add('on');
+}
+function clearBg(){ const bg=$('#bg'); if(bg){ bg.classList.remove('on'); bg.style.backgroundImage=''; } }
+function loadBackground(){
+  const custom = lsGet(BG_KEY);
+  if(custom){ applyBg(custom); return; }          // user's own image wins
+  const img = new Image();                          // otherwise try the repo image
+  img.onload = ()=> applyBg('background.jpeg');
+  img.onerror = ()=>{};                             // not there → keep the current gradient
+  img.src = 'background.jpeg';
+}
+function initBgFileInput(){
+  const f = $('#bgFile'); if(!f) return;
+  f.addEventListener('change', e=>{
+    const file = e.target.files && e.target.files[0]; if(!file) return;
+    const reader = new FileReader();
+    reader.onload = ()=>{
+      const img = new Image();
+      img.onload = ()=>{
+        // downscale to keep it small enough for on-device storage
+        const max=1920; let w=img.width, h=img.height;
+        if(w>max){ h=Math.round(h*max/w); w=max; }
+        let data;
+        try{
+          const c=document.createElement('canvas'); c.width=w; c.height=h;
+          c.getContext('2d').drawImage(img,0,0,w,h);
+          data=c.toDataURL('image/jpeg',0.82);
+        }catch(err){ data=String(reader.result); }
+        try{ lsSet(BG_KEY, data); applyBg(data); showToastMsg(tr('bgSet')); }
+        catch(err){ showToastMsg(tr('bgTooBig')); }
+      };
+      img.onerror = ()=> showToastMsg(tr('bgError'));
+      img.src = String(reader.result);
+    };
+    reader.onerror = ()=> showToastMsg(tr('bgError'));
+    reader.readAsDataURL(file);
+  });
+}
+function resetBackground(){
+  try{ localStorage.removeItem(BG_KEY); }catch(e){}
+  clearBg();
+  loadBackground();   // fall back to repo image or gradient
+  showToastMsg(tr('bgReset2'));
 }
 
 /* ---------- State ---------- */
@@ -1787,6 +1863,12 @@ function showBanner(kind, big, pts, mid){
   $('#banner').classList.add('show');
 }
 function hideBanner(){ $('#banner').classList.remove('show'); }
+function quitToMenu(){
+  awaitingTurn = false;
+  const tb=$('#turnBanner'); if(tb) tb.classList.remove('show');
+  hideBanner();
+  showScreen('screen-menu');
+}
 
 /* ---------- Confirm overlay ---------- */
 function askConfirm(msg, onYes){
@@ -1890,7 +1972,7 @@ function edgeIdxFromX(x){
 function activate(el){
   if(!el) return;
   const a = el.dataset.action;
-  const menuSfx = ['lang','players','target','toggleDiff','toggleBase','start','again','newgame','settings','menu','mainmenu','backToLang','setTheme','setLang','toggleA','toggleB','topic','confirmYes','confirmNo','settab','togglePack','deletePack','importQuestions','qbOpen','qbBack','qbDetail','qbBackList','qbToggleQ','qbFilter'];
+  const menuSfx = ['lang','players','target','toggleDiff','toggleBase','start','again','newgame','settings','menu','mainmenu','backToLang','setTheme','setLang','toggleA','toggleB','topic','confirmYes','confirmNo','settab','togglePack','deletePack','importQuestions','qbOpen','qbBack','qbDetail','qbBackList','qbToggleQ','qbFilter','chooseBg','resetBg'];
   if(menuSfx.includes(a)) sfx.select();
 
   if(a==='newgame'){
@@ -1943,6 +2025,8 @@ function activate(el){
   else if(a==='topic'){ currentTopic = el.dataset.topic; newQuestion(); }
   else if(a==='pick'){ pickOption(+el.dataset.i); }
   else if(a==='pass'){ passTurn(); }
+  else if(a==='chooseBg'){ const f=$('#bgFile'); if(f){ f.value=''; f.click(); } }
+  else if(a==='resetBg'){ resetBackground(); }
   else if(a==='cyclelang'){ cycleLang(); }
   else if(a==='again'){ startGame(); }
   else if(a==='confirmYes'){ closeConfirm(true); }
@@ -2024,7 +2108,11 @@ function goBack(){
   }
   if(active==='screen-lang'){ showScreen('screen-menu'); return true; }
   if(active==='screen-win'){ showScreen('screen-menu'); return true; }
-  if(active==='screen-game'){ if(turnActive) passTurn(); return true; }
+  if(active==='screen-game'){
+    if(confirmOpen()) return true;      // a confirm is already up
+    askConfirm(tr('quitGameQ'), ()=> quitToMenu());
+    return true;
+  }
   return false; // on main menu → let the system handle it (Fire TV: press Back again to exit)
 }
 // Android wrapper calls this on hardware Back; returns true if handled in-app.
@@ -2058,6 +2146,8 @@ loadDisabled();
 loadRecent();
 rebuildQuestions();       // built-in base + active packs
 initPackFileInput();
+initBgFileInput();
+loadBackground();
 loadCachedQuestions();    // may replace base + rebuild
 loadQuestions();          // async network refresh + save
 updateQStatus();
