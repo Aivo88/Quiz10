@@ -305,6 +305,19 @@
     font-size:calc(clamp(22px,2.6vw,34px) * var(--fs));
   }
   body.kbd .corner-flag.focused{ border-color:var(--focus); box-shadow:0 0 0 4px rgba(255,224,138,.45); background:var(--panel2); }
+  /* Home-screen flag: larger, easier to hit */
+  #menuFlag{ padding:clamp(8px,1.3vh,14px) clamp(16px,1.8vw,24px); border-radius:16px;
+             font-size:calc(clamp(34px,4.2vw,52px) * var(--fs)); }
+  /* Rules screen */
+  .rules-body{ width:min(760px,94vw); margin:0 auto clamp(16px,3vh,28px); text-align:left;
+               background:var(--panel); border:2px solid var(--line); border-radius:18px;
+               padding:clamp(16px,2.6vh,30px) clamp(18px,2.6vw,34px); color:var(--ink); }
+  .rules-body h3{ margin:0 0 .5em; font-size:calc(clamp(17px,2vw,24px) * var(--fs)); color:var(--gold) }
+  .rules-body ol{ margin:0; padding-left:1.4em; display:flex; flex-direction:column; gap:clamp(8px,1.3vh,14px) }
+  .rules-body li{ font-size:calc(clamp(15px,1.8vw,22px) * var(--fs)); line-height:1.45; font-weight:600 }
+  .rules-body .rnote{ margin-top:clamp(12px,2vh,20px); font-size:calc(clamp(14px,1.6vw,20px) * var(--fs));
+                      color:var(--muted); line-height:1.45 }
+  body.has-bg .rules-body{ background:color-mix(in srgb, var(--panel) 86%, transparent) }
   .wb-title{ font-weight:800; color:var(--muted); letter-spacing:.06em; text-transform:uppercase;
              font-size:calc(clamp(13px,1.5vw,18px) * var(--fs)); margin-top:clamp(10px,2vh,20px); }
   .winboard{ display:flex; flex-direction:column; gap:clamp(8px,1.2vh,14px);
@@ -454,8 +467,18 @@
       </div>
       <div class="menu-col">
         <button class="btn gold block focusable" data-focus data-action="newgame"><span class="mi">▶</span><span data-i="newGame">New game</span></button>
+        <button class="btn block focusable" data-action="rules"><span class="mi">📖</span><span data-i="rules">Rules</span></button>
         <button class="btn block focusable" data-action="settings"><span class="mi">⚙</span><span data-i="settings">Settings</span></button>
       </div>
+    </div>
+  </section>
+
+  <!-- RULES -->
+  <section id="screen-rules" class="screen">
+    <div class="center">
+      <h2 class="q-title" data-i="rulesTitle">How to play</h2>
+      <div class="rules-body" id="rulesBody"></div>
+      <button class="btn back focusable" data-focus data-action="mainmenu" data-i="back">Back</button>
     </div>
   </section>
 
@@ -749,6 +772,9 @@ const T = {
     startHint:"<span class='press'>OK</span> or tap to start",
     tagline:"The push-your-luck trivia game",
     newGame:"New game",
+    rules:"Rules",
+    rulesTitle:"How to play",
+    rulesBody:"<h3>Push your luck, bank your points</h3><ol><li>Players or teams take turns. On your turn you get a category with up to 10 possible answers — some are correct, some are not.</li><li>Pick the answers you believe are correct, one at a time. Each correct pick adds points to your round.</li><li>Push your luck: keep picking for more points, but one wrong answer ends your turn and you lose every point from that round.</li><li>Play it safe: press <b>Pass &amp; bank</b> to lock in your round points and end your turn before you slip up.</li><li>The first player or team to reach the target score (15, 25 or 40) wins.</li></ol><div class=\"rnote\">Tip: each player can pick their own language with the flag on the question screen. Set the winning score and difficulty when you start a new game.</div>",
     loadGame:"Load game",
     settings:"Settings",
     settingsTitle:"Settings",
@@ -819,6 +845,9 @@ const T = {
     startHint:"<span class='press'>OK</span> tai napauta aloittaaksesi",
     tagline:"Uskalla tai passaa -tietovisa",
     newGame:"Uusi peli",
+    rules:"Säännöt",
+    rulesTitle:"Pelin säännöt",
+    rulesBody:"<h3>Uskalla tai passaa — talleta pisteet</h3><ol><li>Pelaajat tai joukkueet pelaavat vuorotellen. Omalla vuorollasi saat aiheen, jossa on enintään 10 mahdollista vastausta — osa on oikein, osa ei.</li><li>Valitse yksi kerrallaan ne vastaukset, joita pidät oikeina. Jokainen oikea valinta kerryttää kierroksen pisteitä.</li><li>Uskalla: jatka valintoja saadaksesi lisää pisteitä, mutta yksi väärä vastaus päättää vuorosi ja menetät kaikki kierroksen pisteet.</li><li>Pelaa varman päälle: paina <b>Passaa &amp; talleta</b> lukitaksesi kierroksen pisteet ja päättääksesi vuoron ennen kuin mokaat.</li><li>Ensimmäinen pelaaja tai joukkue, joka saavuttaa tavoitepisteet (15, 25 tai 40), voittaa.</li></ol><div class=\"rnote\">Vinkki: jokainen pelaaja voi valita oman kielensä kysymysnäytön lipusta. Valitse voittopisteet ja vaikeustaso uutta peliä aloittaessasi.</div>",
     loadGame:"Lataa peli",
     settings:"Asetukset",
     settingsTitle:"Asetukset",
@@ -889,6 +918,9 @@ const T = {
     startHint:"<span class='press'>OK</span> o toca para empezar",
     tagline:"El concurso de arriesgar o pasar",
     newGame:"Nuevo juego",
+    rules:"Reglas",
+    rulesTitle:"Cómo jugar",
+    rulesBody:"<h3>Arriésgate y guarda tus puntos</h3><ol><li>Los jugadores o equipos juegan por turnos. En tu turno recibes una categoría con hasta 10 respuestas posibles: algunas son correctas y otras no.</li><li>Elige de una en una las respuestas que creas correctas. Cada acierto suma puntos a tu ronda.</li><li>Arriésgate: sigue eligiendo para ganar más puntos, pero una respuesta incorrecta termina tu turno y pierdes todos los puntos de esa ronda.</li><li>Juega seguro: pulsa <b>Pasar y guardar</b> para asegurar los puntos de la ronda y terminar tu turno antes de fallar.</li><li>El primer jugador o equipo en alcanzar la puntuación objetivo (15, 25 o 40) gana.</li></ol><div class=\"rnote\">Consejo: cada jugador puede elegir su idioma con la bandera en la pantalla de preguntas. Elige la puntuación para ganar y la dificultad al empezar una partida.</div>",
     loadGame:"Cargar juego",
     settings:"Ajustes",
     settingsTitle:"Ajustes",
@@ -1528,6 +1560,7 @@ function applyStaticText(){
     const k = el.getAttribute('data-i');
     if(k && T[lang][k]!==undefined) el.textContent = T[lang][k];
   });
+  const rb=$('#rulesBody'); if(rb) rb.innerHTML = tr('rulesBody');
 }
 let lastWinner = null;
 function updateCornerFlags(){
@@ -1536,7 +1569,13 @@ function updateCornerFlags(){
   if(a) a.textContent=f; if(b) b.textContent=f;
 }
 function saveLang(){ try{ lsSet('quiz10_lang', lang); }catch(e){} }
-function loadLang(){ try{ const v=lsGet('quiz10_lang'); if(v && LANG_ORDER.includes(v)) lang=v; }catch(e){} }
+function loadLang(){
+  try{
+    const v=lsGet('quiz10_lang');
+    if(v && LANG_ORDER.includes(v)){ lang=v; }
+    else { lang='en'; saveLang(); }   // first launch → default to English
+  }catch(e){ lang='en'; }
+}
 function cycleGlobalLang(){
   lang = LANG_ORDER[(LANG_ORDER.indexOf(lang)+1) % LANG_ORDER.length];
   saveLang();
@@ -2066,7 +2105,7 @@ function activate(el){
   // Text fields (e.g. question search): OK/Enter opens the on-screen keyboard
   if(el.tagName==='INPUT' && el.type==='text'){ try{ el.focus(); }catch(e){} return; }
   const a = el.dataset.action;
-  const menuSfx = ['lang','players','target','toggleDiff','toggleBase','start','again','newgame','settings','menu','mainmenu','backToLang','setTheme','setLang','toggleA','toggleB','topic','confirmYes','confirmNo','settab','togglePack','deletePack','importQuestions','qbOpen','qbBack','qbDetail','qbBackList','qbToggleQ','qbFilter','chooseBg','resetBg','quitGame'];
+  const menuSfx = ['lang','players','target','toggleDiff','toggleBase','start','again','newgame','settings','rules','menu','mainmenu','backToLang','setTheme','setLang','toggleA','toggleB','topic','confirmYes','confirmNo','settab','togglePack','deletePack','importQuestions','qbOpen','qbBack','qbDetail','qbBackList','qbToggleQ','qbFilter','chooseBg','resetBg','quitGame'];
   if(menuSfx.includes(a)) sfx.select();
 
   if(a==='newgame'){
@@ -2080,6 +2119,7 @@ function activate(el){
   }
   else if(a==='backToLang'){ showScreen('screen-menu'); }
   else if(a==='settings'){ applySettings(); qbMode='packs'; setTab('settings'); updateQStatus(); renderPackList(); showScreen('screen-settings'); }
+  else if(a==='rules'){ showScreen('screen-rules'); const b=$('#screen-rules [data-focus]'); if(b) setFocus(b); }
   else if(a==='settab'){ qbMode='packs'; setTab(el.dataset.tab); }
   else if(a==='importQuestions'){ const f=$('#packFile'); if(f){ f.value=''; f.click(); } }
   else if(a==='qbOpen'){ qbSrc=el.dataset.src; qbFilter='all'; qbSearch=''; qbMode='list'; renderQBrowser(); qbFocusFirst(); }
@@ -2213,6 +2253,7 @@ function goBack(){
     saveSettings(); showScreen('screen-menu'); return true;
   }
   if(active==='screen-lang'){ showScreen('screen-menu'); return true; }
+  if(active==='screen-rules'){ showScreen('screen-menu'); return true; }
   if(active==='screen-win'){ showScreen('screen-menu'); return true; }
   if(active==='screen-game'){
     if(confirmOpen()) return true;      // a confirm is already up
