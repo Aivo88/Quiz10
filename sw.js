@@ -1,7 +1,7 @@
 /* QUIZ 10 service worker — network-first, offline-capable.
    Bump CACHE (e.g. quiz10-v2) when you want to force a clean update,
    or just use the in-app "Check for updates" button. */
-const CACHE = 'quiz10-v1';
+const CACHE = 'quiz10-v2';
 
 self.addEventListener('install', e => {
   self.skipWaiting();
