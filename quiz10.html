@@ -403,6 +403,13 @@
               font-size:calc(clamp(15px,1.8vw,22px) * var(--fs)); font-weight:600; outline:none }
   .qb-search:focus{ border-color:var(--focus) }
   .qb-search::placeholder{ color:var(--muted) }
+  body.kbd .qb-search.focused{ border-color:var(--focus); box-shadow:0 0 0 3px rgba(255,224,138,.35) }
+  .qtopic{ flex:0 0 auto; font-weight:800; font-size:calc(clamp(10px,1.2vw,14px) * var(--fs)); padding:3px 10px;
+           border-radius:999px; margin-top:2px; background:var(--panel2); color:var(--muted); border:1px solid var(--line); white-space:nowrap }
+  .qtopic.bad{ background:var(--bad); color:#fff; border-color:var(--bad) }
+  .qd-topic{ display:inline-block; margin-left:8px; font-weight:800; font-size:calc(clamp(12px,1.4vw,17px) * var(--fs));
+             padding:4px 12px; border-radius:999px; background:var(--panel2); color:var(--muted); border:1px solid var(--line) }
+  .qd-topic.bad{ background:var(--bad); color:#fff; border-color:var(--bad) }
   .qbadge.easy{ background:var(--good) } .qbadge.normal{ background:#2e6fd6 } .qbadge.hard{ background:var(--bad) }
   .qd-title{ font-weight:800; color:var(--ink); font-size:calc(clamp(18px,2.3vw,30px) * var(--fs)); margin:6px 0 16px; line-height:1.3 }
   .ans-list{ display:flex; flex-direction:column; gap:clamp(8px,1.2vh,12px) }
@@ -1166,6 +1173,11 @@ function sourceName(src){ return src==='base' ? tr('baseBankName') : ((packs.fin
 function catLangG(q){ return (lang==='es'?q.cat.es:lang==='fi'?q.cat.fi:q.cat.en) || q.cat.en; }
 function optLangG(o){ return (lang==='es'?o[2]:lang==='fi'?o[1]:o[0]) || o[0]; }
 function diffLabel(d){ return d==='easy'?tr('diffEasy'):d==='hard'?tr('diffHard'):tr('diffNormal'); }
+function topicInfo(q){
+  const key=(q.topic==null?'':String(q.topic)).trim();
+  const t=TOPICS.find(x=>x.key===key);
+  return { key, valid:!!t, icon:t?t.icon:'⚠️', label: key==='' ? '(tyhjä)' : key };
+}
 
 function renderQBrowser(){
   if(qbMode==='list') return renderQList();
@@ -1180,7 +1192,7 @@ function renderQList(){
       <button class="btn chip focusable" data-action="qbBack">← ${tr('back')}</button>
       <span class="qb-title">${escapeHtml(sourceName(qbSrc))} · <span id="qbCount">0</span></span>
     </div>
-    <input type="text" id="qbSearchInput" class="qb-search" placeholder="${tr('searchWord')}" value="${escapeHtml(qbSearch)}">
+    <input type="text" id="qbSearchInput" class="qb-search focusable" placeholder="${tr('searchWord')}" value="${escapeHtml(qbSearch)}">
     <div class="qb-filter">${chip('all',tr('allWord'))}${chip('easy',tr('diffEasy'))}${chip('normal',tr('diffNormal'))}${chip('hard',tr('diffHard'))}</div>
     <div id="qrows"></div>`;
   const inp=$('#qbSearchInput');
@@ -1195,14 +1207,16 @@ function renderQRows(){
   qs.forEach((q,qi)=>{
     if(!(qbFilter==='all' || q.d===qbFilter)) return;
     if(term){
-      const hay=(catLangG(q)+' '+q.o.map(o=>optLangG(o)).join(' ')).toLowerCase();
+      const hay=((q.topic||'')+' '+catLangG(q)+' '+q.o.map(o=>optLangG(o)).join(' ')).toLowerCase();
       if(hay.indexOf(term)<0) return;
     }
     shown++;
     const off=disabledQ.has(q.cat.en);
+    const ti=topicInfo(q);
     html+=`<div class="qrow${off?' off':''}">
       <button class="qrow-main focusable" data-action="qbDetail" data-qi="${qi}">
         <span class="qbadge ${q.d}">${diffLabel(q.d)}</span>
+        <span class="qtopic${ti.valid?'':' bad'}">${ti.icon} ${escapeHtml(ti.label)}</span>
         <span class="qtext">${escapeHtml(catLangG(q))}</span>
       </button>
       <button class="btn chip focusable ${off?'':'on'}" data-action="qbToggleQ" data-qi="${qi}">${off?tr('offWord'):tr('activeWord')}</button>
@@ -1217,9 +1231,11 @@ function renderQDetail(){
   if(!q){ qbMode='list'; return renderQList(); }
   const opts=q.o.map(o=>({t:optLangG(o), c:o[o.length-1]===1}));
   opts.sort((a,b)=>(b.c?1:0)-(a.c?1:0));   // correct answers first
+  const ti=topicInfo(q);
   let html=`<div class="qb-head">
     <button class="btn chip focusable" data-action="qbBackList">← ${tr('back')}</button>
     <span class="qbadge ${q.d}">${diffLabel(q.d)}</span>
+    <span class="qd-topic${ti.valid?'':' bad'}">${ti.icon} ${escapeHtml(ti.label)}</span>
   </div>
   <div class="qd-title">${escapeHtml(catLangG(q))}</div>
   <div class="ans-list">`;
@@ -2047,6 +2063,8 @@ function bgDarkIdxFromX(x){
 /* ---------- Global click + key handling ---------- */
 function activate(el){
   if(!el) return;
+  // Text fields (e.g. question search): OK/Enter opens the on-screen keyboard
+  if(el.tagName==='INPUT' && el.type==='text'){ try{ el.focus(); }catch(e){} return; }
   const a = el.dataset.action;
   const menuSfx = ['lang','players','target','toggleDiff','toggleBase','start','again','newgame','settings','menu','mainmenu','backToLang','setTheme','setLang','toggleA','toggleB','topic','confirmYes','confirmNo','settab','togglePack','deletePack','importQuestions','qbOpen','qbBack','qbDetail','qbBackList','qbToggleQ','qbFilter','chooseBg','resetBg','quitGame'];
   if(menuSfx.includes(a)) sfx.select();
