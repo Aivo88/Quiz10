@@ -21937,5 +21937,573 @@
         0
       ]
     ]
+  },
+  {
+    "topic": "geo",
+    "d": "normal",
+    "cat": {
+      "en": "In which of the following countries is English an official language?",
+      "fi": "Missä seuraavista valtioista englanti on virallinen kieli?",
+      "es": "¿En cuáles de los siguientes países el inglés es idioma oficial?"
+    },
+    "o": [
+      [
+        "Canada",
+        "Kanada",
+        "Canadá",
+        1
+      ],
+      [
+        "Ireland",
+        "Irlanti",
+        "Irlanda",
+        1
+      ],
+      [
+        "Australia",
+        "Australia",
+        "Australia",
+        1
+      ],
+      [
+        "New Zealand",
+        "Uusi-Seelanti",
+        "Nueva Zelanda",
+        1
+      ],
+      [
+        "Singapore",
+        "Singapore",
+        "Singapur",
+        1
+      ],
+      [
+        "South Africa",
+        "Etelä-Afrikka",
+        "Sudáfrica",
+        1
+      ],
+      [
+        "Malta",
+        "Malta",
+        "Malta",
+        1
+      ],
+      [
+        "Sweden",
+        "Ruotsi",
+        "Suecia",
+        0
+      ],
+      [
+        "Brazil",
+        "Brasilia",
+        "Brasil",
+        0
+      ],
+      [
+        "Thailand",
+        "Thaimaa",
+        "Tailandia",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "gen",
+    "d": "normal",
+    "cat": {
+      "en": "Which of these are hangover symptoms?",
+      "fi": "Mitkä näistä ovat krapulan oireita?",
+      "es": "¿Cuáles de estos son síntomas de resaca?"
+    },
+    "o": [
+      [
+        "Headache",
+        "Päänsärky",
+        "Dolor de cabeza",
+        1
+      ],
+      [
+        "Nausea",
+        "Pahoinvointi",
+        "Náuseas",
+        1
+      ],
+      [
+        "Thirst",
+        "Jano",
+        "Sed",
+        1
+      ],
+      [
+        "Euphoria",
+        "Euforia",
+        "Euforia",
+        0
+      ],
+      [
+        "Fatigue",
+        "Väsymys",
+        "Fatiga",
+        1
+      ],
+      [
+        "Super strength",
+        "Supervoimat",
+        "Superfuerza",
+        0
+      ],
+      [
+        "Dizziness",
+        "Huimaus",
+        "Mareo",
+        1
+      ],
+      [
+        "Perfect memory",
+        "Täydellinen muisti",
+        "Memoria perfecta",
+        0
+      ],
+      [
+        "Light sensitivity",
+        "Valoherkkyys",
+        "Sensibilidad a la luz",
+        1
+      ],
+      [
+        "X-ray vision",
+        "Röntgennäkö",
+        "Visión de rayos X",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "gen",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these are gods of love or desire?",
+      "fi": "Ketkä näistä ovat rakkauden tai halun jumalia?",
+      "es": "¿Cuáles de estos son dioses del amor o el deseo?"
+    },
+    "o": [
+      [
+        "Aphrodite",
+        "Afrodite",
+        "Afrodita",
+        1
+      ],
+      [
+        "Eros",
+        "Eros",
+        "Eros",
+        1
+      ],
+      [
+        "Venus",
+        "Venus",
+        "Venus",
+        1
+      ],
+      [
+        "Thor",
+        "Thor",
+        "Thor",
+        0
+      ],
+      [
+        "Cupid",
+        "Amor",
+        "Cupido",
+        1
+      ],
+      [
+        "Hades",
+        "Hades",
+        "Hades",
+        0
+      ],
+      [
+        "Freya",
+        "Freija",
+        "Freyja",
+        1
+      ],
+      [
+        "Ares",
+        "Ares",
+        "Ares",
+        0
+      ],
+      [
+        "Kama",
+        "Kama",
+        "Kama",
+        1
+      ],
+      [
+        "Zeus",
+        "Zeus",
+        "Zeus",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "geo",
+    "d": "normal",
+    "cat": {
+      "en": "In which of the following countries is English an official language?",
+      "fi": "Missä seuraavista valtioista englanti on virallinen kieli?",
+      "es": "¿En cuáles de los siguientes países el inglés es idioma oficial?"
+    },
+    "o": [
+      [
+        "Canada",
+        "Kanada",
+        "Canadá",
+        1
+      ],
+      [
+        "Ireland",
+        "Irlanti",
+        "Irlanda",
+        1
+      ],
+      [
+        "Australia",
+        "Australia",
+        "Australia",
+        1
+      ],
+      [
+        "New Zealand",
+        "Uusi-Seelanti",
+        "Nueva Zelanda",
+        1
+      ],
+      [
+        "Singapore",
+        "Singapore",
+        "Singapur",
+        1
+      ],
+      [
+        "South Africa",
+        "Etelä-Afrikka",
+        "Sudáfrica",
+        1
+      ],
+      [
+        "Malta",
+        "Malta",
+        "Malta",
+        1
+      ],
+      [
+        "Sweden",
+        "Ruotsi",
+        "Suecia",
+        0
+      ],
+      [
+        "Brazil",
+        "Brasilia",
+        "Brasil",
+        0
+      ],
+      [
+        "Thailand",
+        "Thaimaa",
+        "Tailandia",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "gen",
+    "d": "hard",
+    "cat": {
+      "en": "Which of the following are agricultural machinery manufacturers?",
+      "fi": "Mitkä seuraavista ovat maatalouskoneiden valmistajia?",
+      "es": "¿Cuáles de los siguientes son fabricantes de maquinaria agrícola?"
+    },
+    "o": [
+      [
+        "John Deere",
+        "John Deere",
+        "John Deere",
+        1
+      ],
+      [
+        "New Holland",
+        "New Holland",
+        "New Holland",
+        1
+      ],
+      [
+        "CLAAS",
+        "CLAAS",
+        "CLAAS",
+        1
+      ],
+      [
+        "Valtra",
+        "Valtra",
+        "Valtra",
+        1
+      ],
+      [
+        "Caterpillar",
+        "Caterpillar",
+        "Caterpillar",
+        0
+      ],
+      [
+        "Komatsu",
+        "Komatsu",
+        "Komatsu",
+        0
+      ],
+      [
+        "Scania",
+        "Scania",
+        "Scania",
+        0
+      ],
+      [
+        "Volvo CE",
+        "Volvo CE",
+        "Volvo CE",
+        0
+      ],
+      [
+        "Hitachi Construction Machinery",
+        "Hitachi Construction Machinery",
+        "Hitachi Construction Machinery",
+        0
+      ],
+      [
+        "Liebherr",
+        "Liebherr",
+        "Liebherr",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "gen",
+    "d": "hard",
+    "cat": {
+      "en": "Which of the following animals live in the wild in Australia?",
+      "fi": "Mitkä seuraavista eläimistä elävät luonnonvaraisina Australiassa?",
+      "es": "¿Cuáles de los siguientes animales viven en estado salvaje en Australia?"
+    },
+    "o": [
+      [
+        "Echidna",
+        "Nokkasiili",
+        "Equidna",
+        1
+      ],
+      [
+        "Quokka",
+        "Quokka",
+        "Quokka",
+        1
+      ],
+      [
+        "Tasmanian Devil",
+        "Pussiahma",
+        "Demonio de Tasmania",
+        1
+      ],
+      [
+        "Cassowary",
+        "Kasuaari",
+        "Casuario",
+        1
+      ],
+      [
+        "Numbat",
+        "Numbat",
+        "Numbat",
+        1
+      ],
+      [
+        "Bilby",
+        "Isokaniinihyppijä",
+        "Bilby",
+        1
+      ],
+      [
+        "Capybara",
+        "Kapybara",
+        "Capibara",
+        0
+      ],
+      [
+        "Llama",
+        "Laama",
+        "Llama",
+        0
+      ],
+      [
+        "Sloth",
+        "Laiskiainen",
+        "Perezoso",
+        0
+      ],
+      [
+        "Meerkat",
+        "Surikaatti",
+        "Suricata",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "art",
+    "d": "hard",
+    "cat": {
+      "en": "Which of the following paintings are housed in the Louvre Museum?",
+      "fi": "Mitkä seuraavista maalauksista ovat Louvressa?",
+      "es": "¿Cuáles de las siguientes pinturas se encuentran en el Museo del Louvre?"
+    },
+    "o": [
+      [
+        "Mona Lisa",
+        "Mona Lisa",
+        "Mona Lisa",
+        1
+      ],
+      [
+        "The Wedding at Cana",
+        "The Wedding at Cana",
+        "Las bodas de Caná",
+        1
+      ],
+      [
+        "Liberty Leading the People",
+        "Liberty Leading the People",
+        "La Libertad guiando al pueblo",
+        1
+      ],
+      [
+        "The Raft of the Medusa",
+        "The Raft of the Medusa",
+        "La balsa de la Medusa",
+        1
+      ],
+      [
+        "The Coronation of Napoleon",
+        "The Coronation of Napoleon",
+        "La coronación de Napoleón",
+        1
+      ],
+      [
+        "The Lacemaker",
+        "The Lacemaker",
+        "La encajera",
+        1
+      ],
+      [
+        "The Starry Night",
+        "The Starry Night",
+        "La noche estrellada",
+        0
+      ],
+      [
+        "The Scream",
+        "The Scream",
+        "El grito",
+        0
+      ],
+      [
+        "Girl with a Pearl Earring",
+        "Girl with a Pearl Earring",
+        "La joven de la perla",
+        0
+      ],
+      [
+        "The Birth of Venus",
+        "The Birth of Venus",
+        "El nacimiento de Venus",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "science",
+    "d": "hard",
+    "cat": {
+      "en": "Which of the following astronauts were members of the Apollo 11 mission?",
+      "fi": "Ketkä seuraavista astronauteista kuuluivat Apollo 11 -lentoon?",
+      "es": "¿Cuáles de los siguientes astronautas formaron parte de la misión Apolo 11?"
+    },
+    "o": [
+      [
+        "Neil Armstrong",
+        "Neil Armstrong",
+        "Neil Armstrong",
+        1
+      ],
+      [
+        "Buzz Aldrin",
+        "Buzz Aldrin",
+        "Buzz Aldrin",
+        1
+      ],
+      [
+        "Michael Collins",
+        "Michael Collins",
+        "Michael Collins",
+        1
+      ],
+      [
+        "Alan Shepard",
+        "Alan Shepard",
+        "Alan Shepard",
+        0
+      ],
+      [
+        "John Glenn",
+        "John Glenn",
+        "John Glenn",
+        0
+      ],
+      [
+        "Jim Lovell",
+        "Jim Lovell",
+        "Jim Lovell",
+        0
+      ],
+      [
+        "Pete Conrad",
+        "Pete Conrad",
+        "Pete Conrad",
+        0
+      ],
+      [
+        "Charles Duke",
+        "Charles Duke",
+        "Charles Duke",
+        0
+      ],
+      [
+        "Gene Cernan",
+        "Gene Cernan",
+        "Gene Cernan",
+        0
+      ],
+      [
+        "Edgar Mitchell",
+        "Edgar Mitchell",
+        "Edgar Mitchell",
+        0
+      ]
+    ]
   }
 ]
