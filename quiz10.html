@@ -205,6 +205,10 @@
   .pchip .tag{position:absolute; right:8px; top:6px; font-size:clamp(10px,1vw,13px); font-weight:800; letter-spacing:.04em}
   .pchip.passed .tag{color:var(--good)}
   .pchip.busted .tag{color:var(--bad)}
+  /* Topic screen: round counter + running scores */
+  .topic-round{ text-align:center; color:var(--gold); font-weight:800; letter-spacing:.04em;
+                font-size:calc(clamp(14px,1.7vw,22px) * var(--fs)); margin:0 0 clamp(8px,1.4vh,14px) }
+  .topic-scorebar{ width:min(1100px,100%); margin:0 auto clamp(14px,2.4vh,22px) }
 
   .qhead{display:flex; align-items:center; justify-content:space-between; gap:16px; margin-top:clamp(4px,.8vh,10px)}
   .turnwrap{display:flex; align-items:center; gap:clamp(8px,1.2vw,16px); min-width:0}
@@ -618,6 +622,8 @@
   <section id="screen-topic" class="screen">
     <div class="center">
       <h2 class="q-title" id="topicTitle"></h2>
+      <div class="topic-round" id="topicRound"></div>
+      <div class="scorebar topic-scorebar" id="topicScorebar"></div>
       <div class="topic-grid" id="topicGrid"></div>
       <button class="btn back focusable" data-action="quitGame" data-i="back">Back</button>
     </div>
@@ -788,6 +794,7 @@ const T = {
     back:"Back",
     saveExit:"💾 Save & quit to menu",
     topicPrompt:"choose this round's topic",
+    roundWord:"Round",
     confirmAnswerQ:"Answer",
     confirmBankQ:"Bank",
     andPass:"and pass?",
@@ -861,6 +868,7 @@ const T = {
     back:"Takaisin",
     saveExit:"💾 Tallenna & palaa valikkoon",
     topicPrompt:"valitse tämän kierroksen aihe",
+    roundWord:"Kierros",
     confirmAnswerQ:"Vastaus",
     confirmBankQ:"Talleta",
     andPass:"ja passaa?",
@@ -934,6 +942,7 @@ const T = {
     back:"Atrás",
     saveExit:"💾 Guardar y salir al menú",
     topicPrompt:"elige el tema de esta ronda",
+    roundWord:"Ronda",
     confirmAnswerQ:"Respuesta",
     confirmBankQ:"Guardar",
     andPass:"¿y pasar?",
@@ -1094,7 +1103,7 @@ const QUESTIONS = [
 
 const PLAYER_COLORS = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
-const APP_VERSION = '5.2';
+const APP_VERSION = '5.3';
 
 let questionsStatus = '';
 const QCACHE_KEY = 'quiz10_qcache';
@@ -1415,6 +1424,7 @@ let target = 25;
 let players = [];        // {name, score, color}
 let turnIdx = 0;
 let roundStarter = 0;    // who leads each new question (rotates)
+let roundsPlayed = 0;    // completed rounds this game (for the topic-screen counter)
 let roundTokens = [];    // provisional correct answers this round, per player
 let pstatus = [];        // 'active' | 'passed' | 'busted', per player
 let deck = [];
@@ -1608,6 +1618,7 @@ function startGame(){
   }
   turnIdx = 0;
   roundStarter = 0;
+  roundsPlayed = 0;
   topicDecks = {};
   usedQ = new Set();
   usedIds = new Set();
@@ -1662,8 +1673,25 @@ function chooseTopic(){
   const sl = playerLang[si] || lang;
   const prompt = (T[sl]||T[lang]).topicPrompt;
   $('#topicTitle').innerHTML = `<span style="color:var(${players[si].color})">${nameIn(si, sl)}</span> — ${prompt}`;
+  renderTopicMeta(si, sl);
   renderTopics(sl);
   showScreen('screen-topic');
+}
+function renderTopicMeta(si, L){
+  L = L || lang;
+  const rp = $('#topicRound');
+  if(rp) rp.textContent = ((T[L]||T[lang]).roundWord || 'Round') + ' ' + (roundsPlayed + 1);
+  const bar = $('#topicScorebar'); if(!bar) return;
+  bar.innerHTML='';
+  players.forEach((p,i)=>{
+    const el = document.createElement('div');
+    el.className = 'pchip' + (i===si ? ' active' : '');
+    el.style.setProperty('--c', `var(${p.color})`);
+    el.innerHTML = `<span class="bar"></span>
+      <span class="pname">${nameShort(i, L)}</span>
+      <span class="pscore">${p.score}</span>`;
+    bar.appendChild(el);
+  });
 }
 function renderTopics(L){
   L = L || lang;
@@ -1912,6 +1940,7 @@ function endRound(){
     return;
   }
   // next round: rotate starter, pick a new topic
+  roundsPlayed++;
   roundStarter = (roundStarter+1)%players.length;
   setTimeout(chooseTopic, 900);
 }
