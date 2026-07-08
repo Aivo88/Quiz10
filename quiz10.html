@@ -205,9 +205,11 @@
   .pchip .tag{position:absolute; right:8px; top:6px; font-size:clamp(10px,1vw,13px); font-weight:800; letter-spacing:.04em}
   .pchip.passed .tag{color:var(--good)}
   .pchip.busted .tag{color:var(--bad)}
-  /* Topic screen: round counter + running scores */
-  .topic-round{ text-align:center; color:var(--gold); font-weight:800; letter-spacing:.04em;
-                font-size:calc(clamp(22px,3vw,38px) * var(--fs)); margin:0 0 clamp(8px,1.4vh,14px) }
+  /* Topic screen: round card (left of player 1) + running scores */
+  .pchip.roundchip{ flex:0 0 auto; min-width:auto; align-items:center; justify-content:center;
+                    background:color-mix(in srgb, var(--gold) 16%, var(--panel)); border-color:var(--gold) }
+  .pchip.roundchip .pname{ color:var(--gold) }
+  .pchip.roundchip .pscore{ color:var(--gold); font-size:calc(clamp(26px,3.2vw,44px) * var(--fs)) }
   .topic-scorebar{ width:min(1100px,100%); margin:0 auto clamp(14px,2.4vh,22px) }
 
   .qhead{display:flex; align-items:center; justify-content:space-between; gap:16px; margin-top:clamp(4px,.8vh,10px)}
@@ -622,7 +624,6 @@
   <section id="screen-topic" class="screen">
     <div class="center">
       <h2 class="q-title" id="topicTitle"></h2>
-      <div class="topic-round" id="topicRound"></div>
       <div class="scorebar topic-scorebar" id="topicScorebar"></div>
       <div class="topic-grid" id="topicGrid"></div>
       <button class="btn back focusable" data-action="quitGame" data-i="back">Back</button>
@@ -1103,7 +1104,7 @@ const QUESTIONS = [
 
 const PLAYER_COLORS = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
-const APP_VERSION = '5.4';
+const APP_VERSION = '5.5';
 
 let questionsStatus = '';
 const QCACHE_KEY = 'quiz10_qcache';
@@ -1679,16 +1680,21 @@ function chooseTopic(){
 }
 function renderTopicMeta(si, L){
   L = L || lang;
-  const rp = $('#topicRound');
-  if(rp) rp.textContent = ((T[L]||T[lang]).roundWord || 'Round') + ' ' + (roundsPlayed + 1);
   const bar = $('#topicScorebar'); if(!bar) return;
   bar.innerHTML='';
+  // Round card — sits to the left of player 1, stays in the visible score row
+  const rc = document.createElement('div');
+  rc.className = 'pchip roundchip';
+  rc.innerHTML = `<span class="pname">${(T[L]||T[lang]).roundWord || 'Round'}</span>
+    <span class="pscore">${roundsPlayed + 1}</span>`;
+  bar.appendChild(rc);
+  const ptLabel = (L==='fi'?'Pelaaja/Joukkue ':L==='es'?'Jugador/Equipo ':'Player/Team ');
   players.forEach((p,i)=>{
     const el = document.createElement('div');
     el.className = 'pchip' + (i===si ? ' active' : '');
     el.style.setProperty('--c', `var(${p.color})`);
     el.innerHTML = `<span class="bar"></span>
-      <span class="pname">${nameShort(i, L)}</span>
+      <span class="pname">${ptLabel + (i+1)}</span>
       <span class="pscore">${p.score}</span>`;
     bar.appendChild(el);
   });
