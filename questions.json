@@ -25984,5 +25984,2419 @@
         0
       ]
     ]
+  },
+  {
+    "topic": "gen",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these spirits are made from agave?",
+      "fi": "Mitkä näistä väkevistä juomista tehdään agavesta?",
+      "es": "¿Cuáles de estos licores se elaboran a partir de agave?"
+    },
+    "o": [
+      [
+        "Tequila",
+        "Tequila",
+        "Tequila",
+        1
+      ],
+      [
+        "Mezcal",
+        "Mezcal",
+        "Mezcal",
+        1
+      ],
+      [
+        "Vodka",
+        "Vodka",
+        "Vodka",
+        0
+      ],
+      [
+        "Gin",
+        "Gini",
+        "Ginebra",
+        0
+      ],
+      [
+        "Rum",
+        "Rommi",
+        "Ron",
+        0
+      ],
+      [
+        "Whisky",
+        "Viski",
+        "Whisky",
+        0
+      ],
+      [
+        "Brandy",
+        "Brandy",
+        "Brandy",
+        0
+      ],
+      [
+        "Sake",
+        "Sake",
+        "Sake",
+        0
+      ],
+      [
+        "Cognac",
+        "Konjakki",
+        "Coñac",
+        0
+      ],
+      [
+        "Absinthe",
+        "Absintti",
+        "Absenta",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "gen",
+    "d": "normal",
+    "cat": {
+      "en": "Which of these cocktails are traditionally made with rum?",
+      "fi": "Mitkä näistä cocktaileista tehdään perinteisesti rommista?",
+      "es": "¿Cuáles de estos cócteles se preparan tradicionalmente con ron?"
+    },
+    "o": [
+      [
+        "Mojito",
+        "Mojito",
+        "Mojito",
+        1
+      ],
+      [
+        "Daiquiri",
+        "Daiquiri",
+        "Daiquiri",
+        1
+      ],
+      [
+        "Piña Colada",
+        "Piña Colada",
+        "Piña Colada",
+        1
+      ],
+      [
+        "Mai Tai",
+        "Mai Tai",
+        "Mai Tai",
+        1
+      ],
+      [
+        "Cuba Libre",
+        "Cuba Libre",
+        "Cuba Libre",
+        1
+      ],
+      [
+        "Martini",
+        "Martini",
+        "Martini",
+        0
+      ],
+      [
+        "Margarita",
+        "Margarita",
+        "Margarita",
+        0
+      ],
+      [
+        "Negroni",
+        "Negroni",
+        "Negroni",
+        0
+      ],
+      [
+        "Cosmopolitan",
+        "Cosmopolitan",
+        "Cosmopolitan",
+        0
+      ],
+      [
+        "Manhattan",
+        "Manhattan",
+        "Manhattan",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "gen",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these are styles of beer?",
+      "fi": "Mitkä näistä ovat oluttyyppejä?",
+      "es": "¿Cuáles de estos son tipos de cerveza?"
+    },
+    "o": [
+      [
+        "Lager",
+        "Lager",
+        "Lager",
+        1
+      ],
+      [
+        "Ale",
+        "Ale",
+        "Ale",
+        1
+      ],
+      [
+        "Stout",
+        "Stout",
+        "Stout",
+        1
+      ],
+      [
+        "Pilsner",
+        "Pils",
+        "Pilsner",
+        1
+      ],
+      [
+        "Porter",
+        "Portteri",
+        "Porter",
+        1
+      ],
+      [
+        "IPA",
+        "IPA",
+        "IPA",
+        1
+      ],
+      [
+        "Merlot",
+        "Merlot",
+        "Merlot",
+        0
+      ],
+      [
+        "Chardonnay",
+        "Chardonnay",
+        "Chardonnay",
+        0
+      ],
+      [
+        "Sake",
+        "Sake",
+        "Sake",
+        0
+      ],
+      [
+        "Cider",
+        "Siideri",
+        "Sidra",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "gen",
+    "d": "normal",
+    "cat": {
+      "en": "Which of these ingredients belong in a classic Margarita?",
+      "fi": "Mitkä näistä kuuluvat klassiseen Margaritaan?",
+      "es": "¿Cuáles de estos ingredientes lleva una Margarita clásica?"
+    },
+    "o": [
+      [
+        "Tequila",
+        "Tequila",
+        "Tequila",
+        1
+      ],
+      [
+        "Lime juice",
+        "Limemehu",
+        "Zumo de lima",
+        1
+      ],
+      [
+        "Triple sec",
+        "Triple sec",
+        "Triple sec",
+        1
+      ],
+      [
+        "Vodka",
+        "Vodka",
+        "Vodka",
+        0
+      ],
+      [
+        "Gin",
+        "Gini",
+        "Ginebra",
+        0
+      ],
+      [
+        "Cranberry juice",
+        "Karpalomehu",
+        "Zumo de arándano",
+        0
+      ],
+      [
+        "Mint leaves",
+        "Minttu",
+        "Hojas de menta",
+        0
+      ],
+      [
+        "Cola",
+        "Kola",
+        "Cola",
+        0
+      ],
+      [
+        "Coffee",
+        "Kahvi",
+        "Café",
+        0
+      ],
+      [
+        "Cream",
+        "Kerma",
+        "Nata",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "gen",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these countries are famous for producing whisky?",
+      "fi": "Mitkä näistä maista tunnetaan viskin valmistuksesta?",
+      "es": "¿Cuáles de estos países son famosos por producir whisky?"
+    },
+    "o": [
+      [
+        "Scotland",
+        "Skotlanti",
+        "Escocia",
+        1
+      ],
+      [
+        "Ireland",
+        "Irlanti",
+        "Irlanda",
+        1
+      ],
+      [
+        "Japan",
+        "Japani",
+        "Japón",
+        1
+      ],
+      [
+        "United States",
+        "Yhdysvallat",
+        "Estados Unidos",
+        1
+      ],
+      [
+        "Canada",
+        "Kanada",
+        "Canadá",
+        1
+      ],
+      [
+        "Brazil",
+        "Brasilia",
+        "Brasil",
+        0
+      ],
+      [
+        "Greece",
+        "Kreikka",
+        "Grecia",
+        0
+      ],
+      [
+        "Egypt",
+        "Egypti",
+        "Egipto",
+        0
+      ],
+      [
+        "Thailand",
+        "Thaimaa",
+        "Tailandia",
+        0
+      ],
+      [
+        "Portugal",
+        "Portugali",
+        "Portugal",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "gen",
+    "d": "normal",
+    "cat": {
+      "en": "Which of these are non-alcoholic drinks?",
+      "fi": "Mitkä näistä ovat alkoholittomia juomia?",
+      "es": "¿Cuáles de estas son bebidas sin alcohol?"
+    },
+    "o": [
+      [
+        "Water",
+        "Vesi",
+        "Agua",
+        1
+      ],
+      [
+        "Orange juice",
+        "Appelsiinimehu",
+        "Zumo de naranja",
+        1
+      ],
+      [
+        "Cola",
+        "Kola",
+        "Cola",
+        1
+      ],
+      [
+        "Coffee",
+        "Kahvi",
+        "Café",
+        1
+      ],
+      [
+        "Lemonade",
+        "Limonadi",
+        "Limonada",
+        1
+      ],
+      [
+        "Beer",
+        "Olut",
+        "Cerveza",
+        0
+      ],
+      [
+        "Wine",
+        "Viini",
+        "Vino",
+        0
+      ],
+      [
+        "Whisky",
+        "Viski",
+        "Whisky",
+        0
+      ],
+      [
+        "Vodka",
+        "Vodka",
+        "Vodka",
+        0
+      ],
+      [
+        "Cider",
+        "Siideri",
+        "Sidra",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "gen",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these wine regions are in France?",
+      "fi": "Mitkä näistä viinialueista sijaitsevat Ranskassa?",
+      "es": "¿Cuáles de estas regiones vinícolas están en Francia?"
+    },
+    "o": [
+      [
+        "Bordeaux",
+        "Bordeaux",
+        "Burdeos",
+        1
+      ],
+      [
+        "Burgundy",
+        "Bourgogne",
+        "Borgoña",
+        1
+      ],
+      [
+        "Champagne",
+        "Champagne",
+        "Champaña",
+        1
+      ],
+      [
+        "Beaujolais",
+        "Beaujolais",
+        "Beaujolais",
+        1
+      ],
+      [
+        "Rhône",
+        "Rhône",
+        "Ródano",
+        1
+      ],
+      [
+        "Rioja",
+        "Rioja",
+        "Rioja",
+        0
+      ],
+      [
+        "Tuscany",
+        "Toscana",
+        "Toscana",
+        0
+      ],
+      [
+        "Napa Valley",
+        "Napa Valley",
+        "Valle de Napa",
+        0
+      ],
+      [
+        "Douro",
+        "Douro",
+        "Duero",
+        0
+      ],
+      [
+        "Mosel",
+        "Mosel",
+        "Mosela",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "gen",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these cocktails contain gin?",
+      "fi": "Mitkä näistä cocktaileista sisältävät giniä?",
+      "es": "¿Cuáles de estos cócteles contienen ginebra?"
+    },
+    "o": [
+      [
+        "Negroni",
+        "Negroni",
+        "Negroni",
+        1
+      ],
+      [
+        "Dry Martini",
+        "Dry Martini",
+        "Dry Martini",
+        1
+      ],
+      [
+        "Tom Collins",
+        "Tom Collins",
+        "Tom Collins",
+        1
+      ],
+      [
+        "Gin & Tonic",
+        "Gin & Tonic",
+        "Gin-tonic",
+        1
+      ],
+      [
+        "Gimlet",
+        "Gimlet",
+        "Gimlet",
+        1
+      ],
+      [
+        "Mojito",
+        "Mojito",
+        "Mojito",
+        0
+      ],
+      [
+        "Daiquiri",
+        "Daiquiri",
+        "Daiquiri",
+        0
+      ],
+      [
+        "Margarita",
+        "Margarita",
+        "Margarita",
+        0
+      ],
+      [
+        "Cosmopolitan",
+        "Cosmopolitan",
+        "Cosmopolitan",
+        0
+      ],
+      [
+        "Whiskey Sour",
+        "Whiskey Sour",
+        "Whiskey Sour",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "gen",
+    "d": "normal",
+    "cat": {
+      "en": "Which of these words mean 'drunk'?",
+      "fi": "Mitkä näistä sanoista tarkoittavat 'humalassa'?",
+      "es": "¿Cuáles de estas palabras significan 'borracho'?"
+    },
+    "o": [
+      [
+        "Hammered",
+        "Kännissä",
+        "Borracho",
+        1
+      ],
+      [
+        "Plastered",
+        "Umpikännissä",
+        "Pedo",
+        1
+      ],
+      [
+        "Tipsy",
+        "Hiprakassa",
+        "Achispado",
+        1
+      ],
+      [
+        "Sloshed",
+        "Lärvit",
+        "Mamado",
+        1
+      ],
+      [
+        "Wasted",
+        "Sammuksissa",
+        "Ciego",
+        1
+      ],
+      [
+        "Sober",
+        "Selvinpäin",
+        "Sobrio",
+        0
+      ],
+      [
+        "Thirsty",
+        "Janoinen",
+        "Sediento",
+        0
+      ],
+      [
+        "Sleepy",
+        "Unelias",
+        "Soñoliento",
+        0
+      ],
+      [
+        "Content",
+        "Tyytyväinen",
+        "Contento",
+        0
+      ],
+      [
+        "Hungry",
+        "Nälkäinen",
+        "Hambriento",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "gen",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these are slang words for money?",
+      "fi": "Mitkä näistä ovat rahan slangisanoja?",
+      "es": "¿Cuáles de estas son palabras de argot para 'dinero'?"
+    },
+    "o": [
+      [
+        "Dough",
+        "Hilut",
+        "Pasta",
+        1
+      ],
+      [
+        "Bucks",
+        "Fygat",
+        "Guita",
+        1
+      ],
+      [
+        "Dosh",
+        "Kähyt",
+        "Lana",
+        1
+      ],
+      [
+        "Moolah",
+        "Lovet",
+        "Plata",
+        1
+      ],
+      [
+        "Loot",
+        "Rahat",
+        "Billete",
+        1
+      ],
+      [
+        "Gravel",
+        "Sora",
+        "Grava",
+        0
+      ],
+      [
+        "Timber",
+        "Puutavara",
+        "Madera",
+        0
+      ],
+      [
+        "Plaster",
+        "Laasti",
+        "Yeso",
+        0
+      ],
+      [
+        "Cotton",
+        "Puuvilla",
+        "Algodón",
+        0
+      ],
+      [
+        "Marble",
+        "Marmori",
+        "Mármol",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "gen",
+    "d": "normal",
+    "cat": {
+      "en": "Which of these foods have a reputation as aphrodisiacs?",
+      "fi": "Mitkä näistä ruoista tunnetaan afrodisiakkeina?",
+      "es": "¿Cuáles de estos alimentos tienen fama de afrodisíacos?"
+    },
+    "o": [
+      [
+        "Oysters",
+        "Osterit",
+        "Ostras",
+        1
+      ],
+      [
+        "Chocolate",
+        "Suklaa",
+        "Chocolate",
+        1
+      ],
+      [
+        "Strawberries",
+        "Mansikat",
+        "Fresas",
+        1
+      ],
+      [
+        "Champagne",
+        "Samppanja",
+        "Champán",
+        1
+      ],
+      [
+        "Chili",
+        "Chili",
+        "Chile",
+        1
+      ],
+      [
+        "Broccoli",
+        "Parsakaali",
+        "Brócoli",
+        0
+      ],
+      [
+        "Plain toast",
+        "Kuiva paahtoleipä",
+        "Tostada sin nada",
+        0
+      ],
+      [
+        "Cabbage",
+        "Kaali",
+        "Repollo",
+        0
+      ],
+      [
+        "Porridge",
+        "Puuro",
+        "Gachas",
+        0
+      ],
+      [
+        "Boiled potato",
+        "Keitetty peruna",
+        "Patata cocida",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "gen",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these are terms used in a game of darts?",
+      "fi": "Mitkä näistä ovat tikanheiton termejä?",
+      "es": "¿Cuáles de estos son términos del juego de dardos?"
+    },
+    "o": [
+      [
+        "Bullseye",
+        "Napakymppi",
+        "Diana",
+        1
+      ],
+      [
+        "Oche",
+        "Oche (heittoviiva)",
+        "Oche",
+        1
+      ],
+      [
+        "Treble",
+        "Tripla",
+        "Triple",
+        1
+      ],
+      [
+        "Checkout",
+        "Checkout",
+        "Cierre",
+        1
+      ],
+      [
+        "Ton (100)",
+        "Ton (100)",
+        "Ton (100)",
+        1
+      ],
+      [
+        "Birdie",
+        "Birdie",
+        "Birdie",
+        0
+      ],
+      [
+        "Deuce",
+        "Deuce",
+        "Deuce",
+        0
+      ],
+      [
+        "Love",
+        "Love",
+        "Love",
+        0
+      ],
+      [
+        "Ace",
+        "Ässä",
+        "Ace",
+        0
+      ],
+      [
+        "Scrum",
+        "Scrum",
+        "Melé",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "gen",
+    "d": "normal",
+    "cat": {
+      "en": "Which of these are traditional pub games?",
+      "fi": "Mitkä näistä ovat perinteisiä pubipelejä?",
+      "es": "¿Cuáles de estos son juegos típicos de pub?"
+    },
+    "o": [
+      [
+        "Darts",
+        "Tikkaheitto",
+        "Dardos",
+        1
+      ],
+      [
+        "Pool",
+        "Biljardi (pool)",
+        "Billar americano",
+        1
+      ],
+      [
+        "Dominoes",
+        "Domino",
+        "Dominó",
+        1
+      ],
+      [
+        "Skittles",
+        "Keilailu (skittles)",
+        "Bolos (skittles)",
+        1
+      ],
+      [
+        "Quiz night",
+        "Tietovisailta",
+        "Noche de trivial",
+        1
+      ],
+      [
+        "Polo",
+        "Polo",
+        "Polo",
+        0
+      ],
+      [
+        "Curling",
+        "Curling",
+        "Curling",
+        0
+      ],
+      [
+        "Fencing",
+        "Miekkailu",
+        "Esgrima",
+        0
+      ],
+      [
+        "Badminton",
+        "Sulkapallo",
+        "Bádminton",
+        0
+      ],
+      [
+        "Ten-pin bowling",
+        "Keilailu (10 keilaa)",
+        "Bolos (10 pinos)",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "gen",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these are real cocktails or shots with a cheeky name?",
+      "fi": "Mitkä näistä ovat oikeita cocktaileja tai shotteja tuhmalla nimellä?",
+      "es": "¿Cuáles de estos son cócteles o chupitos reales con nombre picante?"
+    },
+    "o": [
+      [
+        "Sex on the Beach",
+        "Sex on the Beach",
+        "Sex on the Beach",
+        1
+      ],
+      [
+        "Screwdriver",
+        "Screwdriver",
+        "Destornillador",
+        1
+      ],
+      [
+        "Slippery Nipple",
+        "Slippery Nipple",
+        "Slippery Nipple",
+        1
+      ],
+      [
+        "Blow Job",
+        "Blow Job",
+        "Blow Job",
+        1
+      ],
+      [
+        "Between the Sheets",
+        "Between the Sheets",
+        "Between the Sheets",
+        1
+      ],
+      [
+        "Old Fashioned",
+        "Old Fashioned",
+        "Old Fashioned",
+        0
+      ],
+      [
+        "Whiskey Sour",
+        "Whiskey Sour",
+        "Whiskey Sour",
+        0
+      ],
+      [
+        "Mint Julep",
+        "Mint Julep",
+        "Mint Julep",
+        0
+      ],
+      [
+        "Bloody Mary",
+        "Bloody Mary",
+        "Bloody Mary",
+        0
+      ],
+      [
+        "Tom Collins",
+        "Tom Collins",
+        "Tom Collins",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "gen",
+    "d": "normal",
+    "cat": {
+      "en": "Which of these actors have played James Bond?",
+      "fi": "Ketkä näistä näyttelijöistä ovat esittäneet James Bondia?",
+      "es": "¿Cuáles de estos actores han interpretado a James Bond?"
+    },
+    "o": [
+      [
+        "Sean Connery",
+        "Sean Connery",
+        "Sean Connery",
+        1
+      ],
+      [
+        "Roger Moore",
+        "Roger Moore",
+        "Roger Moore",
+        1
+      ],
+      [
+        "Daniel Craig",
+        "Daniel Craig",
+        "Daniel Craig",
+        1
+      ],
+      [
+        "Pierce Brosnan",
+        "Pierce Brosnan",
+        "Pierce Brosnan",
+        1
+      ],
+      [
+        "Timothy Dalton",
+        "Timothy Dalton",
+        "Timothy Dalton",
+        1
+      ],
+      [
+        "Tom Cruise",
+        "Tom Cruise",
+        "Tom Cruise",
+        0
+      ],
+      [
+        "Matt Damon",
+        "Matt Damon",
+        "Matt Damon",
+        0
+      ],
+      [
+        "Harrison Ford",
+        "Harrison Ford",
+        "Harrison Ford",
+        0
+      ],
+      [
+        "Jason Statham",
+        "Jason Statham",
+        "Jason Statham",
+        0
+      ],
+      [
+        "Liam Neeson",
+        "Liam Neeson",
+        "Liam Neeson",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "gen",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these are real phobias?",
+      "fi": "Mitkä näistä ovat oikeita fobioita?",
+      "es": "¿Cuáles de estas son fobias reales?"
+    },
+    "o": [
+      [
+        "Arachnophobia",
+        "Araknofobia",
+        "Aracnofobia",
+        1
+      ],
+      [
+        "Claustrophobia",
+        "Klaustrofobia",
+        "Claustrofobia",
+        1
+      ],
+      [
+        "Acrophobia",
+        "Korkeanpelko",
+        "Acrofobia",
+        1
+      ],
+      [
+        "Agoraphobia",
+        "Agorafobia",
+        "Agorafobia",
+        1
+      ],
+      [
+        "Triskaidekaphobia",
+        "Triskaidekafobia",
+        "Triscaidecafobia",
+        1
+      ],
+      [
+        "Photosynthesis",
+        "Fotosynteesi",
+        "Fotosíntesis",
+        0
+      ],
+      [
+        "Metamorphosis",
+        "Metamorfoosi",
+        "Metamorfosis",
+        0
+      ],
+      [
+        "Kinesthesia",
+        "Kinestesia",
+        "Cinestesia",
+        0
+      ],
+      [
+        "Symbiosis",
+        "Symbioosi",
+        "Simbiosis",
+        0
+      ],
+      [
+        "Osmosis",
+        "Osmoosi",
+        "Ósmosis",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "gen",
+    "d": "normal",
+    "cat": {
+      "en": "Which of these are casino games?",
+      "fi": "Mitkä näistä ovat kasinopelejä?",
+      "es": "¿Cuáles de estos son juegos de casino?"
+    },
+    "o": [
+      [
+        "Poker",
+        "Pokeri",
+        "Póker",
+        1
+      ],
+      [
+        "Blackjack",
+        "Blackjack",
+        "Blackjack",
+        1
+      ],
+      [
+        "Roulette",
+        "Ruletti",
+        "Ruleta",
+        1
+      ],
+      [
+        "Baccarat",
+        "Baccarat",
+        "Bacará",
+        1
+      ],
+      [
+        "Craps",
+        "Craps",
+        "Craps",
+        1
+      ],
+      [
+        "Chess",
+        "Šakki",
+        "Ajedrez",
+        0
+      ],
+      [
+        "Scrabble",
+        "Scrabble",
+        "Scrabble",
+        0
+      ],
+      [
+        "Sudoku",
+        "Sudoku",
+        "Sudoku",
+        0
+      ],
+      [
+        "Charades",
+        "Pantomiimi",
+        "Charadas",
+        0
+      ],
+      [
+        "Hopscotch",
+        "Ruutuhyppely",
+        "Rayuela",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "gen",
+    "d": "normal",
+    "cat": {
+      "en": "Which of these are common bar snacks?",
+      "fi": "Mitkä näistä ovat tyypillisiä baarinaposteltavia?",
+      "es": "¿Cuáles de estos son aperitivos típicos de bar?"
+    },
+    "o": [
+      [
+        "Peanuts",
+        "Maapähkinät",
+        "Cacahuetes",
+        1
+      ],
+      [
+        "Pretzels",
+        "Rinkelit",
+        "Pretzels",
+        1
+      ],
+      [
+        "Crisps",
+        "Sipsit",
+        "Patatas fritas",
+        1
+      ],
+      [
+        "Olives",
+        "Oliivit",
+        "Aceitunas",
+        1
+      ],
+      [
+        "Nachos",
+        "Nachot",
+        "Nachos",
+        1
+      ],
+      [
+        "Soufflé",
+        "Kohokas",
+        "Suflé",
+        0
+      ],
+      [
+        "Beef Wellington",
+        "Beef Wellington",
+        "Beef Wellington",
+        0
+      ],
+      [
+        "Caviar",
+        "Kaviaari",
+        "Caviar",
+        0
+      ],
+      [
+        "Escargot",
+        "Etanat",
+        "Caracoles",
+        0
+      ],
+      [
+        "Tiramisu",
+        "Tiramisu",
+        "Tiramisú",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "sport",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these are motor racing series?",
+      "fi": "Mitkä näistä ovat moottoriurheilun sarjoja?",
+      "es": "¿Cuáles de estas son competiciones de automovilismo/motociclismo?"
+    },
+    "o": [
+      [
+        "Formula 1",
+        "Formula 1",
+        "Fórmula 1",
+        1
+      ],
+      [
+        "MotoGP",
+        "MotoGP",
+        "MotoGP",
+        1
+      ],
+      [
+        "NASCAR",
+        "NASCAR",
+        "NASCAR",
+        1
+      ],
+      [
+        "IndyCar",
+        "IndyCar",
+        "IndyCar",
+        1
+      ],
+      [
+        "Formula E",
+        "Formula E",
+        "Fórmula E",
+        1
+      ],
+      [
+        "Tour de France",
+        "Tour de France",
+        "Tour de Francia",
+        0
+      ],
+      [
+        "Wimbledon",
+        "Wimbledon",
+        "Wimbledon",
+        0
+      ],
+      [
+        "Ryder Cup",
+        "Ryder Cup",
+        "Ryder Cup",
+        0
+      ],
+      [
+        "America's Cup",
+        "America's Cup",
+        "Copa América (vela)",
+        0
+      ],
+      [
+        "The Ashes",
+        "The Ashes",
+        "The Ashes",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "sport",
+    "d": "normal",
+    "cat": {
+      "en": "Which of these sports are played on ice?",
+      "fi": "Mitkä näistä lajeista pelataan jäällä?",
+      "es": "¿Cuáles de estos deportes se practican sobre hielo?"
+    },
+    "o": [
+      [
+        "Ice hockey",
+        "Jääkiekko",
+        "Hockey sobre hielo",
+        1
+      ],
+      [
+        "Figure skating",
+        "Taitoluistelu",
+        "Patinaje artístico",
+        1
+      ],
+      [
+        "Curling",
+        "Curling",
+        "Curling",
+        1
+      ],
+      [
+        "Speed skating",
+        "Pikaluistelu",
+        "Patinaje de velocidad",
+        1
+      ],
+      [
+        "Field hockey",
+        "Maahockey",
+        "Hockey sobre hierba",
+        0
+      ],
+      [
+        "Tennis",
+        "Tennis",
+        "Tenis",
+        0
+      ],
+      [
+        "Rugby",
+        "Rugby",
+        "Rugby",
+        0
+      ],
+      [
+        "Cricket",
+        "Kriketti",
+        "Críquet",
+        0
+      ],
+      [
+        "Handball",
+        "Käsipallo",
+        "Balonmano",
+        0
+      ],
+      [
+        "Basketball",
+        "Koripallo",
+        "Baloncesto",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "sport",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these countries have won the FIFA World Cup?",
+      "fi": "Mitkä näistä maista ovat voittaneet jalkapallon MM-kisat?",
+      "es": "¿Cuáles de estos países han ganado la Copa Mundial de fútbol?"
+    },
+    "o": [
+      [
+        "Brazil",
+        "Brasilia",
+        "Brasil",
+        1
+      ],
+      [
+        "Germany",
+        "Saksa",
+        "Alemania",
+        1
+      ],
+      [
+        "Argentina",
+        "Argentiina",
+        "Argentina",
+        1
+      ],
+      [
+        "Italy",
+        "Italia",
+        "Italia",
+        1
+      ],
+      [
+        "France",
+        "Ranska",
+        "Francia",
+        1
+      ],
+      [
+        "Spain",
+        "Espanja",
+        "España",
+        1
+      ],
+      [
+        "England",
+        "Englanti",
+        "Inglaterra",
+        1
+      ],
+      [
+        "Uruguay",
+        "Uruguay",
+        "Uruguay",
+        1
+      ],
+      [
+        "Netherlands",
+        "Alankomaat",
+        "Países Bajos",
+        0
+      ],
+      [
+        "Portugal",
+        "Portugali",
+        "Portugal",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "arts",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these plays were written by William Shakespeare?",
+      "fi": "Mitkä näistä näytelmistä kirjoitti William Shakespeare?",
+      "es": "¿Cuáles de estas obras teatrales escribió William Shakespeare?"
+    },
+    "o": [
+      [
+        "Hamlet",
+        "Hamlet",
+        "Hamlet",
+        1
+      ],
+      [
+        "Macbeth",
+        "Macbeth",
+        "Macbeth",
+        1
+      ],
+      [
+        "Othello",
+        "Othello",
+        "Otelo",
+        1
+      ],
+      [
+        "Romeo and Juliet",
+        "Romeo ja Julia",
+        "Romeo y Julieta",
+        1
+      ],
+      [
+        "King Lear",
+        "Kuningas Lear",
+        "El rey Lear",
+        1
+      ],
+      [
+        "The Tempest",
+        "Myrsky",
+        "La tempestad",
+        1
+      ],
+      [
+        "Faust",
+        "Faust",
+        "Fausto",
+        0
+      ],
+      [
+        "Don Quixote",
+        "Don Quijote",
+        "Don Quijote",
+        0
+      ],
+      [
+        "Waiting for Godot",
+        "Huomenna hän tulee",
+        "Esperando a Godot",
+        0
+      ],
+      [
+        "A Doll's House",
+        "Nukkekoti",
+        "Casa de muñecas",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "arts",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these artists are associated with Impressionism?",
+      "fi": "Mitkä näistä taiteilijoista liittyvät impressionismiin?",
+      "es": "¿Cuáles de estos artistas se asocian con el impresionismo?"
+    },
+    "o": [
+      [
+        "Claude Monet",
+        "Claude Monet",
+        "Claude Monet",
+        1
+      ],
+      [
+        "Pierre-Auguste Renoir",
+        "Pierre-Auguste Renoir",
+        "Pierre-Auguste Renoir",
+        1
+      ],
+      [
+        "Edgar Degas",
+        "Edgar Degas",
+        "Edgar Degas",
+        1
+      ],
+      [
+        "Camille Pissarro",
+        "Camille Pissarro",
+        "Camille Pissarro",
+        1
+      ],
+      [
+        "Alfred Sisley",
+        "Alfred Sisley",
+        "Alfred Sisley",
+        1
+      ],
+      [
+        "Pablo Picasso",
+        "Pablo Picasso",
+        "Pablo Picasso",
+        0
+      ],
+      [
+        "Salvador Dalí",
+        "Salvador Dalí",
+        "Salvador Dalí",
+        0
+      ],
+      [
+        "Andy Warhol",
+        "Andy Warhol",
+        "Andy Warhol",
+        0
+      ],
+      [
+        "Jackson Pollock",
+        "Jackson Pollock",
+        "Jackson Pollock",
+        0
+      ],
+      [
+        "Michelangelo",
+        "Michelangelo",
+        "Miguel Ángel",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "arts",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these songs were recorded by Queen?",
+      "fi": "Mitkä näistä kappaleista on Queenin levyttämiä?",
+      "es": "¿Cuáles de estas canciones fueron grabadas por Queen?"
+    },
+    "o": [
+      [
+        "Bohemian Rhapsody",
+        "Bohemian Rhapsody",
+        "Bohemian Rhapsody",
+        1
+      ],
+      [
+        "We Will Rock You",
+        "We Will Rock You",
+        "We Will Rock You",
+        1
+      ],
+      [
+        "Somebody to Love",
+        "Somebody to Love",
+        "Somebody to Love",
+        1
+      ],
+      [
+        "Don't Stop Me Now",
+        "Don't Stop Me Now",
+        "Don't Stop Me Now",
+        1
+      ],
+      [
+        "Under Pressure",
+        "Under Pressure",
+        "Under Pressure",
+        1
+      ],
+      [
+        "Imagine",
+        "Imagine",
+        "Imagine",
+        0
+      ],
+      [
+        "Hey Jude",
+        "Hey Jude",
+        "Hey Jude",
+        0
+      ],
+      [
+        "Purple Rain",
+        "Purple Rain",
+        "Purple Rain",
+        0
+      ],
+      [
+        "Thriller",
+        "Thriller",
+        "Thriller",
+        0
+      ],
+      [
+        "Stairway to Heaven",
+        "Stairway to Heaven",
+        "Stairway to Heaven",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "sci",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these are metric (SI-based) units?",
+      "fi": "Mitkä näistä ovat metrijärjestelmän yksiköitä?",
+      "es": "¿Cuáles de estas son unidades del sistema métrico?"
+    },
+    "o": [
+      [
+        "Metre",
+        "Metri",
+        "Metro",
+        1
+      ],
+      [
+        "Litre",
+        "Litra",
+        "Litro",
+        1
+      ],
+      [
+        "Gram",
+        "Gramma",
+        "Gramo",
+        1
+      ],
+      [
+        "Tonne",
+        "Tonni",
+        "Tonelada",
+        1
+      ],
+      [
+        "Mile",
+        "Maili",
+        "Milla",
+        0
+      ],
+      [
+        "Pound",
+        "Naula",
+        "Libra",
+        0
+      ],
+      [
+        "Gallon",
+        "Gallona",
+        "Galón",
+        0
+      ],
+      [
+        "Inch",
+        "Tuuma",
+        "Pulgada",
+        0
+      ],
+      [
+        "Foot",
+        "Jalka",
+        "Pie",
+        0
+      ],
+      [
+        "Ounce",
+        "Unssi",
+        "Onza",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "sci",
+    "d": "normal",
+    "cat": {
+      "en": "Which of these are greenhouse gases?",
+      "fi": "Mitkä näistä ovat kasvihuonekaasuja?",
+      "es": "¿Cuáles de estos son gases de efecto invernadero?"
+    },
+    "o": [
+      [
+        "Carbon dioxide",
+        "Hiilidioksidi",
+        "Dióxido de carbono",
+        1
+      ],
+      [
+        "Methane",
+        "Metaani",
+        "Metano",
+        1
+      ],
+      [
+        "Water vapour",
+        "Vesihöyry",
+        "Vapor de agua",
+        1
+      ],
+      [
+        "Nitrous oxide",
+        "Typpioksiduuli",
+        "Óxido nitroso",
+        1
+      ],
+      [
+        "Ozone",
+        "Otsoni",
+        "Ozono",
+        1
+      ],
+      [
+        "Oxygen",
+        "Happi",
+        "Oxígeno",
+        0
+      ],
+      [
+        "Nitrogen",
+        "Typpi",
+        "Nitrógeno",
+        0
+      ],
+      [
+        "Argon",
+        "Argon",
+        "Argón",
+        0
+      ],
+      [
+        "Helium",
+        "Helium",
+        "Helio",
+        0
+      ],
+      [
+        "Hydrogen",
+        "Vety",
+        "Hidrógeno",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "sci",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these vitamins are water-soluble?",
+      "fi": "Mitkä näistä vitamiineista ovat vesiliukoisia?",
+      "es": "¿Cuáles de estas vitaminas son hidrosolubles?"
+    },
+    "o": [
+      [
+        "Vitamin C",
+        "C-vitamiini",
+        "Vitamina C",
+        1
+      ],
+      [
+        "Vitamin B12",
+        "B12-vitamiini",
+        "Vitamina B12",
+        1
+      ],
+      [
+        "Vitamin B6",
+        "B6-vitamiini",
+        "Vitamina B6",
+        1
+      ],
+      [
+        "Thiamine (B1)",
+        "Tiamiini (B1)",
+        "Tiamina (B1)",
+        1
+      ],
+      [
+        "Niacin (B3)",
+        "Niasiini (B3)",
+        "Niacina (B3)",
+        1
+      ],
+      [
+        "Vitamin A",
+        "A-vitamiini",
+        "Vitamina A",
+        0
+      ],
+      [
+        "Vitamin D",
+        "D-vitamiini",
+        "Vitamina D",
+        0
+      ],
+      [
+        "Vitamin E",
+        "E-vitamiini",
+        "Vitamina E",
+        0
+      ],
+      [
+        "Vitamin K",
+        "K-vitamiini",
+        "Vitamina K",
+        0
+      ],
+      [
+        "Beta-carotene",
+        "Beetakaroteeni",
+        "Betacaroteno",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "sci",
+    "d": "normal",
+    "cat": {
+      "en": "Which of these animals lay eggs?",
+      "fi": "Mitkä näistä eläimistä munivat?",
+      "es": "¿Cuáles de estos animales ponen huevos?"
+    },
+    "o": [
+      [
+        "Chicken",
+        "Kana",
+        "Gallina",
+        1
+      ],
+      [
+        "Snake",
+        "Käärme",
+        "Serpiente",
+        1
+      ],
+      [
+        "Frog",
+        "Sammakko",
+        "Rana",
+        1
+      ],
+      [
+        "Platypus",
+        "Vesinokkaeläin",
+        "Ornitorrinco",
+        1
+      ],
+      [
+        "Crocodile",
+        "Krokotiili",
+        "Cocodrilo",
+        1
+      ],
+      [
+        "Dog",
+        "Koira",
+        "Perro",
+        0
+      ],
+      [
+        "Cat",
+        "Kissa",
+        "Gato",
+        0
+      ],
+      [
+        "Cow",
+        "Lehmä",
+        "Vaca",
+        0
+      ],
+      [
+        "Whale",
+        "Valas",
+        "Ballena",
+        0
+      ],
+      [
+        "Elephant",
+        "Norsu",
+        "Elefante",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "geo",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these currencies are used in European countries?",
+      "fi": "Mitkä näistä valuutoista ovat käytössä Euroopan maissa?",
+      "es": "¿Cuáles de estas monedas se usan en países europeos?"
+    },
+    "o": [
+      [
+        "Euro",
+        "Euro",
+        "Euro",
+        1
+      ],
+      [
+        "Pound sterling",
+        "Punta",
+        "Libra esterlina",
+        1
+      ],
+      [
+        "Swiss franc",
+        "Sveitsin frangi",
+        "Franco suizo",
+        1
+      ],
+      [
+        "Norwegian krone",
+        "Norjan kruunu",
+        "Corona noruega",
+        1
+      ],
+      [
+        "Polish złoty",
+        "Puolan złoty",
+        "Esloti polaco",
+        1
+      ],
+      [
+        "Yen",
+        "Jeni",
+        "Yen",
+        0
+      ],
+      [
+        "Rupee",
+        "Rupia",
+        "Rupia",
+        0
+      ],
+      [
+        "Peso",
+        "Peso",
+        "Peso",
+        0
+      ],
+      [
+        "Baht",
+        "Baht",
+        "Baht",
+        0
+      ],
+      [
+        "Ringgit",
+        "Ringgit",
+        "Ringgit",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "geo",
+    "d": "normal",
+    "cat": {
+      "en": "Which of these are Nordic capital cities?",
+      "fi": "Mitkä näistä ovat Pohjoismaiden pääkaupunkeja?",
+      "es": "¿Cuáles de estas son capitales nórdicas?"
+    },
+    "o": [
+      [
+        "Oslo",
+        "Oslo",
+        "Oslo",
+        1
+      ],
+      [
+        "Stockholm",
+        "Tukholma",
+        "Estocolmo",
+        1
+      ],
+      [
+        "Copenhagen",
+        "Kööpenhamina",
+        "Copenhague",
+        1
+      ],
+      [
+        "Helsinki",
+        "Helsinki",
+        "Helsinki",
+        1
+      ],
+      [
+        "Reykjavík",
+        "Reykjavík",
+        "Reikiavik",
+        1
+      ],
+      [
+        "Amsterdam",
+        "Amsterdam",
+        "Ámsterdam",
+        0
+      ],
+      [
+        "Berlin",
+        "Berliini",
+        "Berlín",
+        0
+      ],
+      [
+        "Vienna",
+        "Wien",
+        "Viena",
+        0
+      ],
+      [
+        "Dublin",
+        "Dublin",
+        "Dublín",
+        0
+      ],
+      [
+        "Warsaw",
+        "Varsova",
+        "Varsovia",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "geo",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these deserts are in Africa?",
+      "fi": "Mitkä näistä aavikoista sijaitsevat Afrikassa?",
+      "es": "¿Cuáles de estos desiertos están en África?"
+    },
+    "o": [
+      [
+        "Sahara",
+        "Sahara",
+        "Sahara",
+        1
+      ],
+      [
+        "Kalahari",
+        "Kalahari",
+        "Kalahari",
+        1
+      ],
+      [
+        "Namib",
+        "Namib",
+        "Namib",
+        1
+      ],
+      [
+        "Gobi",
+        "Gobi",
+        "Gobi",
+        0
+      ],
+      [
+        "Atacama",
+        "Atacama",
+        "Atacama",
+        0
+      ],
+      [
+        "Mojave",
+        "Mojave",
+        "Mojave",
+        0
+      ],
+      [
+        "Thar",
+        "Thar",
+        "Thar",
+        0
+      ],
+      [
+        "Sonoran",
+        "Sonora",
+        "Sonora",
+        0
+      ],
+      [
+        "Arabian",
+        "Arabian aavikko",
+        "Arábigo",
+        0
+      ],
+      [
+        "Patagonian",
+        "Patagonian aavikko",
+        "Patagónico",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "hist",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these were battles of World War II?",
+      "fi": "Mitkä näistä olivat toisen maailmansodan taisteluita?",
+      "es": "¿Cuáles de estas fueron batallas de la Segunda Guerra Mundial?"
+    },
+    "o": [
+      [
+        "Battle of Stalingrad",
+        "Stalingradin taistelu",
+        "Batalla de Stalingrado",
+        1
+      ],
+      [
+        "D-Day (Normandy)",
+        "Maihinnousu Normandiaan",
+        "Día D (Normandía)",
+        1
+      ],
+      [
+        "Battle of Britain",
+        "Britannian taistelu",
+        "Batalla de Inglaterra",
+        1
+      ],
+      [
+        "Battle of Midway",
+        "Midwayn taistelu",
+        "Batalla de Midway",
+        1
+      ],
+      [
+        "Battle of the Bulge",
+        "Ardennien taistelu",
+        "Batalla de las Ardenas",
+        1
+      ],
+      [
+        "Battle of Waterloo",
+        "Waterloon taistelu",
+        "Batalla de Waterloo",
+        0
+      ],
+      [
+        "Battle of Hastings",
+        "Hastingsin taistelu",
+        "Batalla de Hastings",
+        0
+      ],
+      [
+        "Battle of Gettysburg",
+        "Gettysburgin taistelu",
+        "Batalla de Gettysburg",
+        0
+      ],
+      [
+        "Battle of Trafalgar",
+        "Trafalgarin taistelu",
+        "Batalla de Trafalgar",
+        0
+      ],
+      [
+        "Battle of Thermopylae",
+        "Thermopylain taistelu",
+        "Batalla de las Termópilas",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "hist",
+    "d": "normal",
+    "cat": {
+      "en": "Which of these were Presidents of the United States?",
+      "fi": "Mitkä näistä olivat Yhdysvaltain presidenttejä?",
+      "es": "¿Cuáles de estos fueron presidentes de Estados Unidos?"
+    },
+    "o": [
+      [
+        "George Washington",
+        "George Washington",
+        "George Washington",
+        1
+      ],
+      [
+        "Abraham Lincoln",
+        "Abraham Lincoln",
+        "Abraham Lincoln",
+        1
+      ],
+      [
+        "Franklin D. Roosevelt",
+        "Franklin D. Roosevelt",
+        "Franklin D. Roosevelt",
+        1
+      ],
+      [
+        "John F. Kennedy",
+        "John F. Kennedy",
+        "John F. Kennedy",
+        1
+      ],
+      [
+        "Barack Obama",
+        "Barack Obama",
+        "Barack Obama",
+        1
+      ],
+      [
+        "Benjamin Franklin",
+        "Benjamin Franklin",
+        "Benjamin Franklin",
+        0
+      ],
+      [
+        "Alexander Hamilton",
+        "Alexander Hamilton",
+        "Alexander Hamilton",
+        0
+      ],
+      [
+        "Winston Churchill",
+        "Winston Churchill",
+        "Winston Churchill",
+        0
+      ],
+      [
+        "Nelson Mandela",
+        "Nelson Mandela",
+        "Nelson Mandela",
+        0
+      ],
+      [
+        "Albert Einstein",
+        "Albert Einstein",
+        "Albert Einstein",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "hist",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these inventions date from the 20th century?",
+      "fi": "Mitkä näistä keksinnöistä ovat 1900-luvulta?",
+      "es": "¿Cuáles de estos inventos son del siglo XX?"
+    },
+    "o": [
+      [
+        "Television",
+        "Televisio",
+        "Televisión",
+        1
+      ],
+      [
+        "The internet",
+        "Internet",
+        "Internet",
+        1
+      ],
+      [
+        "Penicillin",
+        "Penisilliini",
+        "Penicilina",
+        1
+      ],
+      [
+        "The jet engine",
+        "Suihkumoottori",
+        "El motor a reacción",
+        1
+      ],
+      [
+        "The transistor",
+        "Transistori",
+        "El transistor",
+        1
+      ],
+      [
+        "The printing press",
+        "Kirjapaino",
+        "La imprenta",
+        0
+      ],
+      [
+        "The steam engine",
+        "Höyrykone",
+        "La máquina de vapor",
+        0
+      ],
+      [
+        "The telescope",
+        "Kaukoputki",
+        "El telescopio",
+        0
+      ],
+      [
+        "Gunpowder",
+        "Ruuti",
+        "La pólvora",
+        0
+      ],
+      [
+        "The wheel",
+        "Pyörä",
+        "La rueda",
+        0
+      ]
+    ]
   }
 ]
