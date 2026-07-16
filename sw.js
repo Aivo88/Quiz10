@@ -1,13 +1,13 @@
 /* QUIZ 10 service worker — network-first, offline-capable.
    Bump CACHE (e.g. quiz10-v2) when you want to force a clean update,
    or just use the in-app "Check for updates" button. */
-const CACHE = 'quiz10-v3';
+const CACHE = 'quiz10-v4';
 
 self.addEventListener('install', e => {
   self.skipWaiting();
   e.waitUntil(
     caches.open(CACHE).then(c => c.addAll([
-      './', './questions.json', './manifest.json',
+      './', './quiz10.html', './questions.json', './manifest.json',
       './icon-192.png', './icon-512.png', './icon-512-maskable.png',
       './apple-touch-icon.png', './favicon-32.png'
     ]).catch(() => {}))
@@ -35,6 +35,8 @@ self.addEventListener('fetch', e => {
         caches.open(CACHE).then(c => c.put(e.request, copy)).catch(() => {});
         return res;
       })
-      .catch(() => caches.match(e.request).then(r => r || caches.match('./')))
+      .catch(() => caches.match(e.request)
+        .then(r => r || caches.match('./quiz10.html'))
+        .then(r => r || caches.match('./')))
   );
 });
