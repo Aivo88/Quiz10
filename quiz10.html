@@ -575,6 +575,7 @@
             <button class="btn chip focusable" data-action="update" data-i="checkUpdates">Check for updates</button>
           </div>
         </div>
+        <div class="set-row"><span class="set-hint" id="updStatus"></span></div>
       </div>
       </div>
 
@@ -815,6 +816,11 @@ const T = {
     viewWord:"View", allWord:"All", searchWord:"Search questions…", noMatches:"No matches", baseBankName:"Default questions", inPlayWord:"questions in play", baseOffWord:"default off",
     confirmDeletePack:"Delete pack", needQuestions:"Turn on some questions first",
     updating:"Updating…",
+    updChecking:"Checking…",
+    updOffline:"You are offline. Connect to the internet first.",
+    updReadFail:"Could not check for updates.",
+    updLatest:"You already have the latest version (%v).",
+    updFound:"New version %v found — updating…",
     pointsWord:"points",
     edgeLabel:"Fit to screen (TV)",
     hint:"Move with the D-pad · <kbd>OK</kbd> to answer · Pass button to bank · <kbd>Back</kbd> to quit"
@@ -889,6 +895,11 @@ const T = {
     viewWord:"Selaa", allWord:"Kaikki", searchWord:"Etsi kysymyksiä…", noMatches:"Ei osumia", baseBankName:"Oletuskysymykset", inPlayWord:"kysymystä pelissä", baseOffWord:"oletus pois",
     confirmDeletePack:"Poista paketti", needQuestions:"Laita ensin kysymyksiä päälle",
     updating:"Päivitetään…",
+    updChecking:"Tarkistetaan…",
+    updOffline:"Olet offline-tilassa. Yhdistä ensin internetiin.",
+    updReadFail:"Päivitystä ei voitu tarkistaa.",
+    updLatest:"Sinulla on jo uusin versio (%v).",
+    updFound:"Uusi versio %v löytyi — päivitetään…",
     pointsWord:"pistettä",
     edgeLabel:"Sovita ruutuun (TV)",
     hint:"Liiku D-padilla · <kbd>OK</kbd> vastaa · Passaa-napista talleta · <kbd>Back</kbd> lopeta"
@@ -963,6 +974,11 @@ const T = {
     viewWord:"Ver", allWord:"Todas", searchWord:"Buscar preguntas…", noMatches:"Sin resultados", baseBankName:"Preguntas predeterminadas", inPlayWord:"preguntas en juego", baseOffWord:"predeterminadas off",
     confirmDeletePack:"Borrar paquete", needQuestions:"Activa primero algunas preguntas",
     updating:"Actualizando…",
+    updChecking:"Comprobando…",
+    updOffline:"Estás sin conexión. Conéctate a internet primero.",
+    updReadFail:"No se pudo buscar actualizaciones.",
+    updLatest:"Ya tienes la última versión (%v).",
+    updFound:"Nueva versión %v encontrada — actualizando…",
     pointsWord:"puntos",
     edgeLabel:"Ajustar a pantalla (TV)",
     hint:"Muévete con el D-pad · <kbd>OK</kbd> responde · botón Pasar para guardar · <kbd>Atrás</kbd> salir"
@@ -1105,7 +1121,7 @@ const QUESTIONS = [
 
 const PLAYER_COLORS = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
-const APP_VERSION = '5.7';
+const APP_VERSION = '5.8';
 
 let questionsStatus = '';
 const QCACHE_KEY = 'quiz10_qcache';
@@ -2365,20 +2381,36 @@ if('serviceWorker' in navigator && location.protocol.startsWith('http')){
 
 /* Check-for-updates: always pull the freshest copy from the server,
    regardless of version — unregister SW, clear caches, cache-busted reload */
+// SE7EN V2 update model: ask the server directly for version.json and compare
+// numbers, so the check reports what it actually found instead of guessing.
 function doUpdate(btn){
-  if(btn) btn.textContent = tr('updating');
-  (async()=>{
-    try{
-      if('serviceWorker' in navigator){
-        const regs = await navigator.serviceWorker.getRegistrations();
-        await Promise.all(regs.map(r=>r.unregister().catch(()=>{})));
+  const el = $('#updStatus');
+  const say = (msg, ok) => { if(el){ el.textContent = msg; el.style.color = ok===false ? 'var(--bad)' : (ok===true ? 'var(--good)' : 'var(--muted)'); } };
+  if(!navigator.onLine){ say(tr('updOffline'), false); return; }
+  say(tr('updChecking'));
+  fetch('version.json?ts=' + Date.now(), {cache:'no-store'})
+    .then(r => r.json())
+    .then(info => {
+      const remote = info && info.version;
+      if(!remote){ say(tr('updReadFail'), false); return; }
+      if(String(remote) === String(APP_VERSION)){
+        say(tr('updLatest').replace('%v', APP_VERSION), true);
+        return;
       }
-      if(window.caches){ const ks = await caches.keys(); await Promise.all(ks.map(k=>caches.delete(k))); }
-    }catch(e){}
-    // reload from the clean path with a cache-busting token so the browser
-    // fetches a fresh copy even if HTTP-cached
-    location.replace(location.pathname + '?u=' + Date.now());
-  })();
+      // A newer version exists → wipe caches + service worker and reload clean.
+      say(tr('updFound').replace('%v', remote));
+      (async()=>{
+        try{
+          if('serviceWorker' in navigator){
+            const regs = await navigator.serviceWorker.getRegistrations();
+            await Promise.all(regs.map(r=>r.unregister().catch(()=>{})));
+          }
+          if(window.caches){ const ks = await caches.keys(); await Promise.all(ks.map(k=>caches.delete(k))); }
+        }catch(e){}
+        location.replace(location.pathname + '?u=' + Date.now());
+      })();
+    })
+    .catch(() => say(tr('updReadFail'), false));
 }
 
 /* size slider drag (touch / mouse) */

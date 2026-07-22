@@ -1,16 +1,20 @@
-/* QUIZ 10 service worker — network-first, offline-capable.
-   Bump CACHE (e.g. quiz10-v2) when you want to force a clean update,
-   or just use the in-app "Check for updates" button. */
-const CACHE = 'quiz10-v4';
+// QUIZ 10 service worker — SE7EN V2 model.
+// Bump CACHE on every release (this is what makes the browser install a fresh copy).
+const CACHE = 'quiz10-v5';
+const ASSETS = ['./', './quiz10.html', './questions.json', './version.json', './manifest.json',
+                './icon-192.png', './icon-512.png', './icon-512-maskable.png',
+                './apple-touch-icon.png', './favicon-32.png'];
 
+// cache:'reload' is essential: without it the browser may serve these files from
+// its own HTTP cache (GitHub Pages sets max-age), so a freshly installed service
+// worker would cache a stale quiz10.html and the app would never update.
 self.addEventListener('install', e => {
-  self.skipWaiting();
   e.waitUntil(
-    caches.open(CACHE).then(c => c.addAll([
-      './', './quiz10.html', './questions.json', './manifest.json',
-      './icon-192.png', './icon-512.png', './icon-512-maskable.png',
-      './apple-touch-icon.png', './favicon-32.png'
-    ]).catch(() => {}))
+    caches.open(CACHE)
+      .then(c => Promise.all(
+        ASSETS.map(u => c.add(new Request(u, { cache: 'reload' })).catch(() => {}))
+      ))
+      .then(() => self.skipWaiting())
   );
 });
 
@@ -22,21 +26,27 @@ self.addEventListener('activate', e => {
   );
 });
 
-self.addEventListener('message', e => {
-  if (e.data === 'skipWaiting') self.skipWaiting();
-});
-
 self.addEventListener('fetch', e => {
   if (e.request.method !== 'GET') return;
+
+  // version.json is how the app finds out an update exists, so it must never be
+  // answered from a cache — otherwise it reports the version frozen forever at
+  // whatever was current the first time it was fetched.
+  if (e.request.url.indexOf('version.json') !== -1) {
+    e.respondWith(fetch(e.request, { cache: 'no-store' }).catch(() => new Response('{}')));
+    return;
+  }
+
   e.respondWith(
-    fetch(e.request)
-      .then(res => {
-        const copy = res.clone();
-        caches.open(CACHE).then(c => c.put(e.request, copy)).catch(() => {});
+    caches.match(e.request).then(hit => {
+      if (hit) return hit;
+      return fetch(e.request).then(res => {
+        if (res && res.status === 200 && res.type === 'basic') {
+          const copy = res.clone();
+          caches.open(CACHE).then(c => c.put(e.request, copy));
+        }
         return res;
-      })
-      .catch(() => caches.match(e.request)
-        .then(r => r || caches.match('./quiz10.html'))
-        .then(r => r || caches.match('./')))
+      }).catch(() => caches.match('./quiz10.html'));
+    })
   );
 });
