@@ -977,6 +977,7 @@ const TOPICS = [
   { key:'sport', icon:'⚽', en:'Sport & Games',   fi:'Urheilu & pelit',  es:'Deporte y juegos' },
   { key:'hist',  icon:'🏛️', en:'History',          fi:'Historia',         es:'Historia' },
   { key:'gen',   icon:'🧠', en:'General',          fi:'Yleistieto',       es:'General' },
+  { key:'film',  icon:'🎬', en:'Film & TV',        fi:'Elokuvat & TV',    es:'Cine y TV' },
   { key:'mixed', icon:'🎲', en:'Mixed',            fi:'Sekaisin',         es:'Variado' }
 ];
 
@@ -1104,7 +1105,7 @@ const QUESTIONS = [
 
 const PLAYER_COLORS = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
-const APP_VERSION = '5.6';
+const APP_VERSION = '5.7';
 
 let questionsStatus = '';
 const QCACHE_KEY = 'quiz10_qcache';
@@ -1147,16 +1148,35 @@ function applyQuestionArray(arr){
 /* ---- User question packs (loaded from a local .json file, saved on device) ---- */
 function loadPacks(){
   try{ const raw = lsGet(PACKS_KEY); if(raw){ const arr = JSON.parse(raw); if(Array.isArray(arr)) packs = arr; } }catch(e){}
+  packs.forEach(p => { if(p && Array.isArray(p.topics)) mergeTopics(p.topics); });
 }
 function savePacks(){ try{ lsSet(PACKS_KEY, JSON.stringify(packs)); }catch(e){} }
 
-const TOPIC_KEYS = ['geo','sci','arts','sport','hist','gen','mixed'];
+// Add categories declared by a question pack into the live TOPICS list (with their own emoji).
+function mergeTopics(list){
+  if(!Array.isArray(list)) return;
+  list.forEach(t => {
+    if(!t || t.key==null) return;
+    const key = String(t.key).trim().toLowerCase();
+    if(!key || TOPICS.some(x => x.key===key)) return;   // skip empty or already-known
+    TOPICS.push({
+      key,
+      icon: (t.icon && String(t.icon)) || '📦',
+      en: t.en || key,
+      fi: t.fi || t.en || key,
+      es: t.es || t.en || key
+    });
+  });
+}
+
+const TOPIC_KEYS = ['geo','sci','arts','sport','hist','gen','film','mixed'];
 // Accept and normalise questions from an imported file (lenient: only English required).
 function normalizePack(arr){
   if(!Array.isArray(arr)) return [];
+  const allowed = new Set(TOPICS.map(t => t.key));   // built-in + any pack-declared categories
   return arr.filter(q => q && q.cat && q.cat.en && Array.isArray(q.o) && q.o.length===10)
     .map(q => ({
-      topic: TOPIC_KEYS.includes(q.topic) ? q.topic : 'gen',
+      topic: allowed.has(q.topic) ? q.topic : 'gen',
       d: ['easy','normal','hard'].includes(q.d) ? q.d : 'normal',
       cat: { en:q.cat.en, fi:q.cat.fi||q.cat.en, es:q.cat.es||q.cat.en },
       o: q.o
@@ -1169,9 +1189,11 @@ function importPackFromText(text, name){
   let arr = Array.isArray(data) ? data : (data && Array.isArray(data.questions) ? data.questions : null);
   if(!arr) return {ok:false, err:'not a question list'};
   const packName = (data && data.name) ? data.name : name;
+  const packTopics = (data && Array.isArray(data.topics)) ? data.topics : [];
+  mergeTopics(packTopics);                 // register any new categories (with their emoji) first
   const norm = normalizePack(arr);
   if(!norm.length) return {ok:false, err:'no valid questions'};
-  packs.push({ id:'p'+Date.now(), name:packName||'Pack', questions:norm, active:true });
+  packs.push({ id:'p'+Date.now(), name:packName||'Pack', topics:packTopics, questions:norm, active:true });
   savePacks();
   rebuildQuestions();
   return {ok:true, count:norm.length, name:packName};
@@ -1702,7 +1724,9 @@ function renderTopicMeta(si, L){
 function renderTopics(L){
   L = L || lang;
   const grid = $('#topicGrid'); grid.innerHTML='';
+  const avail = new Set(QUESTIONS.map(q => q.topic));   // only show categories that have questions
   TOPICS.forEach(t=>{
+    if(t.key!=='mixed' && !avail.has(t.key)) return;
     const b = document.createElement('button');
     b.className='btn topic focusable';
     b.dataset.action='topic'; b.dataset.topic=t.key;

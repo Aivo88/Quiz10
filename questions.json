@@ -18886,7 +18886,7 @@
     ]
   },
   {
-    "topic": "gen",
+    "topic": "film",
     "d": "normal",
     "cat": {
       "en": "Which of the following movies were directed by Christopher Nolan?",
@@ -18957,7 +18957,7 @@
     ]
   },
   {
-    "topic": "gen",
+    "topic": "film",
     "d": "normal",
     "cat": {
       "en": "Which of the following movies have won the Academy Award for Best Picture?",
@@ -19170,7 +19170,7 @@
     ]
   },
   {
-    "topic": "gen",
+    "topic": "film",
     "d": "normal",
     "cat": {
       "en": "Which of the following movies were directed by Steven Spielberg?",
@@ -26980,7 +26980,7 @@
     ]
   },
   {
-    "topic": "gen",
+    "topic": "film",
     "d": "normal",
     "cat": {
       "en": "Which of these actors have played James Bond?",
@@ -28395,6 +28395,1213 @@
         "The wheel",
         "Pyörä",
         "La rueda",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "film",
+    "d": "easy",
+    "cat": {
+      "en": "Which of these are Disney animated films?",
+      "fi": "Mitkä näistä ovat Disneyn animaatioelokuvia?",
+      "es": "¿Cuáles de estas son películas de animación de Disney?"
+    },
+    "o": [
+      [
+        "The Lion King",
+        "Leijonakuningas",
+        "El rey león",
+        1
+      ],
+      [
+        "Frozen",
+        "Frozen",
+        "Frozen",
+        1
+      ],
+      [
+        "Aladdin",
+        "Aladdin",
+        "Aladdín",
+        1
+      ],
+      [
+        "Moana",
+        "Vaiana",
+        "Moana",
+        1
+      ],
+      [
+        "Cinderella",
+        "Tuhkimo",
+        "La Cenicienta",
+        1
+      ],
+      [
+        "Shrek",
+        "Shrek",
+        "Shrek",
+        0
+      ],
+      [
+        "Minions",
+        "Minionit",
+        "Minions",
+        0
+      ],
+      [
+        "Kung Fu Panda",
+        "Kung Fu Panda",
+        "Kung Fu Panda",
+        0
+      ],
+      [
+        "Madagascar",
+        "Madagascar",
+        "Madagascar",
+        0
+      ],
+      [
+        "Ice Age",
+        "Ice Age",
+        "La era de hielo",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "film",
+    "d": "easy",
+    "cat": {
+      "en": "Which of these are superheroes?",
+      "fi": "Mitkä näistä ovat supersankareita?",
+      "es": "¿Cuáles de estos son superhéroes?"
+    },
+    "o": [
+      [
+        "Spider-Man",
+        "Hämähäkkimies",
+        "Spider-Man",
+        1
+      ],
+      [
+        "Batman",
+        "Batman",
+        "Batman",
+        1
+      ],
+      [
+        "Superman",
+        "Teräsmies",
+        "Superman",
+        1
+      ],
+      [
+        "Iron Man",
+        "Iron Man",
+        "Iron Man",
+        1
+      ],
+      [
+        "Wonder Woman",
+        "Wonder Woman",
+        "Wonder Woman",
+        1
+      ],
+      [
+        "Darth Vader",
+        "Darth Vader",
+        "Darth Vader",
+        0
+      ],
+      [
+        "Gandalf",
+        "Gandalf",
+        "Gandalf",
+        0
+      ],
+      [
+        "Shrek",
+        "Shrek",
+        "Shrek",
+        0
+      ],
+      [
+        "James Bond",
+        "James Bond",
+        "James Bond",
+        0
+      ],
+      [
+        "Harry Potter",
+        "Harry Potter",
+        "Harry Potter",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "film",
+    "d": "easy",
+    "cat": {
+      "en": "Which of these are famous film franchises?",
+      "fi": "Mitkä näistä ovat kuuluisia elokuvasarjoja?",
+      "es": "¿Cuáles de estas son sagas de cine famosas?"
+    },
+    "o": [
+      [
+        "Star Wars",
+        "Star Wars",
+        "Star Wars",
+        1
+      ],
+      [
+        "Harry Potter",
+        "Harry Potter",
+        "Harry Potter",
+        1
+      ],
+      [
+        "James Bond",
+        "James Bond",
+        "James Bond",
+        1
+      ],
+      [
+        "Jurassic Park",
+        "Jurassic Park",
+        "Parque Jurásico",
+        1
+      ],
+      [
+        "The Lord of the Rings",
+        "Taru sormusten herrasta",
+        "El Señor de los Anillos",
+        1
+      ],
+      [
+        "Monopoly",
+        "Monopoli",
+        "Monopoly",
+        0
+      ],
+      [
+        "Tetris",
+        "Tetris",
+        "Tetris",
+        0
+      ],
+      [
+        "Scrabble",
+        "Scrabble",
+        "Scrabble",
+        0
+      ],
+      [
+        "Sudoku",
+        "Sudoku",
+        "Sudoku",
+        0
+      ],
+      [
+        "Cluedo",
+        "Cluedo",
+        "Cluedo",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "film",
+    "d": "easy",
+    "cat": {
+      "en": "Which of these are video streaming services?",
+      "fi": "Mitkä näistä ovat suoratoistopalveluja?",
+      "es": "¿Cuáles de estos son servicios de streaming de vídeo?"
+    },
+    "o": [
+      [
+        "Netflix",
+        "Netflix",
+        "Netflix",
+        1
+      ],
+      [
+        "Disney+",
+        "Disney+",
+        "Disney+",
+        1
+      ],
+      [
+        "HBO Max",
+        "HBO Max",
+        "HBO Max",
+        1
+      ],
+      [
+        "Amazon Prime Video",
+        "Amazon Prime Video",
+        "Amazon Prime Video",
+        1
+      ],
+      [
+        "Hulu",
+        "Hulu",
+        "Hulu",
+        1
+      ],
+      [
+        "Spotify",
+        "Spotify",
+        "Spotify",
+        0
+      ],
+      [
+        "PayPal",
+        "PayPal",
+        "PayPal",
+        0
+      ],
+      [
+        "Uber",
+        "Uber",
+        "Uber",
+        0
+      ],
+      [
+        "Airbnb",
+        "Airbnb",
+        "Airbnb",
+        0
+      ],
+      [
+        "Dropbox",
+        "Dropbox",
+        "Dropbox",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "film",
+    "d": "normal",
+    "cat": {
+      "en": "Which of these actors have won a competitive acting Oscar?",
+      "fi": "Ketkä näistä näyttelijöistä ovat voittaneet näyttelijän Oscarin?",
+      "es": "¿Cuáles de estos actores han ganado un Óscar de interpretación?"
+    },
+    "o": [
+      [
+        "Tom Hanks",
+        "Tom Hanks",
+        "Tom Hanks",
+        1
+      ],
+      [
+        "Meryl Streep",
+        "Meryl Streep",
+        "Meryl Streep",
+        1
+      ],
+      [
+        "Leonardo DiCaprio",
+        "Leonardo DiCaprio",
+        "Leonardo DiCaprio",
+        1
+      ],
+      [
+        "Anthony Hopkins",
+        "Anthony Hopkins",
+        "Anthony Hopkins",
+        1
+      ],
+      [
+        "Frances McDormand",
+        "Frances McDormand",
+        "Frances McDormand",
+        1
+      ],
+      [
+        "Tom Cruise",
+        "Tom Cruise",
+        "Tom Cruise",
+        0
+      ],
+      [
+        "Johnny Depp",
+        "Johnny Depp",
+        "Johnny Depp",
+        0
+      ],
+      [
+        "Glenn Close",
+        "Glenn Close",
+        "Glenn Close",
+        0
+      ],
+      [
+        "Samuel L. Jackson",
+        "Samuel L. Jackson",
+        "Samuel L. Jackson",
+        0
+      ],
+      [
+        "Amy Adams",
+        "Amy Adams",
+        "Amy Adams",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "film",
+    "d": "normal",
+    "cat": {
+      "en": "Which of these are TV sitcoms?",
+      "fi": "Mitkä näistä ovat tilannekomedioita (sitcom)?",
+      "es": "¿Cuáles de estas son comedias de situación (sitcom)?"
+    },
+    "o": [
+      [
+        "Friends",
+        "Frendit",
+        "Friends",
+        1
+      ],
+      [
+        "The Office",
+        "The Office",
+        "The Office",
+        1
+      ],
+      [
+        "Seinfeld",
+        "Seinfeld",
+        "Seinfeld",
+        1
+      ],
+      [
+        "Brooklyn Nine-Nine",
+        "Brooklyn Nine-Nine",
+        "Brooklyn Nine-Nine",
+        1
+      ],
+      [
+        "Parks and Recreation",
+        "Parks and Recreation",
+        "Parks and Recreation",
+        1
+      ],
+      [
+        "Breaking Bad",
+        "Breaking Bad",
+        "Breaking Bad",
+        0
+      ],
+      [
+        "Game of Thrones",
+        "Game of Thrones",
+        "Juego de Tronos",
+        0
+      ],
+      [
+        "The Crown",
+        "The Crown",
+        "The Crown",
+        0
+      ],
+      [
+        "Stranger Things",
+        "Stranger Things",
+        "Stranger Things",
+        0
+      ],
+      [
+        "Chernobyl",
+        "Chernobyl",
+        "Chernobyl",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "film",
+    "d": "normal",
+    "cat": {
+      "en": "Which of these actors appeared in the Harry Potter films?",
+      "fi": "Ketkä näistä näyttelijöistä esiintyivät Harry Potter -elokuvissa?",
+      "es": "¿Cuáles de estos actores aparecieron en las películas de Harry Potter?"
+    },
+    "o": [
+      [
+        "Daniel Radcliffe",
+        "Daniel Radcliffe",
+        "Daniel Radcliffe",
+        1
+      ],
+      [
+        "Emma Watson",
+        "Emma Watson",
+        "Emma Watson",
+        1
+      ],
+      [
+        "Rupert Grint",
+        "Rupert Grint",
+        "Rupert Grint",
+        1
+      ],
+      [
+        "Alan Rickman",
+        "Alan Rickman",
+        "Alan Rickman",
+        1
+      ],
+      [
+        "Maggie Smith",
+        "Maggie Smith",
+        "Maggie Smith",
+        1
+      ],
+      [
+        "Elijah Wood",
+        "Elijah Wood",
+        "Elijah Wood",
+        0
+      ],
+      [
+        "Ian McKellen",
+        "Ian McKellen",
+        "Ian McKellen",
+        0
+      ],
+      [
+        "Orlando Bloom",
+        "Orlando Bloom",
+        "Orlando Bloom",
+        0
+      ],
+      [
+        "Chris Evans",
+        "Chris Evans",
+        "Chris Evans",
+        0
+      ],
+      [
+        "Robert Downey Jr.",
+        "Robert Downey Jr.",
+        "Robert Downey Jr.",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "film",
+    "d": "normal",
+    "cat": {
+      "en": "Which of these films are science fiction set in space?",
+      "fi": "Mitkä näistä elokuvista ovat avaruuteen sijoittuvaa scifiä?",
+      "es": "¿Cuáles de estas películas son ciencia ficción ambientada en el espacio?"
+    },
+    "o": [
+      [
+        "Interstellar",
+        "Interstellar",
+        "Interstellar",
+        1
+      ],
+      [
+        "Alien",
+        "Alien",
+        "Alien",
+        1
+      ],
+      [
+        "Gravity",
+        "Gravity",
+        "Gravity",
+        1
+      ],
+      [
+        "The Martian",
+        "The Martian",
+        "Marte (The Martian)",
+        1
+      ],
+      [
+        "2001: A Space Odyssey",
+        "2001: Avaruusseikkailu",
+        "2001: Una odisea del espacio",
+        1
+      ],
+      [
+        "Titanic",
+        "Titanic",
+        "Titanic",
+        0
+      ],
+      [
+        "The Godfather",
+        "Kummisetä",
+        "El Padrino",
+        0
+      ],
+      [
+        "Rocky",
+        "Rocky",
+        "Rocky",
+        0
+      ],
+      [
+        "Jaws",
+        "Tappajahai",
+        "Tiburón",
+        0
+      ],
+      [
+        "Casablanca",
+        "Casablanca",
+        "Casablanca",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "film",
+    "d": "normal",
+    "cat": {
+      "en": "Which of these are Pixar animated films?",
+      "fi": "Mitkä näistä ovat Pixarin animaatioelokuvia?",
+      "es": "¿Cuáles de estas son películas de animación de Pixar?"
+    },
+    "o": [
+      [
+        "Toy Story",
+        "Toy Story",
+        "Toy Story",
+        1
+      ],
+      [
+        "Finding Nemo",
+        "Nemoa etsimässä",
+        "Buscando a Nemo",
+        1
+      ],
+      [
+        "Up",
+        "Up",
+        "Up",
+        1
+      ],
+      [
+        "Inside Out",
+        "Inside Out",
+        "Del revés (Inside Out)",
+        1
+      ],
+      [
+        "Coco",
+        "Coco",
+        "Coco",
+        1
+      ],
+      [
+        "Frozen",
+        "Frozen",
+        "Frozen",
+        0
+      ],
+      [
+        "Shrek",
+        "Shrek",
+        "Shrek",
+        0
+      ],
+      [
+        "Despicable Me",
+        "Itse ilkimys",
+        "Gru, mi villano favorito",
+        0
+      ],
+      [
+        "How to Train Your Dragon",
+        "Näin koulutat lohikäärmeesi",
+        "Cómo entrenar a tu dragón",
+        0
+      ],
+      [
+        "The Lion King",
+        "Leijonakuningas",
+        "El rey león",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "film",
+    "d": "normal",
+    "cat": {
+      "en": "Which of these are famous fictional detectives?",
+      "fi": "Mitkä näistä ovat kuuluisia fiktiivisiä salapoliiseja?",
+      "es": "¿Cuáles de estos son detectives de ficción famosos?"
+    },
+    "o": [
+      [
+        "Sherlock Holmes",
+        "Sherlock Holmes",
+        "Sherlock Holmes",
+        1
+      ],
+      [
+        "Hercule Poirot",
+        "Hercule Poirot",
+        "Hércules Poirot",
+        1
+      ],
+      [
+        "Columbo",
+        "Columbo",
+        "Colombo",
+        1
+      ],
+      [
+        "Miss Marple",
+        "Neiti Marple",
+        "Miss Marple",
+        1
+      ],
+      [
+        "Inspector Morse",
+        "Ylikomisario Morse",
+        "Inspector Morse",
+        1
+      ],
+      [
+        "James Bond",
+        "James Bond",
+        "James Bond",
+        0
+      ],
+      [
+        "Indiana Jones",
+        "Indiana Jones",
+        "Indiana Jones",
+        0
+      ],
+      [
+        "Jack Sparrow",
+        "Jack Sparrow",
+        "Jack Sparrow",
+        0
+      ],
+      [
+        "Rocky Balboa",
+        "Rocky Balboa",
+        "Rocky Balboa",
+        0
+      ],
+      [
+        "Forrest Gump",
+        "Forrest Gump",
+        "Forrest Gump",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "film",
+    "d": "normal",
+    "cat": {
+      "en": "Which of these films were directed by Quentin Tarantino?",
+      "fi": "Mitkä näistä elokuvista on ohjannut Quentin Tarantino?",
+      "es": "¿Cuáles de estas películas fueron dirigidas por Quentin Tarantino?"
+    },
+    "o": [
+      [
+        "Pulp Fiction",
+        "Pulp Fiction",
+        "Pulp Fiction",
+        1
+      ],
+      [
+        "Kill Bill",
+        "Kill Bill",
+        "Kill Bill",
+        1
+      ],
+      [
+        "Django Unchained",
+        "Django Unchained",
+        "Django desencadenado",
+        1
+      ],
+      [
+        "Reservoir Dogs",
+        "Reservoir Dogs",
+        "Reservoir Dogs",
+        1
+      ],
+      [
+        "Inglourious Basterds",
+        "Kunniattomat paskiaiset",
+        "Malditos bastardos",
+        1
+      ],
+      [
+        "Fight Club",
+        "Fight Club",
+        "El club de la lucha",
+        0
+      ],
+      [
+        "Goodfellas",
+        "Mafiaveljet",
+        "Uno de los nuestros",
+        0
+      ],
+      [
+        "No Country for Old Men",
+        "No Country for Old Men",
+        "No es país para viejos",
+        0
+      ],
+      [
+        "Se7en",
+        "Se7en",
+        "Seven",
+        0
+      ],
+      [
+        "Scarface",
+        "Scarface",
+        "El precio del poder",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "film",
+    "d": "normal",
+    "cat": {
+      "en": "Which of these are animated TV series?",
+      "fi": "Mitkä näistä ovat animoituja TV-sarjoja?",
+      "es": "¿Cuáles de estas son series de televisión animadas?"
+    },
+    "o": [
+      [
+        "The Simpsons",
+        "Simpsonit",
+        "Los Simpson",
+        1
+      ],
+      [
+        "Family Guy",
+        "Family Guy",
+        "Padre de familia",
+        1
+      ],
+      [
+        "South Park",
+        "South Park",
+        "South Park",
+        1
+      ],
+      [
+        "Rick and Morty",
+        "Rick and Morty",
+        "Rick y Morty",
+        1
+      ],
+      [
+        "Futurama",
+        "Futurama",
+        "Futurama",
+        1
+      ],
+      [
+        "Friends",
+        "Frendit",
+        "Friends",
+        0
+      ],
+      [
+        "The Office",
+        "The Office",
+        "The Office",
+        0
+      ],
+      [
+        "Breaking Bad",
+        "Breaking Bad",
+        "Breaking Bad",
+        0
+      ],
+      [
+        "The Crown",
+        "The Crown",
+        "The Crown",
+        0
+      ],
+      [
+        "Sherlock",
+        "Sherlock",
+        "Sherlock",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "film",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these actors have played the Joker on screen?",
+      "fi": "Ketkä näistä näyttelijöistä ovat esittäneet Jokeria valkokankaalla?",
+      "es": "¿Cuáles de estos actores han interpretado al Joker en pantalla?"
+    },
+    "o": [
+      [
+        "Jack Nicholson",
+        "Jack Nicholson",
+        "Jack Nicholson",
+        1
+      ],
+      [
+        "Heath Ledger",
+        "Heath Ledger",
+        "Heath Ledger",
+        1
+      ],
+      [
+        "Joaquin Phoenix",
+        "Joaquin Phoenix",
+        "Joaquin Phoenix",
+        1
+      ],
+      [
+        "Jared Leto",
+        "Jared Leto",
+        "Jared Leto",
+        1
+      ],
+      [
+        "Cesar Romero",
+        "Cesar Romero",
+        "Cesar Romero",
+        1
+      ],
+      [
+        "Christian Bale",
+        "Christian Bale",
+        "Christian Bale",
+        0
+      ],
+      [
+        "Tom Hardy",
+        "Tom Hardy",
+        "Tom Hardy",
+        0
+      ],
+      [
+        "Michael Keaton",
+        "Michael Keaton",
+        "Michael Keaton",
+        0
+      ],
+      [
+        "Tobey Maguire",
+        "Tobey Maguire",
+        "Tobey Maguire",
+        0
+      ],
+      [
+        "Hugh Jackman",
+        "Hugh Jackman",
+        "Hugh Jackman",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "film",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these TV series were produced by HBO?",
+      "fi": "Mitkä näistä TV-sarjoista ovat HBO:n tuottamia?",
+      "es": "¿Cuáles de estas series fueron producidas por HBO?"
+    },
+    "o": [
+      [
+        "Game of Thrones",
+        "Game of Thrones",
+        "Juego de Tronos",
+        1
+      ],
+      [
+        "The Sopranos",
+        "Sopranos",
+        "Los Soprano",
+        1
+      ],
+      [
+        "The Wire",
+        "The Wire",
+        "The Wire",
+        1
+      ],
+      [
+        "Succession",
+        "Succession",
+        "Succession",
+        1
+      ],
+      [
+        "True Detective",
+        "True Detective",
+        "True Detective",
+        1
+      ],
+      [
+        "Stranger Things",
+        "Stranger Things",
+        "Stranger Things",
+        0
+      ],
+      [
+        "The Mandalorian",
+        "The Mandalorian",
+        "The Mandalorian",
+        0
+      ],
+      [
+        "The Crown",
+        "The Crown",
+        "The Crown",
+        0
+      ],
+      [
+        "Ted Lasso",
+        "Ted Lasso",
+        "Ted Lasso",
+        0
+      ],
+      [
+        "The Handmaid's Tale",
+        "Orjattaresi",
+        "El cuento de la criada",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "film",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these directors have won the Academy Award for Best Director?",
+      "fi": "Ketkä näistä ohjaajista ovat voittaneet parhaan ohjaajan Oscarin?",
+      "es": "¿Cuáles de estos directores han ganado el Óscar al mejor director?"
+    },
+    "o": [
+      [
+        "Steven Spielberg",
+        "Steven Spielberg",
+        "Steven Spielberg",
+        1
+      ],
+      [
+        "Martin Scorsese",
+        "Martin Scorsese",
+        "Martin Scorsese",
+        1
+      ],
+      [
+        "Kathryn Bigelow",
+        "Kathryn Bigelow",
+        "Kathryn Bigelow",
+        1
+      ],
+      [
+        "Bong Joon-ho",
+        "Bong Joon-ho",
+        "Bong Joon-ho",
+        1
+      ],
+      [
+        "Alfonso Cuarón",
+        "Alfonso Cuarón",
+        "Alfonso Cuarón",
+        1
+      ],
+      [
+        "Alfred Hitchcock",
+        "Alfred Hitchcock",
+        "Alfred Hitchcock",
+        0
+      ],
+      [
+        "Quentin Tarantino",
+        "Quentin Tarantino",
+        "Quentin Tarantino",
+        0
+      ],
+      [
+        "David Fincher",
+        "David Fincher",
+        "David Fincher",
+        0
+      ],
+      [
+        "Ridley Scott",
+        "Ridley Scott",
+        "Ridley Scott",
+        0
+      ],
+      [
+        "Spike Lee",
+        "Spike Lee",
+        "Spike Lee",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "film",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these films are part of the Marvel Cinematic Universe (MCU)?",
+      "fi": "Mitkä näistä elokuvista kuuluvat Marvel Cinematic Universeen (MCU)?",
+      "es": "¿Cuáles de estas películas pertenecen al Universo Cinematográfico de Marvel (UCM)?"
+    },
+    "o": [
+      [
+        "Iron Man",
+        "Iron Man",
+        "Iron Man",
+        1
+      ],
+      [
+        "The Avengers",
+        "The Avengers",
+        "Los Vengadores",
+        1
+      ],
+      [
+        "Black Panther",
+        "Black Panther",
+        "Black Panther",
+        1
+      ],
+      [
+        "Guardians of the Galaxy",
+        "Guardians of the Galaxy",
+        "Guardianes de la Galaxia",
+        1
+      ],
+      [
+        "Doctor Strange",
+        "Doctor Strange",
+        "Doctor Strange",
+        1
+      ],
+      [
+        "The Dark Knight",
+        "The Dark Knight",
+        "El caballero oscuro",
+        0
+      ],
+      [
+        "Man of Steel",
+        "Man of Steel",
+        "El hombre de acero",
+        0
+      ],
+      [
+        "Wonder Woman",
+        "Wonder Woman",
+        "Wonder Woman",
+        0
+      ],
+      [
+        "Aquaman",
+        "Aquaman",
+        "Aquaman",
+        0
+      ],
+      [
+        "Joker",
+        "Joker",
+        "Joker",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "film",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these actors starred in The Lord of the Rings film trilogy?",
+      "fi": "Ketkä näistä näyttelivät Taru sormusten herrasta -elokuvatrilogiassa?",
+      "es": "¿Cuáles de estos actores actuaron en la trilogía de El Señor de los Anillos?"
+    },
+    "o": [
+      [
+        "Elijah Wood",
+        "Elijah Wood",
+        "Elijah Wood",
+        1
+      ],
+      [
+        "Ian McKellen",
+        "Ian McKellen",
+        "Ian McKellen",
+        1
+      ],
+      [
+        "Viggo Mortensen",
+        "Viggo Mortensen",
+        "Viggo Mortensen",
+        1
+      ],
+      [
+        "Orlando Bloom",
+        "Orlando Bloom",
+        "Orlando Bloom",
+        1
+      ],
+      [
+        "Sean Astin",
+        "Sean Astin",
+        "Sean Astin",
+        1
+      ],
+      [
+        "Daniel Radcliffe",
+        "Daniel Radcliffe",
+        "Daniel Radcliffe",
+        0
+      ],
+      [
+        "Chris Hemsworth",
+        "Chris Hemsworth",
+        "Chris Hemsworth",
+        0
+      ],
+      [
+        "Johnny Depp",
+        "Johnny Depp",
+        "Johnny Depp",
+        0
+      ],
+      [
+        "Tom Cruise",
+        "Tom Cruise",
+        "Tom Cruise",
+        0
+      ],
+      [
+        "Brad Pitt",
+        "Brad Pitt",
+        "Brad Pitt",
         0
       ]
     ]
