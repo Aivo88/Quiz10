@@ -42598,5 +42598,3555 @@
         0
       ]
     ]
+  },
+  {
+    "topic": "film",
+    "d": "hard",
+    "cat": {
+      "en": "In which of these films and series has Antonio Banderas appeared?",
+      "fi": "Missä näistä elokuvista ja sarjoista Antonio Banderas on esiintynyt?",
+      "es": "¿En cuáles de estas películas y series ha aparecido Antonio Banderas?"
+    },
+    "o": [
+      [
+        "Desperado",
+        "Desperado",
+        "Desperado",
+        1
+      ],
+      [
+        "The Mask of Zorro",
+        "Zorron naamio",
+        "La máscara del Zorro",
+        1
+      ],
+      [
+        "Shrek 2 (voice of Puss in Boots)",
+        "Shrek 2 (Saapasjalkakissan ääni)",
+        "Shrek 2 (voz del Gato con Botas)",
+        1
+      ],
+      [
+        "Philadelphia",
+        "Philadelphia",
+        "Filadelfia",
+        1
+      ],
+      [
+        "Evita",
+        "Evita",
+        "Evita",
+        1
+      ],
+      [
+        "Pain and Glory",
+        "Tuska ja kunnia",
+        "Dolor y gloria",
+        1
+      ],
+      [
+        "Genius: Picasso (TV series)",
+        "Genius: Picasso (TV-sarja)",
+        "Genius: Picasso (serie)",
+        1
+      ],
+      [
+        "Gladiator",
+        "Gladiaattori",
+        "Gladiator",
+        0
+      ],
+      [
+        "Titanic",
+        "Titanic",
+        "Titanic",
+        0
+      ],
+      [
+        "Pulp Fiction",
+        "Pulp Fiction",
+        "Pulp Fiction",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "film",
+    "d": "normal",
+    "cat": {
+      "en": "Which of these films star Tom Cruise?",
+      "fi": "Missä näistä elokuvista näyttelee Tom Cruise?",
+      "es": "¿En cuáles de estas películas actúa Tom Cruise?"
+    },
+    "o": [
+      [
+        "Top Gun",
+        "Top Gun",
+        "Top Gun",
+        1
+      ],
+      [
+        "Mission: Impossible",
+        "Vaarallinen tehtävä",
+        "Misión: Imposible",
+        1
+      ],
+      [
+        "Jerry Maguire",
+        "Jerry Maguire",
+        "Jerry Maguire",
+        1
+      ],
+      [
+        "Rain Man",
+        "Sademies",
+        "Rain Man",
+        1
+      ],
+      [
+        "A Few Good Men",
+        "Sotilaan kunnia",
+        "Algunos hombres buenos",
+        1
+      ],
+      [
+        "Minority Report",
+        "Minority Report",
+        "Minority Report",
+        1
+      ],
+      [
+        "Gladiator",
+        "Gladiaattori",
+        "Gladiator",
+        0
+      ],
+      [
+        "Titanic",
+        "Titanic",
+        "Titanic",
+        0
+      ],
+      [
+        "The Matrix",
+        "Matrix",
+        "Matrix",
+        0
+      ],
+      [
+        "Forrest Gump",
+        "Forrest Gump",
+        "Forrest Gump",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "film",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these are Spanish-language films?",
+      "fi": "Mitkä näistä ovat espanjankielisiä elokuvia?",
+      "es": "¿Cuáles de estas son películas en español?"
+    },
+    "o": [
+      [
+        "Pan's Labyrinth",
+        "Faunin labyrintti",
+        "El laberinto del fauno",
+        1
+      ],
+      [
+        "Amores Perros",
+        "Amores Perros",
+        "Amores perros",
+        1
+      ],
+      [
+        "The Sea Inside",
+        "Meri sisälläni",
+        "Mar adentro",
+        1
+      ],
+      [
+        "Y Tu Mamá También",
+        "Y Tu Mamá También",
+        "Y tu mamá también",
+        1
+      ],
+      [
+        "Roma",
+        "Roma",
+        "Roma",
+        1
+      ],
+      [
+        "The Orphanage",
+        "Orpokoti",
+        "El orfanato",
+        1
+      ],
+      [
+        "Amélie",
+        "Amélie",
+        "Amélie",
+        0
+      ],
+      [
+        "Cinema Paradiso",
+        "Cinema Paradiso",
+        "Cinema Paradiso",
+        0
+      ],
+      [
+        "Parasite",
+        "Parasite",
+        "Parásitos",
+        0
+      ],
+      [
+        "La Vie en Rose",
+        "La Vie en Rose",
+        "La vida en rosa",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "film",
+    "d": "normal",
+    "cat": {
+      "en": "Which of these films star Denzel Washington?",
+      "fi": "Missä näistä elokuvista näyttelee Denzel Washington?",
+      "es": "¿En cuáles de estas películas actúa Denzel Washington?"
+    },
+    "o": [
+      [
+        "Training Day",
+        "Training Day",
+        "Día de entrenamiento",
+        1
+      ],
+      [
+        "Malcolm X",
+        "Malcolm X",
+        "Malcolm X",
+        1
+      ],
+      [
+        "Glory",
+        "Kunnian miehet",
+        "Tiempos de gloria",
+        1
+      ],
+      [
+        "American Gangster",
+        "American Gangster",
+        "American Gangster",
+        1
+      ],
+      [
+        "Flight",
+        "Flight",
+        "El vuelo",
+        1
+      ],
+      [
+        "The Equalizer",
+        "The Equalizer",
+        "El justiciero",
+        1
+      ],
+      [
+        "Django Unchained",
+        "Django Unchained",
+        "Django desencadenado",
+        0
+      ],
+      [
+        "Pulp Fiction",
+        "Pulp Fiction",
+        "Pulp Fiction",
+        0
+      ],
+      [
+        "Men in Black",
+        "Men in Black",
+        "Men in Black",
+        0
+      ],
+      [
+        "The Green Mile",
+        "Kuoleman käytävä",
+        "La milla verde",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "film",
+    "d": "normal",
+    "cat": {
+      "en": "Which of these are films in the Fast & Furious series?",
+      "fi": "Mitkä näistä ovat Fast & Furious -sarjan elokuvia?",
+      "es": "¿Cuáles de estas son películas de la saga Fast & Furious?"
+    },
+    "o": [
+      [
+        "The Fast and the Furious",
+        "Hurjapäät",
+        "A todo gas",
+        1
+      ],
+      [
+        "2 Fast 2 Furious",
+        "2 Fast 2 Furious",
+        "2 Fast 2 Furious",
+        1
+      ],
+      [
+        "Tokyo Drift",
+        "Tokyo Drift",
+        "Tokyo Drift",
+        1
+      ],
+      [
+        "Fast Five",
+        "Fast Five",
+        "Fast Five",
+        1
+      ],
+      [
+        "Furious 7",
+        "Furious 7",
+        "Fast & Furious 7",
+        1
+      ],
+      [
+        "Hobbs & Shaw",
+        "Hobbs & Shaw",
+        "Hobbs & Shaw",
+        1
+      ],
+      [
+        "Gone in 60 Seconds",
+        "60 sekuntia",
+        "60 segundos",
+        0
+      ],
+      [
+        "Need for Speed",
+        "Need for Speed",
+        "Need for Speed",
+        0
+      ],
+      [
+        "Baby Driver",
+        "Baby Driver",
+        "Baby Driver",
+        0
+      ],
+      [
+        "Drive",
+        "Drive",
+        "Drive",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "film",
+    "d": "normal",
+    "cat": {
+      "en": "Which of these are period drama TV series?",
+      "fi": "Mitkä näistä ovat historiallisia draamasarjoja?",
+      "es": "¿Cuáles de estas son series dramáticas de época?"
+    },
+    "o": [
+      [
+        "Downton Abbey",
+        "Downton Abbey",
+        "Downton Abbey",
+        1
+      ],
+      [
+        "The Crown",
+        "The Crown",
+        "The Crown",
+        1
+      ],
+      [
+        "Peaky Blinders",
+        "Peaky Blinders",
+        "Peaky Blinders",
+        1
+      ],
+      [
+        "Mad Men",
+        "Mad Men",
+        "Mad Men",
+        1
+      ],
+      [
+        "Vikings",
+        "Vikings",
+        "Vikingos",
+        1
+      ],
+      [
+        "Rome",
+        "Rome",
+        "Roma",
+        1
+      ],
+      [
+        "Black Mirror",
+        "Black Mirror",
+        "Black Mirror",
+        0
+      ],
+      [
+        "Westworld",
+        "Westworld",
+        "Westworld",
+        0
+      ],
+      [
+        "The Expanse",
+        "The Expanse",
+        "The Expanse",
+        0
+      ],
+      [
+        "Silicon Valley",
+        "Silicon Valley",
+        "Silicon Valley",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "film",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these films were directed by Francis Ford Coppola?",
+      "fi": "Mitkä näistä elokuvista on ohjannut Francis Ford Coppola?",
+      "es": "¿Cuáles de estas películas fueron dirigidas por Francis Ford Coppola?"
+    },
+    "o": [
+      [
+        "The Godfather",
+        "Kummisetä",
+        "El Padrino",
+        1
+      ],
+      [
+        "The Godfather Part II",
+        "Kummisetä osa II",
+        "El Padrino II",
+        1
+      ],
+      [
+        "Apocalypse Now",
+        "Ilmestyskirja. Nyt.",
+        "Apocalypse Now",
+        1
+      ],
+      [
+        "The Conversation",
+        "Salakuuntelu",
+        "La conversación",
+        1
+      ],
+      [
+        "Bram Stoker's Dracula",
+        "Dracula",
+        "Drácula de Bram Stoker",
+        1
+      ],
+      [
+        "Goodfellas",
+        "Mafiaveljet",
+        "Uno de los nuestros",
+        0
+      ],
+      [
+        "Scarface",
+        "Scarface",
+        "El precio del poder",
+        0
+      ],
+      [
+        "Heat",
+        "Heat – ajojahti",
+        "Heat",
+        0
+      ],
+      [
+        "Once Upon a Time in America",
+        "Suuri gangsterisota",
+        "Érase una vez en América",
+        0
+      ],
+      [
+        "Casino",
+        "Casino",
+        "Casino",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "film",
+    "d": "normal",
+    "cat": {
+      "en": "Which of these are British comedy films or series?",
+      "fi": "Mitkä näistä ovat brittiläisiä komedioita tai komediasarjoja?",
+      "es": "¿Cuáles de estas son comedias británicas de cine o televisión?"
+    },
+    "o": [
+      [
+        "Monty Python and the Holy Grail",
+        "Monty Python ja pyhä malja",
+        "Los caballeros de la mesa cuadrada",
+        1
+      ],
+      [
+        "Life of Brian",
+        "Brianin elämä",
+        "La vida de Brian",
+        1
+      ],
+      [
+        "Fawlty Towers",
+        "Pitkän Jonnin majatalo",
+        "Hotel Fawlty",
+        1
+      ],
+      [
+        "Mr. Bean",
+        "Mr. Bean",
+        "Mr. Bean",
+        1
+      ],
+      [
+        "Blackadder",
+        "Musta kyy",
+        "La víbora negra",
+        1
+      ],
+      [
+        "The Office (UK)",
+        "The Office (UK)",
+        "The Office (Reino Unido)",
+        1
+      ],
+      [
+        "Seinfeld",
+        "Seinfeld",
+        "Seinfeld",
+        0
+      ],
+      [
+        "Friends",
+        "Frendit",
+        "Friends",
+        0
+      ],
+      [
+        "Anchorman",
+        "Anchorman",
+        "El reportero",
+        0
+      ],
+      [
+        "Superbad",
+        "Superbad",
+        "Supersalidos",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "film",
+    "d": "normal",
+    "cat": {
+      "en": "Which of these films are about musicians or bands?",
+      "fi": "Mitkä näistä elokuvista kertovat muusikoista tai yhtyeistä?",
+      "es": "¿Cuáles de estas películas tratan sobre músicos o bandas?"
+    },
+    "o": [
+      [
+        "Bohemian Rhapsody",
+        "Bohemian Rhapsody",
+        "Bohemian Rhapsody",
+        1
+      ],
+      [
+        "Rocketman",
+        "Rocketman",
+        "Rocketman",
+        1
+      ],
+      [
+        "Walk the Line",
+        "Walk the Line",
+        "En la cuerda floja",
+        1
+      ],
+      [
+        "Ray",
+        "Ray",
+        "Ray",
+        1
+      ],
+      [
+        "A Star Is Born",
+        "Tähti on syntynyt",
+        "Ha nacido una estrella",
+        1
+      ],
+      [
+        "Whiplash",
+        "Whiplash",
+        "Whiplash",
+        1
+      ],
+      [
+        "Top Gun",
+        "Top Gun",
+        "Top Gun",
+        0
+      ],
+      [
+        "Gladiator",
+        "Gladiaattori",
+        "Gladiator",
+        0
+      ],
+      [
+        "Alien",
+        "Alien",
+        "Alien",
+        0
+      ],
+      [
+        "Jaws",
+        "Tappajahai",
+        "Tiburón",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "sport",
+    "d": "normal",
+    "cat": {
+      "en": "Which of these are Paralympic sports?",
+      "fi": "Mitkä näistä ovat paralympialajeja?",
+      "es": "¿Cuáles de estos son deportes paralímpicos?"
+    },
+    "o": [
+      [
+        "Wheelchair basketball",
+        "Pyörätuolikoripallo",
+        "Baloncesto en silla de ruedas",
+        1
+      ],
+      [
+        "Para athletics",
+        "Para-yleisurheilu",
+        "Para atletismo",
+        1
+      ],
+      [
+        "Para swimming",
+        "Para-uinti",
+        "Para natación",
+        1
+      ],
+      [
+        "Goalball",
+        "Maalipallo",
+        "Goalball",
+        1
+      ],
+      [
+        "Wheelchair rugby",
+        "Pyörätuolirugby",
+        "Rugby en silla de ruedas",
+        1
+      ],
+      [
+        "Boccia",
+        "Boccia",
+        "Boccia",
+        1
+      ],
+      [
+        "Formula 1",
+        "Formula 1",
+        "Fórmula 1",
+        0
+      ],
+      [
+        "Sumo wrestling",
+        "Sumopaini",
+        "Sumo",
+        0
+      ],
+      [
+        "Bullfighting",
+        "Härkätaistelu",
+        "Tauromaquia",
+        0
+      ],
+      [
+        "Chess",
+        "Šakki",
+        "Ajedrez",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "sport",
+    "d": "normal",
+    "cat": {
+      "en": "Which of these are famous basketball players?",
+      "fi": "Ketkä näistä ovat kuuluisia koripalloilijoita?",
+      "es": "¿Cuáles de estos son jugadores de baloncesto famosos?"
+    },
+    "o": [
+      [
+        "Michael Jordan",
+        "Michael Jordan",
+        "Michael Jordan",
+        1
+      ],
+      [
+        "LeBron James",
+        "LeBron James",
+        "LeBron James",
+        1
+      ],
+      [
+        "Kobe Bryant",
+        "Kobe Bryant",
+        "Kobe Bryant",
+        1
+      ],
+      [
+        "Magic Johnson",
+        "Magic Johnson",
+        "Magic Johnson",
+        1
+      ],
+      [
+        "Larry Bird",
+        "Larry Bird",
+        "Larry Bird",
+        1
+      ],
+      [
+        "Shaquille O'Neal",
+        "Shaquille O'Neal",
+        "Shaquille O'Neal",
+        1
+      ],
+      [
+        "Tom Brady",
+        "Tom Brady",
+        "Tom Brady",
+        0
+      ],
+      [
+        "Wayne Gretzky",
+        "Wayne Gretzky",
+        "Wayne Gretzky",
+        0
+      ],
+      [
+        "Tiger Woods",
+        "Tiger Woods",
+        "Tiger Woods",
+        0
+      ],
+      [
+        "Roger Federer",
+        "Roger Federer",
+        "Roger Federer",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "sport",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these are major cricket-playing nations?",
+      "fi": "Mitkä näistä ovat merkittäviä kriketin pelaajamaita?",
+      "es": "¿Cuáles de estas son grandes naciones del críquet?"
+    },
+    "o": [
+      [
+        "England",
+        "Englanti",
+        "Inglaterra",
+        1
+      ],
+      [
+        "Australia",
+        "Australia",
+        "Australia",
+        1
+      ],
+      [
+        "India",
+        "Intia",
+        "India",
+        1
+      ],
+      [
+        "Pakistan",
+        "Pakistan",
+        "Pakistán",
+        1
+      ],
+      [
+        "South Africa",
+        "Etelä-Afrikka",
+        "Sudáfrica",
+        1
+      ],
+      [
+        "New Zealand",
+        "Uusi-Seelanti",
+        "Nueva Zelanda",
+        1
+      ],
+      [
+        "Brazil",
+        "Brasilia",
+        "Brasil",
+        0
+      ],
+      [
+        "Germany",
+        "Saksa",
+        "Alemania",
+        0
+      ],
+      [
+        "Japan",
+        "Japani",
+        "Japón",
+        0
+      ],
+      [
+        "Norway",
+        "Norja",
+        "Noruega",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "sport",
+    "d": "normal",
+    "cat": {
+      "en": "Which of these are athletics throwing events?",
+      "fi": "Mitkä näistä ovat yleisurheilun heittolajeja?",
+      "es": "¿Cuáles de estas son pruebas de lanzamiento en atletismo?"
+    },
+    "o": [
+      [
+        "Shot put",
+        "Kuulantyöntö",
+        "Lanzamiento de peso",
+        1
+      ],
+      [
+        "Discus throw",
+        "Kiekonheitto",
+        "Lanzamiento de disco",
+        1
+      ],
+      [
+        "Javelin throw",
+        "Keihäänheitto",
+        "Lanzamiento de jabalina",
+        1
+      ],
+      [
+        "Hammer throw",
+        "Moukarinheitto",
+        "Lanzamiento de martillo",
+        1
+      ],
+      [
+        "Pole vault",
+        "Seiväshyppy",
+        "Salto con pértiga",
+        0
+      ],
+      [
+        "Long jump",
+        "Pituushyppy",
+        "Salto de longitud",
+        0
+      ],
+      [
+        "High jump",
+        "Korkeushyppy",
+        "Salto de altura",
+        0
+      ],
+      [
+        "Triple jump",
+        "Kolmiloikka",
+        "Triple salto",
+        0
+      ],
+      [
+        "100 metres",
+        "100 metriä",
+        "100 metros",
+        0
+      ],
+      [
+        "Marathon",
+        "Maraton",
+        "Maratón",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "sport",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these are international sports governing bodies?",
+      "fi": "Mitkä näistä ovat kansainvälisiä urheilun kattojärjestöjä?",
+      "es": "¿Cuáles de estos son organismos deportivos internacionales?"
+    },
+    "o": [
+      [
+        "FIFA",
+        "FIFA",
+        "FIFA",
+        1
+      ],
+      [
+        "UEFA",
+        "UEFA",
+        "UEFA",
+        1
+      ],
+      [
+        "International Olympic Committee",
+        "Kansainvälinen olympiakomitea",
+        "Comité Olímpico Internacional",
+        1
+      ],
+      [
+        "FIA",
+        "FIA",
+        "FIA",
+        1
+      ],
+      [
+        "IIHF",
+        "IIHF",
+        "IIHF",
+        1
+      ],
+      [
+        "World Athletics",
+        "World Athletics",
+        "World Athletics",
+        1
+      ],
+      [
+        "NASA",
+        "NASA",
+        "NASA",
+        0
+      ],
+      [
+        "WHO",
+        "WHO",
+        "OMS",
+        0
+      ],
+      [
+        "NATO",
+        "Nato",
+        "OTAN",
+        0
+      ],
+      [
+        "UNESCO",
+        "Unesco",
+        "Unesco",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "sport",
+    "d": "normal",
+    "cat": {
+      "en": "Which of these are boxing terms?",
+      "fi": "Mitkä näistä ovat nyrkkeilyn termejä?",
+      "es": "¿Cuáles de estos son términos del boxeo?"
+    },
+    "o": [
+      [
+        "Knockout",
+        "Tyrmäys",
+        "Nocaut",
+        1
+      ],
+      [
+        "Jab",
+        "Suora (jab)",
+        "Jab",
+        1
+      ],
+      [
+        "Uppercut",
+        "Kouru",
+        "Gancho ascendente",
+        1
+      ],
+      [
+        "Hook",
+        "Koukku",
+        "Gancho",
+        1
+      ],
+      [
+        "Clinch",
+        "Klintsi",
+        "Clinch",
+        1
+      ],
+      [
+        "Round",
+        "Erä",
+        "Asalto",
+        1
+      ],
+      [
+        "Scrum",
+        "Scrum",
+        "Melé",
+        0
+      ],
+      [
+        "Birdie",
+        "Birdie",
+        "Birdie",
+        0
+      ],
+      [
+        "Puck",
+        "Kiekko",
+        "Disco",
+        0
+      ],
+      [
+        "Ace",
+        "Ässä",
+        "Ace",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "sport",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these are terms used in fencing?",
+      "fi": "Mitkä näistä ovat miekkailun termejä?",
+      "es": "¿Cuáles de estos son términos de la esgrima?"
+    },
+    "o": [
+      [
+        "Épée",
+        "Kalpa (épée)",
+        "Espada",
+        1
+      ],
+      [
+        "Foil",
+        "Floretti",
+        "Florete",
+        1
+      ],
+      [
+        "Sabre",
+        "Säilä",
+        "Sable",
+        1
+      ],
+      [
+        "Riposte",
+        "Vastaisku (riposte)",
+        "Respuesta",
+        1
+      ],
+      [
+        "Lunge",
+        "Syöksy",
+        "Fondo",
+        1
+      ],
+      [
+        "Parry",
+        "Torjunta",
+        "Parada",
+        1
+      ],
+      [
+        "Birdie",
+        "Birdie",
+        "Birdie",
+        0
+      ],
+      [
+        "Puck",
+        "Kiekko",
+        "Disco",
+        0
+      ],
+      [
+        "Scrum",
+        "Scrum",
+        "Melé",
+        0
+      ],
+      [
+        "Slam dunk",
+        "Donkkaus",
+        "Mate",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "sport",
+    "d": "normal",
+    "cat": {
+      "en": "Which of these are famous female athletes?",
+      "fi": "Ketkä näistä ovat kuuluisia naisurheilijoita?",
+      "es": "¿Cuáles de estas son deportistas femeninas famosas?"
+    },
+    "o": [
+      [
+        "Serena Williams",
+        "Serena Williams",
+        "Serena Williams",
+        1
+      ],
+      [
+        "Simone Biles",
+        "Simone Biles",
+        "Simone Biles",
+        1
+      ],
+      [
+        "Steffi Graf",
+        "Steffi Graf",
+        "Steffi Graf",
+        1
+      ],
+      [
+        "Nadia Comăneci",
+        "Nadia Comăneci",
+        "Nadia Comăneci",
+        1
+      ],
+      [
+        "Katie Ledecky",
+        "Katie Ledecky",
+        "Katie Ledecky",
+        1
+      ],
+      [
+        "Mia Hamm",
+        "Mia Hamm",
+        "Mia Hamm",
+        1
+      ],
+      [
+        "Michael Phelps",
+        "Michael Phelps",
+        "Michael Phelps",
+        0
+      ],
+      [
+        "Usain Bolt",
+        "Usain Bolt",
+        "Usain Bolt",
+        0
+      ],
+      [
+        "Pelé",
+        "Pelé",
+        "Pelé",
+        0
+      ],
+      [
+        "Muhammad Ali",
+        "Muhammad Ali",
+        "Muhammad Ali",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "sport",
+    "d": "normal",
+    "cat": {
+      "en": "Which of these are competitive cycling disciplines?",
+      "fi": "Mitkä näistä ovat kilpapyöräilyn lajeja?",
+      "es": "¿Cuáles de estas son disciplinas del ciclismo de competición?"
+    },
+    "o": [
+      [
+        "Road racing",
+        "Maantiepyöräily",
+        "Ciclismo en ruta",
+        1
+      ],
+      [
+        "Track cycling",
+        "Ratapyöräily",
+        "Ciclismo en pista",
+        1
+      ],
+      [
+        "Mountain biking",
+        "Maastopyöräily",
+        "Ciclismo de montaña",
+        1
+      ],
+      [
+        "BMX",
+        "BMX",
+        "BMX",
+        1
+      ],
+      [
+        "Cyclo-cross",
+        "Cyclo-cross",
+        "Ciclocrós",
+        1
+      ],
+      [
+        "Motocross",
+        "Motocross",
+        "Motocrós",
+        0
+      ],
+      [
+        "Rallying",
+        "Ralli",
+        "Rally",
+        0
+      ],
+      [
+        "Karting",
+        "Karting",
+        "Karting",
+        0
+      ],
+      [
+        "Speedway",
+        "Speedway",
+        "Speedway",
+        0
+      ],
+      [
+        "Drag racing",
+        "Kiihdytysajo",
+        "Drag racing",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "arts",
+    "d": "normal",
+    "cat": {
+      "en": "Which of these books were written by George Orwell?",
+      "fi": "Mitkä näistä kirjoista kirjoitti George Orwell?",
+      "es": "¿Cuáles de estos libros fueron escritos por George Orwell?"
+    },
+    "o": [
+      [
+        "1984",
+        "1984",
+        "1984",
+        1
+      ],
+      [
+        "Animal Farm",
+        "Eläinten vallankumous",
+        "Rebelión en la granja",
+        1
+      ],
+      [
+        "Homage to Catalonia",
+        "Katalonia, Katalonia",
+        "Homenaje a Cataluña",
+        1
+      ],
+      [
+        "Down and Out in Paris and London",
+        "Puilla paljailla Pariisissa ja Lontoossa",
+        "Sin blanca en París y Londres",
+        1
+      ],
+      [
+        "Burmese Days",
+        "Burman päiviä",
+        "Los días de Birmania",
+        1
+      ],
+      [
+        "Brave New World",
+        "Uljas uusi maailma",
+        "Un mundo feliz",
+        0
+      ],
+      [
+        "Fahrenheit 451",
+        "Fahrenheit 451",
+        "Fahrenheit 451",
+        0
+      ],
+      [
+        "Lord of the Flies",
+        "Kärpästen herra",
+        "El señor de las moscas",
+        0
+      ],
+      [
+        "The Handmaid's Tale",
+        "Orjattaresi",
+        "El cuento de la criada",
+        0
+      ],
+      [
+        "Catch-22",
+        "Me sankarit",
+        "Trampa 22",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "arts",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these are traditional Latin American instruments?",
+      "fi": "Mitkä näistä ovat perinteisiä latinalaisamerikkalaisia soittimia?",
+      "es": "¿Cuáles de estos son instrumentos tradicionales latinoamericanos?"
+    },
+    "o": [
+      [
+        "Maracas",
+        "Marakassit",
+        "Maracas",
+        1
+      ],
+      [
+        "Congas",
+        "Congat",
+        "Congas",
+        1
+      ],
+      [
+        "Bongos",
+        "Bongot",
+        "Bongós",
+        1
+      ],
+      [
+        "Güiro",
+        "Güiro",
+        "Güiro",
+        1
+      ],
+      [
+        "Charango",
+        "Charango",
+        "Charango",
+        1
+      ],
+      [
+        "Cajón",
+        "Cajón",
+        "Cajón",
+        1
+      ],
+      [
+        "Bagpipes",
+        "Säkkipilli",
+        "Gaita",
+        0
+      ],
+      [
+        "Sitar",
+        "Sitar",
+        "Sitar",
+        0
+      ],
+      [
+        "Didgeridoo",
+        "Didgeridoo",
+        "Didyeridú",
+        0
+      ],
+      [
+        "Balalaika",
+        "Balalaikka",
+        "Balalaica",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "arts",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these are traditional Spanish music or dance styles?",
+      "fi": "Mitkä näistä ovat perinteisiä espanjalaisia musiikki- tai tanssityylejä?",
+      "es": "¿Cuáles de estos son estilos tradicionales de música o danza españoles?"
+    },
+    "o": [
+      [
+        "Flamenco",
+        "Flamenco",
+        "Flamenco",
+        1
+      ],
+      [
+        "Sevillanas",
+        "Sevillanas",
+        "Sevillanas",
+        1
+      ],
+      [
+        "Paso doble",
+        "Paso doble",
+        "Pasodoble",
+        1
+      ],
+      [
+        "Jota",
+        "Jota",
+        "Jota",
+        1
+      ],
+      [
+        "Fandango",
+        "Fandango",
+        "Fandango",
+        1
+      ],
+      [
+        "Tango",
+        "Tango",
+        "Tango",
+        0
+      ],
+      [
+        "Samba",
+        "Samba",
+        "Samba",
+        0
+      ],
+      [
+        "Salsa",
+        "Salsa",
+        "Salsa",
+        0
+      ],
+      [
+        "Polka",
+        "Polkka",
+        "Polca",
+        0
+      ],
+      [
+        "Waltz",
+        "Valssi",
+        "Vals",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "arts",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these novels were written by the Brontë sisters?",
+      "fi": "Mitkä näistä romaaneista kirjoittivat Brontën sisarukset?",
+      "es": "¿Cuáles de estas novelas fueron escritas por las hermanas Brontë?"
+    },
+    "o": [
+      [
+        "Jane Eyre",
+        "Kotiopettajattaren romaani",
+        "Jane Eyre",
+        1
+      ],
+      [
+        "Wuthering Heights",
+        "Humiseva harju",
+        "Cumbres borrascosas",
+        1
+      ],
+      [
+        "Agnes Grey",
+        "Agnes Grey",
+        "Agnes Grey",
+        1
+      ],
+      [
+        "The Tenant of Wildfell Hall",
+        "Wildfell Hallin vuokralainen",
+        "La inquilina de Wildfell Hall",
+        1
+      ],
+      [
+        "Villette",
+        "Villette",
+        "Villette",
+        1
+      ],
+      [
+        "Pride and Prejudice",
+        "Ylpeys ja ennakkoluulo",
+        "Orgullo y prejuicio",
+        0
+      ],
+      [
+        "Middlemarch",
+        "Middlemarch",
+        "Middlemarch",
+        0
+      ],
+      [
+        "Rebecca",
+        "Rebekka",
+        "Rebeca",
+        0
+      ],
+      [
+        "Little Women",
+        "Pikku naisia",
+        "Mujercitas",
+        0
+      ],
+      [
+        "Emma",
+        "Emma",
+        "Emma",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "arts",
+    "d": "normal",
+    "cat": {
+      "en": "Which of these famous museums are in Spain?",
+      "fi": "Mitkä näistä kuuluisista museoista sijaitsevat Espanjassa?",
+      "es": "¿Cuáles de estos museos famosos están en España?"
+    },
+    "o": [
+      [
+        "Museo del Prado",
+        "Prado",
+        "Museo del Prado",
+        1
+      ],
+      [
+        "Museo Reina Sofía",
+        "Reina Sofía",
+        "Museo Reina Sofía",
+        1
+      ],
+      [
+        "Thyssen-Bornemisza",
+        "Thyssen-Bornemisza",
+        "Thyssen-Bornemisza",
+        1
+      ],
+      [
+        "Guggenheim Bilbao",
+        "Guggenheim Bilbao",
+        "Guggenheim Bilbao",
+        1
+      ],
+      [
+        "Picasso Museum, Barcelona",
+        "Picasso-museo, Barcelona",
+        "Museo Picasso, Barcelona",
+        1
+      ],
+      [
+        "The Louvre",
+        "Louvre",
+        "El Louvre",
+        0
+      ],
+      [
+        "Uffizi Gallery",
+        "Uffizi",
+        "Galería Uffizi",
+        0
+      ],
+      [
+        "The Hermitage",
+        "Eremitaaši",
+        "El Hermitage",
+        0
+      ],
+      [
+        "MoMA",
+        "MoMA",
+        "MoMA",
+        0
+      ],
+      [
+        "Rijksmuseum",
+        "Rijksmuseum",
+        "Rijksmuseum",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "arts",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these were famous opera singers?",
+      "fi": "Ketkä näistä olivat kuuluisia oopperalaulajia?",
+      "es": "¿Cuáles de estos fueron cantantes de ópera famosos?"
+    },
+    "o": [
+      [
+        "Luciano Pavarotti",
+        "Luciano Pavarotti",
+        "Luciano Pavarotti",
+        1
+      ],
+      [
+        "Plácido Domingo",
+        "Plácido Domingo",
+        "Plácido Domingo",
+        1
+      ],
+      [
+        "José Carreras",
+        "José Carreras",
+        "José Carreras",
+        1
+      ],
+      [
+        "Maria Callas",
+        "Maria Callas",
+        "Maria Callas",
+        1
+      ],
+      [
+        "Montserrat Caballé",
+        "Montserrat Caballé",
+        "Montserrat Caballé",
+        1
+      ],
+      [
+        "Elvis Presley",
+        "Elvis Presley",
+        "Elvis Presley",
+        0
+      ],
+      [
+        "Frank Sinatra",
+        "Frank Sinatra",
+        "Frank Sinatra",
+        0
+      ],
+      [
+        "David Bowie",
+        "David Bowie",
+        "David Bowie",
+        0
+      ],
+      [
+        "Mick Jagger",
+        "Mick Jagger",
+        "Mick Jagger",
+        0
+      ],
+      [
+        "Bob Dylan",
+        "Bob Dylan",
+        "Bob Dylan",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "arts",
+    "d": "normal",
+    "cat": {
+      "en": "Which of these are visual art techniques or media?",
+      "fi": "Mitkä näistä ovat kuvataiteen tekniikoita tai materiaaleja?",
+      "es": "¿Cuáles de estas son técnicas o medios de las artes visuales?"
+    },
+    "o": [
+      [
+        "Oil painting",
+        "Öljymaalaus",
+        "Pintura al óleo",
+        1
+      ],
+      [
+        "Watercolour",
+        "Akvarelli",
+        "Acuarela",
+        1
+      ],
+      [
+        "Fresco",
+        "Fresko",
+        "Fresco",
+        1
+      ],
+      [
+        "Etching",
+        "Etsaus",
+        "Aguafuerte",
+        1
+      ],
+      [
+        "Collage",
+        "Kollaasi",
+        "Collage",
+        1
+      ],
+      [
+        "Charcoal drawing",
+        "Hiilipiirustus",
+        "Dibujo al carbón",
+        1
+      ],
+      [
+        "Sonnet",
+        "Sonetti",
+        "Soneto",
+        0
+      ],
+      [
+        "Sonata",
+        "Sonaatti",
+        "Sonata",
+        0
+      ],
+      [
+        "Ballet",
+        "Baletti",
+        "Ballet",
+        0
+      ],
+      [
+        "Opera",
+        "Ooppera",
+        "Ópera",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "arts",
+    "d": "normal",
+    "cat": {
+      "en": "Which of these are celebrated novels of the 20th century?",
+      "fi": "Mitkä näistä ovat arvostettuja 1900-luvun romaaneja?",
+      "es": "¿Cuáles de estas son novelas célebres del siglo XX?"
+    },
+    "o": [
+      [
+        "1984",
+        "1984",
+        "1984",
+        1
+      ],
+      [
+        "The Great Gatsby",
+        "Kultahattu",
+        "El gran Gatsby",
+        1
+      ],
+      [
+        "To Kill a Mockingbird",
+        "Kuin surmaisi satakielen",
+        "Matar a un ruiseñor",
+        1
+      ],
+      [
+        "One Hundred Years of Solitude",
+        "Sadan vuoden yksinäisyys",
+        "Cien años de soledad",
+        1
+      ],
+      [
+        "Lolita",
+        "Lolita",
+        "Lolita",
+        1
+      ],
+      [
+        "Catch-22",
+        "Me sankarit",
+        "Trampa 22",
+        1
+      ],
+      [
+        "Don Quixote",
+        "Don Quijote",
+        "Don Quijote",
+        0
+      ],
+      [
+        "Pride and Prejudice",
+        "Ylpeys ja ennakkoluulo",
+        "Orgullo y prejuicio",
+        0
+      ],
+      [
+        "Moby-Dick",
+        "Moby Dick",
+        "Moby Dick",
+        0
+      ],
+      [
+        "War and Peace",
+        "Sota ja rauha",
+        "Guerra y paz",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "arts",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these bands are from Finland?",
+      "fi": "Mitkä näistä yhtyeistä ovat Suomesta?",
+      "es": "¿Cuáles de estas bandas son de Finlandia?"
+    },
+    "o": [
+      [
+        "Nightwish",
+        "Nightwish",
+        "Nightwish",
+        1
+      ],
+      [
+        "HIM",
+        "HIM",
+        "HIM",
+        1
+      ],
+      [
+        "Children of Bodom",
+        "Children of Bodom",
+        "Children of Bodom",
+        1
+      ],
+      [
+        "Apocalyptica",
+        "Apocalyptica",
+        "Apocalyptica",
+        1
+      ],
+      [
+        "The Rasmus",
+        "The Rasmus",
+        "The Rasmus",
+        1
+      ],
+      [
+        "Lordi",
+        "Lordi",
+        "Lordi",
+        1
+      ],
+      [
+        "Roxette",
+        "Roxette",
+        "Roxette",
+        0
+      ],
+      [
+        "a-ha",
+        "a-ha",
+        "a-ha",
+        0
+      ],
+      [
+        "Aqua",
+        "Aqua",
+        "Aqua",
+        0
+      ],
+      [
+        "Kent",
+        "Kent",
+        "Kent",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "hist",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these were ancient Roman writers?",
+      "fi": "Ketkä näistä olivat antiikin Rooman kirjailijoita?",
+      "es": "¿Cuáles de estos fueron escritores de la antigua Roma?"
+    },
+    "o": [
+      [
+        "Cicero",
+        "Cicero",
+        "Cicerón",
+        1
+      ],
+      [
+        "Virgil",
+        "Vergilius",
+        "Virgilio",
+        1
+      ],
+      [
+        "Ovid",
+        "Ovidius",
+        "Ovidio",
+        1
+      ],
+      [
+        "Tacitus",
+        "Tacitus",
+        "Tácito",
+        1
+      ],
+      [
+        "Horace",
+        "Horatius",
+        "Horacio",
+        1
+      ],
+      [
+        "Livy",
+        "Livius",
+        "Tito Livio",
+        1
+      ],
+      [
+        "Homer",
+        "Homeros",
+        "Homero",
+        0
+      ],
+      [
+        "Herodotus",
+        "Herodotos",
+        "Heródoto",
+        0
+      ],
+      [
+        "Plato",
+        "Platon",
+        "Platón",
+        0
+      ],
+      [
+        "Aristotle",
+        "Aristoteles",
+        "Aristóteles",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "hist",
+    "d": "normal",
+    "cat": {
+      "en": "Which of these were reigning queens or empresses?",
+      "fi": "Ketkä näistä olivat hallitsevia kuningattaria tai keisarinnoja?",
+      "es": "¿Cuáles de estas fueron reinas o emperatrices reinantes?"
+    },
+    "o": [
+      [
+        "Cleopatra",
+        "Kleopatra",
+        "Cleopatra",
+        1
+      ],
+      [
+        "Elizabeth I",
+        "Elisabet I",
+        "Isabel I",
+        1
+      ],
+      [
+        "Catherine the Great",
+        "Katariina Suuri",
+        "Catalina la Grande",
+        1
+      ],
+      [
+        "Queen Victoria",
+        "Kuningatar Viktoria",
+        "La reina Victoria",
+        1
+      ],
+      [
+        "Maria Theresa",
+        "Maria Teresia",
+        "María Teresa",
+        1
+      ],
+      [
+        "Isabella I of Castile",
+        "Isabella I",
+        "Isabel I de Castilla",
+        1
+      ],
+      [
+        "Joan of Arc",
+        "Jeanne d'Arc",
+        "Juana de Arco",
+        0
+      ],
+      [
+        "Florence Nightingale",
+        "Florence Nightingale",
+        "Florence Nightingale",
+        0
+      ],
+      [
+        "Marie Curie",
+        "Marie Curie",
+        "Marie Curie",
+        0
+      ],
+      [
+        "Anne Frank",
+        "Anne Frank",
+        "Ana Frank",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "hist",
+    "d": "normal",
+    "cat": {
+      "en": "Which of these were events of the American Revolution?",
+      "fi": "Mitkä näistä olivat Amerikan vallankumouksen tapahtumia?",
+      "es": "¿Cuáles de estos fueron acontecimientos de la Revolución Americana?"
+    },
+    "o": [
+      [
+        "The Boston Tea Party",
+        "Bostonin teekutsut",
+        "El motín del té de Boston",
+        1
+      ],
+      [
+        "The Declaration of Independence",
+        "Itsenäisyysjulistus",
+        "La Declaración de Independencia",
+        1
+      ],
+      [
+        "The Battle of Yorktown",
+        "Yorktownin taistelu",
+        "La batalla de Yorktown",
+        1
+      ],
+      [
+        "The Battles of Lexington and Concord",
+        "Lexingtonin ja Concordin taistelut",
+        "Las batallas de Lexington y Concord",
+        1
+      ],
+      [
+        "The Battle of Gettysburg",
+        "Gettysburgin taistelu",
+        "La batalla de Gettysburg",
+        0
+      ],
+      [
+        "The attack on Pearl Harbor",
+        "Pearl Harborin hyökkäys",
+        "El ataque a Pearl Harbor",
+        0
+      ],
+      [
+        "The Battle of the Alamo",
+        "Alamon taistelu",
+        "La batalla de El Álamo",
+        0
+      ],
+      [
+        "The Wall Street Crash",
+        "Wall Streetin romahdus",
+        "El crac de Wall Street",
+        0
+      ],
+      [
+        "The Louisiana Purchase",
+        "Louisianan kauppa",
+        "La compra de Luisiana",
+        0
+      ],
+      [
+        "The Cuban Missile Crisis",
+        "Kuuban ohjuskriisi",
+        "La crisis de los misiles de Cuba",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "hist",
+    "d": "normal",
+    "cat": {
+      "en": "Which of these are events in Finnish history?",
+      "fi": "Mitkä näistä ovat Suomen historian tapahtumia?",
+      "es": "¿Cuáles de estos son acontecimientos de la historia de Finlandia?"
+    },
+    "o": [
+      [
+        "Declaration of independence in 1917",
+        "Itsenäisyysjulistus 1917",
+        "La declaración de independencia de 1917",
+        1
+      ],
+      [
+        "The Winter War",
+        "Talvisota",
+        "La Guerra de Invierno",
+        1
+      ],
+      [
+        "The Continuation War",
+        "Jatkosota",
+        "La Guerra de Continuación",
+        1
+      ],
+      [
+        "The Finnish Civil War of 1918",
+        "Suomen sisällissota 1918",
+        "La Guerra Civil finlandesa de 1918",
+        1
+      ],
+      [
+        "The Helsinki Olympics of 1952",
+        "Helsingin olympialaiset 1952",
+        "Los Juegos Olímpicos de Helsinki de 1952",
+        1
+      ],
+      [
+        "Joining the European Union in 1995",
+        "EU-jäsenyys 1995",
+        "La adhesión a la Unión Europea en 1995",
+        1
+      ],
+      [
+        "The fall of the Berlin Wall",
+        "Berliinin muurin murtuminen",
+        "La caída del Muro de Berlín",
+        0
+      ],
+      [
+        "The American Civil War",
+        "Yhdysvaltain sisällissota",
+        "La Guerra Civil estadounidense",
+        0
+      ],
+      [
+        "The Battle of Hastings",
+        "Hastingsin taistelu",
+        "La batalla de Hastings",
+        0
+      ],
+      [
+        "The Spanish Civil War",
+        "Espanjan sisällissota",
+        "La Guerra Civil española",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "hist",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these were periods of Japanese history?",
+      "fi": "Mitkä näistä olivat Japanin historian kausia?",
+      "es": "¿Cuáles de estos fueron períodos de la historia de Japón?"
+    },
+    "o": [
+      [
+        "Edo",
+        "Edo",
+        "Edo",
+        1
+      ],
+      [
+        "Meiji",
+        "Meiji",
+        "Meiji",
+        1
+      ],
+      [
+        "Heian",
+        "Heian",
+        "Heian",
+        1
+      ],
+      [
+        "Kamakura",
+        "Kamakura",
+        "Kamakura",
+        1
+      ],
+      [
+        "Shōwa",
+        "Shōwa",
+        "Shōwa",
+        1
+      ],
+      [
+        "Ming",
+        "Ming",
+        "Ming",
+        0
+      ],
+      [
+        "Qing",
+        "Qing",
+        "Qing",
+        0
+      ],
+      [
+        "Tudor",
+        "Tudor",
+        "Tudor",
+        0
+      ],
+      [
+        "Victorian",
+        "Viktoriaaninen",
+        "Victoriana",
+        0
+      ],
+      [
+        "Carolingian",
+        "Karolinginen",
+        "Carolingia",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "hist",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these were historic trade routes?",
+      "fi": "Mitkä näistä olivat historiallisia kauppareittejä?",
+      "es": "¿Cuáles de estas fueron rutas comerciales históricas?"
+    },
+    "o": [
+      [
+        "The Silk Road",
+        "Silkkitie",
+        "La Ruta de la Seda",
+        1
+      ],
+      [
+        "The Amber Road",
+        "Meripihkatie",
+        "La Ruta del Ámbar",
+        1
+      ],
+      [
+        "The Incense Route",
+        "Suitsukereitti",
+        "La Ruta del Incienso",
+        1
+      ],
+      [
+        "Trans-Saharan trade routes",
+        "Saharan halki kulkevat kauppareitit",
+        "Las rutas transaharianas",
+        1
+      ],
+      [
+        "The Spice Route",
+        "Mausteiden reitti",
+        "La Ruta de las Especias",
+        1
+      ],
+      [
+        "Route 66",
+        "Route 66",
+        "La Ruta 66",
+        0
+      ],
+      [
+        "The Orient Express",
+        "Idän pikajuna",
+        "El Orient Express",
+        0
+      ],
+      [
+        "The Panama Canal",
+        "Panaman kanava",
+        "El Canal de Panamá",
+        0
+      ],
+      [
+        "The Trans-Siberian Railway",
+        "Siperian rata",
+        "El Transiberiano",
+        0
+      ],
+      [
+        "The Suez Canal",
+        "Suezin kanava",
+        "El Canal de Suez",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "hist",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these were leaders of ancient Greece or Macedonia?",
+      "fi": "Ketkä näistä olivat antiikin Kreikan tai Makedonian johtajia?",
+      "es": "¿Cuáles de estos fueron líderes de la antigua Grecia o Macedonia?"
+    },
+    "o": [
+      [
+        "Alexander the Great",
+        "Aleksanteri Suuri",
+        "Alejandro Magno",
+        1
+      ],
+      [
+        "Philip II of Macedon",
+        "Filippos II",
+        "Filipo II de Macedonia",
+        1
+      ],
+      [
+        "Pericles",
+        "Perikles",
+        "Pericles",
+        1
+      ],
+      [
+        "Leonidas",
+        "Leonidas",
+        "Leónidas",
+        1
+      ],
+      [
+        "Themistocles",
+        "Themistokles",
+        "Temístocles",
+        1
+      ],
+      [
+        "Julius Caesar",
+        "Julius Caesar",
+        "Julio César",
+        0
+      ],
+      [
+        "Augustus",
+        "Augustus",
+        "Augusto",
+        0
+      ],
+      [
+        "Hannibal",
+        "Hannibal",
+        "Aníbal",
+        0
+      ],
+      [
+        "Cyrus the Great",
+        "Kyyros Suuri",
+        "Ciro el Grande",
+        0
+      ],
+      [
+        "Attila",
+        "Attila",
+        "Atila",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "hist",
+    "d": "normal",
+    "cat": {
+      "en": "Which of these were major revolutions in history?",
+      "fi": "Mitkä näistä olivat historian merkittäviä vallankumouksia?",
+      "es": "¿Cuáles de estas fueron grandes revoluciones de la historia?"
+    },
+    "o": [
+      [
+        "The French Revolution",
+        "Ranskan vallankumous",
+        "La Revolución Francesa",
+        1
+      ],
+      [
+        "The American Revolution",
+        "Amerikan vallankumous",
+        "La Revolución Americana",
+        1
+      ],
+      [
+        "The Russian Revolution",
+        "Venäjän vallankumous",
+        "La Revolución Rusa",
+        1
+      ],
+      [
+        "The Industrial Revolution",
+        "Teollinen vallankumous",
+        "La Revolución Industrial",
+        1
+      ],
+      [
+        "The Cuban Revolution",
+        "Kuuban vallankumous",
+        "La Revolución Cubana",
+        1
+      ],
+      [
+        "The Renaissance",
+        "Renessanssi",
+        "El Renacimiento",
+        0
+      ],
+      [
+        "The Reformation",
+        "Uskonpuhdistus",
+        "La Reforma",
+        0
+      ],
+      [
+        "The Enlightenment",
+        "Valistus",
+        "La Ilustración",
+        0
+      ],
+      [
+        "The Crusades",
+        "Ristiretket",
+        "Las Cruzadas",
+        0
+      ],
+      [
+        "The Great Depression",
+        "Suuri lama",
+        "La Gran Depresión",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "hist",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these were major epidemics or pandemics in history?",
+      "fi": "Mitkä näistä olivat historian suuria epidemioita tai pandemioita?",
+      "es": "¿Cuáles de estas fueron grandes epidemias o pandemias de la historia?"
+    },
+    "o": [
+      [
+        "The Black Death",
+        "Musta surma",
+        "La Peste Negra",
+        1
+      ],
+      [
+        "The Spanish flu",
+        "Espanjantauti",
+        "La gripe española",
+        1
+      ],
+      [
+        "The Plague of Justinian",
+        "Justinianuksen rutto",
+        "La peste de Justiniano",
+        1
+      ],
+      [
+        "The 19th-century cholera pandemics",
+        "1800-luvun kolerapandemiat",
+        "Las pandemias de cólera del siglo XIX",
+        1
+      ],
+      [
+        "Smallpox epidemics in the Americas",
+        "Isorokkoepidemiat Amerikoissa",
+        "Las epidemias de viruela en América",
+        1
+      ],
+      [
+        "The Great Fire of London",
+        "Lontoon suurpalo",
+        "El Gran Incendio de Londres",
+        0
+      ],
+      [
+        "The sinking of the Titanic",
+        "Titanicin uppoaminen",
+        "El hundimiento del Titanic",
+        0
+      ],
+      [
+        "The Chernobyl accident",
+        "Tšernobylin onnettomuus",
+        "El accidente de Chernóbil",
+        0
+      ],
+      [
+        "The eruption of Krakatoa",
+        "Krakatau'n purkaus",
+        "La erupción del Krakatoa",
+        0
+      ],
+      [
+        "The Wall Street Crash",
+        "Wall Streetin romahdus",
+        "El crac de Wall Street",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "geo",
+    "d": "normal",
+    "cat": {
+      "en": "Which of these countries are in the Middle East?",
+      "fi": "Mitkä näistä maista sijaitsevat Lähi-idässä?",
+      "es": "¿Cuáles de estos países están en Oriente Medio?"
+    },
+    "o": [
+      [
+        "Saudi Arabia",
+        "Saudi-Arabia",
+        "Arabia Saudí",
+        1
+      ],
+      [
+        "Iran",
+        "Iran",
+        "Irán",
+        1
+      ],
+      [
+        "Iraq",
+        "Irak",
+        "Irak",
+        1
+      ],
+      [
+        "Israel",
+        "Israel",
+        "Israel",
+        1
+      ],
+      [
+        "Jordan",
+        "Jordania",
+        "Jordania",
+        1
+      ],
+      [
+        "United Arab Emirates",
+        "Arabiemiirikunnat",
+        "Emiratos Árabes Unidos",
+        1
+      ],
+      [
+        "India",
+        "Intia",
+        "India",
+        0
+      ],
+      [
+        "Kazakhstan",
+        "Kazakstan",
+        "Kazajistán",
+        0
+      ],
+      [
+        "Morocco",
+        "Marokko",
+        "Marruecos",
+        0
+      ],
+      [
+        "Greece",
+        "Kreikka",
+        "Grecia",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "geo",
+    "d": "normal",
+    "cat": {
+      "en": "Which of these are Australian cities?",
+      "fi": "Mitkä näistä ovat australialaisia kaupunkeja?",
+      "es": "¿Cuáles de estas son ciudades australianas?"
+    },
+    "o": [
+      [
+        "Sydney",
+        "Sydney",
+        "Sídney",
+        1
+      ],
+      [
+        "Melbourne",
+        "Melbourne",
+        "Melbourne",
+        1
+      ],
+      [
+        "Brisbane",
+        "Brisbane",
+        "Brisbane",
+        1
+      ],
+      [
+        "Perth",
+        "Perth",
+        "Perth",
+        1
+      ],
+      [
+        "Adelaide",
+        "Adelaide",
+        "Adelaida",
+        1
+      ],
+      [
+        "Canberra",
+        "Canberra",
+        "Canberra",
+        1
+      ],
+      [
+        "Auckland",
+        "Auckland",
+        "Auckland",
+        0
+      ],
+      [
+        "Wellington",
+        "Wellington",
+        "Wellington",
+        0
+      ],
+      [
+        "Cape Town",
+        "Kapkaupunki",
+        "Ciudad del Cabo",
+        0
+      ],
+      [
+        "Vancouver",
+        "Vancouver",
+        "Vancouver",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "geo",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these countries still have a monarchy?",
+      "fi": "Missä näistä maista on yhä monarkia?",
+      "es": "¿Cuáles de estos países todavía tienen monarquía?"
+    },
+    "o": [
+      [
+        "United Kingdom",
+        "Iso-Britannia",
+        "Reino Unido",
+        1
+      ],
+      [
+        "Spain",
+        "Espanja",
+        "España",
+        1
+      ],
+      [
+        "Sweden",
+        "Ruotsi",
+        "Suecia",
+        1
+      ],
+      [
+        "Norway",
+        "Norja",
+        "Noruega",
+        1
+      ],
+      [
+        "Netherlands",
+        "Alankomaat",
+        "Países Bajos",
+        1
+      ],
+      [
+        "Japan",
+        "Japani",
+        "Japón",
+        1
+      ],
+      [
+        "Denmark",
+        "Tanska",
+        "Dinamarca",
+        1
+      ],
+      [
+        "Belgium",
+        "Belgia",
+        "Bélgica",
+        1
+      ],
+      [
+        "France",
+        "Ranska",
+        "Francia",
+        0
+      ],
+      [
+        "Germany",
+        "Saksa",
+        "Alemania",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "geo",
+    "d": "normal",
+    "cat": {
+      "en": "Which of these are French cities?",
+      "fi": "Mitkä näistä ovat ranskalaisia kaupunkeja?",
+      "es": "¿Cuáles de estas son ciudades francesas?"
+    },
+    "o": [
+      [
+        "Paris",
+        "Pariisi",
+        "París",
+        1
+      ],
+      [
+        "Marseille",
+        "Marseille",
+        "Marsella",
+        1
+      ],
+      [
+        "Lyon",
+        "Lyon",
+        "Lyon",
+        1
+      ],
+      [
+        "Toulouse",
+        "Toulouse",
+        "Toulouse",
+        1
+      ],
+      [
+        "Nice",
+        "Nizza",
+        "Niza",
+        1
+      ],
+      [
+        "Bordeaux",
+        "Bordeaux",
+        "Burdeos",
+        1
+      ],
+      [
+        "Geneva",
+        "Geneve",
+        "Ginebra",
+        0
+      ],
+      [
+        "Brussels",
+        "Bryssel",
+        "Bruselas",
+        0
+      ],
+      [
+        "Barcelona",
+        "Barcelona",
+        "Barcelona",
+        0
+      ],
+      [
+        "Milan",
+        "Milano",
+        "Milán",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "geo",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these are archipelagos or island groups?",
+      "fi": "Mitkä näistä ovat saaristoja tai saariryhmiä?",
+      "es": "¿Cuáles de estos son archipiélagos o grupos de islas?"
+    },
+    "o": [
+      [
+        "The Canary Islands",
+        "Kanariansaaret",
+        "Las Islas Canarias",
+        1
+      ],
+      [
+        "The Balearic Islands",
+        "Baleaarit",
+        "Las Islas Baleares",
+        1
+      ],
+      [
+        "The Azores",
+        "Azorit",
+        "Las Azores",
+        1
+      ],
+      [
+        "The Galápagos",
+        "Galápagossaaret",
+        "Las Galápagos",
+        1
+      ],
+      [
+        "The Maldives",
+        "Malediivit",
+        "Las Maldivas",
+        1
+      ],
+      [
+        "Hawaii",
+        "Havaiji",
+        "Hawái",
+        1
+      ],
+      [
+        "Sicily",
+        "Sisilia",
+        "Sicilia",
+        0
+      ],
+      [
+        "Greenland",
+        "Grönlanti",
+        "Groenlandia",
+        0
+      ],
+      [
+        "Madagascar",
+        "Madagaskar",
+        "Madagascar",
+        0
+      ],
+      [
+        "Cuba",
+        "Kuuba",
+        "Cuba",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "geo",
+    "d": "normal",
+    "cat": {
+      "en": "Which of these are famous national parks?",
+      "fi": "Mitkä näistä ovat kuuluisia kansallispuistoja?",
+      "es": "¿Cuáles de estos son parques nacionales famosos?"
+    },
+    "o": [
+      [
+        "Yellowstone",
+        "Yellowstone",
+        "Yellowstone",
+        1
+      ],
+      [
+        "Yosemite",
+        "Yosemite",
+        "Yosemite",
+        1
+      ],
+      [
+        "Serengeti",
+        "Serengeti",
+        "Serengeti",
+        1
+      ],
+      [
+        "Kruger",
+        "Kruger",
+        "Kruger",
+        1
+      ],
+      [
+        "Banff",
+        "Banff",
+        "Banff",
+        1
+      ],
+      [
+        "Grand Canyon",
+        "Grand Canyon",
+        "Gran Cañón",
+        1
+      ],
+      [
+        "Central Park",
+        "Central Park",
+        "Central Park",
+        0
+      ],
+      [
+        "Hyde Park",
+        "Hyde Park",
+        "Hyde Park",
+        0
+      ],
+      [
+        "Tivoli Gardens",
+        "Tivoli",
+        "Jardines de Tívoli",
+        0
+      ],
+      [
+        "Disneyland",
+        "Disneyland",
+        "Disneyland",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "geo",
+    "d": "normal",
+    "cat": {
+      "en": "Which of these countries border the Baltic Sea?",
+      "fi": "Mitkä näistä maista rajoittuvat Itämereen?",
+      "es": "¿Cuáles de estos países tienen costa en el mar Báltico?"
+    },
+    "o": [
+      [
+        "Finland",
+        "Suomi",
+        "Finlandia",
+        1
+      ],
+      [
+        "Sweden",
+        "Ruotsi",
+        "Suecia",
+        1
+      ],
+      [
+        "Estonia",
+        "Viro",
+        "Estonia",
+        1
+      ],
+      [
+        "Latvia",
+        "Latvia",
+        "Letonia",
+        1
+      ],
+      [
+        "Lithuania",
+        "Liettua",
+        "Lituania",
+        1
+      ],
+      [
+        "Poland",
+        "Puola",
+        "Polonia",
+        1
+      ],
+      [
+        "Germany",
+        "Saksa",
+        "Alemania",
+        1
+      ],
+      [
+        "Denmark",
+        "Tanska",
+        "Dinamarca",
+        1
+      ],
+      [
+        "Norway",
+        "Norja",
+        "Noruega",
+        0
+      ],
+      [
+        "Belarus",
+        "Valko-Venäjä",
+        "Bielorrusia",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "sci",
+    "d": "normal",
+    "cat": {
+      "en": "Which of these are layers of the Earth?",
+      "fi": "Mitkä näistä ovat Maan kerroksia?",
+      "es": "¿Cuáles de estas son capas de la Tierra?"
+    },
+    "o": [
+      [
+        "The crust",
+        "Maankuori",
+        "La corteza",
+        1
+      ],
+      [
+        "The mantle",
+        "Vaippa",
+        "El manto",
+        1
+      ],
+      [
+        "The outer core",
+        "Ulkoydin",
+        "El núcleo externo",
+        1
+      ],
+      [
+        "The inner core",
+        "Sisäydin",
+        "El núcleo interno",
+        1
+      ],
+      [
+        "The lithosphere",
+        "Litosfääri",
+        "La litosfera",
+        1
+      ],
+      [
+        "The troposphere",
+        "Troposfääri",
+        "La troposfera",
+        0
+      ],
+      [
+        "The stratosphere",
+        "Stratosfääri",
+        "La estratosfera",
+        0
+      ],
+      [
+        "The ozone layer",
+        "Otsonikerros",
+        "La capa de ozono",
+        0
+      ],
+      [
+        "The ionosphere",
+        "Ionosfääri",
+        "La ionosfera",
+        0
+      ],
+      [
+        "The magnetosphere",
+        "Magnetosfääri",
+        "La magnetosfera",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "sci",
+    "d": "hard",
+    "cat": {
+      "en": "Which of these are layers of Earth's atmosphere?",
+      "fi": "Mitkä näistä ovat Maan ilmakehän kerroksia?",
+      "es": "¿Cuáles de estas son capas de la atmósfera terrestre?"
+    },
+    "o": [
+      [
+        "Troposphere",
+        "Troposfääri",
+        "Troposfera",
+        1
+      ],
+      [
+        "Stratosphere",
+        "Stratosfääri",
+        "Estratosfera",
+        1
+      ],
+      [
+        "Mesosphere",
+        "Mesosfääri",
+        "Mesosfera",
+        1
+      ],
+      [
+        "Thermosphere",
+        "Termosfääri",
+        "Termosfera",
+        1
+      ],
+      [
+        "Exosphere",
+        "Eksosfääri",
+        "Exosfera",
+        1
+      ],
+      [
+        "Crust",
+        "Maankuori",
+        "Corteza",
+        0
+      ],
+      [
+        "Mantle",
+        "Vaippa",
+        "Manto",
+        0
+      ],
+      [
+        "Outer core",
+        "Ulkoydin",
+        "Núcleo externo",
+        0
+      ],
+      [
+        "Lithosphere",
+        "Litosfääri",
+        "Litosfera",
+        0
+      ],
+      [
+        "Hydrosphere",
+        "Hydrosfääri",
+        "Hidrosfera",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "sci",
+    "d": "normal",
+    "cat": {
+      "en": "Which of these are types of medical imaging?",
+      "fi": "Mitkä näistä ovat lääketieteellisiä kuvantamismenetelmiä?",
+      "es": "¿Cuáles de estos son tipos de diagnóstico por imagen?"
+    },
+    "o": [
+      [
+        "X-ray",
+        "Röntgenkuvaus",
+        "Radiografía",
+        1
+      ],
+      [
+        "MRI",
+        "Magneettikuvaus",
+        "Resonancia magnética",
+        1
+      ],
+      [
+        "CT scan",
+        "Tietokonetomografia",
+        "Tomografía computarizada",
+        1
+      ],
+      [
+        "Ultrasound",
+        "Ultraäänitutkimus",
+        "Ecografía",
+        1
+      ],
+      [
+        "PET scan",
+        "PET-kuvaus",
+        "Tomografía PET",
+        1
+      ],
+      [
+        "Telescope",
+        "Kaukoputki",
+        "Telescopio",
+        0
+      ],
+      [
+        "Microscope",
+        "Mikroskooppi",
+        "Microscopio",
+        0
+      ],
+      [
+        "Barometer",
+        "Ilmapuntari",
+        "Barómetro",
+        0
+      ],
+      [
+        "Seismograph",
+        "Seismografi",
+        "Sismógrafo",
+        0
+      ],
+      [
+        "Periscope",
+        "Periskooppi",
+        "Periscopio",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "sci",
+    "d": "normal",
+    "cat": {
+      "en": "Which of these are measuring instruments?",
+      "fi": "Mitkä näistä ovat mittalaitteita?",
+      "es": "¿Cuáles de estos son instrumentos de medición?"
+    },
+    "o": [
+      [
+        "Thermometer",
+        "Lämpömittari",
+        "Termómetro",
+        1
+      ],
+      [
+        "Barometer",
+        "Ilmapuntari",
+        "Barómetro",
+        1
+      ],
+      [
+        "Ammeter",
+        "Ampeerimittari",
+        "Amperímetro",
+        1
+      ],
+      [
+        "Seismograph",
+        "Seismografi",
+        "Sismógrafo",
+        1
+      ],
+      [
+        "Altimeter",
+        "Korkeusmittari",
+        "Altímetro",
+        1
+      ],
+      [
+        "Hygrometer",
+        "Kosteusmittari",
+        "Higrómetro",
+        1
+      ],
+      [
+        "Piston",
+        "Mäntä",
+        "Pistón",
+        0
+      ],
+      [
+        "Lever",
+        "Vipu",
+        "Palanca",
+        0
+      ],
+      [
+        "Pulley",
+        "Väkipyörä",
+        "Polea",
+        0
+      ],
+      [
+        "Gear",
+        "Hammasratas",
+        "Engranaje",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "sci",
+    "d": "normal",
+    "cat": {
+      "en": "Which of these are natural fibres?",
+      "fi": "Mitkä näistä ovat luonnonkuituja?",
+      "es": "¿Cuáles de estas son fibras naturales?"
+    },
+    "o": [
+      [
+        "Cotton",
+        "Puuvilla",
+        "Algodón",
+        1
+      ],
+      [
+        "Wool",
+        "Villa",
+        "Lana",
+        1
+      ],
+      [
+        "Silk",
+        "Silkki",
+        "Seda",
+        1
+      ],
+      [
+        "Linen",
+        "Pellava",
+        "Lino",
+        1
+      ],
+      [
+        "Hemp",
+        "Hamppu",
+        "Cáñamo",
+        1
+      ],
+      [
+        "Polyester",
+        "Polyesteri",
+        "Poliéster",
+        0
+      ],
+      [
+        "Nylon",
+        "Nailon",
+        "Nailon",
+        0
+      ],
+      [
+        "Acrylic",
+        "Akryyli",
+        "Acrílico",
+        0
+      ],
+      [
+        "Spandex",
+        "Elastaani",
+        "Elastano",
+        0
+      ],
+      [
+        "Kevlar",
+        "Kevlar",
+        "Kevlar",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "gen",
+    "d": "normal",
+    "cat": {
+      "en": "Which of these are types of bread?",
+      "fi": "Mitkä näistä ovat leipätyyppejä?",
+      "es": "¿Cuáles de estos son tipos de pan?"
+    },
+    "o": [
+      [
+        "Baguette",
+        "Patonki",
+        "Baguette",
+        1
+      ],
+      [
+        "Ciabatta",
+        "Ciabatta",
+        "Chapata",
+        1
+      ],
+      [
+        "Sourdough",
+        "Hapanjuurileipä",
+        "Pan de masa madre",
+        1
+      ],
+      [
+        "Rye bread",
+        "Ruisleipä",
+        "Pan de centeno",
+        1
+      ],
+      [
+        "Pita",
+        "Pita",
+        "Pan de pita",
+        1
+      ],
+      [
+        "Focaccia",
+        "Focaccia",
+        "Focaccia",
+        1
+      ],
+      [
+        "Lasagne",
+        "Lasagne",
+        "Lasaña",
+        0
+      ],
+      [
+        "Risotto",
+        "Risotto",
+        "Risotto",
+        0
+      ],
+      [
+        "Paella",
+        "Paella",
+        "Paella",
+        0
+      ],
+      [
+        "Sushi",
+        "Sushi",
+        "Sushi",
+        0
+      ]
+    ]
+  },
+  {
+    "topic": "gen",
+    "d": "normal",
+    "cat": {
+      "en": "Which of these are car manufacturers?",
+      "fi": "Mitkä näistä ovat autonvalmistajia?",
+      "es": "¿Cuáles de estos son fabricantes de automóviles?"
+    },
+    "o": [
+      [
+        "Toyota",
+        "Toyota",
+        "Toyota",
+        1
+      ],
+      [
+        "Volkswagen",
+        "Volkswagen",
+        "Volkswagen",
+        1
+      ],
+      [
+        "Ford",
+        "Ford",
+        "Ford",
+        1
+      ],
+      [
+        "BMW",
+        "BMW",
+        "BMW",
+        1
+      ],
+      [
+        "Mercedes-Benz",
+        "Mercedes-Benz",
+        "Mercedes-Benz",
+        1
+      ],
+      [
+        "Honda",
+        "Honda",
+        "Honda",
+        1
+      ],
+      [
+        "Boeing",
+        "Boeing",
+        "Boeing",
+        0
+      ],
+      [
+        "Airbus",
+        "Airbus",
+        "Airbus",
+        0
+      ],
+      [
+        "Siemens",
+        "Siemens",
+        "Siemens",
+        0
+      ],
+      [
+        "Philips",
+        "Philips",
+        "Philips",
+        0
+      ]
+    ]
   }
 ]
