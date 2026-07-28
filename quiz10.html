@@ -1121,7 +1121,7 @@ const QUESTIONS = [
 
 const PLAYER_COLORS = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
-const APP_VERSION = '5.8';
+const APP_VERSION = '5.9';
 
 let questionsStatus = '';
 const QCACHE_KEY = 'quiz10_qcache';
@@ -1164,7 +1164,12 @@ function applyQuestionArray(arr){
 /* ---- User question packs (loaded from a local .json file, saved on device) ---- */
 function loadPacks(){
   try{ const raw = lsGet(PACKS_KEY); if(raw){ const arr = JSON.parse(raw); if(Array.isArray(arr)) packs = arr; } }catch(e){}
-  packs.forEach(p => { if(p && Array.isArray(p.topics)) mergeTopics(p.topics); });
+  packs.forEach(p => {
+    if(!p) return;
+    if(Array.isArray(p.topics)) mergeTopics(p.topics);
+    if(Array.isArray(p.langs)) p.langs.forEach(l => { if(typeof l==='string') registerLang(l); else if(l&&l.code) registerLang(l.code, l.flag, l.name); });
+    if(p.menu && typeof p.menu==='object') Object.keys(p.menu).forEach(code => registerMenu(code, p.menu[code]));
+  });
 }
 function savePacks(){ try{ lsSet(PACKS_KEY, JSON.stringify(packs)); }catch(e){} }
 
@@ -1187,16 +1192,24 @@ function mergeTopics(list){
 
 const TOPIC_KEYS = ['geo','sci','arts','sport','hist','gen','film','mixed'];
 // Accept and normalise questions from an imported file (lenient: only English required).
-function normalizePack(arr){
+function normalizePack(arr, langs){
   if(!Array.isArray(arr)) return [];
   const allowed = new Set(TOPICS.map(t => t.key));   // built-in + any pack-declared categories
+  const L = (Array.isArray(langs)&&langs.length) ? langs.slice() : BASE_LANGS.slice();
   return arr.filter(q => q && q.cat && q.cat.en && Array.isArray(q.o) && q.o.length===10)
-    .map(q => ({
-      topic: allowed.has(q.topic) ? q.topic : 'gen',
-      d: ['easy','normal','hard'].includes(q.d) ? q.d : 'normal',
-      cat: { en:q.cat.en, fi:q.cat.fi||q.cat.en, es:q.cat.es||q.cat.en },
-      o: q.o
-    }));
+    .map(q => {
+      const cat = {};
+      L.forEach(lc => { if(typeof q.cat[lc]==='string') cat[lc]=q.cat[lc]; });     // keep declared langs
+      Object.keys(q.cat).forEach(lc => { if(cat[lc]==null && typeof q.cat[lc]==='string') cat[lc]=q.cat[lc]; }); // keep any extras
+      if(cat.en==null) cat.en=q.cat.en;
+      return {
+        topic: allowed.has(q.topic) ? q.topic : 'gen',
+        d: ['easy','normal','hard'].includes(q.d) ? q.d : 'normal',
+        cat,
+        o: q.o,
+        L
+      };
+    });
 }
 function importPackFromText(text, name){
   let data;
@@ -1206,13 +1219,22 @@ function importPackFromText(text, name){
   if(!arr) return {ok:false, err:'not a question list'};
   const packName = (data && data.name) ? data.name : name;
   const packTopics = (data && Array.isArray(data.topics)) ? data.topics : [];
+  // Optional language declarations: "langs":[{code,flag,name}] or ["sv",...]
+  const langDefs = (data && Array.isArray(data.langs)) ? data.langs : [];
+  const langCodes = langDefs.map(l => String((typeof l==='string'? l : (l&&l.code))||'').trim().toLowerCase()).filter(Boolean);
+  const menu = (data && data.menu && typeof data.menu==='object') ? data.menu : {};
   mergeTopics(packTopics);                 // register any new categories (with their emoji) first
-  const norm = normalizePack(arr);
+  const norm = normalizePack(arr, langCodes.length ? langCodes : null);
   if(!norm.length) return {ok:false, err:'no valid questions'};
-  packs.push({ id:'p'+Date.now(), name:packName||'Pack', topics:packTopics, questions:norm, active:true });
+  // register the pack's languages + their menu vocabulary
+  langDefs.forEach(l => { if(typeof l==='string') registerLang(l); else if(l&&l.code) registerLang(l.code, l.flag, l.name); });
+  Object.keys(menu).forEach(code => registerMenu(code, menu[code]));
+  const newLangs = langCodes.filter(c => !BASE_LANGS.includes(c));
+  packs.push({ id:'p'+Date.now(), name:packName||'Pack', topics:packTopics, questions:norm, active:true, langs:langDefs, menu:menu });
   savePacks();
+  if(newLangs.length){ baseOn=false; saveBaseOn(); }   // new language → default bank off (player can turn back on)
   rebuildQuestions();
-  return {ok:true, count:norm.length, name:packName};
+  return {ok:true, count:norm.length, name:packName, newLangs};
 }
 function renderPackList(){
   const box = $('#packList'); if(!box) return;
@@ -1250,8 +1272,8 @@ function escapeHtml(s){ return String(s).replace(/[&<>"']/g, c=>({'&':'&amp;','<
 /* ---- Question browser (Settings → Questions) ---- */
 function sourceQuestions(src){ return src==='base' ? baseQuestions : ((packs.find(p=>p.id===src)||{}).questions || []); }
 function sourceName(src){ return src==='base' ? tr('baseBankName') : ((packs.find(p=>p.id===src)||{}).name || ''); }
-function catLangG(q){ return (lang==='es'?q.cat.es:lang==='fi'?q.cat.fi:q.cat.en) || q.cat.en; }
-function optLangG(o){ return (lang==='es'?o[2]:lang==='fi'?o[1]:o[0]) || o[0]; }
+function catLangG(q){ return (q.cat && q.cat[lang]) || (q.cat && q.cat.en) || ''; }
+function optLangG(o, L){ L = (Array.isArray(L)&&L.length) ? L : BASE_LANGS; const i=L.indexOf(lang); return (i>=0 && typeof o[i]==='string' ? o[i] : o[0]) || o[0]; }
 function diffLabel(d){ return d==='easy'?tr('diffEasy'):d==='hard'?tr('diffHard'):tr('diffNormal'); }
 function topicInfo(q){
   const key=(q.topic==null?'':String(q.topic)).trim();
@@ -1287,7 +1309,7 @@ function renderQRows(){
   qs.forEach((q,qi)=>{
     if(!(qbFilter==='all' || q.d===qbFilter)) return;
     if(term){
-      const hay=((q.topic||'')+' '+catLangG(q)+' '+q.o.map(o=>optLangG(o)).join(' ')).toLowerCase();
+      const hay=((q.topic||'')+' '+catLangG(q)+' '+q.o.map(o=>optLangG(o, q.L)).join(' ')).toLowerCase();
       if(hay.indexOf(term)<0) return;
     }
     shown++;
@@ -1309,7 +1331,7 @@ function renderQDetail(){
   const box=$('#packList'); if(!box) return;
   const q=sourceQuestions(qbSrc)[qbQi];
   if(!q){ qbMode='list'; return renderQList(); }
-  const opts=q.o.map(o=>({t:optLangG(o), c:o[o.length-1]===1}));
+  const opts=q.o.map(o=>({t:optLangG(o, q.L), c:o[o.length-1]===1}));
   opts.sort((a,b)=>(b.c?1:0)-(a.c?1:0));   // correct answers first
   const ti=topicInfo(q);
   let html=`<div class="qb-head">
@@ -1383,7 +1405,7 @@ function initPackFileInput(){
     reader.onload = ()=>{
       const nameGuess = file.name.replace(/\.json$/i,'');
       const res = importPackFromText(String(reader.result), nameGuess);
-      if(res.ok){ renderPackList(); updateQStatus(); showToastMsg((tr('packAdded')||'Added')+': '+(res.name||nameGuess)+' ('+res.count+')'); }
+      if(res.ok){ if(res.newLangs&&res.newLangs.length) applyStaticText(); renderPackList(); updateQStatus(); showToastMsg((tr('packAdded')||'Added')+': '+(res.name||nameGuess)+' ('+res.count+')'); }
       else { showToastMsg(tr('packError')+': '+res.err); }
     };
     reader.onerror = ()=> showToastMsg(tr('packError'));
@@ -1474,8 +1496,26 @@ let currentTopic = 'mixed';
 let difficulties = { easy:false, normal:true, hard:true };   // default: Medium + Hard
 function selectedDiffs(){ return ['easy','normal','hard'].filter(k=>difficulties[k]); }
 let playerLang = [];      // per-player question language, remembered for the game
-const LANG_ORDER = ['en','fi','es'];
+const BASE_LANGS = ['en','fi','es'];
+let LANG_ORDER = ['en','fi','es'];
 const LANG_FLAG = { en:'🇬🇧', fi:'🇫🇮', es:'🇪🇸' };
+const LANG_NAME = { en:'English', fi:'Suomi', es:'Español' };
+// Register a language brought in by a question pack (adds it to the picker).
+function registerLang(code, flag, name){
+  code = String(code||'').trim().toLowerCase();
+  if(!code || !/^[a-z]{2,3}$/.test(code)) return;
+  if(flag) LANG_FLAG[code] = String(flag);
+  if(name) LANG_NAME[code] = String(name);
+  if(!LANG_FLAG[code]) LANG_FLAG[code] = '🏳️';
+  if(!LANG_NAME[code]) LANG_NAME[code] = code.toUpperCase();
+  if(!LANG_ORDER.includes(code)) LANG_ORDER.push(code);
+}
+// Merge a pack's menu vocabulary for a language into T (falls back to English for missing keys).
+function registerMenu(code, dict){
+  code = String(code||'').trim().toLowerCase();
+  if(!code || !dict || typeof dict!=='object') return;
+  T[code] = Object.assign({}, T.en, T[code]||{}, dict);
+}
 function dispLang(){ return playerLang[turnIdx] || lang; }
 function nameIn(i, L){
   const n=i+1;
@@ -1486,8 +1526,8 @@ function nameIn(i, L){
 function nameShort(i, L){ return (L==='fi'?'Pelaaja ':L==='es'?'Jugador ':'Player ')+(i+1); }
 function pName(i){ return nameIn(i, dispLang()); }
 function pNameShort(i){ return nameShort(i, dispLang()); }
-function tg(k){ return (T[dispLang()]||T[lang])[k]; }
-function labelFor(o, L){ return (L==='es' ? o.es : L==='fi' ? o.fi : o.en) || o.en; }
+function tg(k){ const L=dispLang(); if(T[L]&&T[L][k]!=null) return T[L][k]; if(T[lang]&&T[lang][k]!=null) return T[lang][k]; return T.en[k]; }
+function labelFor(o, L){ return (o[L]!=null ? o[L] : o.en); }
 function catFor(c, L){ return c[L] || c.en; }
 let topicDecks = {};     // (legacy, unused)
 let usedQ = new Set();   // question indices already shown this game
@@ -1516,7 +1556,7 @@ const BGDARK = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0];   // backg
 const $ = s => document.querySelector(s);
 const $$ = s => Array.from(document.querySelectorAll(s));
 function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0; [a[i],a[j]]=[a[j],a[i]];} return a; }
-function tr(k){ return T[lang][k]; }
+function tr(k){ return (T[lang]&&T[lang][k]!=null) ? T[lang][k] : T.en[k]; }
 
 /* ---------- Sound effects (Web Audio, no files) ---------- */
 let actx = null;
@@ -1603,11 +1643,37 @@ function move(dir){
 }
 
 /* ---------- Localisation of static text ---------- */
+function renderLangPickers(){
+  // Full-screen language chooser
+  const row = $('#screen-lang .lang-row');
+  if(row){
+    row.innerHTML = LANG_ORDER.map((code,idx)=>
+      `<button class="btn lang focusable"${idx===0?' data-focus':''} data-action="lang" data-lang="${code}">`+
+      `<span class="flag">${LANG_FLAG[code]||'🏳️'}</span><span class="name">${escapeHtml(LANG_NAME[code]||code.toUpperCase())}</span></button>`
+    ).join('');
+  }
+  // Settings language chips
+  const chipWrap = $('[data-i="language"]') ? $('[data-i="language"]').parentElement.querySelector('.chips, .btn-row, div') : null;
+  const settingsRow = document.querySelector('#settingsLangRow');
+  const target = settingsRow || (function(){
+    const btn = document.querySelector('[data-action="setLang"]');
+    return btn ? btn.parentElement : null;
+  })();
+  if(target){
+    target.id = 'settingsLangRow';
+    target.innerHTML = LANG_ORDER.map(code=>
+      `<button class="btn chip focusable${code===lang?' on':''}" data-action="setLang" data-v="${code}">${escapeHtml(LANG_NAME[code]||code.toUpperCase())}</button>`
+    ).join('');
+  }
+}
 function applyStaticText(){
+  renderLangPickers();
   $('#screen-lang .sub').textContent = tr('chooseLang');
   $$('[data-i]').forEach(el=>{
     const k = el.getAttribute('data-i');
-    if(k && T[lang][k]!==undefined) el.textContent = T[lang][k];
+    if(!k) return;
+    const v = (T[lang]&&T[lang][k]!==undefined) ? T[lang][k] : (T.en[k]!==undefined ? T.en[k] : undefined);
+    if(v!==undefined) el.textContent = v;
   });
   const rb=$('#rulesBody'); if(rb) rb.innerHTML = tr('rulesBody');
 }
@@ -1761,11 +1827,14 @@ function drawQuestion(){
   usedQ.add(qi);
   const q = QUESTIONS[qi];
   usedIds.add(q.cat.en);
-  const opts = shuffle(q.o).map(o=>({
-    en:o[0], fi:o[1], es:(typeof o[2]==='string' ? o[2] : o[0]),
-    correct:!!o[o.length-1], state:'idle', by:null
-  }));
-  current = { cat:q.cat, opts };   // cat holds {en,fi,es}
+  const qLangs = (Array.isArray(q.L)&&q.L.length) ? q.L : BASE_LANGS;
+  const opts = shuffle(q.o).map(o=>{
+    const obj = { correct:!!o[o.length-1], state:'idle', by:null };
+    qLangs.forEach((lc,idx)=>{ if(typeof o[idx]==='string') obj[lc]=o[idx]; });
+    if(obj.en==null) obj.en=o[0];
+    return obj;
+  });
+  current = { cat:q.cat, opts };   // cat holds language-keyed prompts
 }
 
 /* Start the round with the chosen topic; opener plays immediately (no banner) */
