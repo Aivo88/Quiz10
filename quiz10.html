@@ -1126,7 +1126,7 @@ const QUESTIONS = [
 
 const PLAYER_COLORS = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
-const APP_VERSION = '01.00.00';
+const APP_VERSION = '01.00.02';
 
 let questionsStatus = '';
 const QCACHE_KEY = 'quiz10_qcache';
@@ -1670,11 +1670,23 @@ function move(dir){
 }
 
 /* ---------- Localisation of static text ---------- */
+// Languages actually present in the questions currently in play (keeps LANG_ORDER order).
+function availableLangs(){
+  const set = [];
+  const qs = (typeof QUESTIONS!=='undefined' && Array.isArray(QUESTIONS)) ? QUESTIONS : [];
+  for(const q of qs){
+    const ls = (Array.isArray(q.L)&&q.L.length) ? q.L : Object.keys(q.cat||{});
+    for(const c of ls){ if(c && !set.includes(c)) set.push(c); }
+  }
+  const avail = LANG_ORDER.filter(c => set.includes(c));
+  return avail.length ? avail : ['en'];
+}
 function renderLangPickers(){
   // Full-screen language chooser
   const row = $('#screen-lang .lang-row');
+  const avail = availableLangs();
   if(row){
-    row.innerHTML = LANG_ORDER.map((code,idx)=>
+    row.innerHTML = avail.map((code,idx)=>
       `<button class="btn lang focusable"${idx===0?' data-focus':''} data-action="lang" data-lang="${code}">`+
       `<span class="flag">${LANG_FLAG[code]||'🏳️'}</span><span class="name">${escapeHtml(LANG_NAME[code]||code.toUpperCase())}</span></button>`
     ).join('');
@@ -1688,7 +1700,7 @@ function renderLangPickers(){
   })();
   if(target){
     target.id = 'settingsLangRow';
-    target.innerHTML = LANG_ORDER.map(code=>
+    target.innerHTML = avail.map(code=>
       `<button class="btn chip focusable${code===lang?' on':''}" data-action="setLang" data-v="${code}">${escapeHtml(LANG_NAME[code]||code.toUpperCase())}</button>`
     ).join('');
   }
@@ -1719,7 +1731,9 @@ function loadLang(){
   }catch(e){ lang='en'; }
 }
 function cycleGlobalLang(){
-  lang = LANG_ORDER[(LANG_ORDER.indexOf(lang)+1) % LANG_ORDER.length];
+  const av = availableLangs();
+  const i = av.indexOf(lang);
+  lang = av[(i<0?0:(i+1)) % av.length];
   saveLang();
   applyStaticText(); updateCornerFlags(); applySettings();
   sfx.select();
@@ -1937,8 +1951,10 @@ function updateFlag(){
   const f = $('#langFlag'); if(f) f.textContent = LANG_FLAG[dispLang()] || '🏳️';
 }
 function cycleLang(){
+  const av = availableLangs();
   const cur = playerLang[turnIdx] || lang;
-  playerLang[turnIdx] = LANG_ORDER[(LANG_ORDER.indexOf(cur)+1) % LANG_ORDER.length];
+  const i = av.indexOf(cur);
+  playerLang[turnIdx] = av[(i<0?0:(i+1)) % av.length];
   sfx.select();
   applyLang();
 }
@@ -2141,11 +2157,13 @@ function quitToMenu(){
 }
 
 /* ---------- Confirm overlay ---------- */
-function askConfirm(msg, onYes){
+function askConfirm(msg, onYes, L){
   confirmCb = onYes;
+  const bl = L || dispLang();
+  const pick = (k)=> (T[bl]&&T[bl][k]!=null) ? T[bl][k] : T.en[k];
   $('#confirmMsg').textContent = msg;
-  $('#confirmYes').textContent = tg('yes');
-  $('#confirmNo').textContent = tg('no');
+  $('#confirmYes').textContent = pick('yes');
+  $('#confirmNo').textContent = pick('no');
   $('#confirmBox').classList.add('show');
   requestAnimationFrame(()=> setFocus($('#confirmYes')));
 }
@@ -2330,7 +2348,7 @@ function activate(el){
   else if(a==='topic'){ currentTopic = el.dataset.topic; newQuestion(); }
   else if(a==='pick'){ pickOption(+el.dataset.i); }
   else if(a==='pass'){ passTurn(); }
-  else if(a==='quitGame'){ askConfirm(tr('quitGameQ'), ()=> quitToMenu()); }
+  else if(a==='quitGame'){ askConfirm(tg('quitGameQ'), ()=> quitToMenu()); }
   else if(a==='chooseBg'){ const f=$('#bgFile'); if(f){ f.value=''; f.click(); } }
   else if(a==='resetBg'){ resetBackground(); }
   else if(a==='cyclelang'){ cycleLang(); }
@@ -2417,7 +2435,7 @@ function goBack(){
   if(awaitingTurn){ return true; }
   const active = $('.screen.active').id;
   if(active==='screen-setup'){ showScreen('screen-menu'); return true; }
-  if(active==='screen-topic'){ askConfirm(tr('quitGameQ'), ()=> quitToMenu()); return true; }
+  if(active==='screen-topic'){ askConfirm(tg('quitGameQ'), ()=> quitToMenu()); return true; }
   if(active==='screen-settings'){
     if(qbMode==='detail'){ qbMode='list'; renderQBrowser(); qbFocusFirst(); return true; }
     if(qbMode==='list'){ qbMode='packs'; renderQBrowser(); qbFocusFirst(); return true; }
@@ -2428,7 +2446,7 @@ function goBack(){
   if(active==='screen-win'){ showScreen('screen-menu'); return true; }
   if(active==='screen-game'){
     if(confirmOpen()) return true;      // a confirm is already up
-    askConfirm(tr('quitGameQ'), ()=> quitToMenu());
+    askConfirm(tg('quitGameQ'), ()=> quitToMenu());
     return true;
   }
   return false; // on main menu → let the system handle it (Fire TV: press Back again to exit)
