@@ -403,6 +403,7 @@
   .pack-info{min-width:0}
   .pack-name{font-weight:700; color:var(--ink); font-size:calc(clamp(15px,1.8vw,22px) * var(--fs));}
   .pack-meta{color:var(--muted); font-size:.82em}
+  .pack-flags{margin-top:4px; font-size:calc(clamp(16px,2vw,24px)); line-height:1; letter-spacing:.04em}
   .pack-actions{display:flex; gap:8px; flex:0 0 auto}
   .set-hint{color:var(--muted); font-size:calc(clamp(12px,1.4vw,16px) * var(--fs)); margin-top:16px; line-height:1.55}
   .chip.on{ background:var(--good); color:#06251b; border-color:var(--good); }
@@ -984,6 +985,10 @@ const T = {
     hint:"Muévete con el D-pad · <kbd>OK</kbd> responde · botón Pasar para guardar · <kbd>Atrás</kbd> salir"
   }
 };
+// Player-name templates (%n = player number). Packs can override per language via their menu vocab.
+T.en.playerTeamName="Player %n / Team %n"; T.en.playerShort="Player"; T.en.playerTeamShort="Player/Team";
+T.fi.playerTeamName="Pelaaja %n / Joukkue %n"; T.fi.playerShort="Pelaaja"; T.fi.playerTeamShort="Pelaaja/Joukkue";
+T.es.playerTeamName="Jugador %n / Equipo %n"; T.es.playerShort="Jugador"; T.es.playerTeamShort="Jugador/Equipo";
 
 /* ---------- Topics ---------- */
 const TOPICS = [
@@ -1121,7 +1126,7 @@ const QUESTIONS = [
 
 const PLAYER_COLORS = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
-const APP_VERSION = '5.9';
+const APP_VERSION = '01.00.00';
 
 let questionsStatus = '';
 const QCACHE_KEY = 'quiz10_qcache';
@@ -1179,14 +1184,22 @@ function mergeTopics(list){
   list.forEach(t => {
     if(!t || t.key==null) return;
     const key = String(t.key).trim().toLowerCase();
-    if(!key || TOPICS.some(x => x.key===key)) return;   // skip empty or already-known
-    TOPICS.push({
+    if(!key) return;
+    const existing = TOPICS.find(x => x.key===key);
+    if(existing){
+      // pack adds extra language names (e.g. sv) to a built-in category, without overwriting
+      Object.keys(t).forEach(k => { if(k!=='key' && k!=='icon' && typeof t[k]==='string' && existing[k]==null) existing[k]=t[k]; });
+      return;
+    }
+    const nt = {
       key,
       icon: (t.icon && String(t.icon)) || '📦',
       en: t.en || key,
       fi: t.fi || t.en || key,
       es: t.es || t.en || key
-    });
+    };
+    Object.keys(t).forEach(k => { if(k!=='key' && k!=='icon' && typeof t[k]==='string' && nt[k]==null) nt[k]=t[k]; });
+    TOPICS.push(nt);
   });
 }
 
@@ -1236,6 +1249,19 @@ function importPackFromText(text, name){
   rebuildQuestions();
   return {ok:true, count:norm.length, name:packName, newLangs};
 }
+function langFlagsHtml(codes){ return codes.map(c=>LANG_FLAG[c]||'🏳️').join(' '); }
+function packLangCodes(p){
+  if(Array.isArray(p.langs) && p.langs.length){
+    const out = p.langs.map(l => String(typeof l==='string'?l:(l&&l.code)||'').trim().toLowerCase()).filter(Boolean);
+    if(out.length) return out;
+  }
+  const set = [];   // infer from questions if not declared
+  (p.questions||[]).slice(0,60).forEach(q=>{
+    const ls = (Array.isArray(q.L)&&q.L.length) ? q.L : Object.keys(q.cat||{});
+    ls.forEach(c=>{ if(c && !set.includes(c)) set.push(c); });
+  });
+  return set.length ? set : BASE_LANGS.slice();
+}
 function renderPackList(){
   const box = $('#packList'); if(!box) return;
   let html = `
@@ -1243,6 +1269,7 @@ function renderPackList(){
       <div class="pack-info">
         <div class="pack-name">${tr('baseBankName')}</div>
         <div class="pack-meta">${baseQuestions.length} ${tr('questionsWord')}</div>
+        <div class="pack-flags">${langFlagsHtml(BASE_LANGS)}</div>
       </div>
       <div class="pack-actions">
         <button class="btn chip focusable" data-action="qbOpen" data-src="base">${tr('viewWord')}</button>
@@ -1257,6 +1284,7 @@ function renderPackList(){
       <div class="pack-info">
         <div class="pack-name">${escapeHtml(p.name)}</div>
         <div class="pack-meta">${p.questions.length} ${tr('questionsWord')}</div>
+        <div class="pack-flags">${langFlagsHtml(packLangCodes(p))}</div>
       </div>
       <div class="pack-actions">
         <button class="btn chip focusable" data-action="qbOpen" data-src="${p.id}">${tr('viewWord')}</button>
@@ -1517,13 +1545,12 @@ function registerMenu(code, dict){
   T[code] = Object.assign({}, T.en, T[code]||{}, dict);
 }
 function dispLang(){ return playerLang[turnIdx] || lang; }
+function TT(L,k){ return (T[L]&&T[L][k]!=null) ? T[L][k] : T.en[k]; }
 function nameIn(i, L){
   const n=i+1;
-  if(L==='fi') return 'Pelaaja '+n+' / Joukkue '+n;
-  if(L==='es') return 'Jugador '+n+' / Equipo '+n;
-  return 'Player '+n+' / Team '+n;
+  return (TT(L,'playerTeamName')||'Player %n / Team %n').replace(/%n/g, n);
 }
-function nameShort(i, L){ return (L==='fi'?'Pelaaja ':L==='es'?'Jugador ':'Player ')+(i+1); }
+function nameShort(i, L){ return (TT(L,'playerShort')||'Player')+' '+(i+1); }
 function pName(i){ return nameIn(i, dispLang()); }
 function pNameShort(i){ return nameShort(i, dispLang()); }
 function tg(k){ const L=dispLang(); if(T[L]&&T[L][k]!=null) return T[L][k]; if(T[lang]&&T[lang][k]!=null) return T[lang][k]; return T.en[k]; }
@@ -1716,7 +1743,7 @@ function startGame(){
   players = [];
   for(let i=0;i<numPlayers;i++){
     players.push({
-      name:(lang==='fi'?'Pelaaja ':lang==='es'?'Jugador ':'Player ')+(i+1),
+      name:(TT(lang,'playerShort')||'Player')+' '+(i+1),
       score:0,
       color:PLAYER_COLORS[i]
     });
@@ -1792,7 +1819,7 @@ function renderTopicMeta(si, L){
   rc.innerHTML = `<span class="pname">${(T[L]||T[lang]).roundWord || 'Round'}</span>
     <span class="pscore">${roundsPlayed + 1}</span>`;
   bar.appendChild(rc);
-  const ptLabel = (L==='fi'?'Pelaaja/Joukkue ':L==='es'?'Jugador/Equipo ':'Player/Team ');
+  const ptLabel = (TT(L,'playerTeamShort')||'Player/Team')+' ';
   players.forEach((p,i)=>{
     const el = document.createElement('div');
     el.className = 'pchip' + (i===si ? ' active' : '');
