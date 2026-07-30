@@ -532,6 +532,19 @@
             </div>
           </div>
         </div>
+        <div class="set-row">
+          <span class="set-label" data-i="bgDarkLabel">Background darkness</span>
+          <div class="set-opts">
+            <div class="sliderwrap">
+              <button class="arrow sarrow focusable" data-action="bgDarkStep" data-d="-1">−</button>
+              <div class="slider focusable" id="bgDarkSlider" data-role="slider">
+                <div class="track" id="bgDarkTrack"><div class="fill" id="bgDarkFill"></div><div class="thumb" id="bgDarkThumb"></div></div>
+                <div class="slabel" id="bgDarkValLabel">78%</div>
+              </div>
+              <button class="arrow sarrow focusable" data-action="bgDarkStep" data-d="1">+</button>
+            </div>
+          </div>
+        </div>
 
         <div class="set-row">
           <span class="set-label" data-i="theme">Colour theme</span>
@@ -572,19 +585,6 @@
           <div class="set-opts">
             <button class="btn chip focusable" data-action="chooseBg" data-i="bgChoose">Choose from device</button>
             <button class="btn chip focusable" data-action="resetBg" data-i="bgReset">Reset</button>
-          </div>
-        </div>
-        <div class="set-row">
-          <span class="set-label" data-i="bgDarkLabel">Background darkness</span>
-          <div class="set-opts">
-            <div class="sliderwrap">
-              <button class="arrow sarrow focusable" data-action="bgDarkStep" data-d="-1">−</button>
-              <div class="slider focusable" id="bgDarkSlider" data-role="slider">
-                <div class="track" id="bgDarkTrack"><div class="fill" id="bgDarkFill"></div><div class="thumb" id="bgDarkThumb"></div></div>
-                <div class="slabel" id="bgDarkValLabel">78%</div>
-              </div>
-              <button class="arrow sarrow focusable" data-action="bgDarkStep" data-d="1">+</button>
-            </div>
           </div>
         </div>
         <div class="set-row">
@@ -1146,7 +1146,7 @@ const QUESTIONS = [
 
 const PLAYER_COLORS = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
-const APP_VERSION = '01.00.05';
+const APP_VERSION = '01.00.06';
 
 let questionsStatus = '';
 const QCACHE_KEY = 'quiz10_qcache';
@@ -2296,7 +2296,7 @@ function edgeIdxFromX(x){
 
 /* background darkness slider */
 function bgDarkIndex(){
-  const v=parseFloat(settings.bgdark)||0.78;
+  let v=parseFloat(settings.bgdark); if(isNaN(v)) v=0.8;   // 0 is valid — don't fall back on it
   let best=0, bd=1e9;
   BGDARK.forEach((e,i)=>{ const d=Math.abs(e-v); if(d<bd){ bd=d; best=i; } });
   return best;
