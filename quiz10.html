@@ -224,6 +224,7 @@
     font-size:calc(clamp(20px,2.4vw,32px) * var(--fs)); line-height:1;
   }
   body.kbd .langflag.focused{border-color:var(--focus); box-shadow:0 0 0 4px rgba(255,224,138,.4); background:var(--panel2)}
+  .topic-head{display:flex; align-items:center; justify-content:center; gap:clamp(10px,1.6vw,20px); flex-wrap:wrap}
   .turnlabel{color:var(--muted); font-size:clamp(13px,1.5vw,20px); letter-spacing:.06em}
   .turnlabel b{color:var(--c-turn,var(--gold))}
   .roundbank{
@@ -641,7 +642,10 @@
   <!-- TOPIC SELECT -->
   <section id="screen-topic" class="screen">
     <div class="center">
-      <h2 class="q-title" id="topicTitle"></h2>
+      <div class="topic-head">
+        <button class="langflag focusable" id="langFlagTopic" data-action="cyclelangtopic" title="Language">🇬🇧</button>
+        <h2 class="q-title" id="topicTitle"></h2>
+      </div>
       <div class="scorebar topic-scorebar" id="topicScorebar"></div>
       <div class="topic-grid" id="topicGrid"></div>
       <button class="btn back focusable" data-action="quitGame" data-i="back">Back</button>
@@ -1142,7 +1146,7 @@ const QUESTIONS = [
 
 const PLAYER_COLORS = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
-const APP_VERSION = '01.00.04';
+const APP_VERSION = '01.00.05';
 
 let questionsStatus = '';
 const QCACHE_KEY = 'quiz10_qcache';
@@ -1828,16 +1832,29 @@ function poolFor(topic){
   }
   return idx;
 }
-function chooseTopic(){
-  turnActive=false; awaitingTurn=false;
-  $('#turnBanner').classList.remove('show');
+function refreshTopicScreen(){
   const si = roundStarter % players.length;
   const sl = playerLang[si] || lang;
   const prompt = (T[sl]||T[lang]).topicPrompt;
   $('#topicTitle').innerHTML = `<span style="color:var(${players[si].color})">${nameIn(si, sl)}</span> — ${prompt}`;
+  const tf = $('#langFlagTopic'); if(tf) tf.textContent = LANG_FLAG[sl] || '🏳️';
   renderTopicMeta(si, sl);
   renderTopics(sl);
+}
+function chooseTopic(){
+  turnActive=false; awaitingTurn=false;
+  $('#turnBanner').classList.remove('show');
+  refreshTopicScreen();
   showScreen('screen-topic');
+}
+function cycleLangTopic(){
+  const si = roundStarter % players.length;
+  const av = availableLangs();
+  const cur = playerLang[si] || lang;
+  const i = av.indexOf(cur);
+  playerLang[si] = av[(i<0?0:(i+1)) % av.length];
+  sfx.select();
+  refreshTopicScreen();   // re-render title, categories and flag in the new language; keeps focus on the flag
 }
 function renderTopicMeta(si, L){
   L = L || lang;
@@ -2311,7 +2328,7 @@ function activate(el){
   // Text fields (e.g. question search): OK/Enter opens the on-screen keyboard
   if(el.tagName==='INPUT' && el.type==='text'){ try{ el.focus(); }catch(e){} return; }
   const a = el.dataset.action;
-  const menuSfx = ['lang','players','sizeStep','edgeStep','bgDarkStep','target','toggleDiff','toggleBase','start','again','newgame','settings','rules','menu','mainmenu','backToLang','setTheme','setLang','toggleA','toggleB','topic','confirmYes','confirmNo','settab','togglePack','deletePack','importQuestions','qbOpen','qbBack','qbDetail','qbBackList','qbToggleQ','qbFilter','chooseBg','resetBg','quitGame'];
+  const menuSfx = ['lang','players','sizeStep','edgeStep','bgDarkStep','target','toggleDiff','toggleBase','start','again','newgame','settings','rules','menu','mainmenu','backToLang','setTheme','setLang','toggleA','toggleB','topic','confirmYes','confirmNo','settab','togglePack','deletePack','importQuestions','qbOpen','qbBack','qbDetail','qbBackList','qbToggleQ','qbFilter','chooseBg','resetBg','quitGame','cyclelangtopic'];
   if(menuSfx.includes(a)) sfx.select();
 
   if(a==='newgame'){
@@ -2372,6 +2389,7 @@ function activate(el){
   else if(a==='chooseBg'){ const f=$('#bgFile'); if(f){ f.value=''; f.click(); } }
   else if(a==='resetBg'){ resetBackground(); }
   else if(a==='cyclelang'){ cycleLang(); }
+  else if(a==='cyclelangtopic'){ cycleLangTopic(); }
   else if(a==='again'){ startGame(); }
   else if(a==='confirmYes'){ closeConfirm(true); }
   else if(a==='confirmNo'){ closeConfirm(false); }
