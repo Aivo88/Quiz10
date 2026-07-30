@@ -1146,7 +1146,7 @@ const QUESTIONS = [
 
 const PLAYER_COLORS = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
-const APP_VERSION = '01.00.06';
+const APP_VERSION = '01.00.07';
 
 let questionsStatus = '';
 const QCACHE_KEY = 'quiz10_qcache';
@@ -1269,7 +1269,7 @@ function importPackFromText(text, name){
   rebuildQuestions();
   return {ok:true, count:norm.length, name:packName, newLangs};
 }
-function langFlagsHtml(codes){ return codes.map(c=>LANG_FLAG[c]||'🏳️').join(' '); }
+function langFlagsHtml(codes){ return codes.map(c=>flagFor(c)).join(' '); }
 function packLangCodes(p){
   if(Array.isArray(p.langs) && p.langs.length){
     const out = p.langs.map(l => String(typeof l==='string'?l:(l&&l.code)||'').trim().toLowerCase()).filter(Boolean);
@@ -1548,6 +1548,25 @@ const BASE_LANGS = ['en','fi','es'];
 let LANG_ORDER = ['en','fi','es'];
 const LANG_FLAG = { en:'🇬🇧', fi:'🇫🇮', es:'🇪🇸' };
 const LANG_NAME = { en:'English', fi:'Suomi', es:'Español' };
+// Windows can't render country-flag emoji — detect once, fall back to the language code (EN/FI/SV).
+let FLAG_OK = true;
+function detectFlagEmoji(){
+  try{
+    const c=document.createElement('canvas'); c.width=20; c.height=16;
+    const x=c.getContext('2d'); if(!x) return false;
+    x.textBaseline='top'; x.font='16px sans-serif';
+    x.fillText('🇸🇪',-2,0);   // Swedish flag = lots of blue + yellow if rendered as a flag
+    const d=x.getImageData(0,0,20,16).data;
+    let colored=0;
+    for(let i=0;i<d.length;i+=4){
+      const r=d[i],g=d[i+1],b=d[i+2],a=d[i+3];
+      if(a>0 && ((b>90&&r<90) || (r>150&&g>120&&b<90))) colored++;
+    }
+    return colored>4;
+  }catch(e){ return false; }
+}
+// Flag to show for a language: emoji where supported, otherwise the uppercased code.
+function flagFor(code){ code=String(code||'').toLowerCase(); return FLAG_OK ? (LANG_FLAG[code]||'🏳️') : (code.toUpperCase()||'?'); }
 // Register a language brought in by a question pack (adds it to the picker).
 function registerLang(code, flag, name){
   code = String(code||'').trim().toLowerCase();
@@ -1708,7 +1727,7 @@ function renderLangPickers(){
   if(row){
     row.innerHTML = avail.map((code,idx)=>
       `<button class="btn lang focusable"${idx===0?' data-focus':''} data-action="lang" data-lang="${code}">`+
-      `<span class="flag">${LANG_FLAG[code]||'🏳️'}</span><span class="name">${escapeHtml(LANG_NAME[code]||code.toUpperCase())}</span></button>`
+      `<span class="flag">${flagFor(code)}</span><span class="name">${escapeHtml(LANG_NAME[code]||code.toUpperCase())}</span></button>`
     ).join('');
   }
   // Settings language chips
@@ -1738,7 +1757,7 @@ function applyStaticText(){
 }
 let lastWinner = null;
 function updateCornerFlags(){
-  const f = LANG_FLAG[lang] || '🏳️';
+  const f = flagFor(lang);
   const a=$('#menuFlag'), b=$('#winFlag');
   if(a) a.textContent=f; if(b) b.textContent=f;
 }
@@ -1837,7 +1856,7 @@ function refreshTopicScreen(){
   const sl = playerLang[si] || lang;
   const prompt = (T[sl]||T[lang]).topicPrompt;
   $('#topicTitle').innerHTML = `<span style="color:var(${players[si].color})">${nameIn(si, sl)}</span> — ${prompt}`;
-  const tf = $('#langFlagTopic'); if(tf) tf.textContent = LANG_FLAG[sl] || '🏳️';
+  const tf = $('#langFlagTopic'); if(tf) tf.textContent = flagFor(sl);
   renderTopicMeta(si, sl);
   renderTopics(sl);
 }
@@ -1982,7 +2001,7 @@ function applyLang(){
   fitBoard();
 }
 function updateFlag(){
-  const f = $('#langFlag'); if(f) f.textContent = LANG_FLAG[dispLang()] || '🏳️';
+  const f = $('#langFlag'); if(f) f.textContent = flagFor(dispLang());
 }
 function cycleLang(){
   const av = availableLangs();
@@ -2506,6 +2525,7 @@ window.addEventListener('popstate', ()=>{
 /* ---------- Boot ---------- */
 loadSettings();
 loadLang();
+FLAG_OK = detectFlagEmoji();   // Windows shows language codes instead of flag emoji
 applyStaticText();
 updateCornerFlags();
 refreshSetup();
