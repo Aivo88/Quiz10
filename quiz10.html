@@ -1126,7 +1126,7 @@ const QUESTIONS = [
 
 const PLAYER_COLORS = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
-const APP_VERSION = '01.00.02';
+const APP_VERSION = '01.00.03';
 
 let questionsStatus = '';
 const QCACHE_KEY = 'quiz10_qcache';
@@ -1899,6 +1899,7 @@ function newQuestion(){
 function announceTurn(){
   turnActive = false;
   awaitingTurn = true;
+  if(players.length===1){ confirmTurn(); return; }   // solo play: no turn hand-off, continue straight to the next question
   const p = players[turnIdx];
   $('#turnBanner').style.setProperty('--tc', `var(${p.color})`);
   $('#tbEye').textContent = tg('upNext');
