@@ -225,6 +225,11 @@
   }
   body.kbd .langflag.focused{border-color:var(--focus); box-shadow:0 0 0 4px rgba(255,224,138,.4); background:var(--panel2)}
   .topic-head{display:flex; align-items:center; justify-content:center; gap:clamp(10px,1.6vw,20px); flex-wrap:wrap}
+  /* When flag emoji aren't supported (Windows), language codes show instead — make them clearly legible */
+  body.nofe .corner-flag, body.nofe .langflag, body.nofe #langFlagTopic, body.nofe .pack-flags{
+    color:#fff; font-weight:800; letter-spacing:.06em;
+  }
+  body.nofe .lang .flag{ color:var(--focus); font-weight:800; letter-spacing:.04em; margin-right:.15em }
   .turnlabel{color:var(--muted); font-size:clamp(13px,1.5vw,20px); letter-spacing:.06em}
   .turnlabel b{color:var(--c-turn,var(--gold))}
   .roundbank{
@@ -1146,7 +1151,7 @@ const QUESTIONS = [
 
 const PLAYER_COLORS = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
-const APP_VERSION = '01.00.07';
+const APP_VERSION = '01.00.08';
 
 let questionsStatus = '';
 const QCACHE_KEY = 'quiz10_qcache';
@@ -1871,7 +1876,9 @@ function cycleLangTopic(){
   const av = availableLangs();
   const cur = playerLang[si] || lang;
   const i = av.indexOf(cur);
-  playerLang[si] = av[(i<0?0:(i+1)) % av.length];
+  const nl = av[(i<0?0:(i+1)) % av.length];
+  playerLang[si] = nl;
+  lang = nl; saveLang();   // remember this choice for the win screen and the next game
   sfx.select();
   refreshTopicScreen();   // re-render title, categories and flag in the new language; keeps focus on the flag
 }
@@ -2007,7 +2014,9 @@ function cycleLang(){
   const av = availableLangs();
   const cur = playerLang[turnIdx] || lang;
   const i = av.indexOf(cur);
-  playerLang[turnIdx] = av[(i<0?0:(i+1)) % av.length];
+  const nl = av[(i<0?0:(i+1)) % av.length];
+  playerLang[turnIdx] = nl;
+  lang = nl; saveLang();   // remember this choice for the win screen and the next game
   sfx.select();
   applyLang();
 }
@@ -2162,11 +2171,11 @@ function endGame(winnerIdx, silent){
   lastWinner = winnerIdx;
   awaitingTurn=false; $('#turnBanner').classList.remove('show');
   if(!silent) sfx.win();
-  const WL = lang;   // show in the currently selected language (win-screen flag)
-  const TW = T[WL] || T[lang];
   // Everyone sharing the top score is a winner
   const top = Math.max(...players.map(p=>p.score));
   const winners = players.map((p,i)=>i).filter(i=>players[i].score===top);
+  const WL = playerLang[winners[0]] || lang;   // show in the winner's language (solo: the player's chosen language)
+  const TW = T[WL] || T[lang];
   if(winners.length>1){
     $('#winName').innerHTML = TW.winTie;
     $('#winSub').innerHTML = winners.map(i=>`<span style="color:var(${players[i].color})">${nameShort(i, WL)}</span>`).join(' & ');
@@ -2526,6 +2535,7 @@ window.addEventListener('popstate', ()=>{
 loadSettings();
 loadLang();
 FLAG_OK = detectFlagEmoji();   // Windows shows language codes instead of flag emoji
+if(!FLAG_OK) document.body.classList.add('nofe');
 applyStaticText();
 updateCornerFlags();
 refreshSetup();

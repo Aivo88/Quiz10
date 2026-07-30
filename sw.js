@@ -1,6 +1,6 @@
 // QUIZ 10 service worker — SE7EN V2 model.
 // Bump CACHE on every release (this is what makes the browser install a fresh copy).
-const CACHE = 'quiz10-v14';
+const CACHE = 'quiz10-v15';
 const ASSETS = ['./', './quiz10.html', './questions.json', './version.json', './manifest.json',
                 './icon-192.png', './icon-512.png', './icon-512-maskable.png',
                 './apple-touch-icon.png', './favicon-32.png'];
