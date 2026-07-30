@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Quiz10 – Kysymyseditori</title>
+<style>
+  :root{
+    --bg:#191410; --panel:#241c15; --panel2:#2f2418; --line:#463726;
+    --ink:#f2e8d5; --muted:#b09a7d; --gold:#f5c542; --goldink:#2a2110;
+    --green:#3fae6b; --greenink:#0e2417; --red:#d9534f; --fs:1;
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+  html,body{margin:0}
+  body{
+    background:
+      radial-gradient(120% 80% at 50% -10%, #2c2115 0%, var(--bg) 60%);
+    color:var(--ink); font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    font-size:calc(17px*var(--fs)); line-height:1.4; padding:0 0 90px; min-height:100vh;
+  }
+  h1,h2,h3{margin:0; font-weight:800}
+  button{font-family:inherit; font-size:1em; cursor:pointer}
+  input,select,textarea{font-family:inherit; font-size:1em}
+
+  /* Top bar */
+  .topbar{
+    position:sticky; top:0; z-index:20; background:rgba(25,20,16,.96);
+    backdrop-filter:blur(6px); border-bottom:2px solid var(--line);
+    padding:12px clamp(12px,4vw,24px); display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+  }
+  .brand{display:flex; align-items:center; gap:10px; font-weight:800; font-size:1.15em; letter-spacing:.3px}
+  .brand .dice{font-size:1.4em}
+  .brand small{color:var(--gold); font-weight:700; font-size:.62em; letter-spacing:1px; text-transform:uppercase; display:block; margin-top:-2px}
+  .spacer{flex:1}
+
+  .wrap{max-width:820px; margin:0 auto; padding:0 clamp(12px,4vw,24px)}
+
+  /* Buttons */
+  .btn{
+    background:var(--panel); color:var(--ink); border:2px solid var(--line);
+    border-radius:12px; padding:11px 16px; font-weight:700; transition:.12s;
+    display:inline-flex; align-items:center; gap:7px;
+  }
+  .btn:hover{border-color:var(--gold)}
+  .btn.gold{background:var(--gold); color:var(--goldink); border-color:var(--gold)}
+  .btn.gold:hover{filter:brightness(1.07)}
+  .btn.green{background:var(--green); color:var(--greenink); border-color:var(--green)}
+  .btn.danger{color:var(--red); border-color:#5e2b28}
+  .btn.danger:hover{border-color:var(--red); background:#2a1917}
+  .btn.small{padding:7px 11px; font-size:.85em; border-radius:9px}
+  .btn.block{width:100%; justify-content:center}
+  .btn:disabled{opacity:.4; cursor:not-allowed}
+
+  /* Pack header */
+  .packhead{margin-top:18px; background:var(--panel); border:2px solid var(--line); border-radius:16px; padding:16px}
+  .field{margin-bottom:12px}
+  .field:last-child{margin-bottom:0}
+  label.lbl{display:block; color:var(--muted); font-weight:700; font-size:.82em; text-transform:uppercase; letter-spacing:.5px; margin-bottom:6px}
+  input[type=text], select, textarea{
+    width:100%; background:var(--bg); color:var(--ink); border:2px solid var(--line);
+    border-radius:10px; padding:11px 13px; outline:none;
+  }
+  input[type=text]:focus, select, textarea:focus{border-color:var(--gold)}
+  textarea{resize:vertical; min-height:64px}
+  .row{display:flex; gap:10px; flex-wrap:wrap}
+  .row > *{flex:1; min-width:140px}
+
+  /* Tabs */
+  .tabs{display:flex; gap:8px; margin:18px 0 4px}
+  .tab{
+    flex:1; background:var(--panel); border:2px solid var(--line); color:var(--muted);
+    border-radius:12px; padding:12px; font-weight:800; text-align:center;
+  }
+  .tab.on{background:var(--gold); color:var(--goldink); border-color:var(--gold)}
+  .tab .count{opacity:.75; font-weight:700}
+
+  .panel{margin-top:14px}
+  .hidden{display:none !important}
+
+  /* List cards */
+  .card{
+    background:var(--panel); border:2px solid var(--line); border-radius:14px;
+    padding:13px 14px; margin-bottom:10px; display:flex; align-items:center; gap:13px;
+  }
+  .card .emoji{font-size:1.7em; flex:none; width:1.6em; text-align:center}
+  .card .grow{flex:1; min-width:0}
+  .card .ttl{font-weight:700; word-break:break-word}
+  .card .sub{color:var(--muted); font-size:.82em; margin-top:2px}
+  .card .acts{display:flex; gap:7px; flex:none}
+  .pill{display:inline-block; background:var(--panel2); border:1px solid var(--line); border-radius:999px; padding:1px 9px; font-size:.76em; color:var(--muted); margin-right:5px}
+  .pill.correct{color:var(--green); border-color:#2f5a3f}
+
+  .empty{color:var(--muted); text-align:center; padding:34px 16px; border:2px dashed var(--line); border-radius:14px; line-height:1.6}
+
+  .addbar{position:sticky; bottom:0; padding:14px 0 4px; background:linear-gradient(transparent, var(--bg) 34%)}
+
+  /* Emoji picker */
+  .emojigrid{display:grid; grid-template-columns:repeat(auto-fill, minmax(46px,1fr)); gap:6px; margin-top:8px; max-height:180px; overflow:auto; padding:4px; background:var(--bg); border:2px solid var(--line); border-radius:10px}
+  .emojigrid button{background:transparent; border:2px solid transparent; border-radius:9px; padding:6px 0; font-size:1.5em}
+  .emojigrid button:hover{border-color:var(--line)}
+  .emojigrid button.sel{border-color:var(--gold); background:var(--panel2)}
+  .emojichosen{display:inline-flex; align-items:center; justify-content:center; width:2em; height:2em; font-size:1.5em; background:var(--bg); border:2px solid var(--gold); border-radius:10px}
+
+  /* Options editor */
+  .opt{display:flex; align-items:center; gap:9px; margin-bottom:8px}
+  .opt .num{flex:none; width:1.9em; text-align:center; color:var(--muted); font-weight:700}
+  .opt input{flex:1}
+  .opt .mark{
+    flex:none; width:auto; padding:9px 12px; border-radius:10px; font-weight:800;
+    background:var(--bg); border:2px solid var(--line); color:var(--muted); white-space:nowrap;
+  }
+  .opt .mark.on{background:var(--green); color:var(--greenink); border-color:var(--green)}
+
+  .hint{color:var(--muted); font-size:.84em; margin-top:6px}
+  .warn{color:#f0b24b; font-size:.86em; margin-top:8px; font-weight:600}
+
+  /* Toast */
+  .toast{position:fixed; left:50%; bottom:22px; transform:translateX(-50%) translateY(20px); opacity:0; transition:.25s;
+    background:var(--gold); color:var(--goldink); font-weight:800; padding:12px 20px; border-radius:12px; z-index:60; box-shadow:0 10px 30px rgba(0,0,0,.5); max-width:90vw; text-align:center}
+  .toast.show{opacity:1; transform:translateX(-50%) translateY(0)}
+
+  /* Editor screen */
+  .editor-head{display:flex; align-items:center; gap:12px; margin:18px 0 6px}
+  .editor-head h2{flex:1}
+  hr.sep{border:none; border-top:2px solid var(--line); margin:16px 0}
+  .savebar{position:sticky; bottom:0; background:linear-gradient(transparent, var(--bg) 30%); padding:16px 0 6px; display:flex; gap:10px}
+  .savebar .btn{flex:1; justify-content:center}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand"><span class="dice">🎲</span><span>Quiz10<small>Kysymyseditori</small></span></div>
+  <div class="spacer"></div>
+  <button class="btn small" id="importBtn">📂 Tuo</button>
+  <button class="btn small gold" id="exportBtn">💾 Vie paketti</button>
+  <input type="file" id="fileInput" accept="application/json,.json" hidden>
+</div>
+
+<!-- MAIN LIST VIEW -->
+<div id="mainView">
+  <div class="wrap">
+    <div class="packhead">
+      <div class="field">
+        <label class="lbl" for="packName">Paketin nimi</label>
+        <input type="text" id="packName" placeholder="esim. Bar Se7en – erikoiskysymykset">
+      </div>
+      <div class="row">
+        <div class="field">
+          <label class="lbl" for="packLang">Kysymysten kieli</label>
+          <select id="packLang">
+            <option value="fi">🇫🇮 Suomi</option>
+            <option value="en">🇬🇧 English</option>
+            <option value="sv">🇸🇪 Svenska</option>
+            <option value="es">🇪🇸 Español</option>
+          </select>
+        </div>
+        <div class="field" style="display:flex; align-items:flex-end">
+          <button class="btn danger block" id="clearAllBtn">🗑 Tyhjennä kaikki</button>
+        </div>
+      </div>
+      <p class="hint">Kaikki tallentuu automaattisesti tähän laitteeseen. Kun paketti on valmis, paina <b>Vie paketti</b> ja tuo syntynyt .json-tiedosto Quiz10:een (Asetukset → Kysymykset → Lataa tiedostosta).</p>
+    </div>
+
+    <div class="tabs">
+      <div class="tab on" id="tabQuestions">Kysymykset <span class="count" id="qCount">(0)</span></div>
+      <div class="tab" id="tabCategories">Kategoriat <span class="count" id="cCount">(0)</span></div>
+    </div>
+
+    <!-- QUESTIONS PANEL -->
+    <div class="panel" id="panelQuestions">
+      <div id="questionList"></div>
+      <div class="addbar">
+        <button class="btn gold block" id="addQuestionBtn">➕ Uusi kysymys</button>
+      </div>
+    </div>
+
+    <!-- CATEGORIES PANEL -->
+    <div class="panel hidden" id="panelCategories">
+      <div id="categoryList"></div>
+      <div class="addbar">
+        <button class="btn gold block" id="addCategoryBtn">➕ Uusi kategoria</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CATEGORY EDITOR -->
+<div id="catEditor" class="hidden">
+  <div class="wrap">
+    <div class="editor-head">
+      <button class="btn small" id="catBack">‹ Takaisin</button>
+      <h2 id="catEditorTitle">Uusi kategoria</h2>
+    </div>
+    <div class="field">
+      <label class="lbl" for="catName">Kategorian nimi</label>
+      <input type="text" id="catName" placeholder="esim. Musiikki 90-luku">
+    </div>
+    <div class="field">
+      <label class="lbl">Kuvake</label>
+      <div style="display:flex; align-items:center; gap:12px">
+        <span class="emojichosen" id="catEmojiChosen">🎵</span>
+        <input type="text" id="catEmojiCustom" placeholder="tai liitä oma emoji" maxlength="4" style="flex:1; max-width:200px">
+      </div>
+      <div class="emojigrid" id="emojiGrid"></div>
+    </div>
+    <div class="savebar">
+      <button class="btn" id="catCancel">Peruuta</button>
+      <button class="btn green" id="catSave">Tallenna kategoria</button>
+    </div>
+  </div>
+</div>
+
+<!-- QUESTION EDITOR -->
+<div id="qEditor" class="hidden">
+  <div class="wrap">
+    <div class="editor-head">
+      <button class="btn small" id="qBack">‹ Takaisin</button>
+      <h2 id="qEditorTitle">Uusi kysymys</h2>
+    </div>
+    <div class="row">
+      <div class="field">
+        <label class="lbl" for="qCat">Kategoria</label>
+        <select id="qCat"></select>
+      </div>
+      <div class="field">
+        <label class="lbl" for="qDiff">Vaikeustaso</label>
+        <select id="qDiff">
+          <option value="easy">Helppo</option>
+          <option value="normal" selected>Normaali</option>
+          <option value="hard">Vaikea</option>
+        </select>
+      </div>
+    </div>
+    <div class="field">
+      <label class="lbl" for="qText">Kysymys</label>
+      <textarea id="qText" placeholder="esim. Mitkä näistä ovat 90-luvun suomalaisia yhtyeitä?"></textarea>
+    </div>
+    <hr class="sep">
+    <label class="lbl">Vaihtoehdot – merkitse oikeat vihreällä (1–9 oikeaa)</label>
+    <div id="optList"></div>
+    <p class="warn hidden" id="qWarn"></p>
+    <div class="savebar">
+      <button class="btn" id="qCancel">Peruuta</button>
+      <button class="btn green" id="qSave">Tallenna kysymys</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+"use strict";
+const $ = s => document.querySelector(s);
+const $$ = s => Array.from(document.querySelectorAll(s));
+const LS_KEY = 'quiz10_editor_pack_v1';
+const LANG_META = { fi:{flag:'🇫🇮',name:'Suomi'}, en:{flag:'🇬🇧',name:'English'}, sv:{flag:'🇸🇪',name:'Svenska'}, es:{flag:'🇪🇸',name:'Español'} };
+const DIFF_LABEL = { easy:'Helppo', normal:'Normaali', hard:'Vaikea' };
+const EMOJIS = ['🎵','🎸','🎤','🎬','📺','🎮','🎲','⚽','🏀','🏒','🎾','🏆','🌍','🗺️','🏛️','🔬','🧪','🧠','📚','✏️','🎨','🖼️','🍺','🍕','🍔','🌮','🐶','🐱','🦁','🚗','✈️','🚀','⭐','🎯','💡','🔧','⚡','🔥','❄️','🌊','🏔️','🎃','🎄','💰','👑','🗿','🧬','💊','🩺','⚓','🎖️','🏴','🎺','🥁','🎹','🍷','🥃','☕','🎳'];
+
+let pack = load() || { name:'', lang:'fi', topics:[], questions:[] };
+let editingCatId = null;
+let editingQId = null;
+let pickedEmoji = '🎵';
+
+function load(){ try{ const r=localStorage.getItem(LS_KEY); return r?JSON.parse(r):null; }catch(e){ return null; } }
+function save(){ try{ localStorage.setItem(LS_KEY, JSON.stringify(pack)); }catch(e){} }
+function uid(p){ return p + Math.random().toString(36).slice(2,8) + Date.now().toString(36).slice(-4); }
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+
+let toastT;
+function toast(msg){ const t=$('#toast'); t.textContent=msg; t.classList.add('show'); clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove('show'), 2200); }
+
+/* ---------- View switching ---------- */
+function show(view){
+  $('#mainView').classList.toggle('hidden', view!=='main');
+  $('#catEditor').classList.toggle('hidden', view!=='cat');
+  $('#qEditor').classList.toggle('hidden', view!=='q');
+  window.scrollTo(0,0);
+}
+
+/* ---------- Header fields ---------- */
+$('#packName').addEventListener('input', e=>{ pack.name=e.target.value; save(); });
+$('#packLang').addEventListener('change', e=>{ pack.lang=e.target.value; save(); });
+
+/* ---------- Tabs ---------- */
+$('#tabQuestions').addEventListener('click', ()=>switchTab('q'));
+$('#tabCategories').addEventListener('click', ()=>switchTab('c'));
+function switchTab(t){
+  $('#tabQuestions').classList.toggle('on', t==='q');
+  $('#tabCategories').classList.toggle('on', t==='c');
+  $('#panelQuestions').classList.toggle('hidden', t!=='q');
+  $('#panelCategories').classList.toggle('hidden', t!=='c');
+}
+
+/* ---------- Render main ---------- */
+function catName(key){ const c=pack.topics.find(t=>t.key===key); return c?c.name:'(poistettu kategoria)'; }
+function catIcon(key){ const c=pack.topics.find(t=>t.key===key); return c?c.icon:'❓'; }
+
+function render(){
+  $('#packName').value = pack.name||'';
+  $('#packLang').value = pack.lang||'fi';
+  $('#qCount').textContent = `(${pack.questions.length})`;
+  $('#cCount').textContent = `(${pack.topics.length})`;
+
+  // categories
+  const cl=$('#categoryList');
+  if(!pack.topics.length){
+    cl.innerHTML = `<div class="empty">Ei kategorioita vielä.<br>Luo ensin kategoria, niin voit lisätä siihen kysymyksiä.</div>`;
+  } else {
+    cl.innerHTML = pack.topics.map(t=>{
+      const n = pack.questions.filter(q=>q.topic===t.key).length;
+      return `<div class="card">
+        <span class="emoji">${esc(t.icon)}</span>
+        <div class="grow"><div class="ttl">${esc(t.name)}</div><div class="sub">${n} kysymystä</div></div>
+        <div class="acts">
+          <button class="btn small" data-editcat="${t.key}">Muokkaa</button>
+          <button class="btn small danger" data-delcat="${t.key}">Poista</button>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  // questions
+  const ql=$('#questionList');
+  if(!pack.questions.length){
+    ql.innerHTML = `<div class="empty">Ei kysymyksiä vielä.<br>Paina <b>Uusi kysymys</b> aloittaaksesi.</div>`;
+  } else {
+    ql.innerHTML = pack.questions.map(q=>{
+      const correct = q.opts.filter(o=>o.correct).length;
+      return `<div class="card">
+        <span class="emoji">${esc(catIcon(q.topic))}</span>
+        <div class="grow">
+          <div class="ttl">${esc(q.q || '(tyhjä kysymys)')}</div>
+          <div class="sub"><span class="pill">${esc(catName(q.topic))}</span><span class="pill">${DIFF_LABEL[q.d]||q.d}</span><span class="pill correct">${correct} oikein</span></div>
+        </div>
+        <div class="acts">
+          <button class="btn small" data-editq="${q.id}">Muokkaa</button>
+          <button class="btn small danger" data-delq="${q.id}">Poista</button>
+        </div>
+      </div>`;
+    }).join('');
+  }
+  save();
+}
+
+/* event delegation for list actions */
+document.addEventListener('click', e=>{
+  const b=e.target.closest('button'); if(!b) return;
+  if(b.dataset.editcat!=null) openCat(b.dataset.editcat);
+  else if(b.dataset.delcat!=null) delCat(b.dataset.delcat);
+  else if(b.dataset.editq!=null) openQ(b.dataset.editq);
+  else if(b.dataset.delq!=null) delQ(b.dataset.delq);
+});
+
+/* ---------- Category editor ---------- */
+function buildEmojiGrid(){
+  $('#emojiGrid').innerHTML = EMOJIS.map(e=>`<button data-emoji="${e}">${e}</button>`).join('');
+}
+$('#emojiGrid').addEventListener('click', e=>{
+  const b=e.target.closest('button'); if(!b) return;
+  pickedEmoji = b.dataset.emoji;
+  $('#catEmojiCustom').value='';
+  syncEmojiSel();
+});
+$('#catEmojiCustom').addEventListener('input', e=>{
+  const v=e.target.value.trim();
+  if(v){ pickedEmoji=v; }
+  syncEmojiSel();
+});
+function syncEmojiSel(){
+  $('#catEmojiChosen').textContent = pickedEmoji || '❓';
+  $$('#emojiGrid button').forEach(x=>x.classList.toggle('sel', x.dataset.emoji===pickedEmoji));
+}
+
+$('#addCategoryBtn').addEventListener('click', ()=>openCat(null));
+function openCat(key){
+  editingCatId = key;
+  const c = key ? pack.topics.find(t=>t.key===key) : null;
+  $('#catEditorTitle').textContent = c ? 'Muokkaa kategoriaa' : 'Uusi kategoria';
+  $('#catName').value = c ? c.name : '';
+  pickedEmoji = c ? c.icon : '🎵';
+  $('#catEmojiCustom').value = '';
+  syncEmojiSel();
+  show('cat');
+  setTimeout(()=>$('#catName').focus(), 60);
+}
+function closeCat(){ editingCatId=null; show('main'); render(); }
+$('#catBack').addEventListener('click', closeCat);
+$('#catCancel').addEventListener('click', closeCat);
+$('#catSave').addEventListener('click', ()=>{
+  const name = $('#catName').value.trim();
+  if(!name){ toast('Anna kategorialle nimi'); $('#catName').focus(); return; }
+  if(!pickedEmoji){ toast('Valitse kuvake'); return; }
+  if(editingCatId){
+    const c = pack.topics.find(t=>t.key===editingCatId);
+    c.name=name; c.icon=pickedEmoji;
+  } else {
+    pack.topics.push({ key:uid('cat_'), name, icon:pickedEmoji });
+  }
+  save(); toast('Kategoria tallennettu'); closeCat(); switchTab('c');
+});
+function delCat(key){
+  const n = pack.questions.filter(q=>q.topic===key).length;
+  const msg = n>0 ? `Poistetaanko kategoria ja sen ${n} kysymystä?` : 'Poistetaanko kategoria?';
+  if(!confirm(msg)) return;
+  pack.topics = pack.topics.filter(t=>t.key!==key);
+  pack.questions = pack.questions.filter(q=>q.topic!==key);
+  render(); toast('Kategoria poistettu');
+}
+
+/* ---------- Question editor ---------- */
+function buildOptRows(){
+  const wrap=$('#optList');
+  wrap.innerHTML='';
+  for(let i=0;i<10;i++){
+    const row=document.createElement('div'); row.className='opt';
+    row.innerHTML = `<span class="num">${i+1}</span>
+      <input type="text" data-opt="${i}" placeholder="Vaihtoehto ${i+1}">
+      <button class="mark" data-mark="${i}" type="button">Väärin</button>`;
+    wrap.appendChild(row);
+  }
+  wrap.addEventListener('click', e=>{
+    const b=e.target.closest('[data-mark]'); if(!b) return;
+    b.classList.toggle('on');
+    b.textContent = b.classList.contains('on') ? '✓ Oikein' : 'Väärin';
+  });
+}
+$('#addQuestionBtn').addEventListener('click', ()=>{
+  if(!pack.topics.length){ toast('Luo ensin vähintään yksi kategoria'); switchTab('c'); return; }
+  openQ(null);
+});
+function fillCatSelect(sel){
+  $('#qCat').innerHTML = pack.topics.map(t=>`<option value="${t.key}">${esc(t.icon)} ${esc(t.name)}</option>`).join('');
+  if(sel) $('#qCat').value = sel;
+}
+function openQ(id){
+  editingQId = id;
+  const q = id ? pack.questions.find(x=>x.id===id) : null;
+  $('#qEditorTitle').textContent = q ? 'Muokkaa kysymystä' : 'Uusi kysymys';
+  fillCatSelect(q ? q.topic : pack.topics[0].key);
+  $('#qDiff').value = q ? q.d : 'normal';
+  $('#qText').value = q ? q.q : '';
+  $('#qWarn').classList.add('hidden');
+  $$('#optList [data-opt]').forEach((inp,i)=>{ inp.value = q ? (q.opts[i]?.t||'') : ''; });
+  $$('#optList [data-mark]').forEach((b,i)=>{
+    const on = q ? !!q.opts[i]?.correct : false;
+    b.classList.toggle('on', on);
+    b.textContent = on ? '✓ Oikein' : 'Väärin';
+  });
+  show('q');
+  setTimeout(()=>$('#qText').focus(), 60);
+}
+function closeQ(){ editingQId=null; show('main'); render(); }
+$('#qBack').addEventListener('click', closeQ);
+$('#qCancel').addEventListener('click', closeQ);
+$('#qSave').addEventListener('click', ()=>{
+  const qtext = $('#qText').value.trim();
+  const opts = $$('#optList [data-opt]').map((inp,i)=>({
+    t: inp.value.trim(),
+    correct: $$('#optList [data-mark]')[i].classList.contains('on')
+  }));
+  const filled = opts.filter(o=>o.t);
+  const correct = opts.filter(o=>o.correct && o.t).length;
+  // validation
+  const warn = $('#qWarn');
+  if(!qtext){ toast('Kirjoita kysymys'); $('#qText').focus(); return; }
+  if(filled.length!==10){ warn.textContent=`Täytä kaikki 10 vaihtoehtoa (nyt ${filled.length}). Quiz10 näyttää aina 10 vaihtoehtoa.`; warn.classList.remove('hidden'); return; }
+  if(correct<1 || correct>9){ warn.textContent='Merkitse 1–9 vaihtoehtoa oikeaksi.'; warn.classList.remove('hidden'); return; }
+  const topic = $('#qCat').value;
+  const d = $('#qDiff').value;
+  if(editingQId){
+    const q = pack.questions.find(x=>x.id===editingQId);
+    Object.assign(q, { topic, d, q:qtext, opts });
+  } else {
+    pack.questions.push({ id:uid('q_'), topic, d, q:qtext, opts });
+  }
+  save(); toast('Kysymys tallennettu'); closeQ();
+});
+function delQ(id){
+  if(!confirm('Poistetaanko kysymys?')) return;
+  pack.questions = pack.questions.filter(q=>q.id!==id);
+  render(); toast('Kysymys poistettu');
+}
+
+/* ---------- Export to Quiz10 pack format ---------- */
+function buildQuiz10Pack(){
+  const lc = pack.lang || 'fi';
+  const meta = LANG_META[lc] || LANG_META.fi;
+  const topics = pack.topics.map(t=>{
+    const o = { key:t.key, icon:t.icon, en:t.name };
+    if(lc!=='en') o[lc]=t.name;
+    return o;
+  });
+  const questions = pack.questions.map(q=>{
+    const cat = { en:q.q };
+    if(lc!=='en') cat[lc]=q.q;
+    // options: [text, correctFlag] positional against L=[lc]
+    const o = q.opts.map(op=>[op.t, op.correct?1:0]);
+    return { topic:q.topic, d:q.d, cat, o, L:[lc] };
+  });
+  return {
+    name: pack.name || 'Omat kysymykset',
+    langs: [{ code:lc, flag:meta.flag, name:meta.name }],
+    topics,
+    questions
+  };
+}
+$('#exportBtn').addEventListener('click', ()=>{
+  if(!pack.questions.length){ toast('Lisää ainakin yksi kysymys ennen vientiä'); return; }
+  // warn about incomplete questions
+  const bad = pack.questions.filter(q=>{
+    const filled=q.opts.filter(o=>o.t).length;
+    const corr=q.opts.filter(o=>o.correct&&o.t).length;
+    return filled!==10 || corr<1 || corr>9 || !q.q;
+  });
+  if(bad.length && !confirm(`${bad.length} kysymystä on keskeneräistä (ei 10 vaihtoehtoa tai ei oikeita vastauksia). Ne jätetään pois. Jatketaanko?`)) return;
+  const out = buildQuiz10Pack();
+  out.questions = out.questions.filter(q=>{
+    const filled=q.o.filter(o=>o[0]).length;
+    const corr=q.o.filter(o=>o[o.length-1]===1 && o[0]).length;
+    return filled===10 && corr>=1 && corr<=9 && q.cat.en;
+  });
+  if(!out.questions.length){ toast('Ei valmiita kysymyksiä vietäväksi'); return; }
+  const blob = new Blob([JSON.stringify(out, null, 2)], {type:'application/json'});
+  const a = document.createElement('a');
+  const safe = (pack.name||'quiz10-paketti').replace(/[^\w\-]+/g,'_').replace(/^_+|_+$/g,'').toLowerCase() || 'quiz10-paketti';
+  a.href = URL.createObjectURL(blob);
+  a.download = safe + '.json';
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=>URL.revokeObjectURL(a.href), 4000);
+  toast(`Viety: ${out.questions.length} kysymystä`);
+});
+
+/* ---------- Import ---------- */
+$('#importBtn').addEventListener('click', ()=>$('#fileInput').click());
+$('#fileInput').addEventListener('change', e=>{
+  const f=e.target.files[0]; if(!f) return;
+  const r=new FileReader();
+  r.onload = ()=>{
+    try{
+      const data = JSON.parse(String(r.result));
+      const arr = Array.isArray(data) ? data : (data.questions||[]);
+      if(!arr.length && !(data.topics||[]).length){ toast('Tiedostossa ei ollut kysymyksiä'); return; }
+      if(!confirm('Tuonti korvaa nykyisen työn. Jatketaanko?')) return;
+      importPack(data, arr);
+      toast(`Tuotu: ${pack.questions.length} kysymystä`);
+    }catch(err){ toast('Virhe: tiedosto ei ollut kelvollinen JSON'); }
+  };
+  r.readAsText(f);
+  e.target.value='';
+});
+function importPack(data, arr){
+  // detect language
+  let lc = 'fi';
+  if(Array.isArray(data.langs) && data.langs.length){
+    const c = typeof data.langs[0]==='string' ? data.langs[0] : data.langs[0].code;
+    if(c && LANG_META[String(c).toLowerCase()]) lc=String(c).toLowerCase();
+  }
+  const langOrder = (arr[0] && Array.isArray(arr[0].L) && arr[0].L.length) ? arr[0].L : ['en','fi','es'];
+  const pick = (obj)=> obj ? (obj[lc] ?? obj.en ?? Object.values(obj)[0]) : '';
+  // topics
+  const topics = (data.topics||[]).map(t=>({
+    key: t.key || uid('cat_'),
+    name: t[lc] || t.en || t.name || t.key,
+    icon: t.icon || '📦'
+  }));
+  const topicByKey = {}; topics.forEach(t=>topicByKey[t.key]=t);
+  // questions
+  const questions = arr.map(q=>{
+    const L = (Array.isArray(q.L)&&q.L.length)?q.L:langOrder;
+    const li = Math.max(0, L.indexOf(lc));
+    const opts = (q.o||[]).map(o=>({ t:String(o[li] ?? o[0] ?? ''), correct:o[o.length-1]===1 }));
+    while(opts.length<10) opts.push({t:'',correct:false});
+    let topic = q.topic;
+    if(!topicByKey[topic]){
+      const nk = topic || uid('cat_');
+      topicByKey[nk] = { key:nk, name:(nk||'Kategoria'), icon:'📦' };
+      topics.push(topicByKey[nk]);
+      topic = nk;
+    }
+    return { id:uid('q_'), topic, d:['easy','normal','hard'].includes(q.d)?q.d:'normal', q:pick(q.cat), opts:opts.slice(0,10) };
+  });
+  pack = { name:data.name||'', lang:lc, topics, questions };
+  save(); render();
+}
+
+/* ---------- Clear ---------- */
+$('#clearAllBtn').addEventListener('click', ()=>{
+  if(!confirm('Tyhjennetäänkö koko paketti (nimi, kategoriat ja kysymykset)? Tätä ei voi perua.')) return;
+  pack = { name:'', lang:pack.lang||'fi', topics:[], questions:[] };
+  save(); render(); toast('Tyhjennetty');
+});
+
+/* ---------- Boot ---------- */
+buildEmojiGrid();
+buildOptRows();
+render();
+</script>
+</body>
+</html>
