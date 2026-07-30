@@ -186,6 +186,10 @@
     font-size:clamp(26px,3vw,40px); cursor:pointer; color:var(--ink);
   }
   body.kbd .arrow.focused{border-color:var(--focus); background:var(--panel2); transform:scale(1.08); box-shadow:0 0 0 4px rgba(255,224,138,.35)}
+  /* slider with -/+ stepper buttons (remote-friendly) */
+  .sliderwrap{display:flex; align-items:center; gap:clamp(8px,1.4vw,16px); width:min(560px,100%)}
+  .sliderwrap .slider{flex:1; width:auto}
+  .arrow.sarrow{width:clamp(46px,5.5vw,64px); height:clamp(46px,5.5vw,64px); font-size:clamp(24px,2.8vw,34px); flex:none; font-weight:800}
 
   /* GAME screen */
   #screen-game{gap:clamp(10px,1.6vh,20px)}
@@ -504,18 +508,26 @@
         <div class="set-row">
           <span class="set-label" data-i="textSize">Text &amp; card size</span>
           <div class="set-opts">
-            <div class="slider focusable" id="sizeSlider" data-role="slider">
-              <div class="track" id="sizeTrack"><div class="fill" id="sizeFill"></div><div class="thumb" id="sizeThumb"></div></div>
-              <div class="slabel" id="sizeLabel">M</div>
+            <div class="sliderwrap">
+              <button class="arrow sarrow focusable" data-action="sizeStep" data-d="-1">−</button>
+              <div class="slider focusable" id="sizeSlider" data-role="slider">
+                <div class="track" id="sizeTrack"><div class="fill" id="sizeFill"></div><div class="thumb" id="sizeThumb"></div></div>
+                <div class="slabel" id="sizeLabel">M</div>
+              </div>
+              <button class="arrow sarrow focusable" data-action="sizeStep" data-d="1">+</button>
             </div>
           </div>
         </div>
         <div class="set-row">
           <span class="set-label" data-i="edgeLabel">Fit to screen (TV)</span>
           <div class="set-opts">
-            <div class="slider focusable" id="edgeSlider" data-role="slider">
-              <div class="track" id="edgeTrack"><div class="fill" id="edgeFill"></div><div class="thumb" id="edgeThumb"></div></div>
-              <div class="slabel" id="edgeValLabel">100%</div>
+            <div class="sliderwrap">
+              <button class="arrow sarrow focusable" data-action="edgeStep" data-d="-1">−</button>
+              <div class="slider focusable" id="edgeSlider" data-role="slider">
+                <div class="track" id="edgeTrack"><div class="fill" id="edgeFill"></div><div class="thumb" id="edgeThumb"></div></div>
+                <div class="slabel" id="edgeValLabel">100%</div>
+              </div>
+              <button class="arrow sarrow focusable" data-action="edgeStep" data-d="1">+</button>
             </div>
           </div>
         </div>
@@ -564,9 +576,13 @@
         <div class="set-row">
           <span class="set-label" data-i="bgDarkLabel">Background darkness</span>
           <div class="set-opts">
-            <div class="slider focusable" id="bgDarkSlider" data-role="slider">
-              <div class="track" id="bgDarkTrack"><div class="fill" id="bgDarkFill"></div><div class="thumb" id="bgDarkThumb"></div></div>
-              <div class="slabel" id="bgDarkValLabel">78%</div>
+            <div class="sliderwrap">
+              <button class="arrow sarrow focusable" data-action="bgDarkStep" data-d="-1">−</button>
+              <div class="slider focusable" id="bgDarkSlider" data-role="slider">
+                <div class="track" id="bgDarkTrack"><div class="fill" id="bgDarkFill"></div><div class="thumb" id="bgDarkThumb"></div></div>
+                <div class="slabel" id="bgDarkValLabel">78%</div>
+              </div>
+              <button class="arrow sarrow focusable" data-action="bgDarkStep" data-d="1">+</button>
             </div>
           </div>
         </div>
@@ -1126,7 +1142,7 @@ const QUESTIONS = [
 
 const PLAYER_COLORS = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
-const APP_VERSION = '01.00.03';
+const APP_VERSION = '01.00.04';
 
 let questionsStatus = '';
 const QCACHE_KEY = 'quiz10_qcache';
@@ -2295,7 +2311,7 @@ function activate(el){
   // Text fields (e.g. question search): OK/Enter opens the on-screen keyboard
   if(el.tagName==='INPUT' && el.type==='text'){ try{ el.focus(); }catch(e){} return; }
   const a = el.dataset.action;
-  const menuSfx = ['lang','players','target','toggleDiff','toggleBase','start','again','newgame','settings','rules','menu','mainmenu','backToLang','setTheme','setLang','toggleA','toggleB','topic','confirmYes','confirmNo','settab','togglePack','deletePack','importQuestions','qbOpen','qbBack','qbDetail','qbBackList','qbToggleQ','qbFilter','chooseBg','resetBg','quitGame'];
+  const menuSfx = ['lang','players','sizeStep','edgeStep','bgDarkStep','target','toggleDiff','toggleBase','start','again','newgame','settings','rules','menu','mainmenu','backToLang','setTheme','setLang','toggleA','toggleB','topic','confirmYes','confirmNo','settab','togglePack','deletePack','importQuestions','qbOpen','qbBack','qbDetail','qbBackList','qbToggleQ','qbFilter','chooseBg','resetBg','quitGame'];
   if(menuSfx.includes(a)) sfx.select();
 
   if(a==='newgame'){
@@ -2336,6 +2352,9 @@ function activate(el){
   else if(a==='update'){ doUpdate(el); }
   else if(a==='lang'){ lang=el.dataset.lang; applyStaticText(); refreshSetup(); showScreen('screen-setup'); }
   else if(a==='players'){ numPlayers = Math.min(8, Math.max(1, numPlayers + (+el.dataset.d))); refreshSetup(); }
+  else if(a==='sizeStep'){ setSizeIndex(sizeIndex() + (+el.dataset.d)); }
+  else if(a==='edgeStep'){ setEdgeIndex(edgeIndex() + (+el.dataset.d)); }
+  else if(a==='bgDarkStep'){ setBgDarkIndex(bgDarkIndex() + (+el.dataset.d)); }
   else if(a==='target'){ target = +el.dataset.v; refreshSetup(); }
   else if(a==='toggleDiff'){
     const v = el.dataset.v;
