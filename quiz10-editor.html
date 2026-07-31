@@ -122,6 +122,22 @@
   .savebar .btn{flex:1; justify-content:center}
   .catlang{margin-bottom:9px}
   .catlang .lbl{margin-bottom:4px}
+
+  /* Left corner: flags + update + version */
+  .corner-panel{
+    position:fixed; top:76px; left:14px; z-index:15; width:150px;
+    display:flex; flex-direction:column; gap:8px; align-items:stretch;
+    background:var(--panel); border:2px solid var(--line); border-radius:14px; padding:11px;
+  }
+  .corner-panel .cp-flags{font-size:1.25em; text-align:center; letter-spacing:.08em; min-height:1.3em; font-weight:800}
+  .corner-panel .btn{justify-content:center; font-size:.8em}
+  .corner-panel .cp-ver{text-align:center; color:var(--muted); font-weight:700; font-size:.82em; letter-spacing:.5px}
+  @media(max-width:1180px){
+    .corner-panel{position:static; width:auto; flex-direction:row; align-items:center; justify-content:center;
+      max-width:820px; margin:12px auto 0; }
+    .corner-panel .cp-flags{min-height:0}
+    .corner-panel .btn{flex:none}
+  }
 </style>
 </head>
 <body>
@@ -132,6 +148,12 @@
   <button class="btn small" id="importBtn">📂 Tuo</button>
   <button class="btn small gold" id="exportBtn">💾 Vie paketti</button>
   <input type="file" id="fileInput" accept="application/json,.json" hidden>
+</div>
+
+<div class="corner-panel" id="cornerPanel">
+  <div class="cp-flags" id="cpFlags"></div>
+  <button class="btn small" id="updateBtn">🔄 Tarkista päivitykset</button>
+  <div class="cp-ver" id="cpVer">v01.00.00</div>
 </div>
 
 <!-- MAIN -->
@@ -236,9 +258,11 @@ const ALL_LANGS = [
   {code:'it',flag:'🇮🇹',name:'Italiano'}, {code:'pt',flag:'🇵🇹',name:'Português'},
   {code:'nl',flag:'🇳🇱',name:'Nederlands'}, {code:'et',flag:'🇪🇪',name:'Eesti'},
   {code:'no',flag:'🇳🇴',name:'Norsk'}, {code:'da',flag:'🇩🇰',name:'Dansk'},
-  {code:'pl',flag:'🇵🇱',name:'Polski'}, {code:'ru',flag:'🇷🇺',name:'Русский'}
+  {code:'pl',flag:'🇵🇱',name:'Polski'}
 ];
-const LMETA = {}; ALL_LANGS.forEach(l=>LMETA[l.code]=l);
+let LMETA = {};
+function rebuildLMeta(){ LMETA={}; ALL_LANGS.forEach(l=>LMETA[l.code]=l); (pack.customLangs||[]).forEach(l=>LMETA[l.code]=l); }
+function allLangList(){ return ALL_LANGS.concat(pack.customLangs||[]); }
 const DIFF_LABEL = { easy:'Helppo', normal:'Normaali', hard:'Vaikea' };
 const EMOJIS = ['🎵','🎸','🎤','🎬','📺','🎮','🎲','⚽','🏀','🏒','🎾','🏆','🌍','🗺️','🏛️','🔬','🧪','🧠','📚','✏️','🎨','🖼️','🍺','🍕','🍔','🌮','🐶','🐱','🦁','🚗','✈️','🚀','⭐','🎯','💡','🔧','⚡','🔥','❄️','🌊','🏔️','🎃','🎄','💰','👑','🗿','🧬','💊','🩺','⚓','🎖️','🏴','🎺','🥁','🎹','🍷','🥃','☕','🎳'];
 
@@ -249,7 +273,11 @@ function detectFlag(){ try{ const c=document.createElement('canvas'); c.width=20
   for(let i=0;i<d.length;i+=4){const r=d[i],g=d[i+1],b=d[i+2],a=d[i+3]; if(a>0&&((b>90&&r<90)||(r>150&&g>120&&b<90)))n++;} return n>4; }catch(e){return false;} }
 function fl(code){ return FLAG_OK ? (LMETA[code]?LMETA[code].flag:'🏳️') : ''; }
 
-let pack = migrate(load()) || { name:'', langs:['fi'], topics:[], questions:[] };
+const EDITOR_VERSION = '01.00.00';
+
+let pack = migrate(load()) || { name:'', langs:['fi','en','es'], customLangs:[], topics:[], questions:[] };
+if(!pack.customLangs) pack.customLangs = [];
+rebuildLMeta();
 let editingCatId=null, editingQId=null, pickedEmoji='🎵';
 let qActiveLang='fi', qDraft=null;
 
@@ -262,7 +290,7 @@ let toastT; function toast(m){ const t=$('#toast'); t.textContent=m; t.classList
 // migrate old single-language format (v1) to multilingual (v2)
 function migrate(p){
   if(!p) return p;
-  if(Array.isArray(p.langs) && p.topics && p.topics[0] && p.topics[0].names) return p; // already v2
+  if(Array.isArray(p.langs) && p.topics && p.topics[0] && p.topics[0].names){ if(!p.customLangs)p.customLangs=[]; return p; } // already v2
   const lc = p.lang || 'fi';
   const topics = (p.topics||[]).map(t=>({ key:t.key, icon:t.icon, names:{[lc]: t.name||''} }));
   const questions = (p.questions||[]).map(q=>({
@@ -270,7 +298,7 @@ function migrate(p){
     q:{[lc]: q.q||''},
     opts:(q.opts||[]).map(o=>({ t:{[lc]: o.t||''}, correct:!!o.correct }))
   }));
-  return { name:p.name||'', langs:[lc], topics, questions };
+  return { name:p.name||'', langs:[lc], customLangs:[], topics, questions };
 }
 
 function show(v){ $('#mainView').classList.toggle('hidden',v!=='main'); $('#catEditor').classList.toggle('hidden',v!=='cat'); $('#qEditor').classList.toggle('hidden',v!=='q'); window.scrollTo(0,0); }
@@ -278,13 +306,19 @@ function show(v){ $('#mainView').classList.toggle('hidden',v!=='main'); $('#catE
 /* header */
 $('#packName').addEventListener('input', e=>{ pack.name=e.target.value; save(); });
 function renderLangChips(){
-  $('#langChips').innerHTML = ALL_LANGS.map(l=>
-    `<button class="langchip ${pack.langs.includes(l.code)?'on':''}" data-lang="${l.code}"><span class="fl">${l.flag}</span>${esc(l.name)}</button>`
-  ).join('');
+  const chips = allLangList().map(l=>{
+    const custom = (pack.customLangs||[]).some(c=>c.code===l.code);
+    return `<button class="langchip ${pack.langs.includes(l.code)?'on':''}" data-lang="${l.code}"><span class="fl">${l.flag}</span>${esc(l.name)}${custom?' <span style="opacity:.6">✎</span>':''}</button>`;
+  }).join('');
+  $('#langChips').innerHTML = chips + `<button class="langchip" id="addLangChip" style="border-style:dashed">➕ Lisää oma kieli</button>`;
+  if(typeof renderCornerFlags==='function') renderCornerFlags();
 }
 $('#langChips').addEventListener('click', e=>{
+  if(e.target.closest('#addLangChip')){ openAddLang(); return; }
   const b=e.target.closest('[data-lang]'); if(!b) return;
   const code=b.dataset.lang;
+  const isCustom = (pack.customLangs||[]).some(c=>c.code===code);
+  // long-press style: if custom and already selected, offer to remove the custom language itself
   if(pack.langs.includes(code)){
     if(pack.langs.length===1){ toast('Paketissa on oltava vähintään yksi kieli'); return; }
     pack.langs = pack.langs.filter(c=>c!==code);
@@ -293,6 +327,24 @@ $('#langChips').addEventListener('click', e=>{
   }
   save(); renderLangChips();
 });
+
+/* Add / remove custom language */
+function openAddLang(){
+  const name = prompt('Kielen nimi (esim. Klingon):','');
+  if(name==null) return;
+  const nm = name.trim(); if(!nm){ toast('Anna kielelle nimi'); return; }
+  let code = prompt('Kielikoodi – 2 tai 3 pientä kirjainta (esim. tlh):','');
+  if(code==null) return;
+  code = code.trim().toLowerCase();
+  if(!/^[a-z]{2,3}$/.test(code)){ toast('Koodin pitää olla 2–3 kirjainta (a–z)'); return; }
+  if(LMETA[code]){ toast('Tuo koodi on jo käytössä'); return; }
+  let flag = prompt('Lippu tai kuvake (emoji, esim. 🖖). Voit jättää tyhjäksi:','');
+  flag = (flag||'').trim() || '🏳️';
+  pack.customLangs.push({ code, name:nm, flag });
+  if(!pack.langs.includes(code)) pack.langs.push(code);
+  rebuildLMeta(); save(); renderLangChips();
+  toast(`Lisätty kieli: ${nm}`);
+}
 
 /* tabs */
 $('#tabQuestions').addEventListener('click', ()=>switchTab('q'));
@@ -553,9 +605,39 @@ $('#clearAllBtn').addEventListener('click', ()=>{
   pack={ name:'', langs:pack.langs.slice(), topics:[], questions:[] }; save(); render(); toast('Tyhjennetty');
 });
 
+/* corner panel: flag row + update */
+function renderCornerFlags(){
+  const el = $('#cpFlags'); if(!el) return;
+  el.innerHTML = pack.langs.map(c=>{
+    const m = LMETA[c]; const flag = m ? m.flag : '🏳️';
+    return FLAG_OK ? flag : `<span style="color:var(--gold)">${(c||'').toUpperCase()}</span>`;
+  }).join(FLAG_OK ? ' ' : ' ');
+}
+let updating=false;
+async function checkUpdate(){
+  if(updating) return; updating=true;
+  const btn=$('#updateBtn'); const old=btn.textContent; btn.textContent='Tarkistetaan…';
+  try{
+    const r = await fetch('editor-version.json?ts='+Date.now(), {cache:'no-store'});
+    const info = await r.json();
+    const remote = String(info && info.version || '');
+    if(remote && remote!==EDITOR_VERSION){
+      toast('Uusi versio '+remote+' – päivitetään…');
+      setTimeout(()=>{ location.replace(location.pathname + '?v=' + encodeURIComponent(remote)); }, 700);
+      return;
+    }
+    toast('Sinulla on uusin versio ('+EDITOR_VERSION+')');
+  }catch(e){
+    toast('Päivitystä ei voitu tarkistaa (oletko verkossa?)');
+  }
+  btn.textContent=old; updating=false;
+}
+$('#updateBtn').addEventListener('click', checkUpdate);
+
 /* boot */
 FLAG_OK = detectFlag();
-buildEmojiGrid(); buildOptRows(); render();
+$('#cpVer').textContent = 'v'+EDITOR_VERSION;
+buildEmojiGrid(); buildOptRows(); render(); renderCornerFlags();
 </script>
 </body>
 </html>
