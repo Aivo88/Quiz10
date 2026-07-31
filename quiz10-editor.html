@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>Quiz10 – Kysymyseditori</title>
+<title>Pub Quiz – Editori</title>
 <style>
   :root{
     --bg:#191410; --panel:#241c15; --panel2:#2f2418; --line:#463726;
@@ -134,7 +134,7 @@
 <body>
 
 <div class="topbar">
-  <div class="brand"><span class="dice">🎲</span><span>Quiz10<small>Kysymyseditori</small></span></div>
+  <div class="brand"><span class="dice">🎲</span><span>Pub Quiz<small>Editori</small></span></div>
   <div class="spacer"></div>
   <button class="btn small" id="importBtn">📂 Tuo</button>
   <button class="btn small gold" id="exportBtn">💾 Vie paketti</button>
@@ -163,7 +163,7 @@
           <button class="btn danger block" id="clearAllBtn">🗑 Tyhjennä kaikki</button>
         </div>
       </div>
-      <p class="hint">Kaikki tallentuu automaattisesti tähän laitteeseen. Kun paketti on valmis, paina <b>Vie paketti</b> ja tuo syntynyt .json-tiedosto Quiz10:een (Asetukset → Kysymykset → Lataa tiedostosta).</p>
+      <p class="hint">Kaikki tallentuu automaattisesti tähän laitteeseen. Kun paketti on valmis, paina <b>Vie paketti</b> ja tuo syntynyt .json-tiedosto Pub Quiz -peliin (Asetukset → Kysymykset → Lataa tiedostosta).</p>
     </div>
 
     <div class="tabs">
@@ -471,7 +471,7 @@ $('#qSave').addEventListener('click', ()=>{
   // validation
   const warn = $('#qWarn');
   if(!qtext){ toast('Kirjoita kysymys'); $('#qText').focus(); return; }
-  if(filled.length!==10){ warn.textContent=`Täytä kaikki 10 vaihtoehtoa (nyt ${filled.length}). Quiz10 näyttää aina 10 vaihtoehtoa.`; warn.classList.remove('hidden'); return; }
+  if(filled.length!==10){ warn.textContent=`Täytä kaikki 10 vaihtoehtoa (nyt ${filled.length}). Peli näyttää aina 10 vaihtoehtoa.`; warn.classList.remove('hidden'); return; }
   if(correct<1 || correct>9){ warn.textContent='Merkitse 1–9 vaihtoehtoa oikeaksi.'; warn.classList.remove('hidden'); return; }
   const topic = $('#qCat').value;
   const d = $('#qDiff').value;
