@@ -13,8 +13,7 @@
   *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
   html,body{margin:0}
   body{
-    background:
-      radial-gradient(120% 80% at 50% -10%, #2c2115 0%, var(--bg) 60%);
+    background:radial-gradient(120% 80% at 50% -10%, #2c2115 0%, var(--bg) 60%);
     color:var(--ink); font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
     font-size:calc(17px*var(--fs)); line-height:1.4; padding:0 0 90px; min-height:100vh;
   }
@@ -22,7 +21,6 @@
   button{font-family:inherit; font-size:1em; cursor:pointer}
   input,select,textarea{font-family:inherit; font-size:1em}
 
-  /* Top bar */
   .topbar{
     position:sticky; top:0; z-index:20; background:rgba(25,20,16,.96);
     backdrop-filter:blur(6px); border-bottom:2px solid var(--line);
@@ -32,10 +30,8 @@
   .brand .dice{font-size:1.4em}
   .brand small{color:var(--gold); font-weight:700; font-size:.62em; letter-spacing:1px; text-transform:uppercase; display:block; margin-top:-2px}
   .spacer{flex:1}
-
   .wrap{max-width:820px; margin:0 auto; padding:0 clamp(12px,4vw,24px)}
 
-  /* Buttons */
   .btn{
     background:var(--panel); color:var(--ink); border:2px solid var(--line);
     border-radius:12px; padding:11px 16px; font-weight:700; transition:.12s;
@@ -49,86 +45,83 @@
   .btn.danger:hover{border-color:var(--red); background:#2a1917}
   .btn.small{padding:7px 11px; font-size:.85em; border-radius:9px}
   .btn.block{width:100%; justify-content:center}
-  .btn:disabled{opacity:.4; cursor:not-allowed}
 
-  /* Pack header */
   .packhead{margin-top:18px; background:var(--panel); border:2px solid var(--line); border-radius:16px; padding:16px}
-  .field{margin-bottom:12px}
+  .field{margin-bottom:14px}
   .field:last-child{margin-bottom:0}
   label.lbl{display:block; color:var(--muted); font-weight:700; font-size:.82em; text-transform:uppercase; letter-spacing:.5px; margin-bottom:6px}
   input[type=text], select, textarea{
     width:100%; background:var(--bg); color:var(--ink); border:2px solid var(--line);
     border-radius:10px; padding:11px 13px; outline:none;
   }
-  input[type=text]:focus, select, textarea:focus{border-color:var(--gold)}
+  input[type=text]:focus, select:focus, textarea:focus{border-color:var(--gold)}
   textarea{resize:vertical; min-height:64px}
   .row{display:flex; gap:10px; flex-wrap:wrap}
   .row > *{flex:1; min-width:140px}
 
-  /* Tabs */
-  .tabs{display:flex; gap:8px; margin:18px 0 4px}
-  .tab{
-    flex:1; background:var(--panel); border:2px solid var(--line); color:var(--muted);
-    border-radius:12px; padding:12px; font-weight:800; text-align:center;
+  /* language chooser chips */
+  .langchips{display:flex; flex-wrap:wrap; gap:8px}
+  .langchip{
+    background:var(--bg); border:2px solid var(--line); color:var(--muted);
+    border-radius:999px; padding:8px 14px; font-weight:700; display:inline-flex; gap:6px; align-items:center;
   }
-  .tab.on{background:var(--gold); color:var(--goldink); border-color:var(--gold)}
-  .tab .count{opacity:.75; font-weight:700}
+  .langchip.on{background:var(--gold); color:var(--goldink); border-color:var(--gold)}
+  .langchip .fl{font-size:1.05em}
 
+  .tabs{display:flex; gap:8px; margin:18px 0 4px}
+  .tab{flex:1; background:var(--panel); border:2px solid var(--line); color:var(--muted); border-radius:12px; padding:12px; font-weight:800; text-align:center}
+  .tab.on{background:var(--gold); color:var(--goldink); border-color:var(--gold)}
+  .tab .count{opacity:.75}
   .panel{margin-top:14px}
   .hidden{display:none !important}
 
-  /* List cards */
-  .card{
-    background:var(--panel); border:2px solid var(--line); border-radius:14px;
-    padding:13px 14px; margin-bottom:10px; display:flex; align-items:center; gap:13px;
-  }
+  .card{background:var(--panel); border:2px solid var(--line); border-radius:14px; padding:13px 14px; margin-bottom:10px; display:flex; align-items:center; gap:13px}
   .card .emoji{font-size:1.7em; flex:none; width:1.6em; text-align:center}
   .card .grow{flex:1; min-width:0}
   .card .ttl{font-weight:700; word-break:break-word}
-  .card .sub{color:var(--muted); font-size:.82em; margin-top:2px}
+  .card .sub{color:var(--muted); font-size:.82em; margin-top:3px}
   .card .acts{display:flex; gap:7px; flex:none; flex-wrap:wrap; justify-content:flex-end}
-  @media(max-width:540px){
-    .card{flex-wrap:wrap}
-    .card .acts{width:100%; margin-top:4px}
-  }
-  .pill{display:inline-block; background:var(--panel2); border:1px solid var(--line); border-radius:999px; padding:1px 9px; font-size:.76em; color:var(--muted); margin-right:5px}
+  @media(max-width:560px){ .card{flex-wrap:wrap} .card .acts{width:100%; margin-top:4px} }
+  .pill{display:inline-block; background:var(--panel2); border:1px solid var(--line); border-radius:999px; padding:1px 9px; font-size:.76em; color:var(--muted); margin:2px 5px 0 0}
   .pill.correct{color:var(--green); border-color:#2f5a3f}
+  .pill.warn{color:#f0b24b; border-color:#6a5220}
 
   .empty{color:var(--muted); text-align:center; padding:34px 16px; border:2px dashed var(--line); border-radius:14px; line-height:1.6}
-
   .addbar{position:sticky; bottom:0; padding:14px 0 4px; background:linear-gradient(transparent, var(--bg) 34%)}
 
-  /* Emoji picker */
   .emojigrid{display:grid; grid-template-columns:repeat(auto-fill, minmax(46px,1fr)); gap:6px; margin-top:8px; max-height:180px; overflow:auto; padding:4px; background:var(--bg); border:2px solid var(--line); border-radius:10px}
   .emojigrid button{background:transparent; border:2px solid transparent; border-radius:9px; padding:6px 0; font-size:1.5em}
   .emojigrid button:hover{border-color:var(--line)}
   .emojigrid button.sel{border-color:var(--gold); background:var(--panel2)}
   .emojichosen{display:inline-flex; align-items:center; justify-content:center; width:2em; height:2em; font-size:1.5em; background:var(--bg); border:2px solid var(--gold); border-radius:10px}
 
-  /* Options editor */
+  /* language tabs inside editor */
+  .langtabs{display:flex; flex-wrap:wrap; gap:7px; margin-bottom:12px}
+  .langtab{background:var(--panel); border:2px solid var(--line); color:var(--muted); border-radius:10px; padding:8px 13px; font-weight:800; display:inline-flex; gap:6px; align-items:center}
+  .langtab.on{background:var(--panel2); color:var(--ink); border-color:var(--gold)}
+  .langtab .dot{width:8px; height:8px; border-radius:50%; background:#6a5220}
+  .langtab.done .dot{background:var(--green)}
+
   .opt{display:flex; align-items:center; gap:9px; margin-bottom:8px}
   .opt .num{flex:none; width:1.9em; text-align:center; color:var(--muted); font-weight:700}
   .opt input{flex:1}
-  .opt .mark{
-    flex:none; width:auto; padding:9px 12px; border-radius:10px; font-weight:800;
-    background:var(--bg); border:2px solid var(--line); color:var(--muted); white-space:nowrap;
-  }
+  .opt .mark{flex:none; padding:9px 12px; border-radius:10px; font-weight:800; background:var(--bg); border:2px solid var(--line); color:var(--muted); white-space:nowrap}
   .opt .mark.on{background:var(--green); color:var(--greenink); border-color:var(--green)}
 
-  .hint{color:var(--muted); font-size:.84em; margin-top:6px}
+  .hint{color:var(--muted); font-size:.84em; margin-top:10px; line-height:1.55}
   .warn{color:#f0b24b; font-size:.86em; margin-top:8px; font-weight:600}
 
-  /* Toast */
   .toast{position:fixed; left:50%; bottom:22px; transform:translateX(-50%) translateY(20px); opacity:0; transition:.25s;
     background:var(--gold); color:var(--goldink); font-weight:800; padding:12px 20px; border-radius:12px; z-index:60; box-shadow:0 10px 30px rgba(0,0,0,.5); max-width:90vw; text-align:center}
   .toast.show{opacity:1; transform:translateX(-50%) translateY(0)}
 
-  /* Editor screen */
-  .editor-head{display:flex; align-items:center; gap:12px; margin:18px 0 6px}
+  .editor-head{display:flex; align-items:center; gap:12px; margin:18px 0 12px}
   .editor-head h2{flex:1}
   hr.sep{border:none; border-top:2px solid var(--line); margin:16px 0}
   .savebar{position:sticky; bottom:0; background:linear-gradient(transparent, var(--bg) 30%); padding:16px 0 6px; display:flex; gap:10px}
   .savebar .btn{flex:1; justify-content:center}
+  .catlang{margin-bottom:9px}
+  .catlang .lbl{margin-bottom:4px}
 </style>
 </head>
 <body>
@@ -141,7 +134,7 @@
   <input type="file" id="fileInput" accept="application/json,.json" hidden>
 </div>
 
-<!-- MAIN LIST VIEW -->
+<!-- MAIN -->
 <div id="mainView">
   <div class="wrap">
     <div class="packhead">
@@ -149,21 +142,14 @@
         <label class="lbl" for="packName">Paketin nimi</label>
         <input type="text" id="packName" placeholder="">
       </div>
-      <div class="row">
-        <div class="field">
-          <label class="lbl" for="packLang">Kysymysten kieli</label>
-          <select id="packLang">
-            <option value="fi">🇫🇮 Suomi</option>
-            <option value="en">🇬🇧 English</option>
-            <option value="sv">🇸🇪 Svenska</option>
-            <option value="es">🇪🇸 Español</option>
-          </select>
-        </div>
-        <div class="field" style="display:flex; align-items:flex-end">
-          <button class="btn danger block" id="clearAllBtn">🗑 Tyhjennä kaikki</button>
-        </div>
+      <div class="field">
+        <label class="lbl">Paketin kielet — valitse mitkä kielet paketti sisältää</label>
+        <div class="langchips" id="langChips"></div>
       </div>
-      <p class="hint">Kaikki tallentuu automaattisesti tähän laitteeseen. Kun paketti on valmis, paina <b>Vie paketti</b> ja tuo syntynyt .json-tiedosto Pub Quiz -peliin (Asetukset → Kysymykset → Lataa tiedostosta).</p>
+      <div class="field">
+        <button class="btn danger block" id="clearAllBtn">🗑 Tyhjennä kaikki</button>
+      </div>
+      <p class="hint">Kirjoita jokainen kysymys valitsemillasi kielillä (kielivälilehdet kysymysnäkymässä). Kun paketti on valmis, paina <b>Vie paketti</b> ja tuo .json Pub Quiz -peliin (Asetukset → Kysymykset → Lataa tiedostosta). Jos paketissa on peliin uusi kieli, se lisätään pelin kielivalikkoon automaattisesti.</p>
     </div>
 
     <div class="tabs">
@@ -171,20 +157,14 @@
       <div class="tab" id="tabCategories">Kategoriat <span class="count" id="cCount">(0)</span></div>
     </div>
 
-    <!-- QUESTIONS PANEL -->
     <div class="panel" id="panelQuestions">
       <div id="questionList"></div>
-      <div class="addbar">
-        <button class="btn gold block" id="addQuestionBtn">➕ Uusi kysymys</button>
-      </div>
+      <div class="addbar"><button class="btn gold block" id="addQuestionBtn">➕ Uusi kysymys</button></div>
     </div>
 
-    <!-- CATEGORIES PANEL -->
     <div class="panel hidden" id="panelCategories">
       <div id="categoryList"></div>
-      <div class="addbar">
-        <button class="btn gold block" id="addCategoryBtn">➕ Uusi kategoria</button>
-      </div>
+      <div class="addbar"><button class="btn gold block" id="addCategoryBtn">➕ Uusi kategoria</button></div>
     </div>
   </div>
 </div>
@@ -196,9 +176,9 @@
       <button class="btn small" id="catBack">‹ Takaisin</button>
       <h2 id="catEditorTitle">Uusi kategoria</h2>
     </div>
-    <div class="field">
-      <label class="lbl" for="catName">Kategorian nimi</label>
-      <input type="text" id="catName" placeholder="">
+    <div class="field" id="catNameFields">
+      <label class="lbl">Kategorian nimi (jokaisella kielellä)</label>
+      <div id="catNameInputs"></div>
     </div>
     <div class="field">
       <label class="lbl">Kuvake</label>
@@ -223,25 +203,16 @@
       <h2 id="qEditorTitle">Uusi kysymys</h2>
     </div>
     <div class="row">
-      <div class="field">
-        <label class="lbl" for="qCat">Kategoria</label>
-        <select id="qCat"></select>
-      </div>
-      <div class="field">
-        <label class="lbl" for="qDiff">Vaikeustaso</label>
-        <select id="qDiff">
-          <option value="easy">Helppo</option>
-          <option value="normal" selected>Normaali</option>
-          <option value="hard">Vaikea</option>
-        </select>
-      </div>
+      <div class="field"><label class="lbl" for="qCat">Kategoria</label><select id="qCat"></select></div>
+      <div class="field"><label class="lbl" for="qDiff">Vaikeustaso</label>
+        <select id="qDiff"><option value="easy">Helppo</option><option value="normal" selected>Normaali</option><option value="hard">Vaikea</option></select></div>
     </div>
-    <div class="field">
-      <label class="lbl" for="qText">Kysymys</label>
-      <textarea id="qText" placeholder=""></textarea>
-    </div>
+    <label class="lbl">Kieli — täytä kysymys jokaisella kielellä</label>
+    <div class="langtabs" id="qLangTabs"></div>
+    <div class="field"><label class="lbl" for="qText">Kysymys (<span id="qActiveLangName"></span>)</label><textarea id="qText" placeholder=""></textarea></div>
     <hr class="sep">
-    <label class="lbl">Vaihtoehdot – merkitse oikeat vihreällä (1–9 oikeaa)</label>
+    <label class="lbl">Vaihtoehdot (<span id="qActiveLangName2"></span>) — merkitse oikeat vihreällä (1–9 oikeaa)</label>
+    <p class="hint" style="margin-top:2px">Oikein/väärin on sama kaikilla kielillä — käännä vain tekstit.</p>
     <div id="optList"></div>
     <p class="warn hidden" id="qWarn"></p>
     <div class="savebar">
@@ -257,351 +228,334 @@
 "use strict";
 const $ = s => document.querySelector(s);
 const $$ = s => Array.from(document.querySelectorAll(s));
-const LS_KEY = 'quiz10_editor_pack_v1';
-const LANG_META = { fi:{flag:'🇫🇮',name:'Suomi'}, en:{flag:'🇬🇧',name:'English'}, sv:{flag:'🇸🇪',name:'Svenska'}, es:{flag:'🇪🇸',name:'Español'} };
+const LS_KEY = 'pubquiz_editor_pack_v2';
+const ALL_LANGS = [
+  {code:'fi',flag:'🇫🇮',name:'Suomi'}, {code:'en',flag:'🇬🇧',name:'English'},
+  {code:'sv',flag:'🇸🇪',name:'Svenska'}, {code:'es',flag:'🇪🇸',name:'Español'},
+  {code:'de',flag:'🇩🇪',name:'Deutsch'}, {code:'fr',flag:'🇫🇷',name:'Français'},
+  {code:'it',flag:'🇮🇹',name:'Italiano'}, {code:'pt',flag:'🇵🇹',name:'Português'},
+  {code:'nl',flag:'🇳🇱',name:'Nederlands'}, {code:'et',flag:'🇪🇪',name:'Eesti'},
+  {code:'no',flag:'🇳🇴',name:'Norsk'}, {code:'da',flag:'🇩🇰',name:'Dansk'},
+  {code:'pl',flag:'🇵🇱',name:'Polski'}, {code:'ru',flag:'🇷🇺',name:'Русский'}
+];
+const LMETA = {}; ALL_LANGS.forEach(l=>LMETA[l.code]=l);
 const DIFF_LABEL = { easy:'Helppo', normal:'Normaali', hard:'Vaikea' };
 const EMOJIS = ['🎵','🎸','🎤','🎬','📺','🎮','🎲','⚽','🏀','🏒','🎾','🏆','🌍','🗺️','🏛️','🔬','🧪','🧠','📚','✏️','🎨','🖼️','🍺','🍕','🍔','🌮','🐶','🐱','🦁','🚗','✈️','🚀','⭐','🎯','💡','🔧','⚡','🔥','❄️','🌊','🏔️','🎃','🎄','💰','👑','🗿','🧬','💊','🩺','⚓','🎖️','🏴','🎺','🥁','🎹','🍷','🥃','☕','🎳'];
 
-let pack = load() || { name:'', lang:'fi', topics:[], questions:[] };
-let editingCatId = null;
-let editingQId = null;
-let pickedEmoji = '🎵';
+// Windows can't draw flag emoji; keep the name so tabs stay readable either way.
+let FLAG_OK = true;
+function detectFlag(){ try{ const c=document.createElement('canvas'); c.width=20;c.height=16; const x=c.getContext('2d'); if(!x)return false;
+  x.textBaseline='top'; x.font='16px sans-serif'; x.fillText('🇸🇪',-2,0); const d=x.getImageData(0,0,20,16).data; let n=0;
+  for(let i=0;i<d.length;i+=4){const r=d[i],g=d[i+1],b=d[i+2],a=d[i+3]; if(a>0&&((b>90&&r<90)||(r>150&&g>120&&b<90)))n++;} return n>4; }catch(e){return false;} }
+function fl(code){ return FLAG_OK ? (LMETA[code]?LMETA[code].flag:'🏳️') : ''; }
 
-function load(){ try{ const r=localStorage.getItem(LS_KEY); return r?JSON.parse(r):null; }catch(e){ return null; } }
+let pack = migrate(load()) || { name:'', langs:['fi'], topics:[], questions:[] };
+let editingCatId=null, editingQId=null, pickedEmoji='🎵';
+let qActiveLang='fi', qDraft=null;
+
+function load(){ try{ const r=localStorage.getItem(LS_KEY)||localStorage.getItem('quiz10_editor_pack_v1'); return r?JSON.parse(r):null; }catch(e){return null;} }
 function save(){ try{ localStorage.setItem(LS_KEY, JSON.stringify(pack)); }catch(e){} }
-function uid(p){ return p + Math.random().toString(36).slice(2,8) + Date.now().toString(36).slice(-4); }
-function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function uid(p){ return p+Math.random().toString(36).slice(2,7)+Date.now().toString(36).slice(-4); }
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+let toastT; function toast(m){ const t=$('#toast'); t.textContent=m; t.classList.add('show'); clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove('show'),2300); }
 
-let toastT;
-function toast(msg){ const t=$('#toast'); t.textContent=msg; t.classList.add('show'); clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove('show'), 2200); }
-
-/* ---------- View switching ---------- */
-function show(view){
-  $('#mainView').classList.toggle('hidden', view!=='main');
-  $('#catEditor').classList.toggle('hidden', view!=='cat');
-  $('#qEditor').classList.toggle('hidden', view!=='q');
-  window.scrollTo(0,0);
+// migrate old single-language format (v1) to multilingual (v2)
+function migrate(p){
+  if(!p) return p;
+  if(Array.isArray(p.langs) && p.topics && p.topics[0] && p.topics[0].names) return p; // already v2
+  const lc = p.lang || 'fi';
+  const topics = (p.topics||[]).map(t=>({ key:t.key, icon:t.icon, names:{[lc]: t.name||''} }));
+  const questions = (p.questions||[]).map(q=>({
+    id:q.id, topic:q.topic, d:q.d,
+    q:{[lc]: q.q||''},
+    opts:(q.opts||[]).map(o=>({ t:{[lc]: o.t||''}, correct:!!o.correct }))
+  }));
+  return { name:p.name||'', langs:[lc], topics, questions };
 }
 
-/* ---------- Header fields ---------- */
-$('#packName').addEventListener('input', e=>{ pack.name=e.target.value; save(); });
-$('#packLang').addEventListener('change', e=>{ pack.lang=e.target.value; save(); });
+function show(v){ $('#mainView').classList.toggle('hidden',v!=='main'); $('#catEditor').classList.toggle('hidden',v!=='cat'); $('#qEditor').classList.toggle('hidden',v!=='q'); window.scrollTo(0,0); }
 
-/* ---------- Tabs ---------- */
+/* header */
+$('#packName').addEventListener('input', e=>{ pack.name=e.target.value; save(); });
+function renderLangChips(){
+  $('#langChips').innerHTML = ALL_LANGS.map(l=>
+    `<button class="langchip ${pack.langs.includes(l.code)?'on':''}" data-lang="${l.code}"><span class="fl">${l.flag}</span>${esc(l.name)}</button>`
+  ).join('');
+}
+$('#langChips').addEventListener('click', e=>{
+  const b=e.target.closest('[data-lang]'); if(!b) return;
+  const code=b.dataset.lang;
+  if(pack.langs.includes(code)){
+    if(pack.langs.length===1){ toast('Paketissa on oltava vähintään yksi kieli'); return; }
+    pack.langs = pack.langs.filter(c=>c!==code);
+  } else {
+    pack.langs.push(code);
+  }
+  save(); renderLangChips();
+});
+
+/* tabs */
 $('#tabQuestions').addEventListener('click', ()=>switchTab('q'));
 $('#tabCategories').addEventListener('click', ()=>switchTab('c'));
-function switchTab(t){
-  $('#tabQuestions').classList.toggle('on', t==='q');
-  $('#tabCategories').classList.toggle('on', t==='c');
-  $('#panelQuestions').classList.toggle('hidden', t!=='q');
-  $('#panelCategories').classList.toggle('hidden', t!=='c');
-}
+function switchTab(t){ $('#tabQuestions').classList.toggle('on',t==='q'); $('#tabCategories').classList.toggle('on',t==='c');
+  $('#panelQuestions').classList.toggle('hidden',t!=='q'); $('#panelCategories').classList.toggle('hidden',t!=='c'); }
 
-/* ---------- Render main ---------- */
-function catName(key){ const c=pack.topics.find(t=>t.key===key); return c?c.name:'(poistettu kategoria)'; }
+/* helpers */
+function firstLang(){ return pack.langs[0]||'fi'; }
+function catName(key){ const c=pack.topics.find(t=>t.key===key); if(!c) return '(poistettu)'; return c.names[firstLang()]||c.names[Object.keys(c.names)[0]]||'(nimetön)'; }
 function catIcon(key){ const c=pack.topics.find(t=>t.key===key); return c?c.icon:'❓'; }
+function qFilledLangs(q){ return pack.langs.filter(c => (q.q[c]||'').trim() && q.opts.length===10 && q.opts.every(o=>(o.t[c]||'').trim())); }
 
 function render(){
   $('#packName').value = pack.name||'';
-  $('#packLang').value = pack.lang||'fi';
-  $('#qCount').textContent = `(${pack.questions.length})`;
-  $('#cCount').textContent = `(${pack.topics.length})`;
+  renderLangChips();
+  $('#qCount').textContent=`(${pack.questions.length})`;
+  $('#cCount').textContent=`(${pack.topics.length})`;
 
-  // categories
   const cl=$('#categoryList');
-  if(!pack.topics.length){
-    cl.innerHTML = `<div class="empty">Ei kategorioita vielä.<br>Luo ensin kategoria, niin voit lisätä siihen kysymyksiä.</div>`;
-  } else {
-    cl.innerHTML = pack.topics.map(t=>{
-      const n = pack.questions.filter(q=>q.topic===t.key).length;
-      return `<div class="card">
-        <span class="emoji">${esc(t.icon)}</span>
-        <div class="grow"><div class="ttl">${esc(t.name)}</div><div class="sub">${n} kysymystä</div></div>
-        <div class="acts">
-          <button class="btn small green" data-addq="${t.key}">➕ Kysymys</button>
+  cl.innerHTML = !pack.topics.length
+    ? `<div class="empty">Ei kategorioita vielä.<br>Luo ensin kategoria, niin voit lisätä siihen kysymyksiä.</div>`
+    : pack.topics.map(t=>{
+        const n=pack.questions.filter(q=>q.topic===t.key).length;
+        return `<div class="card"><span class="emoji">${esc(t.icon)}</span>
+          <div class="grow"><div class="ttl">${esc(catName(t.key))}</div><div class="sub">${n} kysymystä</div></div>
+          <div class="acts"><button class="btn small green" data-addq="${t.key}">➕ Kysymys</button>
           <button class="btn small" data-editcat="${t.key}">Muokkaa</button>
-          <button class="btn small danger" data-delcat="${t.key}">Poista</button>
-        </div>
-      </div>`;
-    }).join('');
-  }
+          <button class="btn small danger" data-delcat="${t.key}">Poista</button></div></div>`;
+      }).join('');
 
-  // questions
   const ql=$('#questionList');
-  if(!pack.questions.length){
-    ql.innerHTML = `<div class="empty">Ei kysymyksiä vielä.<br>Paina <b>Uusi kysymys</b> aloittaaksesi.</div>`;
-  } else {
-    ql.innerHTML = pack.questions.map(q=>{
-      const correct = q.opts.filter(o=>o.correct).length;
-      return `<div class="card">
-        <span class="emoji">${esc(catIcon(q.topic))}</span>
-        <div class="grow">
-          <div class="ttl">${esc(q.q || '(tyhjä kysymys)')}</div>
-          <div class="sub"><span class="pill">${esc(catName(q.topic))}</span><span class="pill">${DIFF_LABEL[q.d]||q.d}</span><span class="pill correct">${correct} oikein</span></div>
-        </div>
-        <div class="acts">
-          <button class="btn small" data-editq="${q.id}">Muokkaa</button>
-          <button class="btn small danger" data-delq="${q.id}">Poista</button>
-        </div>
-      </div>`;
-    }).join('');
-  }
+  ql.innerHTML = !pack.questions.length
+    ? `<div class="empty">Ei kysymyksiä vielä.<br>Paina <b>Uusi kysymys</b> aloittaaksesi.</div>`
+    : pack.questions.map(q=>{
+        const correct=q.opts.filter(o=>o.correct).length;
+        const done=qFilledLangs(q);
+        const missing=pack.langs.filter(c=>!done.includes(c));
+        const langPills = pack.langs.map(c=>`<span class="pill ${done.includes(c)?'correct':'warn'}">${fl(c)} ${c.toUpperCase()}</span>`).join('');
+        return `<div class="card"><span class="emoji">${esc(catIcon(q.topic))}</span>
+          <div class="grow"><div class="ttl">${esc((q.q[firstLang()]||q.q[done[0]]||'(tyhjä)'))}</div>
+          <div class="sub"><span class="pill">${esc(catName(q.topic))}</span><span class="pill">${DIFF_LABEL[q.d]||q.d}</span><span class="pill correct">${correct} oikein</span>${langPills}</div></div>
+          <div class="acts"><button class="btn small" data-editq="${q.id}">Muokkaa</button>
+          <button class="btn small danger" data-delq="${q.id}">Poista</button></div></div>`;
+      }).join('');
   save();
 }
 
-/* event delegation for list actions */
 document.addEventListener('click', e=>{
   const b=e.target.closest('button'); if(!b) return;
   if(b.dataset.editcat!=null) openCat(b.dataset.editcat);
   else if(b.dataset.delcat!=null) delCat(b.dataset.delcat);
-  else if(b.dataset.addq!=null) openQ(null, b.dataset.addq);
+  else if(b.dataset.addq!=null) openQ(null,b.dataset.addq);
   else if(b.dataset.editq!=null) openQ(b.dataset.editq);
   else if(b.dataset.delq!=null) delQ(b.dataset.delq);
 });
 
-/* ---------- Category editor ---------- */
-function buildEmojiGrid(){
-  $('#emojiGrid').innerHTML = EMOJIS.map(e=>`<button data-emoji="${e}">${e}</button>`).join('');
-}
-$('#emojiGrid').addEventListener('click', e=>{
-  const b=e.target.closest('button'); if(!b) return;
-  pickedEmoji = b.dataset.emoji;
-  $('#catEmojiCustom').value='';
-  syncEmojiSel();
-});
-$('#catEmojiCustom').addEventListener('input', e=>{
-  const v=e.target.value.trim();
-  if(v){ pickedEmoji=v; }
-  syncEmojiSel();
-});
-function syncEmojiSel(){
-  $('#catEmojiChosen').textContent = pickedEmoji || '❓';
-  $$('#emojiGrid button').forEach(x=>x.classList.toggle('sel', x.dataset.emoji===pickedEmoji));
-}
+/* emoji picker */
+function buildEmojiGrid(){ $('#emojiGrid').innerHTML = EMOJIS.map(e=>`<button data-emoji="${e}">${e}</button>`).join(''); }
+$('#emojiGrid').addEventListener('click', e=>{ const b=e.target.closest('button'); if(!b)return; pickedEmoji=b.dataset.emoji; $('#catEmojiCustom').value=''; syncEmoji(); });
+$('#catEmojiCustom').addEventListener('input', e=>{ const v=e.target.value.trim(); if(v)pickedEmoji=v; syncEmoji(); });
+function syncEmoji(){ $('#catEmojiChosen').textContent=pickedEmoji||'❓'; $$('#emojiGrid button').forEach(x=>x.classList.toggle('sel',x.dataset.emoji===pickedEmoji)); }
 
+/* category editor */
 $('#addCategoryBtn').addEventListener('click', ()=>openCat(null));
 function openCat(key){
-  editingCatId = key;
-  const c = key ? pack.topics.find(t=>t.key===key) : null;
-  $('#catEditorTitle').textContent = c ? 'Muokkaa kategoriaa' : 'Uusi kategoria';
-  $('#catName').value = c ? c.name : '';
-  pickedEmoji = c ? c.icon : '🎵';
-  $('#catEmojiCustom').value = '';
-  syncEmojiSel();
-  show('cat');
-  setTimeout(()=>$('#catName').focus(), 60);
+  editingCatId=key;
+  const c=key?pack.topics.find(t=>t.key===key):null;
+  $('#catEditorTitle').textContent = c?'Muokkaa kategoriaa':'Uusi kategoria';
+  $('#catNameInputs').innerHTML = pack.langs.map(code=>
+    `<div class="catlang"><label class="lbl">${fl(code)} ${esc(LMETA[code].name)}</label>
+     <input type="text" data-catlang="${code}" value="${esc(c?(c.names[code]||''):'')}"></div>`
+  ).join('');
+  pickedEmoji = c?c.icon:'🎵'; $('#catEmojiCustom').value=''; syncEmoji();
+  show('cat'); setTimeout(()=>{ const f=$('#catNameInputs input'); if(f)f.focus(); },60);
 }
 function closeCat(){ editingCatId=null; show('main'); render(); }
 $('#catBack').addEventListener('click', closeCat);
 $('#catCancel').addEventListener('click', closeCat);
 $('#catSave').addEventListener('click', ()=>{
-  const name = $('#catName').value.trim();
-  if(!name){ toast('Anna kategorialle nimi'); $('#catName').focus(); return; }
+  const names={}; let any='';
+  $$('#catNameInputs [data-catlang]').forEach(inp=>{ const v=inp.value.trim(); names[inp.dataset.catlang]=v; if(v&&!any)any=v; });
+  if(!any){ toast('Anna kategorialle nimi vähintään yhdellä kielellä'); return; }
   if(!pickedEmoji){ toast('Valitse kuvake'); return; }
-  if(editingCatId){
-    const c = pack.topics.find(t=>t.key===editingCatId);
-    c.name=name; c.icon=pickedEmoji;
-  } else {
-    pack.topics.push({ key:uid('cat_'), name, icon:pickedEmoji });
-  }
+  if(editingCatId){ const c=pack.topics.find(t=>t.key===editingCatId); c.names=names; c.icon=pickedEmoji; }
+  else pack.topics.push({ key:uid('cat_'), names, icon:pickedEmoji });
   save(); toast('Kategoria tallennettu'); closeCat(); switchTab('c');
 });
 function delCat(key){
-  const n = pack.questions.filter(q=>q.topic===key).length;
-  const msg = n>0 ? `Poistetaanko kategoria ja sen ${n} kysymystä?` : 'Poistetaanko kategoria?';
-  if(!confirm(msg)) return;
-  pack.topics = pack.topics.filter(t=>t.key!==key);
-  pack.questions = pack.questions.filter(q=>q.topic!==key);
+  const n=pack.questions.filter(q=>q.topic===key).length;
+  if(!confirm(n>0?`Poistetaanko kategoria ja sen ${n} kysymystä?`:'Poistetaanko kategoria?')) return;
+  pack.topics=pack.topics.filter(t=>t.key!==key); pack.questions=pack.questions.filter(q=>q.topic!==key);
   render(); toast('Kategoria poistettu');
 }
 
-/* ---------- Question editor ---------- */
+/* question editor */
 function buildOptRows(){
-  const wrap=$('#optList');
-  wrap.innerHTML='';
+  const w=$('#optList'); w.innerHTML='';
   for(let i=0;i<10;i++){
-    const row=document.createElement('div'); row.className='opt';
-    row.innerHTML = `<span class="num">${i+1}</span>
-      <input type="text" data-opt="${i}" placeholder="">
-      <button class="mark" data-mark="${i}" type="button">Väärin</button>`;
-    wrap.appendChild(row);
+    const r=document.createElement('div'); r.className='opt';
+    r.innerHTML=`<span class="num">${i+1}</span><input type="text" data-opt="${i}" placeholder=""><button class="mark" data-mark="${i}" type="button">Väärin</button>`;
+    w.appendChild(r);
   }
-  wrap.addEventListener('click', e=>{
-    const b=e.target.closest('[data-mark]'); if(!b) return;
-    b.classList.toggle('on');
-    b.textContent = b.classList.contains('on') ? '✓ Oikein' : 'Väärin';
-  });
+  w.addEventListener('click', e=>{ const b=e.target.closest('[data-mark]'); if(!b)return;
+    b.classList.toggle('on'); b.textContent=b.classList.contains('on')?'✓ Oikein':'Väärin'; });
+  // save typing into draft for the active language
+  w.addEventListener('input', e=>{ const inp=e.target.closest('[data-opt]'); if(!inp)return; qDraft.opts[+inp.dataset.opt].t[qActiveLang]=inp.value; });
 }
-$('#addQuestionBtn').addEventListener('click', ()=>{
-  if(!pack.topics.length){ toast('Luo ensin vähintään yksi kategoria'); switchTab('c'); return; }
-  openQ(null);
-});
-function fillCatSelect(sel){
-  $('#qCat').innerHTML = pack.topics.map(t=>`<option value="${t.key}">${esc(t.icon)} ${esc(t.name)}</option>`).join('');
-  if(sel) $('#qCat').value = sel;
-}
+$('#qText').addEventListener('input', e=>{ if(qDraft) qDraft.q[qActiveLang]=e.target.value; });
+
+$('#addQuestionBtn').addEventListener('click', ()=>{ if(!pack.topics.length){ toast('Luo ensin vähintään yksi kategoria'); switchTab('c'); return; } openQ(null); });
+function fillCatSelect(sel){ $('#qCat').innerHTML = pack.topics.map(t=>`<option value="${t.key}">${esc(t.icon)} ${esc(catName(t.key))}</option>`).join(''); if(sel)$('#qCat').value=sel; }
+
 function openQ(id, presetCat){
-  editingQId = id;
-  const q = id ? pack.questions.find(x=>x.id===id) : null;
-  $('#qEditorTitle').textContent = q ? 'Muokkaa kysymystä' : 'Uusi kysymys';
-  fillCatSelect(q ? q.topic : (presetCat || pack.topics[0].key));
-  $('#qDiff').value = q ? q.d : 'normal';
-  $('#qText').value = q ? q.q : '';
+  editingQId=id;
+  const q=id?pack.questions.find(x=>x.id===id):null;
+  // build working draft with all pack languages present
+  qDraft = { q:{}, opts:Array.from({length:10},()=>({t:{},correct:false})) };
+  pack.langs.forEach(c=>{ qDraft.q[c] = q? (q.q[c]||'') : ''; });
+  for(let i=0;i<10;i++){
+    const src = q && q.opts[i];
+    qDraft.opts[i].correct = src?!!src.correct:false;
+    pack.langs.forEach(c=>{ qDraft.opts[i].t[c] = src? (src.t[c]||'') : ''; });
+  }
+  $('#qEditorTitle').textContent = q?'Muokkaa kysymystä':'Uusi kysymys';
+  fillCatSelect(q?q.topic:(presetCat||pack.topics[0].key));
+  $('#qDiff').value = q?q.d:'normal';
+  qActiveLang = pack.langs[0];
+  renderLangTabs();
+  loadLangIntoFields();
+  // correct marks (shared)
+  $$('#optList [data-mark]').forEach((b,i)=>{ const on=qDraft.opts[i].correct; b.classList.toggle('on',on); b.textContent=on?'✓ Oikein':'Väärin'; });
   $('#qWarn').classList.add('hidden');
-  $$('#optList [data-opt]').forEach((inp,i)=>{ inp.value = q ? (q.opts[i]?.t||'') : ''; });
-  $$('#optList [data-mark]').forEach((b,i)=>{
-    const on = q ? !!q.opts[i]?.correct : false;
-    b.classList.toggle('on', on);
-    b.textContent = on ? '✓ Oikein' : 'Väärin';
-  });
-  show('q');
-  setTimeout(()=>$('#qText').focus(), 60);
+  show('q'); setTimeout(()=>$('#qText').focus(),60);
 }
-function closeQ(){ editingQId=null; show('main'); render(); }
+function renderLangTabs(){
+  $('#qLangTabs').innerHTML = pack.langs.map(c=>{
+    const filled = (qDraft.q[c]||'').trim() && qDraft.opts.every(o=>(o.t[c]||'').trim());
+    return `<button class="langtab ${c===qActiveLang?'on':''} ${filled?'done':''}" data-qlang="${c}"><span class="dot"></span>${fl(c)} ${esc(LMETA[c].name)}</button>`;
+  }).join('');
+}
+$('#qLangTabs').addEventListener('click', e=>{
+  const b=e.target.closest('[data-qlang]'); if(!b) return;
+  saveFieldsIntoDraft();
+  qActiveLang=b.dataset.qlang;
+  renderLangTabs(); loadLangIntoFields();
+});
+function saveFieldsIntoDraft(){
+  qDraft.q[qActiveLang] = $('#qText').value;
+  $$('#optList [data-opt]').forEach((inp,i)=>{ qDraft.opts[i].t[qActiveLang]=inp.value; });
+}
+function loadLangIntoFields(){
+  $('#qActiveLangName').textContent = LMETA[qActiveLang].name;
+  $('#qActiveLangName2').textContent = LMETA[qActiveLang].name;
+  $('#qText').value = qDraft.q[qActiveLang]||'';
+  $$('#optList [data-opt]').forEach((inp,i)=>{ inp.value = qDraft.opts[i].t[qActiveLang]||''; });
+}
+function closeQ(){ editingQId=null; qDraft=null; show('main'); render(); }
 $('#qBack').addEventListener('click', closeQ);
 $('#qCancel').addEventListener('click', closeQ);
 $('#qSave').addEventListener('click', ()=>{
-  const qtext = $('#qText').value.trim();
-  const opts = $$('#optList [data-opt]').map((inp,i)=>({
-    t: inp.value.trim(),
-    correct: $$('#optList [data-mark]')[i].classList.contains('on')
-  }));
-  const filled = opts.filter(o=>o.t);
-  const correct = opts.filter(o=>o.correct && o.t).length;
-  // validation
-  const warn = $('#qWarn');
-  if(!qtext){ toast('Kirjoita kysymys'); $('#qText').focus(); return; }
-  if(filled.length!==10){ warn.textContent=`Täytä kaikki 10 vaihtoehtoa (nyt ${filled.length}). Peli näyttää aina 10 vaihtoehtoa.`; warn.classList.remove('hidden'); return; }
-  if(correct<1 || correct>9){ warn.textContent='Merkitse 1–9 vaihtoehtoa oikeaksi.'; warn.classList.remove('hidden'); return; }
-  const topic = $('#qCat').value;
-  const d = $('#qDiff').value;
-  if(editingQId){
-    const q = pack.questions.find(x=>x.id===editingQId);
-    Object.assign(q, { topic, d, q:qtext, opts });
-  } else {
-    pack.questions.push({ id:uid('q_'), topic, d, q:qtext, opts });
-  }
-  save(); toast('Kysymys tallennettu'); closeQ();
+  saveFieldsIntoDraft();
+  // read correct marks
+  $$('#optList [data-mark]').forEach((b,i)=>{ qDraft.opts[i].correct=b.classList.contains('on'); });
+  const correct=qDraft.opts.filter(o=>o.correct).length;
+  const warn=$('#qWarn');
+  if(correct<1||correct>9){ warn.textContent='Merkitse 1–9 vaihtoehtoa oikeaksi.'; warn.classList.remove('hidden'); return; }
+  // require at least one fully-filled language
+  const filledLangs = pack.langs.filter(c=>(qDraft.q[c]||'').trim() && qDraft.opts.every(o=>(o.t[c]||'').trim()));
+  if(!filledLangs.length){ warn.textContent='Täytä kysymys ja kaikki 10 vaihtoehtoa vähintään yhdellä kielellä.'; warn.classList.remove('hidden'); return; }
+  const rec = { topic:$('#qCat').value, d:$('#qDiff').value, q:{...qDraft.q}, opts:qDraft.opts.map(o=>({t:{...o.t}, correct:o.correct})) };
+  if(editingQId){ const q=pack.questions.find(x=>x.id===editingQId); Object.assign(q,rec); }
+  else pack.questions.push({ id:uid('q_'), ...rec });
+  save();
+  const miss = pack.langs.length - filledLangs.length;
+  toast(miss>0 ? `Tallennettu (${miss} kieltä kesken)` : 'Kysymys tallennettu');
+  closeQ();
 });
-function delQ(id){
-  if(!confirm('Poistetaanko kysymys?')) return;
-  pack.questions = pack.questions.filter(q=>q.id!==id);
-  render(); toast('Kysymys poistettu');
-}
+function delQ(id){ if(!confirm('Poistetaanko kysymys?'))return; pack.questions=pack.questions.filter(q=>q.id!==id); render(); toast('Kysymys poistettu'); }
 
-/* ---------- Export to Quiz10 pack format ---------- */
-function buildQuiz10Pack(){
-  const lc = pack.lang || 'fi';
-  const meta = LANG_META[lc] || LANG_META.fi;
+/* export */
+function buildPack(){
+  const langs = pack.langs.slice();
+  const needEn = !langs.includes('en');
   const topics = pack.topics.map(t=>{
-    const o = { key:t.key, icon:t.icon, en:t.name };
-    if(lc!=='en') o[lc]=t.name;
+    const o={key:t.key, icon:t.icon};
+    langs.forEach(c=>{ if((t.names[c]||'').trim()) o[c]=t.names[c].trim(); });
+    if(needEn) o.en = (t.names[langs[0]]||t.key).trim();
     return o;
   });
-  const questions = pack.questions.map(q=>{
-    const cat = { en:q.q };
-    if(lc!=='en') cat[lc]=q.q;
-    // options: [text, correctFlag] positional against L=[lc]
-    const o = q.opts.map(op=>[op.t, op.correct?1:0]);
-    return { topic:q.topic, d:q.d, cat, o, L:[lc] };
+  const questions=[];
+  pack.questions.forEach(q=>{
+    const correct=q.opts.filter(o=>o.correct).length;
+    if(correct<1||correct>9) return;
+    const L = langs.filter(c=>(q.q[c]||'').trim() && q.opts.every(o=>(o.t[c]||'').trim()));
+    if(!L.length) return;
+    const cat={}; L.forEach(c=>cat[c]=q.q[c].trim());
+    if(cat.en==null) cat.en=cat[L[0]];
+    const o=q.opts.map(op=>{ const row=L.map(c=>op.t[c].trim()); row.push(op.correct?1:0); return row; });
+    questions.push({ topic:q.topic, d:q.d, cat, o, L });
   });
-  return {
-    name: pack.name || 'Omat kysymykset',
-    langs: [{ code:lc, flag:meta.flag, name:meta.name }],
-    topics,
-    questions
-  };
+  return { name:pack.name||'Oma paketti', langs:langs.map(c=>({code:c, flag:LMETA[c].flag, name:LMETA[c].name})), topics, questions };
 }
 $('#exportBtn').addEventListener('click', ()=>{
-  if(!pack.questions.length){ toast('Lisää ainakin yksi kysymys ennen vientiä'); return; }
-  // warn about incomplete questions
-  const bad = pack.questions.filter(q=>{
-    const filled=q.opts.filter(o=>o.t).length;
-    const corr=q.opts.filter(o=>o.correct&&o.t).length;
-    return filled!==10 || corr<1 || corr>9 || !q.q;
-  });
-  if(bad.length && !confirm(`${bad.length} kysymystä on keskeneräistä (ei 10 vaihtoehtoa tai ei oikeita vastauksia). Ne jätetään pois. Jatketaanko?`)) return;
-  const out = buildQuiz10Pack();
-  out.questions = out.questions.filter(q=>{
-    const filled=q.o.filter(o=>o[0]).length;
-    const corr=q.o.filter(o=>o[o.length-1]===1 && o[0]).length;
-    return filled===10 && corr>=1 && corr<=9 && q.cat.en;
-  });
+  if(!pack.questions.length){ toast('Lisää ainakin yksi kysymys'); return; }
+  const out=buildPack();
   if(!out.questions.length){ toast('Ei valmiita kysymyksiä vietäväksi'); return; }
-  const blob = new Blob([JSON.stringify(out, null, 2)], {type:'application/json'});
-  const a = document.createElement('a');
-  const safe = (pack.name||'quiz10-paketti').replace(/[^\w\-]+/g,'_').replace(/^_+|_+$/g,'').toLowerCase() || 'quiz10-paketti';
-  a.href = URL.createObjectURL(blob);
-  a.download = safe + '.json';
-  document.body.appendChild(a); a.click(); a.remove();
-  setTimeout(()=>URL.revokeObjectURL(a.href), 4000);
+  const skipped = pack.questions.length - out.questions.length;
+  if(skipped>0 && !confirm(`${skipped} kysymystä on keskeneräistä ja jätetään pois. Jatketaanko?`)) return;
+  const blob=new Blob([JSON.stringify(out,null,2)],{type:'application/json'});
+  const a=document.createElement('a');
+  const safe=(pack.name||'pub-quiz-paketti').replace(/[^\w\-]+/g,'_').replace(/^_+|_+$/g,'').toLowerCase()||'pub-quiz-paketti';
+  a.href=URL.createObjectURL(blob); a.download=safe+'.json'; document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=>URL.revokeObjectURL(a.href),4000);
   toast(`Viety: ${out.questions.length} kysymystä`);
 });
 
-/* ---------- Import ---------- */
+/* import (reads multilingual packs back in) */
 $('#importBtn').addEventListener('click', ()=>$('#fileInput').click());
 $('#fileInput').addEventListener('change', e=>{
-  const f=e.target.files[0]; if(!f) return;
+  const f=e.target.files[0]; if(!f)return;
   const r=new FileReader();
-  r.onload = ()=>{
-    try{
-      const data = JSON.parse(String(r.result));
-      const arr = Array.isArray(data) ? data : (data.questions||[]);
-      if(!arr.length && !(data.topics||[]).length){ toast('Tiedostossa ei ollut kysymyksiä'); return; }
-      if(!confirm('Tuonti korvaa nykyisen työn. Jatketaanko?')) return;
-      importPack(data, arr);
-      toast(`Tuotu: ${pack.questions.length} kysymystä`);
-    }catch(err){ toast('Virhe: tiedosto ei ollut kelvollinen JSON'); }
-  };
-  r.readAsText(f);
-  e.target.value='';
+  r.onload=()=>{ try{
+    const data=JSON.parse(String(r.result));
+    const arr=Array.isArray(data)?data:(data.questions||[]);
+    if(!arr.length && !(data.topics||[]).length){ toast('Tiedostossa ei ollut kysymyksiä'); return; }
+    if(!confirm('Tuonti korvaa nykyisen työn. Jatketaanko?')) return;
+    importPack(data, arr); toast(`Tuotu: ${pack.questions.length} kysymystä`);
+  }catch(err){ toast('Virhe: ei kelvollinen JSON'); } };
+  r.readAsText(f); e.target.value='';
 });
 function importPack(data, arr){
-  // detect language
-  let lc = 'fi';
-  if(Array.isArray(data.langs) && data.langs.length){
-    const c = typeof data.langs[0]==='string' ? data.langs[0] : data.langs[0].code;
-    if(c && LANG_META[String(c).toLowerCase()]) lc=String(c).toLowerCase();
+  let langs = Array.isArray(data.langs)&&data.langs.length
+    ? data.langs.map(l=>String(typeof l==='string'?l:l.code).toLowerCase()).filter(c=>LMETA[c])
+    : null;
+  if(!langs || !langs.length){
+    const set=[]; arr.forEach(q=>{ (Array.isArray(q.L)?q.L:Object.keys(q.cat||{})).forEach(c=>{ if(LMETA[c]&&!set.includes(c))set.push(c); }); });
+    langs = set.length?set:['en'];
   }
-  const langOrder = (arr[0] && Array.isArray(arr[0].L) && arr[0].L.length) ? arr[0].L : ['en','fi','es'];
-  const pick = (obj)=> obj ? (obj[lc] ?? obj.en ?? Object.values(obj)[0]) : '';
-  // topics
-  const topics = (data.topics||[]).map(t=>({
-    key: t.key || uid('cat_'),
-    name: t[lc] || t.en || t.name || t.key,
-    icon: t.icon || '📦'
-  }));
-  const topicByKey = {}; topics.forEach(t=>topicByKey[t.key]=t);
-  // questions
-  const questions = arr.map(q=>{
-    const L = (Array.isArray(q.L)&&q.L.length)?q.L:langOrder;
-    const li = Math.max(0, L.indexOf(lc));
-    const opts = (q.o||[]).map(o=>({ t:String(o[li] ?? o[0] ?? ''), correct:o[o.length-1]===1 }));
-    while(opts.length<10) opts.push({t:'',correct:false});
-    let topic = q.topic;
-    if(!topicByKey[topic]){
-      const nk = topic || uid('cat_');
-      topicByKey[nk] = { key:nk, name:(nk||'Kategoria'), icon:'📦' };
-      topics.push(topicByKey[nk]);
-      topic = nk;
-    }
-    return { id:uid('q_'), topic, d:['easy','normal','hard'].includes(q.d)?q.d:'normal', q:pick(q.cat), opts:opts.slice(0,10) };
+  const topics=(data.topics||[]).map(t=>{ const names={}; langs.forEach(c=>{ if(typeof t[c]==='string')names[c]=t[c]; }); if(!Object.keys(names).length && t.en)names[langs[0]]=t.en; return { key:t.key||uid('cat_'), icon:t.icon||'📦', names }; });
+  const byKey={}; topics.forEach(t=>byKey[t.key]=t);
+  const questions=arr.map(q=>{
+    const L=(Array.isArray(q.L)&&q.L.length)?q.L:(langs.length?langs:['en']);
+    const qt={}; langs.forEach(c=>{ if(q.cat && typeof q.cat[c]==='string') qt[c]=q.cat[c]; });
+    if(!Object.keys(qt).length && q.cat && q.cat.en) qt[langs[0]]=q.cat.en;
+    const opts=(q.o||[]).map(o=>{ const t={}; langs.forEach(c=>{ const idx=L.indexOf(c); if(idx>=0 && typeof o[idx]==='string')t[c]=o[idx]; }); return { t, correct:o[o.length-1]===1 }; });
+    while(opts.length<10) opts.push({t:{},correct:false});
+    let topic=q.topic; if(!byKey[topic]){ const nk=topic||uid('cat_'); byKey[nk]={key:nk,icon:'📦',names:{[langs[0]]:nk}}; topics.push(byKey[nk]); topic=nk; }
+    return { id:uid('q_'), topic, d:['easy','normal','hard'].includes(q.d)?q.d:'normal', q:qt, opts:opts.slice(0,10) };
   });
-  pack = { name:data.name||'', lang:lc, topics, questions };
+  pack={ name:data.name||'', langs, topics, questions };
   save(); render();
 }
 
-/* ---------- Clear ---------- */
+/* clear */
 $('#clearAllBtn').addEventListener('click', ()=>{
-  if(!confirm('Tyhjennetäänkö koko paketti (nimi, kategoriat ja kysymykset)? Tätä ei voi perua.')) return;
-  pack = { name:'', lang:pack.lang||'fi', topics:[], questions:[] };
-  save(); render(); toast('Tyhjennetty');
+  if(!confirm('Tyhjennetäänkö koko paketti? Tätä ei voi perua.')) return;
+  pack={ name:'', langs:pack.langs.slice(), topics:[], questions:[] }; save(); render(); toast('Tyhjennetty');
 });
 
-/* ---------- Boot ---------- */
-buildEmojiGrid();
-buildOptRows();
-render();
+/* boot */
+FLAG_OK = detectFlag();
+buildEmojiGrid(); buildOptRows(); render();
 </script>
 </body>
 </html>
