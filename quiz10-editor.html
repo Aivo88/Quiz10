@@ -485,7 +485,7 @@ function detectFlag(){ try{ const c=document.createElement('canvas'); c.width=20
   for(let i=0;i<d.length;i+=4){const r=d[i],g=d[i+1],b=d[i+2],a=d[i+3]; if(a>0&&((b>90&&r<90)||(r>150&&g>120&&b<90)))n++;} return n>4; }catch(e){return false;} }
 function fl(code){ return FLAG_OK ? (LMETA[code]?LMETA[code].flag:'🏳️') : ''; }
 
-const EDITOR_VERSION = '01.00.11';
+const EDITOR_VERSION = '01.00.12';
 
 /* The game's built-in categories — same keys, so questions land in the right category in-game */
 const DEFAULT_TOPICS = [
@@ -968,9 +968,11 @@ async function checkUpdate(){
   if(updating) return; updating=true;
   const btn=$('#updateBtn'); const old=btn.textContent; btn.textContent=t('tChecking');
   try{
-    const r = await fetch('editor-version.json?ts='+Date.now(), {cache:'no-store'});
-    const info = await r.json();
-    const remote = String(info && info.version || '');
+    // Read our own file fresh and pull the version out of it — no separate version file needed.
+    const r = await fetch(location.pathname + '?ts=' + Date.now(), {cache:'no-store'});
+    const html = await r.text();
+    const m = html.match(/EDITOR_VERSION\s*=\s*'([^']+)'/);
+    const remote = m ? m[1] : '';
     if(remote && remote!==EDITOR_VERSION){
       toast(t('tNewVer',remote));
       setTimeout(()=>{ location.replace(location.pathname + '?v=' + encodeURIComponent(remote)); }, 700);
