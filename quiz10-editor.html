@@ -29,6 +29,9 @@
   .brand{display:flex; align-items:center; gap:10px; font-weight:800; font-size:1.15em; letter-spacing:.3px}
   .brand .dice{font-size:1.4em}
   .brand small{color:var(--gold); font-weight:700; font-size:.62em; letter-spacing:1px; text-transform:uppercase; display:block; margin-top:-2px}
+  .uilang{display:flex; gap:4px}
+  .uilang button{background:var(--panel); border:2px solid var(--line); color:var(--muted); border-radius:9px; padding:6px 10px; font-weight:800; font-size:.85em; cursor:pointer}
+  .uilang button.on{background:var(--gold); color:var(--goldink); border-color:var(--gold)}
   .spacer{flex:1}
   .wrap{max-width:820px; margin:0 auto; padding:0 clamp(12px,4vw,24px)}
 
@@ -143,16 +146,17 @@
 <body>
 
 <div class="topbar">
-  <div class="brand"><span class="dice">🎲</span><span>Pub Quiz<small>Editori</small></span></div>
+  <div class="brand"><span class="dice">🎲</span><span>Pub Quiz<small data-i18n="brandSub">Editori</small></span></div>
   <div class="spacer"></div>
-  <button class="btn small" id="importBtn">📂 Tuo</button>
-  <button class="btn small gold" id="exportBtn">💾 Vie paketti</button>
+  <div class="uilang" id="uiLangSel"></div>
+  <button class="btn small" id="importBtn" data-i18n="import">📂 Tuo</button>
+  <button class="btn small gold" id="exportBtn" data-i18n="export">💾 Vie paketti</button>
   <input type="file" id="fileInput" accept="application/json,.json" hidden>
 </div>
 
 <div class="corner-panel" id="cornerPanel">
   <div class="cp-flags" id="cpFlags"></div>
-  <button class="btn small" id="updateBtn">🔄 Tarkista päivitykset</button>
+  <button class="btn small" id="updateBtn" data-i18n="update">🔄 Tarkista päivitykset</button>
   <div class="cp-ver" id="cpVer">v01.00.00</div>
 </div>
 
@@ -161,32 +165,32 @@
   <div class="wrap">
     <div class="packhead">
       <div class="field">
-        <label class="lbl" for="packName">Paketin nimi</label>
+        <label class="lbl" for="packName" data-i18n="packName">Paketin nimi</label>
         <input type="text" id="packName" placeholder="">
       </div>
       <div class="field">
-        <label class="lbl">Paketin kielet — valitse mitkä kielet paketti sisältää</label>
+        <label class="lbl" data-i18n="packLangs">Paketin kielet — valitse mitkä kielet paketti sisältää</label>
         <div class="langchips" id="langChips"></div>
       </div>
       <div class="field">
-        <button class="btn danger block" id="clearAllBtn">🗑 Tyhjennä kaikki</button>
+        <button class="btn danger block" id="clearAllBtn" data-i18n="clearAll">🗑 Tyhjennä kaikki</button>
       </div>
-      <p class="hint">Kirjoita jokainen kysymys valitsemillasi kielillä (kielivälilehdet kysymysnäkymässä). Kun paketti on valmis, paina <b>Vie paketti</b> ja tuo .json Pub Quiz -peliin (Asetukset → Kysymykset → Lataa tiedostosta). Jos paketissa on peliin uusi kieli, se lisätään pelin kielivalikkoon automaattisesti.</p>
+      <p class="hint" data-i18n="hint">Kirjoita jokainen kysymys valitsemillasi kielillä.</p>
     </div>
 
     <div class="tabs">
-      <div class="tab on" id="tabQuestions">Kysymykset <span class="count" id="qCount">(0)</span></div>
-      <div class="tab" id="tabCategories">Kategoriat <span class="count" id="cCount">(0)</span></div>
+      <div class="tab on" id="tabQuestions"><span data-i18n="tabQuestions">Kysymykset</span> <span class="count" id="qCount">(0)</span></div>
+      <div class="tab" id="tabCategories"><span data-i18n="tabCategories">Kategoriat</span> <span class="count" id="cCount">(0)</span></div>
     </div>
 
     <div class="panel" id="panelQuestions">
       <div id="questionList"></div>
-      <div class="addbar"><button class="btn gold block" id="addQuestionBtn">➕ Uusi kysymys</button></div>
+      <div class="addbar"><button class="btn gold block" id="addQuestionBtn" data-i18n="newQuestion">➕ Uusi kysymys</button></div>
     </div>
 
     <div class="panel hidden" id="panelCategories">
       <div id="categoryList"></div>
-      <div class="addbar"><button class="btn gold block" id="addCategoryBtn">➕ Uusi kategoria</button></div>
+      <div class="addbar"><button class="btn gold block" id="addCategoryBtn" data-i18n="newCategory">➕ Uusi kategoria</button></div>
     </div>
   </div>
 </div>
@@ -195,24 +199,24 @@
 <div id="catEditor" class="hidden">
   <div class="wrap">
     <div class="editor-head">
-      <button class="btn small" id="catBack">‹ Takaisin</button>
+      <button class="btn small" id="catBack" data-i18n="back">‹ Takaisin</button>
       <h2 id="catEditorTitle">Uusi kategoria</h2>
     </div>
     <div class="field" id="catNameFields">
-      <label class="lbl">Kategorian nimi (jokaisella kielellä)</label>
+      <label class="lbl" data-i18n="catNameLbl">Kategorian nimi (jokaisella kielellä)</label>
       <div id="catNameInputs"></div>
     </div>
     <div class="field">
-      <label class="lbl">Kuvake</label>
+      <label class="lbl" data-i18n="iconLbl">Kuvake</label>
       <div style="display:flex; align-items:center; gap:12px">
         <span class="emojichosen" id="catEmojiChosen">🎵</span>
-        <input type="text" id="catEmojiCustom" placeholder="oma emoji" maxlength="4" style="flex:1; max-width:200px">
+        <input type="text" id="catEmojiCustom" data-i18n-ph="ownEmoji" placeholder="oma emoji" maxlength="4" style="flex:1; max-width:200px">
       </div>
       <div class="emojigrid" id="emojiGrid"></div>
     </div>
     <div class="savebar">
-      <button class="btn" id="catCancel">Peruuta</button>
-      <button class="btn green" id="catSave">Tallenna kategoria</button>
+      <button class="btn" id="catCancel" data-i18n="cancel">Peruuta</button>
+      <button class="btn green" id="catSave" data-i18n="saveCat">Tallenna kategoria</button>
     </div>
   </div>
 </div>
@@ -221,25 +225,25 @@
 <div id="qEditor" class="hidden">
   <div class="wrap">
     <div class="editor-head">
-      <button class="btn small" id="qBack">‹ Takaisin</button>
+      <button class="btn small" id="qBack" data-i18n="back">‹ Takaisin</button>
       <h2 id="qEditorTitle">Uusi kysymys</h2>
     </div>
     <div class="row">
-      <div class="field"><label class="lbl" for="qCat">Kategoria</label><select id="qCat"></select></div>
-      <div class="field"><label class="lbl" for="qDiff">Vaikeustaso</label>
-        <select id="qDiff"><option value="easy">Helppo</option><option value="normal" selected>Normaali</option><option value="hard">Vaikea</option></select></div>
+      <div class="field"><label class="lbl" for="qCat" data-i18n="category">Kategoria</label><select id="qCat"></select></div>
+      <div class="field"><label class="lbl" for="qDiff" data-i18n="difficulty">Vaikeustaso</label>
+        <select id="qDiff"><option value="easy" data-i18n="easy">Helppo</option><option value="normal" selected data-i18n="normal">Normaali</option><option value="hard" data-i18n="hard">Vaikea</option></select></div>
     </div>
-    <label class="lbl">Kieli — täytä kysymys jokaisella kielellä</label>
+    <label class="lbl" data-i18n="qLangLbl">Kieli — täytä kysymys jokaisella kielellä</label>
     <div class="langtabs" id="qLangTabs"></div>
-    <div class="field"><label class="lbl" for="qText">Kysymys (<span id="qActiveLangName"></span>)</label><textarea id="qText" placeholder=""></textarea></div>
+    <div class="field"><label class="lbl" for="qText"><span data-i18n="question">Kysymys</span> (<span id="qActiveLangName"></span>)</label><textarea id="qText" placeholder=""></textarea></div>
     <hr class="sep">
-    <label class="lbl">Vaihtoehdot (<span id="qActiveLangName2"></span>) — merkitse oikeat vihreällä (1–9 oikeaa)</label>
-    <p class="hint" style="margin-top:2px">Oikein/väärin on sama kaikilla kielillä — käännä vain tekstit.</p>
+    <label class="lbl"><span data-i18n="optionsLbl">Vaihtoehdot</span> (<span id="qActiveLangName2"></span>) <span data-i18n="optionsHead">— merkitse oikeat vihreällä (1–9 oikeaa)</span></label>
+    <p class="hint" style="margin-top:2px" data-i18n="optionsHint">Oikein/väärin on sama kaikilla kielillä — käännä vain tekstit.</p>
     <div id="optList"></div>
     <p class="warn hidden" id="qWarn"></p>
     <div class="savebar">
-      <button class="btn" id="qCancel">Peruuta</button>
-      <button class="btn green" id="qSave">Tallenna kysymys</button>
+      <button class="btn" id="qCancel" data-i18n="cancel">Peruuta</button>
+      <button class="btn green" id="qSave" data-i18n="saveQuestion">Tallenna kysymys</button>
     </div>
   </div>
 </div>
@@ -251,6 +255,135 @@
 const $ = s => document.querySelector(s);
 const $$ = s => Array.from(document.querySelectorAll(s));
 const LS_KEY = 'pubquiz_editor_pack_v2';
+const LS_UILANG = 'pubquiz_editor_uilang';
+
+/* ---- UI translations (editor's own interface language) ---- */
+const I18N = {
+  fi:{
+    brandSub:'Editori', import:'📂 Tuo', export:'💾 Vie paketti', update:'🔄 Tarkista päivitykset',
+    packName:'Paketin nimi', packLangs:'Paketin kielet — valitse mitkä kielet paketti sisältää',
+    clearAll:'🗑 Tyhjennä kaikki',
+    hint:'Kirjoita jokainen kysymys valitsemillasi kielillä (kielivälilehdet kysymysnäkymässä). Kun paketti on valmis, paina <b>Vie paketti</b> ja tuo .json Pub Quiz -peliin (Asetukset → Kysymykset → Lataa tiedostosta). Jos paketissa on peliin uusi kieli, se lisätään pelin kielivalikkoon automaattisesti.',
+    tabQuestions:'Kysymykset', tabCategories:'Kategoriat',
+    newQuestion:'➕ Uusi kysymys', newCategory:'➕ Uusi kategoria',
+    back:'‹ Takaisin', catNew:'Uusi kategoria', catEdit:'Muokkaa kategoriaa',
+    catNameLbl:'Kategorian nimi (jokaisella kielellä)', iconLbl:'Kuvake', ownEmoji:'oma emoji',
+    cancel:'Peruuta', saveCat:'Tallenna kategoria',
+    qNew:'Uusi kysymys', qEdit:'Muokkaa kysymystä', category:'Kategoria', difficulty:'Vaikeustaso',
+    easy:'Helppo', normal:'Normaali', hard:'Vaikea',
+    qLangLbl:'Kieli — täytä kysymys jokaisella kielellä', question:'Kysymys',
+    optionsLbl:'Vaihtoehdot', optionsHead:'— merkitse oikeat vihreällä (1–9 oikeaa)',
+    optionsHint:'Oikein/väärin on sama kaikilla kielillä — käännä vain tekstit.',
+    saveQuestion:'Tallenna kysymys', addOwnLang:'➕ Lisää oma kieli',
+    addQ:'➕ Kysymys', edit:'Muokkaa', del:'Poista', wrong:'Väärin', right:'✓ Oikein',
+    emptyCats:'Ei kategorioita vielä.<br>Luo ensin kategoria, niin voit lisätä siihen kysymyksiä.',
+    emptyQs:'Ei kysymyksiä vielä.<br>Paina <b>Uusi kysymys</b> aloittaaksesi.',
+    nQuestions:n=>`${n} kysymystä`, nCorrect:n=>`${n} oikein`, deletedCat:'(poistettu)', noName:'(nimetön)',
+    uiLang:'Editorin kieli',
+    tMustOneLang:'Paketissa on oltava vähintään yksi kieli',
+    pLangName:'Kielen nimi (esim. Klingon):', tNeedLangName:'Anna kielelle nimi',
+    pLangCode:'Kielikoodi – 2 tai 3 pientä kirjainta (esim. tlh):', tBadCode:'Koodin pitää olla 2–3 kirjainta (a–z)',
+    tCodeUsed:'Tuo koodi on jo käytössä', pLangFlag:'Lippu tai kuvake (emoji, esim. 🖖). Voit jättää tyhjäksi:',
+    tLangAdded:n=>`Lisätty kieli: ${n}`, tNeedCat:'Luo ensin vähintään yksi kategoria',
+    tNeedCatName:'Anna kategorialle nimi vähintään yhdellä kielellä', tNeedIcon:'Valitse kuvake',
+    tCatSaved:'Kategoria tallennettu', cDelCatQ:n=>`Poistetaanko kategoria ja sen ${n} kysymystä?`,
+    cDelCat:'Poistetaanko kategoria?', tCatDeleted:'Kategoria poistettu',
+    tMark19:'Merkitse 1–9 vaihtoehtoa oikeaksi.', tFillOne:'Täytä kysymys ja kaikki 10 vaihtoehtoa vähintään yhdellä kielellä.',
+    tSavedPartial:n=>`Tallennettu (${n} kieltä kesken)`, tQSaved:'Kysymys tallennettu',
+    cDelQ:'Poistetaanko kysymys?', tQDeleted:'Kysymys poistettu',
+    tNeedQ:'Lisää ainakin yksi kysymys', pPackName:'Anna paketille nimi ennen vientiä:', defPackName:'Oma paketti',
+    tNoComplete:'Ei valmiita kysymyksiä vietäväksi', cSkip:n=>`${n} kysymystä on keskeneräistä ja jätetään pois. Jatketaanko?`,
+    tExported:n=>`Viety: ${n} kysymystä`, tNoQInFile:'Tiedostossa ei ollut kysymyksiä',
+    cImport:'Tuonti korvaa nykyisen työn. Jatketaanko?', tImported:n=>`Tuotu: ${n} kysymystä`,
+    tBadJson:'Virhe: ei kelvollinen JSON', cClearAll:'Tyhjennetäänkö koko paketti? Tätä ei voi perua.', tCleared:'Tyhjennetty',
+    tChecking:'Tarkistetaan…', tNewVer:v=>`Uusi versio ${v} – päivitetään…`, tLatest:v=>`Sinulla on uusin versio (${v})`,
+    tUpdFail:'Päivitystä ei voitu tarkistaa (oletko verkossa?)'
+  },
+  en:{
+    brandSub:'Editor', import:'📂 Import', export:'💾 Export pack', update:'🔄 Check for updates',
+    packName:'Pack name', packLangs:'Pack languages — choose which languages the pack includes',
+    clearAll:'🗑 Clear all',
+    hint:'Write each question in your chosen languages (use the language tabs in the question view). When the pack is ready, press <b>Export pack</b> and import the .json into Pub Quiz (Settings → Questions → Load from file). If the pack has a language new to the game, it is added to the game\'s language menu automatically.',
+    tabQuestions:'Questions', tabCategories:'Categories',
+    newQuestion:'➕ New question', newCategory:'➕ New category',
+    back:'‹ Back', catNew:'New category', catEdit:'Edit category',
+    catNameLbl:'Category name (in each language)', iconLbl:'Icon', ownEmoji:'own emoji',
+    cancel:'Cancel', saveCat:'Save category',
+    qNew:'New question', qEdit:'Edit question', category:'Category', difficulty:'Difficulty',
+    easy:'Easy', normal:'Normal', hard:'Hard',
+    qLangLbl:'Language — fill in the question in each language', question:'Question',
+    optionsLbl:'Options', optionsHead:'— mark the correct ones green (1–9 correct)',
+    optionsHint:'Right/wrong is the same in all languages — just translate the texts.',
+    saveQuestion:'Save question', addOwnLang:'➕ Add your own language',
+    addQ:'➕ Question', edit:'Edit', del:'Delete', wrong:'Wrong', right:'✓ Correct',
+    emptyCats:'No categories yet.<br>Create a category first, then you can add questions to it.',
+    emptyQs:'No questions yet.<br>Press <b>New question</b> to start.',
+    nQuestions:n=>`${n} questions`, nCorrect:n=>`${n} correct`, deletedCat:'(deleted)', noName:'(unnamed)',
+    uiLang:'Editor language',
+    tMustOneLang:'The pack must have at least one language',
+    pLangName:'Language name (e.g. Klingon):', tNeedLangName:'Give the language a name',
+    pLangCode:'Language code – 2 or 3 lowercase letters (e.g. tlh):', tBadCode:'The code must be 2–3 letters (a–z)',
+    tCodeUsed:'That code is already in use', pLangFlag:'Flag or icon (emoji, e.g. 🖖). You can leave it empty:',
+    tLangAdded:n=>`Language added: ${n}`, tNeedCat:'Create at least one category first',
+    tNeedCatName:'Give the category a name in at least one language', tNeedIcon:'Choose an icon',
+    tCatSaved:'Category saved', cDelCatQ:n=>`Delete the category and its ${n} questions?`,
+    cDelCat:'Delete the category?', tCatDeleted:'Category deleted',
+    tMark19:'Mark 1–9 options as correct.', tFillOne:'Fill in the question and all 10 options in at least one language.',
+    tSavedPartial:n=>`Saved (${n} languages incomplete)`, tQSaved:'Question saved',
+    cDelQ:'Delete question?', tQDeleted:'Question deleted',
+    tNeedQ:'Add at least one question', pPackName:'Name the pack before exporting:', defPackName:'My pack',
+    tNoComplete:'No complete questions to export', cSkip:n=>`${n} questions are incomplete and will be left out. Continue?`,
+    tExported:n=>`Exported: ${n} questions`, tNoQInFile:'The file had no questions',
+    cImport:'Importing replaces your current work. Continue?', tImported:n=>`Imported: ${n} questions`,
+    tBadJson:'Error: not valid JSON', cClearAll:'Clear the whole pack? This cannot be undone.', tCleared:'Cleared',
+    tChecking:'Checking…', tNewVer:v=>`New version ${v} – updating…`, tLatest:v=>`You have the latest version (${v})`,
+    tUpdFail:'Couldn\'t check for updates (are you online?)'
+  },
+  es:{
+    brandSub:'Editor', import:'📂 Importar', export:'💾 Exportar paquete', update:'🔄 Buscar actualizaciones',
+    packName:'Nombre del paquete', packLangs:'Idiomas del paquete — elige qué idiomas incluye',
+    clearAll:'🗑 Borrar todo',
+    hint:'Escribe cada pregunta en los idiomas elegidos (usa las pestañas de idioma en la vista de preguntas). Cuando el paquete esté listo, pulsa <b>Exportar paquete</b> e impórtalo en Pub Quiz (Ajustes → Preguntas → Cargar desde archivo). Si el paquete tiene un idioma nuevo para el juego, se añade automáticamente al menú de idiomas.',
+    tabQuestions:'Preguntas', tabCategories:'Categorías',
+    newQuestion:'➕ Nueva pregunta', newCategory:'➕ Nueva categoría',
+    back:'‹ Atrás', catNew:'Nueva categoría', catEdit:'Editar categoría',
+    catNameLbl:'Nombre de la categoría (en cada idioma)', iconLbl:'Icono', ownEmoji:'emoji propio',
+    cancel:'Cancelar', saveCat:'Guardar categoría',
+    qNew:'Nueva pregunta', qEdit:'Editar pregunta', category:'Categoría', difficulty:'Dificultad',
+    easy:'Fácil', normal:'Normal', hard:'Difícil',
+    qLangLbl:'Idioma — rellena la pregunta en cada idioma', question:'Pregunta',
+    optionsLbl:'Opciones', optionsHead:'— marca las correctas en verde (1–9 correctas)',
+    optionsHint:'Correcto/incorrecto es igual en todos los idiomas — solo traduce los textos.',
+    saveQuestion:'Guardar pregunta', addOwnLang:'➕ Añadir idioma propio',
+    addQ:'➕ Pregunta', edit:'Editar', del:'Eliminar', wrong:'Incorrecto', right:'✓ Correcto',
+    emptyCats:'Aún no hay categorías.<br>Crea primero una categoría y luego añade preguntas.',
+    emptyQs:'Aún no hay preguntas.<br>Pulsa <b>Nueva pregunta</b> para empezar.',
+    nQuestions:n=>`${n} preguntas`, nCorrect:n=>`${n} correctas`, deletedCat:'(eliminada)', noName:'(sin nombre)',
+    uiLang:'Idioma del editor',
+    tMustOneLang:'El paquete debe tener al menos un idioma',
+    pLangName:'Nombre del idioma (p.ej. Klingon):', tNeedLangName:'Da un nombre al idioma',
+    pLangCode:'Código de idioma – 2 o 3 letras minúsculas (p.ej. tlh):', tBadCode:'El código debe tener 2–3 letras (a–z)',
+    tCodeUsed:'Ese código ya está en uso', pLangFlag:'Bandera o icono (emoji, p.ej. 🖖). Puedes dejarlo vacío:',
+    tLangAdded:n=>`Idioma añadido: ${n}`, tNeedCat:'Crea primero al menos una categoría',
+    tNeedCatName:'Da un nombre a la categoría en al menos un idioma', tNeedIcon:'Elige un icono',
+    tCatSaved:'Categoría guardada', cDelCatQ:n=>`¿Eliminar la categoría y sus ${n} preguntas?`,
+    cDelCat:'¿Eliminar la categoría?', tCatDeleted:'Categoría eliminada',
+    tMark19:'Marca 1–9 opciones como correctas.', tFillOne:'Rellena la pregunta y las 10 opciones en al menos un idioma.',
+    tSavedPartial:n=>`Guardado (${n} idiomas incompletos)`, tQSaved:'Pregunta guardada',
+    cDelQ:'¿Eliminar pregunta?', tQDeleted:'Pregunta eliminada',
+    tNeedQ:'Añade al menos una pregunta', pPackName:'Nombra el paquete antes de exportar:', defPackName:'Mi paquete',
+    tNoComplete:'No hay preguntas completas para exportar', cSkip:n=>`${n} preguntas están incompletas y se omitirán. ¿Continuar?`,
+    tExported:n=>`Exportado: ${n} preguntas`, tNoQInFile:'El archivo no tenía preguntas',
+    cImport:'Importar reemplaza tu trabajo actual. ¿Continuar?', tImported:n=>`Importado: ${n} preguntas`,
+    tBadJson:'Error: JSON no válido', cClearAll:'¿Borrar todo el paquete? No se puede deshacer.', tCleared:'Borrado',
+    tChecking:'Comprobando…', tNewVer:v=>`Nueva versión ${v} – actualizando…`, tLatest:v=>`Tienes la última versión (${v})`,
+    tUpdFail:'No se pudo buscar actualizaciones (¿estás en línea?)'
+  }
+};
+const UI_LANGS = [{code:'fi',flag:'🇫🇮',name:'Suomi'},{code:'en',flag:'🇬🇧',name:'English'},{code:'es',flag:'🇪🇸',name:'Español'}];
+let UILANG = (function(){ try{ return localStorage.getItem(LS_UILANG)||'fi'; }catch(e){ return 'fi'; } })();
+if(!I18N[UILANG]) UILANG='fi';
+function t(key, arg){ const d=I18N[UILANG]||I18N.fi; let v=d[key]; if(v==null) v=I18N.fi[key]; if(v==null) return key; return (typeof v==='function')? v(arg) : v; }
 const ALL_LANGS = [
   {code:'fi',flag:'🇫🇮',name:'Suomi'}, {code:'en',flag:'🇬🇧',name:'English'},
   {code:'sv',flag:'🇸🇪',name:'Svenska'}, {code:'es',flag:'🇪🇸',name:'Español'},
@@ -273,7 +406,7 @@ function detectFlag(){ try{ const c=document.createElement('canvas'); c.width=20
   for(let i=0;i<d.length;i+=4){const r=d[i],g=d[i+1],b=d[i+2],a=d[i+3]; if(a>0&&((b>90&&r<90)||(r>150&&g>120&&b<90)))n++;} return n>4; }catch(e){return false;} }
 function fl(code){ return FLAG_OK ? (LMETA[code]?LMETA[code].flag:'🏳️') : ''; }
 
-const EDITOR_VERSION = '01.00.00';
+const EDITOR_VERSION = '01.00.02';
 
 let pack = migrate(load()) || { name:'', langs:['fi','en','es'], customLangs:[], topics:[], questions:[] };
 if(!pack.customLangs) pack.customLangs = [];
@@ -310,7 +443,7 @@ function renderLangChips(){
     const custom = (pack.customLangs||[]).some(c=>c.code===l.code);
     return `<button class="langchip ${pack.langs.includes(l.code)?'on':''}" data-lang="${l.code}"><span class="fl">${l.flag}</span>${esc(l.name)}${custom?' <span style="opacity:.6">✎</span>':''}</button>`;
   }).join('');
-  $('#langChips').innerHTML = chips + `<button class="langchip" id="addLangChip" style="border-style:dashed">➕ Lisää oma kieli</button>`;
+  $('#langChips').innerHTML = chips + `<button class="langchip" id="addLangChip" style="border-style:dashed">${t("addOwnLang")}</button>`;
   if(typeof renderCornerFlags==='function') renderCornerFlags();
 }
 $('#langChips').addEventListener('click', e=>{
@@ -320,7 +453,7 @@ $('#langChips').addEventListener('click', e=>{
   const isCustom = (pack.customLangs||[]).some(c=>c.code===code);
   // long-press style: if custom and already selected, offer to remove the custom language itself
   if(pack.langs.includes(code)){
-    if(pack.langs.length===1){ toast('Paketissa on oltava vähintään yksi kieli'); return; }
+    if(pack.langs.length===1){ toast(t('tMustOneLang')); return; }
     pack.langs = pack.langs.filter(c=>c!==code);
   } else {
     pack.langs.push(code);
@@ -330,20 +463,20 @@ $('#langChips').addEventListener('click', e=>{
 
 /* Add / remove custom language */
 function openAddLang(){
-  const name = prompt('Kielen nimi (esim. Klingon):','');
+  const name = prompt(t('pLangName'),'');
   if(name==null) return;
-  const nm = name.trim(); if(!nm){ toast('Anna kielelle nimi'); return; }
-  let code = prompt('Kielikoodi – 2 tai 3 pientä kirjainta (esim. tlh):','');
+  const nm = name.trim(); if(!nm){ toast(t('tNeedLangName')); return; }
+  let code = prompt(t('pLangCode'),'');
   if(code==null) return;
   code = code.trim().toLowerCase();
-  if(!/^[a-z]{2,3}$/.test(code)){ toast('Koodin pitää olla 2–3 kirjainta (a–z)'); return; }
-  if(LMETA[code]){ toast('Tuo koodi on jo käytössä'); return; }
-  let flag = prompt('Lippu tai kuvake (emoji, esim. 🖖). Voit jättää tyhjäksi:','');
+  if(!/^[a-z]{2,3}$/.test(code)){ toast(t('tBadCode')); return; }
+  if(LMETA[code]){ toast(t('tCodeUsed')); return; }
+  let flag = prompt(t('pLangFlag'),'');
   flag = (flag||'').trim() || '🏳️';
   pack.customLangs.push({ code, name:nm, flag });
   if(!pack.langs.includes(code)) pack.langs.push(code);
   rebuildLMeta(); save(); renderLangChips();
-  toast(`Lisätty kieli: ${nm}`);
+  toast(t('tLangAdded',nm));
 }
 
 /* tabs */
@@ -354,7 +487,7 @@ function switchTab(t){ $('#tabQuestions').classList.toggle('on',t==='q'); $('#ta
 
 /* helpers */
 function firstLang(){ return pack.langs[0]||'fi'; }
-function catName(key){ const c=pack.topics.find(t=>t.key===key); if(!c) return '(poistettu)'; return c.names[firstLang()]||c.names[Object.keys(c.names)[0]]||'(nimetön)'; }
+function catName(key){ const c=pack.topics.find(t=>t.key===key); if(!c) return t('deletedCat'); return c.names[firstLang()]||c.names[Object.keys(c.names)[0]]||t('noName'); }
 function catIcon(key){ const c=pack.topics.find(t=>t.key===key); return c?c.icon:'❓'; }
 function qFilledLangs(q){ return pack.langs.filter(c => (q.q[c]||'').trim() && q.opts.length===10 && q.opts.every(o=>(o.t[c]||'').trim())); }
 
@@ -366,19 +499,19 @@ function render(){
 
   const cl=$('#categoryList');
   cl.innerHTML = !pack.topics.length
-    ? `<div class="empty">Ei kategorioita vielä.<br>Luo ensin kategoria, niin voit lisätä siihen kysymyksiä.</div>`
-    : pack.topics.map(t=>{
-        const n=pack.questions.filter(q=>q.topic===t.key).length;
-        return `<div class="card"><span class="emoji">${esc(t.icon)}</span>
-          <div class="grow"><div class="ttl">${esc(catName(t.key))}</div><div class="sub">${n} kysymystä</div></div>
-          <div class="acts"><button class="btn small green" data-addq="${t.key}">➕ Kysymys</button>
-          <button class="btn small" data-editcat="${t.key}">Muokkaa</button>
-          <button class="btn small danger" data-delcat="${t.key}">Poista</button></div></div>`;
+    ? `<div class="empty">${t("emptyCats")}</div>`
+    : pack.topics.map(tp=>{
+        const n=pack.questions.filter(q=>q.topic===tp.key).length;
+        return `<div class="card"><span class="emoji">${esc(tp.icon)}</span>
+          <div class="grow"><div class="ttl">${esc(catName(tp.key))}</div><div class="sub">${t("nQuestions",n)}</div></div>
+          <div class="acts"><button class="btn small green" data-addq="${tp.key}">${t("addQ")}</button>
+          <button class="btn small" data-editcat="${tp.key}">${t("edit")}</button>
+          <button class="btn small danger" data-delcat="${tp.key}">${t("del")}</button></div></div>`;
       }).join('');
 
   const ql=$('#questionList');
   ql.innerHTML = !pack.questions.length
-    ? `<div class="empty">Ei kysymyksiä vielä.<br>Paina <b>Uusi kysymys</b> aloittaaksesi.</div>`
+    ? `<div class="empty">${t("emptyQs")}</div>`
     : pack.questions.map(q=>{
         const correct=q.opts.filter(o=>o.correct).length;
         const done=qFilledLangs(q);
@@ -386,9 +519,9 @@ function render(){
         const langPills = pack.langs.map(c=>`<span class="pill ${done.includes(c)?'correct':'warn'}">${fl(c)} ${c.toUpperCase()}</span>`).join('');
         return `<div class="card"><span class="emoji">${esc(catIcon(q.topic))}</span>
           <div class="grow"><div class="ttl">${esc((q.q[firstLang()]||q.q[done[0]]||'(tyhjä)'))}</div>
-          <div class="sub"><span class="pill">${esc(catName(q.topic))}</span><span class="pill">${DIFF_LABEL[q.d]||q.d}</span><span class="pill correct">${correct} oikein</span>${langPills}</div></div>
-          <div class="acts"><button class="btn small" data-editq="${q.id}">Muokkaa</button>
-          <button class="btn small danger" data-delq="${q.id}">Poista</button></div></div>`;
+          <div class="sub"><span class="pill">${esc(catName(q.topic))}</span><span class="pill">${t(q.d)}</span><span class="pill correct">${t("nCorrect",correct)}</span>${langPills}</div></div>
+          <div class="acts"><button class="btn small" data-editq="${q.id}">${t("edit")}</button>
+          <button class="btn small danger" data-delq="${q.id}">${t("del")}</button></div></div>`;
       }).join('');
   save();
 }
@@ -413,7 +546,7 @@ $('#addCategoryBtn').addEventListener('click', ()=>openCat(null));
 function openCat(key){
   editingCatId=key;
   const c=key?pack.topics.find(t=>t.key===key):null;
-  $('#catEditorTitle').textContent = c?'Muokkaa kategoriaa':'Uusi kategoria';
+  $('#catEditorTitle').textContent = c?t('catEdit'):t('catNew');
   $('#catNameInputs').innerHTML = pack.langs.map(code=>
     `<div class="catlang"><label class="lbl">${fl(code)} ${esc(LMETA[code].name)}</label>
      <input type="text" data-catlang="${code}" value="${esc(c?(c.names[code]||''):'')}"></div>`
@@ -427,17 +560,17 @@ $('#catCancel').addEventListener('click', closeCat);
 $('#catSave').addEventListener('click', ()=>{
   const names={}; let any='';
   $$('#catNameInputs [data-catlang]').forEach(inp=>{ const v=inp.value.trim(); names[inp.dataset.catlang]=v; if(v&&!any)any=v; });
-  if(!any){ toast('Anna kategorialle nimi vähintään yhdellä kielellä'); return; }
-  if(!pickedEmoji){ toast('Valitse kuvake'); return; }
+  if(!any){ toast(t('tNeedCatName')); return; }
+  if(!pickedEmoji){ toast(t('tNeedIcon')); return; }
   if(editingCatId){ const c=pack.topics.find(t=>t.key===editingCatId); c.names=names; c.icon=pickedEmoji; }
   else pack.topics.push({ key:uid('cat_'), names, icon:pickedEmoji });
-  save(); toast('Kategoria tallennettu'); closeCat(); switchTab('c');
+  save(); toast(t('tCatSaved')); closeCat(); switchTab('c');
 });
 function delCat(key){
   const n=pack.questions.filter(q=>q.topic===key).length;
-  if(!confirm(n>0?`Poistetaanko kategoria ja sen ${n} kysymystä?`:'Poistetaanko kategoria?')) return;
+  if(!confirm(n>0?t('cDelCatQ',n):t('cDelCat'))) return;
   pack.topics=pack.topics.filter(t=>t.key!==key); pack.questions=pack.questions.filter(q=>q.topic!==key);
-  render(); toast('Kategoria poistettu');
+  render(); toast(t('tCatDeleted'));
 }
 
 /* question editor */
@@ -445,17 +578,17 @@ function buildOptRows(){
   const w=$('#optList'); w.innerHTML='';
   for(let i=0;i<10;i++){
     const r=document.createElement('div'); r.className='opt';
-    r.innerHTML=`<span class="num">${i+1}</span><input type="text" data-opt="${i}" placeholder=""><button class="mark" data-mark="${i}" type="button">Väärin</button>`;
+    r.innerHTML=`<span class="num">${i+1}</span><input type="text" data-opt="${i}" placeholder=""><button class="mark" data-mark="${i}" type="button">${t("wrong")}</button>`;
     w.appendChild(r);
   }
   w.addEventListener('click', e=>{ const b=e.target.closest('[data-mark]'); if(!b)return;
-    b.classList.toggle('on'); b.textContent=b.classList.contains('on')?'✓ Oikein':'Väärin'; });
+    b.classList.toggle('on'); b.textContent=b.classList.contains('on')?t('right'):t('wrong'); });
   // save typing into draft for the active language
   w.addEventListener('input', e=>{ const inp=e.target.closest('[data-opt]'); if(!inp)return; qDraft.opts[+inp.dataset.opt].t[qActiveLang]=inp.value; });
 }
 $('#qText').addEventListener('input', e=>{ if(qDraft) qDraft.q[qActiveLang]=e.target.value; });
 
-$('#addQuestionBtn').addEventListener('click', ()=>{ if(!pack.topics.length){ toast('Luo ensin vähintään yksi kategoria'); switchTab('c'); return; } openQ(null); });
+$('#addQuestionBtn').addEventListener('click', ()=>{ if(!pack.topics.length){ toast(t('tNeedCat')); switchTab('c'); return; } openQ(null); });
 function fillCatSelect(sel){ $('#qCat').innerHTML = pack.topics.map(t=>`<option value="${t.key}">${esc(t.icon)} ${esc(catName(t.key))}</option>`).join(''); if(sel)$('#qCat').value=sel; }
 
 function openQ(id, presetCat){
@@ -469,14 +602,14 @@ function openQ(id, presetCat){
     qDraft.opts[i].correct = src?!!src.correct:false;
     pack.langs.forEach(c=>{ qDraft.opts[i].t[c] = src? (src.t[c]||'') : ''; });
   }
-  $('#qEditorTitle').textContent = q?'Muokkaa kysymystä':'Uusi kysymys';
+  $('#qEditorTitle').textContent = q?t('qEdit'):t('qNew');
   fillCatSelect(q?q.topic:(presetCat||pack.topics[0].key));
   $('#qDiff').value = q?q.d:'normal';
   qActiveLang = pack.langs[0];
   renderLangTabs();
   loadLangIntoFields();
   // correct marks (shared)
-  $$('#optList [data-mark]').forEach((b,i)=>{ const on=qDraft.opts[i].correct; b.classList.toggle('on',on); b.textContent=on?'✓ Oikein':'Väärin'; });
+  $$('#optList [data-mark]').forEach((b,i)=>{ const on=qDraft.opts[i].correct; b.classList.toggle('on',on); b.textContent=on?t('right'):t('wrong'); });
   $('#qWarn').classList.add('hidden');
   show('q'); setTimeout(()=>$('#qText').focus(),60);
 }
@@ -511,19 +644,19 @@ $('#qSave').addEventListener('click', ()=>{
   $$('#optList [data-mark]').forEach((b,i)=>{ qDraft.opts[i].correct=b.classList.contains('on'); });
   const correct=qDraft.opts.filter(o=>o.correct).length;
   const warn=$('#qWarn');
-  if(correct<1||correct>9){ warn.textContent='Merkitse 1–9 vaihtoehtoa oikeaksi.'; warn.classList.remove('hidden'); return; }
+  if(correct<1||correct>9){ warn.textContent=t('tMark19'); warn.classList.remove('hidden'); return; }
   // require at least one fully-filled language
   const filledLangs = pack.langs.filter(c=>(qDraft.q[c]||'').trim() && qDraft.opts.every(o=>(o.t[c]||'').trim()));
-  if(!filledLangs.length){ warn.textContent='Täytä kysymys ja kaikki 10 vaihtoehtoa vähintään yhdellä kielellä.'; warn.classList.remove('hidden'); return; }
+  if(!filledLangs.length){ warn.textContent=t('tFillOne'); warn.classList.remove('hidden'); return; }
   const rec = { topic:$('#qCat').value, d:$('#qDiff').value, q:{...qDraft.q}, opts:qDraft.opts.map(o=>({t:{...o.t}, correct:o.correct})) };
   if(editingQId){ const q=pack.questions.find(x=>x.id===editingQId); Object.assign(q,rec); }
   else pack.questions.push({ id:uid('q_'), ...rec });
   save();
   const miss = pack.langs.length - filledLangs.length;
-  toast(miss>0 ? `Tallennettu (${miss} kieltä kesken)` : 'Kysymys tallennettu');
+  toast(miss>0 ? t('tSavedPartial',miss) : t('tQSaved'));
   closeQ();
 });
-function delQ(id){ if(!confirm('Poistetaanko kysymys?'))return; pack.questions=pack.questions.filter(q=>q.id!==id); render(); toast('Kysymys poistettu'); }
+function delQ(id){ if(!confirm(t('cDelQ')))return; pack.questions=pack.questions.filter(q=>q.id!==id); render(); toast(t('tQDeleted')); }
 
 /* export */
 function buildPack(){
@@ -549,17 +682,23 @@ function buildPack(){
   return { name:pack.name||'Oma paketti', langs:langs.map(c=>({code:c, flag:LMETA[c].flag, name:LMETA[c].name})), topics, questions };
 }
 $('#exportBtn').addEventListener('click', ()=>{
-  if(!pack.questions.length){ toast('Lisää ainakin yksi kysymys'); return; }
+  if(!pack.questions.length){ toast(t('tNeedQ')); return; }
+  if(!(pack.name||'').trim()){
+    const nm = prompt(t('pPackName'), t('defPackName'));
+    if(nm==null) return;                 // cancelled
+    pack.name = nm.trim() || t('defPackName');
+    $('#packName').value = pack.name; save();
+  }
   const out=buildPack();
-  if(!out.questions.length){ toast('Ei valmiita kysymyksiä vietäväksi'); return; }
+  if(!out.questions.length){ toast(t('tNoComplete')); return; }
   const skipped = pack.questions.length - out.questions.length;
-  if(skipped>0 && !confirm(`${skipped} kysymystä on keskeneräistä ja jätetään pois. Jatketaanko?`)) return;
+  if(skipped>0 && !confirm(t('cSkip',skipped))) return;
   const blob=new Blob([JSON.stringify(out,null,2)],{type:'application/json'});
   const a=document.createElement('a');
   const safe=(pack.name||'pub-quiz-paketti').replace(/[^\w\-]+/g,'_').replace(/^_+|_+$/g,'').toLowerCase()||'pub-quiz-paketti';
   a.href=URL.createObjectURL(blob); a.download=safe+'.json'; document.body.appendChild(a); a.click(); a.remove();
   setTimeout(()=>URL.revokeObjectURL(a.href),4000);
-  toast(`Viety: ${out.questions.length} kysymystä`);
+  toast(t('tExported',out.questions.length));
 });
 
 /* import (reads multilingual packs back in) */
@@ -570,10 +709,10 @@ $('#fileInput').addEventListener('change', e=>{
   r.onload=()=>{ try{
     const data=JSON.parse(String(r.result));
     const arr=Array.isArray(data)?data:(data.questions||[]);
-    if(!arr.length && !(data.topics||[]).length){ toast('Tiedostossa ei ollut kysymyksiä'); return; }
-    if(!confirm('Tuonti korvaa nykyisen työn. Jatketaanko?')) return;
-    importPack(data, arr); toast(`Tuotu: ${pack.questions.length} kysymystä`);
-  }catch(err){ toast('Virhe: ei kelvollinen JSON'); } };
+    if(!arr.length && !(data.topics||[]).length){ toast(t('tNoQInFile')); return; }
+    if(!confirm(t('cImport'))) return;
+    importPack(data, arr); toast(t('tImported',pack.questions.length));
+  }catch(err){ toast(t('tBadJson')); } };
   r.readAsText(f); e.target.value='';
 });
 function importPack(data, arr){
@@ -601,8 +740,8 @@ function importPack(data, arr){
 
 /* clear */
 $('#clearAllBtn').addEventListener('click', ()=>{
-  if(!confirm('Tyhjennetäänkö koko paketti? Tätä ei voi perua.')) return;
-  pack={ name:'', langs:pack.langs.slice(), topics:[], questions:[] }; save(); render(); toast('Tyhjennetty');
+  if(!confirm(t('cClearAll'))) return;
+  pack={ name:'', langs:pack.langs.slice(), customLangs:pack.customLangs||[], topics:[], questions:[] }; save(); render(); toast(t('tCleared'));
 });
 
 /* corner panel: flag row + update */
@@ -616,28 +755,47 @@ function renderCornerFlags(){
 let updating=false;
 async function checkUpdate(){
   if(updating) return; updating=true;
-  const btn=$('#updateBtn'); const old=btn.textContent; btn.textContent='Tarkistetaan…';
+  const btn=$('#updateBtn'); const old=btn.textContent; btn.textContent=t('tChecking');
   try{
     const r = await fetch('editor-version.json?ts='+Date.now(), {cache:'no-store'});
     const info = await r.json();
     const remote = String(info && info.version || '');
     if(remote && remote!==EDITOR_VERSION){
-      toast('Uusi versio '+remote+' – päivitetään…');
+      toast(t('tNewVer',remote));
       setTimeout(()=>{ location.replace(location.pathname + '?v=' + encodeURIComponent(remote)); }, 700);
       return;
     }
-    toast('Sinulla on uusin versio ('+EDITOR_VERSION+')');
+    toast(t('tLatest',EDITOR_VERSION));
   }catch(e){
-    toast('Päivitystä ei voitu tarkistaa (oletko verkossa?)');
+    toast(t('tUpdFail'));
   }
   btn.textContent=old; updating=false;
 }
 $('#updateBtn').addEventListener('click', checkUpdate);
 
+/* UI language */
+function renderUILangSel(){
+  const el=$('#uiLangSel'); if(!el) return;
+  el.innerHTML = UI_LANGS.map(l=>`<button data-uilang="${l.code}" class="${l.code===UILANG?'on':''}">${FLAG_OK?l.flag:l.code.toUpperCase()}</button>`).join('');
+}
+function applyUILang(){
+  document.documentElement.lang = UILANG;
+  document.title = 'Pub Quiz – ' + t('brandSub');
+  $$('[data-i18n]').forEach(el=>{ el.innerHTML = t(el.dataset.i18n); });
+  $$('[data-i18n-ph]').forEach(el=>{ el.placeholder = t(el.dataset.i18nPh); });
+  renderUILangSel();
+  render();
+}
+document.addEventListener('click', e=>{
+  const b=e.target.closest('[data-uilang]'); if(!b) return;
+  UILANG=b.dataset.uilang; try{ localStorage.setItem(LS_UILANG,UILANG); }catch(_){}
+  applyUILang();
+});
+
 /* boot */
 FLAG_OK = detectFlag();
 $('#cpVer').textContent = 'v'+EDITOR_VERSION;
-buildEmojiGrid(); buildOptRows(); render(); renderCornerFlags();
+buildEmojiGrid(); buildOptRows(); applyUILang(); render(); renderCornerFlags();
 </script>
 </body>
 </html>
