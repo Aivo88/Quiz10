@@ -195,6 +195,18 @@
   </div>
 </div>
 
+<!-- CATEGORY QUESTIONS VIEW -->
+<div id="catQuestions" class="hidden">
+  <div class="wrap">
+    <div class="editor-head">
+      <button class="btn small" id="cqBack" data-i18n="back">‹ Takaisin</button>
+      <h2 id="cqTitle"></h2>
+    </div>
+    <div id="cqList"></div>
+    <div class="addbar"><button class="btn gold block" id="cqAdd" data-i18n="newQuestion">➕ Uusi kysymys</button></div>
+  </div>
+</div>
+
 <!-- CATEGORY EDITOR -->
 <div id="catEditor" class="hidden">
   <div class="wrap">
@@ -278,6 +290,7 @@ const I18N = {
     addQ:'➕ Kysymys', edit:'Muokkaa', del:'Poista', wrong:'Väärin', right:'✓ Oikein',
     emptyCats:'Ei kategorioita vielä.<br>Luo ensin kategoria, niin voit lisätä siihen kysymyksiä.',
     emptyQs:'Ei kysymyksiä vielä.<br>Paina <b>Uusi kysymys</b> aloittaaksesi.',
+    emptyCatQ:'Tässä kategoriassa ei ole vielä kysymyksiä.<br>Paina <b>Uusi kysymys</b>.', viewCatHint:'Napauta kategoriaa nähdäksesi sen kysymykset',
     nQuestions:n=>`${n} kysymystä`, nCorrect:n=>`${n} oikein`, deletedCat:'(poistettu)', noName:'(nimetön)',
     uiLang:'Editorin kieli',
     tMustOneLang:'Paketissa on oltava vähintään yksi kieli',
@@ -318,6 +331,7 @@ const I18N = {
     addQ:'➕ Question', edit:'Edit', del:'Delete', wrong:'Wrong', right:'✓ Correct',
     emptyCats:'No categories yet.<br>Create a category first, then you can add questions to it.',
     emptyQs:'No questions yet.<br>Press <b>New question</b> to start.',
+    emptyCatQ:'No questions in this category yet.<br>Press <b>New question</b>.', viewCatHint:'Tap a category to see its questions',
     nQuestions:n=>`${n} questions`, nCorrect:n=>`${n} correct`, deletedCat:'(deleted)', noName:'(unnamed)',
     uiLang:'Editor language',
     tMustOneLang:'The pack must have at least one language',
@@ -358,6 +372,7 @@ const I18N = {
     addQ:'➕ Pregunta', edit:'Editar', del:'Eliminar', wrong:'Incorrecto', right:'✓ Correcto',
     emptyCats:'Aún no hay categorías.<br>Crea primero una categoría y luego añade preguntas.',
     emptyQs:'Aún no hay preguntas.<br>Pulsa <b>Nueva pregunta</b> para empezar.',
+    emptyCatQ:'Aún no hay preguntas en esta categoría.<br>Pulsa <b>Nueva pregunta</b>.', viewCatHint:'Toca una categoría para ver sus preguntas',
     nQuestions:n=>`${n} preguntas`, nCorrect:n=>`${n} correctas`, deletedCat:'(eliminada)', noName:'(sin nombre)',
     uiLang:'Idioma del editor',
     tMustOneLang:'El paquete debe tener al menos un idioma',
@@ -406,12 +421,26 @@ function detectFlag(){ try{ const c=document.createElement('canvas'); c.width=20
   for(let i=0;i<d.length;i+=4){const r=d[i],g=d[i+1],b=d[i+2],a=d[i+3]; if(a>0&&((b>90&&r<90)||(r>150&&g>120&&b<90)))n++;} return n>4; }catch(e){return false;} }
 function fl(code){ return FLAG_OK ? (LMETA[code]?LMETA[code].flag:'🏳️') : ''; }
 
-const EDITOR_VERSION = '01.00.02';
+const EDITOR_VERSION = '01.00.03';
 
-let pack = migrate(load()) || { name:'', langs:['fi','en','es'], customLangs:[], topics:[], questions:[] };
+/* The game's built-in categories — same keys, so questions land in the right category in-game */
+const DEFAULT_TOPICS = [
+  {key:'geo',  icon:'🌍', names:{en:'Geography',       fi:'Maantiede',        es:'Geografía'}},
+  {key:'sci',  icon:'🔬', names:{en:'Science & Nature',fi:'Tiede & luonto',   es:'Ciencia y naturaleza'}},
+  {key:'arts', icon:'🎭', names:{en:'Arts & Music',    fi:'Taide & musiikki', es:'Arte y música'}},
+  {key:'sport',icon:'⚽', names:{en:'Sport & Games',   fi:'Urheilu & pelit',  es:'Deporte y juegos'}},
+  {key:'hist', icon:'🏛️', names:{en:'History',          fi:'Historia',         es:'Historia'}},
+  {key:'gen',  icon:'🧠', names:{en:'General',          fi:'Yleistieto',       es:'General'}},
+  {key:'film', icon:'🎬', names:{en:'Film & TV',        fi:'Elokuvat & TV',    es:'Cine y TV'}},
+  {key:'mixed',icon:'🎲', names:{en:'Mixed',            fi:'Sekaisin',         es:'Variado'}}
+];
+function defaultTopics(){ return DEFAULT_TOPICS.map(t=>({ key:t.key, icon:t.icon, names:{...t.names} })); }
+function newPack(){ return { name:'', langs:['fi','en','es'], customLangs:[], topics:defaultTopics(), questions:[] }; }
+
+let pack = migrate(load()) || newPack();
 if(!pack.customLangs) pack.customLangs = [];
 rebuildLMeta();
-let editingCatId=null, editingQId=null, pickedEmoji='🎵';
+let editingCatId=null, editingQId=null, pickedEmoji='🎵', catView=null;
 let qActiveLang='fi', qDraft=null;
 
 function load(){ try{ const r=localStorage.getItem(LS_KEY)||localStorage.getItem('quiz10_editor_pack_v1'); return r?JSON.parse(r):null; }catch(e){return null;} }
@@ -434,7 +463,7 @@ function migrate(p){
   return { name:p.name||'', langs:[lc], customLangs:[], topics, questions };
 }
 
-function show(v){ $('#mainView').classList.toggle('hidden',v!=='main'); $('#catEditor').classList.toggle('hidden',v!=='cat'); $('#qEditor').classList.toggle('hidden',v!=='q'); window.scrollTo(0,0); }
+function show(v){ $('#mainView').classList.toggle('hidden',v!=='main'); $('#catEditor').classList.toggle('hidden',v!=='cat'); $('#qEditor').classList.toggle('hidden',v!=='q'); $('#catQuestions').classList.toggle('hidden',v!=='catq'); window.scrollTo(0,0); }
 
 /* header */
 $('#packName').addEventListener('input', e=>{ pack.name=e.target.value; save(); });
@@ -503,7 +532,7 @@ function render(){
     : pack.topics.map(tp=>{
         const n=pack.questions.filter(q=>q.topic===tp.key).length;
         return `<div class="card"><span class="emoji">${esc(tp.icon)}</span>
-          <div class="grow"><div class="ttl">${esc(catName(tp.key))}</div><div class="sub">${t("nQuestions",n)}</div></div>
+          <div class="grow" data-viewcat="${tp.key}" style="cursor:pointer"><div class="ttl">${esc(catName(tp.key))}</div><div class="sub">${t("nQuestions",n)} ›</div></div>
           <div class="acts"><button class="btn small green" data-addq="${tp.key}">${t("addQ")}</button>
           <button class="btn small" data-editcat="${tp.key}">${t("edit")}</button>
           <button class="btn small danger" data-delcat="${tp.key}">${t("del")}</button></div></div>`;
@@ -527,6 +556,7 @@ function render(){
 }
 
 document.addEventListener('click', e=>{
+  const vc=e.target.closest('[data-viewcat]'); if(vc){ openCatQuestions(vc.dataset.viewcat); return; }
   const b=e.target.closest('button'); if(!b) return;
   if(b.dataset.editcat!=null) openCat(b.dataset.editcat);
   else if(b.dataset.delcat!=null) delCat(b.dataset.delcat);
@@ -534,6 +564,27 @@ document.addEventListener('click', e=>{
   else if(b.dataset.editq!=null) openQ(b.dataset.editq);
   else if(b.dataset.delq!=null) delQ(b.dataset.delq);
 });
+
+/* Category → its questions */
+function openCatQuestions(key){ catView=key; renderCatQ(); show('catq'); }
+function closeCatQuestions(){ catView=null; show('main'); render(); }
+function renderCatQ(){
+  const c=pack.topics.find(x=>x.key===catView); if(!c){ closeCatQuestions(); return; }
+  $('#cqTitle').innerHTML = `${esc(c.icon)} ${esc(catName(c.key))}`;
+  const qs=pack.questions.filter(q=>q.topic===catView);
+  $('#cqList').innerHTML = !qs.length ? `<div class="empty">${t('emptyCatQ')}</div>`
+    : qs.map(q=>{
+        const correct=q.opts.filter(o=>o.correct).length;
+        const done=qFilledLangs(q);
+        const langPills=pack.langs.map(cc=>`<span class="pill ${done.includes(cc)?'correct':'warn'}">${fl(cc)} ${cc.toUpperCase()}</span>`).join('');
+        return `<div class="card"><div class="grow"><div class="ttl">${esc(q.q[firstLang()]||q.q[done[0]]||'—')}</div>
+          <div class="sub"><span class="pill">${t(q.d)}</span><span class="pill correct">${t('nCorrect',correct)}</span>${langPills}</div></div>
+          <div class="acts"><button class="btn small" data-editq="${q.id}">${t('edit')}</button>
+          <button class="btn small danger" data-delq="${q.id}">${t('del')}</button></div></div>`;
+      }).join('');
+}
+$('#cqBack').addEventListener('click', closeCatQuestions);
+$('#cqAdd').addEventListener('click', ()=>openQ(null, catView));
 
 /* emoji picker */
 function buildEmojiGrid(){ $('#emojiGrid').innerHTML = EMOJIS.map(e=>`<button data-emoji="${e}">${e}</button>`).join(''); }
@@ -635,7 +686,7 @@ function loadLangIntoFields(){
   $('#qText').value = qDraft.q[qActiveLang]||'';
   $$('#optList [data-opt]').forEach((inp,i)=>{ inp.value = qDraft.opts[i].t[qActiveLang]||''; });
 }
-function closeQ(){ editingQId=null; qDraft=null; show('main'); render(); }
+function closeQ(){ editingQId=null; qDraft=null; if(catView){ renderCatQ(); show('catq'); render(); } else { show('main'); render(); } }
 $('#qBack').addEventListener('click', closeQ);
 $('#qCancel').addEventListener('click', closeQ);
 $('#qSave').addEventListener('click', ()=>{
@@ -656,7 +707,7 @@ $('#qSave').addEventListener('click', ()=>{
   toast(miss>0 ? t('tSavedPartial',miss) : t('tQSaved'));
   closeQ();
 });
-function delQ(id){ if(!confirm(t('cDelQ')))return; pack.questions=pack.questions.filter(q=>q.id!==id); render(); toast(t('tQDeleted')); }
+function delQ(id){ if(!confirm(t('cDelQ')))return; pack.questions=pack.questions.filter(q=>q.id!==id); save(); if(catView) renderCatQ(); render(); toast(t('tQDeleted')); }
 
 /* export */
 function buildPack(){
@@ -741,7 +792,7 @@ function importPack(data, arr){
 /* clear */
 $('#clearAllBtn').addEventListener('click', ()=>{
   if(!confirm(t('cClearAll'))) return;
-  pack={ name:'', langs:pack.langs.slice(), customLangs:pack.customLangs||[], topics:[], questions:[] }; save(); render(); toast(t('tCleared'));
+  pack={ name:'', langs:pack.langs.slice(), customLangs:pack.customLangs||[], topics:defaultTopics(), questions:[] }; save(); render(); toast(t('tCleared'));
 });
 
 /* corner panel: flag row + update */
