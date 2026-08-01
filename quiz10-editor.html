@@ -36,6 +36,13 @@
   .searchwrap{display:flex; gap:8px; margin-top:12px}
   .searchwrap input{flex:1; background:var(--bg); color:var(--ink); border:2px solid var(--line); border-radius:10px; padding:10px 13px; outline:none}
   .searchwrap input:focus{border-color:var(--gold)}
+  .modepick{display:flex; gap:10px}
+  .modebtn{flex:1; background:var(--bg); border:2px solid var(--line); color:var(--muted); border-radius:12px; padding:10px; font-weight:700; display:flex; flex-direction:column; gap:1px; align-items:center; cursor:pointer}
+  .modebtn b{color:var(--ink); font-size:1.02em}
+  .modebtn span{font-size:.78em; opacity:.8}
+  .modebtn.on{background:var(--gold); border-color:var(--gold)}
+  .modebtn.on b, .modebtn.on span{color:var(--goldink)}
+  .pill.bull{color:var(--gold); border-color:#6a5220}
   .spacer{flex:1}
   .wrap{max-width:820px; margin:0 auto; padding:0 clamp(12px,4vw,24px)}
 
@@ -262,6 +269,13 @@
       <div class="field"><label class="lbl" for="qDiff" data-i18n="difficulty">Vaikeustaso</label>
         <select id="qDiff"><option value="easy" data-i18n="easy">Helppo</option><option value="normal" selected data-i18n="normal">Normaali</option><option value="hard" data-i18n="hard">Vaikea</option></select></div>
     </div>
+    <div class="field">
+      <label class="lbl" data-i18n="modeLbl">Pelimuoto</label>
+      <div class="modepick" id="qModePick">
+        <button type="button" class="modebtn on" data-qmode="sweep"><b data-i18n="modeSweep">Sweep</b><span data-i18n="modeSweepDesc">monta oikein</span></button>
+        <button type="button" class="modebtn" data-qmode="bullseye"><b data-i18n="modeBullseye">Napakymppi</b><span data-i18n="modeBullseyeDesc">yksi oikein</span></button>
+      </div>
+    </div>
     <label class="lbl" data-i18n="qLangLbl">Kieli — täytä kysymys jokaisella kielellä</label>
     <div class="langtabs" id="qLangTabs"></div>
     <div class="field"><label class="lbl" for="qText"><span data-i18n="question">Kysymys</span> (<span id="qActiveLangName"></span>)</label><textarea id="qText" placeholder=""></textarea></div>
@@ -332,7 +346,7 @@ const I18N = {
     catNameLbl:'Kategorian nimi (jokaisella kielellä)', iconLbl:'Kuvake', ownEmoji:'oma emoji',
     cancel:'Peruuta', saveCat:'Tallenna kategoria',
     qNew:'Uusi kysymys', qEdit:'Muokkaa kysymystä', category:'Kategoria', difficulty:'Vaikeustaso',
-    easy:'Helppo', normal:'Normaali', hard:'Vaikea',
+    easy:'Helppo', normal:'Normaali', hard:'Vaikea', modeLbl:'Pelimuoto', modeSweep:'Sweep', modeBullseye:'Napakymppi', modeSweepDesc:'monta oikein', modeBullseyeDesc:'yksi oikein', tBull1:'Napakympissä tasan yksi vaihtoehto saa olla oikein.',
     qLangLbl:'Kieli — täytä kysymys jokaisella kielellä', question:'Kysymys',
     optionsLbl:'Vaihtoehdot', optionsHead:'— merkitse oikeat vihreällä (1–9 oikeaa)',
     optionsHint:'Oikein/väärin on sama kaikilla kielillä — käännä vain tekstit.',
@@ -373,7 +387,7 @@ const I18N = {
     catNameLbl:'Category name (in each language)', iconLbl:'Icon', ownEmoji:'own emoji',
     cancel:'Cancel', saveCat:'Save category',
     qNew:'New question', qEdit:'Edit question', category:'Category', difficulty:'Difficulty',
-    easy:'Easy', normal:'Normal', hard:'Hard',
+    easy:'Easy', normal:'Normal', hard:'Hard', modeLbl:'Game mode', modeSweep:'Sweep', modeBullseye:'Bullseye', modeSweepDesc:'many correct', modeBullseyeDesc:'one correct', tBull1:'In Bullseye exactly one option may be correct.',
     qLangLbl:'Language — fill in the question in each language', question:'Question',
     optionsLbl:'Options', optionsHead:'— mark the correct ones green (1–9 correct)',
     optionsHint:'Right/wrong is the same in all languages — just translate the texts.',
@@ -414,7 +428,7 @@ const I18N = {
     catNameLbl:'Nombre de la categoría (en cada idioma)', iconLbl:'Icono', ownEmoji:'emoji propio',
     cancel:'Cancelar', saveCat:'Guardar categoría',
     qNew:'Nueva pregunta', qEdit:'Editar pregunta', category:'Categoría', difficulty:'Dificultad',
-    easy:'Fácil', normal:'Normal', hard:'Difícil',
+    easy:'Fácil', normal:'Normal', hard:'Difícil', modeLbl:'Modo de juego', modeSweep:'Sweep', modeBullseye:'Diana', modeSweepDesc:'varias correctas', modeBullseyeDesc:'una correcta', tBull1:'En Diana exactamente una opción puede ser correcta.',
     qLangLbl:'Idioma — rellena la pregunta en cada idioma', question:'Pregunta',
     optionsLbl:'Opciones', optionsHead:'— marca las correctas en verde (1–9 correctas)',
     optionsHint:'Correcto/incorrecto es igual en todos los idiomas — solo traduce los textos.',
@@ -471,7 +485,7 @@ function detectFlag(){ try{ const c=document.createElement('canvas'); c.width=20
   for(let i=0;i<d.length;i+=4){const r=d[i],g=d[i+1],b=d[i+2],a=d[i+3]; if(a>0&&((b>90&&r<90)||(r>150&&g>120&&b<90)))n++;} return n>4; }catch(e){return false;} }
 function fl(code){ return FLAG_OK ? (LMETA[code]?LMETA[code].flag:'🏳️') : ''; }
 
-const EDITOR_VERSION = '01.00.10';
+const EDITOR_VERSION = '01.00.11';
 
 /* The game's built-in categories — same keys, so questions land in the right category in-game */
 const DEFAULT_TOPICS = [
@@ -690,7 +704,7 @@ function render(){
         const langPills = pack.langs.map(c=>`<span class="pill ${done.includes(c)?'correct':'warn'}">${fl(c)} ${c.toUpperCase()}</span>`).join('');
         return `<div class="card"><span class="emoji">${esc(catIcon(q.topic))}</span>
           <div class="grow"><div class="ttl">${esc(q.q[UILANG]||q.q[firstLang()]||q.q[done[0]]||'—')}</div>
-          <div class="sub"><span class="pill">${esc(catName(q.topic))}</span><span class="pill">${t(q.d)}</span><span class="pill correct">${t("nCorrect",correct)}</span>${langPills}</div></div>
+          <div class="sub"><span class="pill">${esc(catName(q.topic))}</span><span class="pill ${q.mode==='bullseye'?'bull':''}">${q.mode==='bullseye'?t('modeBullseye'):t('modeSweep')}</span><span class="pill">${t(q.d)}</span><span class="pill correct">${t("nCorrect",correct)}</span>${langPills}</div></div>
           <div class="acts"><button class="btn small" data-editq="${q.id}">${t("edit")}</button>
           <button class="btn small danger" data-delq="${q.id}">${t("del")}</button></div></div>`;
       }).join(''));
@@ -720,7 +734,7 @@ function renderCatQ(){
         const done=qFilledLangs(q);
         const langPills=pack.langs.map(cc=>`<span class="pill ${done.includes(cc)?'correct':'warn'}">${fl(cc)} ${cc.toUpperCase()}</span>`).join('');
         return `<div class="card"><div class="grow"><div class="ttl">${esc(q.q[UILANG]||q.q[firstLang()]||q.q[done[0]]||'—')}</div>
-          <div class="sub"><span class="pill">${t(q.d)}</span><span class="pill correct">${t('nCorrect',correct)}</span>${langPills}</div></div>
+          <div class="sub"><span class="pill ${q.mode==='bullseye'?'bull':''}">${q.mode==='bullseye'?t('modeBullseye'):t('modeSweep')}</span><span class="pill">${t(q.d)}</span><span class="pill correct">${t('nCorrect',correct)}</span>${langPills}</div></div>
           <div class="acts"><button class="btn small" data-editq="${q.id}">${t('edit')}</button>
           <button class="btn small danger" data-delq="${q.id}">${t('del')}</button></div></div>`;
       }).join('');
@@ -780,6 +794,7 @@ function buildOptRows(){
   w.addEventListener('input', e=>{ const inp=e.target.closest('[data-opt]'); if(!inp)return; qDraft.opts[+inp.dataset.opt].t[qActiveLang]=inp.value; });
 }
 $('#qText').addEventListener('input', e=>{ if(qDraft) qDraft.q[qActiveLang]=e.target.value; });
+$('#qModePick').addEventListener('click', e=>{ const b=e.target.closest('[data-qmode]'); if(!b||!qDraft) return; qDraft.mode=b.dataset.qmode; $$('#qModePick .modebtn').forEach(x=>x.classList.toggle('on', x.dataset.qmode===qDraft.mode)); });
 
 $('#addQuestionBtn').addEventListener('click', ()=>{ if(!pack.topics.length){ toast(t('tNeedCat')); switchTab('c'); return; } openQ(null); });
 function fillCatSelect(sel){ $('#qCat').innerHTML = pack.topics.map(t=>`<option value="${t.key}">${esc(t.icon)} ${esc(catName(t.key))}</option>`).join(''); if(sel)$('#qCat').value=sel; }
@@ -788,7 +803,7 @@ function openQ(id, presetCat){
   editingQId=id;
   const q=id?pack.questions.find(x=>x.id===id):null;
   // build working draft with all pack languages present
-  qDraft = { q:{}, opts:Array.from({length:10},()=>({t:{},correct:false})) };
+  qDraft = { mode: q?(q.mode||'sweep'):'sweep', q:{}, opts:Array.from({length:10},()=>({t:{},correct:false})) };
   pack.langs.forEach(c=>{ qDraft.q[c] = q? (q.q[c]||'') : ''; });
   for(let i=0;i<10;i++){
     const src = q && q.opts[i];
@@ -799,6 +814,7 @@ function openQ(id, presetCat){
   fillCatSelect(q?q.topic:(presetCat||pack.topics[0].key));
   $('#qDiff').value = q?q.d:'normal';
   qActiveLang = pack.langs[0];
+  $$('#qModePick .modebtn').forEach(x=>x.classList.toggle('on', x.dataset.qmode===qDraft.mode));
   renderLangTabs();
   loadLangIntoFields();
   // correct marks (shared)
@@ -837,11 +853,12 @@ $('#qSave').addEventListener('click', ()=>{
   $$('#optList [data-mark]').forEach((b,i)=>{ qDraft.opts[i].correct=b.classList.contains('on'); });
   const correct=qDraft.opts.filter(o=>o.correct).length;
   const warn=$('#qWarn');
-  if(correct<1||correct>9){ warn.textContent=t('tMark19'); warn.classList.remove('hidden'); return; }
+  if(qDraft.mode==='bullseye'){ if(correct!==1){ warn.textContent=t('tBull1'); warn.classList.remove('hidden'); return; } }
+  else if(correct<1||correct>9){ warn.textContent=t('tMark19'); warn.classList.remove('hidden'); return; }
   // require at least one fully-filled language
   const filledLangs = pack.langs.filter(c=>(qDraft.q[c]||'').trim() && qDraft.opts.every(o=>(o.t[c]||'').trim()));
   if(!filledLangs.length){ warn.textContent=t('tFillOne'); warn.classList.remove('hidden'); return; }
-  const rec = { topic:$('#qCat').value, d:$('#qDiff').value, q:{...qDraft.q}, opts:qDraft.opts.map(o=>({t:{...o.t}, correct:o.correct})) };
+  const rec = { mode:qDraft.mode||'sweep', topic:$('#qCat').value, d:$('#qDiff').value, q:{...qDraft.q}, opts:qDraft.opts.map(o=>({t:{...o.t}, correct:o.correct})) };
   if(editingQId){ const q=pack.questions.find(x=>x.id===editingQId); Object.assign(q,rec); }
   else pack.questions.push({ id:uid('q_'), ...rec });
   save();
@@ -864,13 +881,14 @@ function buildPack(){
   const questions=[];
   pack.questions.forEach(q=>{
     const correct=q.opts.filter(o=>o.correct).length;
-    if(correct<1||correct>9) return;
+    const mode=q.mode==='bullseye'?'bullseye':'sweep';
+    if(mode==='bullseye'){ if(correct!==1) return; } else if(correct<1||correct>9) return;
     const L = langs.filter(c=>(q.q[c]||'').trim() && q.opts.every(o=>(o.t[c]||'').trim()));
     if(!L.length) return;
     const cat={}; L.forEach(c=>cat[c]=q.q[c].trim());
     if(cat.en==null) cat.en=cat[L[0]];
     const o=q.opts.map(op=>{ const row=L.map(c=>op.t[c].trim()); row.push(op.correct?1:0); return row; });
-    questions.push({ topic:q.topic, d:q.d, cat, o, L });
+    questions.push({ mode, topic:q.topic, d:q.d, cat, o, L });
   });
   return { name:pack.name||'Oma paketti', langs:langs.map(c=>({code:c, flag:LMETA[c].flag, name:LMETA[c].name})), topics, questions };
 }
@@ -925,7 +943,7 @@ function importPack(data, arr){
     const opts=(q.o||[]).map(o=>{ const t={}; langs.forEach(c=>{ const idx=L.indexOf(c); if(idx>=0 && typeof o[idx]==='string')t[c]=o[idx]; }); return { t, correct:o[o.length-1]===1 }; });
     while(opts.length<10) opts.push({t:{},correct:false});
     let topic=q.topic; if(!byKey[topic]){ const nk=topic||uid('cat_'); byKey[nk]={key:nk,icon:'📦',names:{[langs[0]]:nk}}; topics.push(byKey[nk]); topic=nk; }
-    return { id:uid('q_'), topic, d:['easy','normal','hard'].includes(q.d)?q.d:'normal', q:qt, opts:opts.slice(0,10) };
+    return { id:uid('q_'), mode:q.mode==='bullseye'?'bullseye':'sweep', topic, d:['easy','normal','hard'].includes(q.d)?q.d:'normal', q:qt, opts:opts.slice(0,10) };
   });
   pack={ name:data.name||'', langs, topics, questions };
   save(); render();
