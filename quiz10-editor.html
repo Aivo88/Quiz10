@@ -302,7 +302,7 @@ const I18N = {
     pLangName:'Kielen nimi (esim. Klingon):', tNeedLangName:'Anna kielelle nimi',
     pLangCode:'Kielikoodi – 2 tai 3 pientä kirjainta (esim. tlh):', tBadCode:'Koodin pitää olla 2–3 kirjainta (a–z)',
     tCodeUsed:'Tuo koodi on jo käytössä', pLangFlag:'Lippu tai kuvake (emoji, esim. 🖖). Voit jättää tyhjäksi:',
-    tLangAdded:n=>`Lisätty kieli: ${n}`, tNeedCat:'Luo ensin vähintään yksi kategoria',
+    tLangAdded:n=>`Lisätty kieli: ${n}`, pEditLangName:'Kielen uusi nimi (tyhjennä poistaaksesi kielen):', cDelLang:n=>`Poistetaanko kieli "${n}"? Sen käännökset jäävät pakettiin mutta kieli katoaa listasta.`, tLangDeleted:'Kieli poistettu', tLangUpdated:'Kieli päivitetty', tNeedCat:'Luo ensin vähintään yksi kategoria',
     tNeedCatName:'Anna kategorialle nimi vähintään yhdellä kielellä', tNeedIcon:'Valitse kuvake',
     tCatSaved:'Kategoria tallennettu', cDelCatQ:n=>`Poistetaanko kategoria ja sen ${n} kysymystä?`,
     cDelCat:'Poistetaanko kategoria?', tCatDeleted:'Kategoria poistettu',
@@ -343,7 +343,7 @@ const I18N = {
     pLangName:'Language name (e.g. Klingon):', tNeedLangName:'Give the language a name',
     pLangCode:'Language code – 2 or 3 lowercase letters (e.g. tlh):', tBadCode:'The code must be 2–3 letters (a–z)',
     tCodeUsed:'That code is already in use', pLangFlag:'Flag or icon (emoji, e.g. 🖖). You can leave it empty:',
-    tLangAdded:n=>`Language added: ${n}`, tNeedCat:'Create at least one category first',
+    tLangAdded:n=>`Language added: ${n}`, pEditLangName:'New name (clear it to delete the language):', cDelLang:n=>`Delete language "${n}"? Its translations stay in the pack but the language leaves the list.`, tLangDeleted:'Language deleted', tLangUpdated:'Language updated', tNeedCat:'Create at least one category first',
     tNeedCatName:'Give the category a name in at least one language', tNeedIcon:'Choose an icon',
     tCatSaved:'Category saved', cDelCatQ:n=>`Delete the category and its ${n} questions?`,
     cDelCat:'Delete the category?', tCatDeleted:'Category deleted',
@@ -384,7 +384,7 @@ const I18N = {
     pLangName:'Nombre del idioma (p.ej. Klingon):', tNeedLangName:'Da un nombre al idioma',
     pLangCode:'Código de idioma – 2 o 3 letras minúsculas (p.ej. tlh):', tBadCode:'El código debe tener 2–3 letras (a–z)',
     tCodeUsed:'Ese código ya está en uso', pLangFlag:'Bandera o icono (emoji, p.ej. 🖖). Puedes dejarlo vacío:',
-    tLangAdded:n=>`Idioma añadido: ${n}`, tNeedCat:'Crea primero al menos una categoría',
+    tLangAdded:n=>`Idioma añadido: ${n}`, pEditLangName:'Nuevo nombre (vacío para eliminar el idioma):', cDelLang:n=>`¿Eliminar el idioma "${n}"? Sus traducciones quedan en el paquete pero el idioma sale de la lista.`, tLangDeleted:'Idioma eliminado', tLangUpdated:'Idioma actualizado', tNeedCat:'Crea primero al menos una categoría',
     tNeedCatName:'Da un nombre a la categoría en al menos un idioma', tNeedIcon:'Elige un icono',
     tCatSaved:'Categoría guardada', cDelCatQ:n=>`¿Eliminar la categoría y sus ${n} preguntas?`,
     cDelCat:'¿Eliminar la categoría?', tCatDeleted:'Categoría eliminada',
@@ -406,7 +406,7 @@ if(!I18N[UILANG]) UILANG='fi';
 function t(key, arg){ const d=I18N[UILANG]||I18N.fi; let v=d[key]; if(v==null) v=I18N.fi[key]; if(v==null) return key; return (typeof v==='function')? v(arg) : v; }
 const ALL_LANGS = [
   {code:'fi',flag:'🇫🇮',name:'Suomi'}, {code:'en',flag:'🇬🇧',name:'English'},
-  {code:'sv',flag:'🇸🇪',name:'Svenska'}, {code:'es',flag:'🇪🇸',name:'Español'},
+  {code:'es',flag:'🇪🇸',name:'Español'}, {code:'sv',flag:'🇸🇪',name:'Svenska'},
   {code:'de',flag:'🇩🇪',name:'Deutsch'}, {code:'fr',flag:'🇫🇷',name:'Français'},
   {code:'it',flag:'🇮🇹',name:'Italiano'}, {code:'pt',flag:'🇵🇹',name:'Português'},
   {code:'nl',flag:'🇳🇱',name:'Nederlands'}, {code:'et',flag:'🇪🇪',name:'Eesti'},
@@ -426,7 +426,7 @@ function detectFlag(){ try{ const c=document.createElement('canvas'); c.width=20
   for(let i=0;i<d.length;i+=4){const r=d[i],g=d[i+1],b=d[i+2],a=d[i+3]; if(a>0&&((b>90&&r<90)||(r>150&&g>120&&b<90)))n++;} return n>4; }catch(e){return false;} }
 function fl(code){ return FLAG_OK ? (LMETA[code]?LMETA[code].flag:'🏳️') : ''; }
 
-const EDITOR_VERSION = '01.00.05';
+const EDITOR_VERSION = '01.00.06';
 
 /* The game's built-in categories — same keys, so questions land in the right category in-game */
 const DEFAULT_TOPICS = [
@@ -475,16 +475,15 @@ $('#packName').addEventListener('input', e=>{ pack.name=e.target.value; save(); 
 function renderLangChips(){
   const chips = allLangList().map(l=>{
     const custom = (pack.customLangs||[]).some(c=>c.code===l.code);
-    return `<button class="langchip ${pack.langs.includes(l.code)?'on':''}" data-lang="${l.code}"><span class="fl">${l.flag}</span>${esc(l.name)}${custom?' <span style="opacity:.6">✎</span>':''}</button>`;
+    return `<button class="langchip ${pack.langs.includes(l.code)?'on':''}" data-lang="${l.code}"><span class="fl">${l.flag}</span>${esc(l.name)}${custom?` <span class="editlang" data-editlang="${l.code}" style="opacity:.7; padding:0 3px">✎</span>`:''}</button>`;
   }).join('');
   $('#langChips').innerHTML = chips + `<button class="langchip" id="addLangChip" style="border-style:dashed">${t("addOwnLang")}</button>`;
 }
 $('#langChips').addEventListener('click', e=>{
+  const pen=e.target.closest('[data-editlang]'); if(pen){ e.stopPropagation(); openEditLang(pen.dataset.editlang); return; }
   if(e.target.closest('#addLangChip')){ openAddLang(); return; }
   const b=e.target.closest('[data-lang]'); if(!b) return;
   const code=b.dataset.lang;
-  const isCustom = (pack.customLangs||[]).some(c=>c.code===code);
-  // long-press style: if custom and already selected, offer to remove the custom language itself
   if(pack.langs.includes(code)){
     if(pack.langs.length===1){ toast(t('tMustOneLang')); return; }
     pack.langs = pack.langs.filter(c=>c!==code);
@@ -493,6 +492,24 @@ $('#langChips').addEventListener('click', e=>{
   }
   save(); renderLangChips();
 });
+function openEditLang(code){
+  const l = (pack.customLangs||[]).find(c=>c.code===code); if(!l) return;
+  const name = prompt(t('pEditLangName'), l.name);
+  if(name===null) return;
+  if(name.trim()===''){
+    if(confirm(t('cDelLang', l.name))){
+      pack.customLangs = pack.customLangs.filter(c=>c.code!==code);
+      pack.langs = pack.langs.filter(c=>c!==code);
+      if(!pack.langs.length) pack.langs=['fi'];
+      rebuildLMeta(); save(); renderLangChips(); toast(t('tLangDeleted'));
+    }
+    return;
+  }
+  const flag = prompt(t('pLangFlag'), l.flag);
+  l.name = name.trim();
+  if(flag!==null && flag.trim()) l.flag = flag.trim();
+  rebuildLMeta(); save(); renderLangChips(); toast(t('tLangUpdated'));
+}
 
 /* Add / remove custom language */
 function openAddLang(){
