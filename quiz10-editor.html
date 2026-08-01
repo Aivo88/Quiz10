@@ -123,6 +123,17 @@
     background:var(--gold); color:var(--goldink); font-weight:800; padding:12px 20px; border-radius:12px; z-index:60; box-shadow:0 10px 30px rgba(0,0,0,.5); max-width:90vw; text-align:center}
   .toast.show{opacity:1; transform:translateX(-50%) translateY(0)}
 
+  .modal-overlay{position:fixed; inset:0; z-index:100; background:rgba(0,0,0,.62); backdrop-filter:blur(3px);
+    display:flex; align-items:center; justify-content:center; padding:20px}
+  .modal-box{background:var(--panel); border:2px solid var(--line); border-radius:16px; padding:22px; width:min(440px,100%);
+    box-shadow:0 20px 60px rgba(0,0,0,.6)}
+  .modal-msg{font-size:1.05em; line-height:1.5; margin-bottom:16px; white-space:pre-line}
+  .modal-box input{width:100%; background:var(--bg); color:var(--ink); border:2px solid var(--line); border-radius:10px;
+    padding:12px 14px; outline:none; margin-bottom:16px; font-size:1.05em}
+  .modal-box input:focus{border-color:var(--gold)}
+  .modal-btns{display:flex; gap:10px}
+  .modal-btns .btn{flex:1; justify-content:center; padding:12px}
+
   .editor-head{display:flex; align-items:center; gap:12px; margin:18px 0 12px}
   .editor-head h2{flex:1}
   hr.sep{border:none; border-top:2px solid var(--line); margin:16px 0}
@@ -266,6 +277,17 @@
 </div>
 
 <div class="toast" id="toast"></div>
+
+<div class="modal-overlay hidden" id="modal">
+  <div class="modal-box">
+    <div class="modal-msg" id="modalMsg"></div>
+    <input type="text" id="modalInput" class="hidden">
+    <div class="modal-btns">
+      <button class="btn" id="modalCancel">Peruuta</button>
+      <button class="btn green" id="modalOk">OK</button>
+    </div>
+  </div>
+</div>
 
 <script>
 "use strict";
@@ -426,7 +448,7 @@ function detectFlag(){ try{ const c=document.createElement('canvas'); c.width=20
   for(let i=0;i<d.length;i+=4){const r=d[i],g=d[i+1],b=d[i+2],a=d[i+3]; if(a>0&&((b>90&&r<90)||(r>150&&g>120&&b<90)))n++;} return n>4; }catch(e){return false;} }
 function fl(code){ return FLAG_OK ? (LMETA[code]?LMETA[code].flag:'🏳️') : ''; }
 
-const EDITOR_VERSION = '01.00.06';
+const EDITOR_VERSION = '01.00.07';
 
 /* The game's built-in categories — same keys, so questions land in the right category in-game */
 const DEFAULT_TOPICS = [
@@ -453,6 +475,29 @@ function save(){ try{ localStorage.setItem(LS_KEY, JSON.stringify(pack)); }catch
 function uid(p){ return p+Math.random().toString(36).slice(2,7)+Date.now().toString(36).slice(-4); }
 function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
 let toastT; function toast(m){ const t=$('#toast'); t.textContent=m; t.classList.add('show'); clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove('show'),2300); }
+
+/* Themed replacements for native confirm()/prompt() so the browser never shows its "prevent dialogs" box */
+let modalResolve=null, modalIsPrompt=false;
+function showModal(msg, isPrompt, def){
+  return new Promise(resolve=>{
+    modalResolve=resolve; modalIsPrompt=isPrompt;
+    $('#modalMsg').textContent = msg;
+    const inp=$('#modalInput');
+    if(isPrompt){ inp.classList.remove('hidden'); inp.value = def==null?'':def; } else inp.classList.add('hidden');
+    $('#modalOk').textContent = 'OK';
+    $('#modalCancel').textContent = t('cancel');
+    $('#modal').classList.remove('hidden');
+    setTimeout(()=>{ isPrompt ? inp.focus() : $('#modalOk').focus(); }, 40);
+  });
+}
+function closeModal(val){ $('#modal').classList.add('hidden'); const r=modalResolve; modalResolve=null; if(r) r(val); }
+function uiConfirm(msg){ return showModal(msg, false); }
+function uiPrompt(msg, def){ return showModal(msg, true, def); }
+$('#modalOk').addEventListener('click', ()=>closeModal(modalIsPrompt ? $('#modalInput').value : true));
+$('#modalCancel').addEventListener('click', ()=>closeModal(modalIsPrompt ? null : false));
+$('#modal').addEventListener('click', e=>{ if(e.target.id==='modal') closeModal(modalIsPrompt?null:false); });
+$('#modalInput').addEventListener('keydown', e=>{ if(e.key==='Enter'){ e.preventDefault(); closeModal($('#modalInput').value); } else if(e.key==='Escape') closeModal(null); });
+document.addEventListener('keydown', e=>{ if(!$('#modal').classList.contains('hidden') && e.key==='Escape') closeModal(modalIsPrompt?null:false); });
 
 // migrate old single-language format (v1) to multilingual (v2)
 function migrate(p){
@@ -492,12 +537,12 @@ $('#langChips').addEventListener('click', e=>{
   }
   save(); renderLangChips();
 });
-function openEditLang(code){
+async function openEditLang(code){
   const l = (pack.customLangs||[]).find(c=>c.code===code); if(!l) return;
-  const name = prompt(t('pEditLangName'), l.name);
+  const name = await uiPrompt(t('pEditLangName'), l.name);
   if(name===null) return;
   if(name.trim()===''){
-    if(confirm(t('cDelLang', l.name))){
+    if(await uiConfirm(t('cDelLang', l.name))){
       pack.customLangs = pack.customLangs.filter(c=>c.code!==code);
       pack.langs = pack.langs.filter(c=>c!==code);
       if(!pack.langs.length) pack.langs=['fi'];
@@ -505,23 +550,23 @@ function openEditLang(code){
     }
     return;
   }
-  const flag = prompt(t('pLangFlag'), l.flag);
+  const flag = await uiPrompt(t('pLangFlag'), l.flag);
   l.name = name.trim();
   if(flag!==null && flag.trim()) l.flag = flag.trim();
   rebuildLMeta(); save(); renderLangChips(); toast(t('tLangUpdated'));
 }
 
 /* Add / remove custom language */
-function openAddLang(){
-  const name = prompt(t('pLangName'),'');
+async function openAddLang(){
+  const name = await uiPrompt(t('pLangName'),'');
   if(name==null) return;
   const nm = name.trim(); if(!nm){ toast(t('tNeedLangName')); return; }
-  let code = prompt(t('pLangCode'),'');
+  let code = await uiPrompt(t('pLangCode'),'');
   if(code==null) return;
   code = code.trim().toLowerCase();
   if(!/^[a-z]{2,3}$/.test(code)){ toast(t('tBadCode')); return; }
   if(LMETA[code]){ toast(t('tCodeUsed')); return; }
-  let flag = prompt(t('pLangFlag'),'');
+  let flag = await uiPrompt(t('pLangFlag'),'');
   flag = (flag||'').trim() || '🏳️';
   pack.customLangs.push({ code, name:nm, flag });
   if(!pack.langs.includes(code)) pack.langs.push(code);
@@ -663,9 +708,9 @@ $('#catSave').addEventListener('click', ()=>{
   else pack.topics.push({ key:uid('cat_'), names, icon:pickedEmoji });
   save(); toast(t('tCatSaved')); closeCat(); switchTab('c');
 });
-function delCat(key){
+async function delCat(key){
   const n=pack.questions.filter(q=>q.topic===key).length;
-  if(!confirm(n>0?t('cDelCatQ',n):t('cDelCat'))) return;
+  if(!await uiConfirm(n>0?t('cDelCatQ',n):t('cDelCat'))) return;
   pack.topics=pack.topics.filter(t=>t.key!==key); pack.questions=pack.questions.filter(q=>q.topic!==key);
   render(); toast(t('tCatDeleted'));
 }
@@ -753,7 +798,7 @@ $('#qSave').addEventListener('click', ()=>{
   toast(miss>0 ? t('tSavedPartial',miss) : t('tQSaved'));
   closeQ();
 });
-function delQ(id){ if(!confirm(t('cDelQ')))return; pack.questions=pack.questions.filter(q=>q.id!==id); save(); if(catView) renderCatQ(); render(); toast(t('tQDeleted')); }
+async function delQ(id){ if(!await uiConfirm(t('cDelQ')))return; pack.questions=pack.questions.filter(q=>q.id!==id); save(); if(catView) renderCatQ(); render(); toast(t('tQDeleted')); }
 
 /* export */
 function buildPack(){
@@ -778,10 +823,10 @@ function buildPack(){
   });
   return { name:pack.name||'Oma paketti', langs:langs.map(c=>({code:c, flag:LMETA[c].flag, name:LMETA[c].name})), topics, questions };
 }
-$('#exportBtn').addEventListener('click', ()=>{
+$('#exportBtn').addEventListener('click', async ()=>{
   if(!pack.questions.length){ toast(t('tNeedQ')); return; }
   if(!(pack.name||'').trim()){
-    const nm = prompt(t('pPackName'), t('defPackName'));
+    const nm = await uiPrompt(t('pPackName'), t('defPackName'));
     if(nm==null) return;                 // cancelled
     pack.name = nm.trim() || t('defPackName');
     $('#packName').value = pack.name; save();
@@ -789,7 +834,7 @@ $('#exportBtn').addEventListener('click', ()=>{
   const out=buildPack();
   if(!out.questions.length){ toast(t('tNoComplete')); return; }
   const skipped = pack.questions.length - out.questions.length;
-  if(skipped>0 && !confirm(t('cSkip',skipped))) return;
+  if(skipped>0 && !await uiConfirm(t('cSkip',skipped))) return;
   const blob=new Blob([JSON.stringify(out,null,2)],{type:'application/json'});
   const a=document.createElement('a');
   const safe=(pack.name||'pub-quiz-paketti').replace(/[^\w\-]+/g,'_').replace(/^_+|_+$/g,'').toLowerCase()||'pub-quiz-paketti';
@@ -803,11 +848,11 @@ $('#importBtn').addEventListener('click', ()=>$('#fileInput').click());
 $('#fileInput').addEventListener('change', e=>{
   const f=e.target.files[0]; if(!f)return;
   const r=new FileReader();
-  r.onload=()=>{ try{
+  r.onload=async ()=>{ try{
     const data=JSON.parse(String(r.result));
     const arr=Array.isArray(data)?data:(data.questions||[]);
     if(!arr.length && !(data.topics||[]).length){ toast(t('tNoQInFile')); return; }
-    if(!confirm(t('cImport'))) return;
+    if(!await uiConfirm(t('cImport'))) return;
     importPack(data, arr); toast(t('tImported',pack.questions.length));
   }catch(err){ toast(t('tBadJson')); } };
   r.readAsText(f); e.target.value='';
@@ -836,8 +881,8 @@ function importPack(data, arr){
 }
 
 /* clear */
-$('#clearAllBtn').addEventListener('click', ()=>{
-  if(!confirm(t('cClearAll'))) return;
+$('#clearAllBtn').addEventListener('click', async ()=>{
+  if(!await uiConfirm(t('cClearAll'))) return;
   pack={ name:'', langs:pack.langs.slice(), customLangs:pack.customLangs||[], topics:defaultTopics(), questions:[] }; save(); render(); toast(t('tCleared'));
 });
 
