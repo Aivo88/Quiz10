@@ -125,6 +125,7 @@
 
   .modal-overlay{position:fixed; inset:0; z-index:100; background:rgba(0,0,0,.62); backdrop-filter:blur(3px);
     display:flex; align-items:center; justify-content:center; padding:20px}
+  #modal{z-index:120}
   .modal-box{background:var(--panel); border:2px solid var(--line); border-radius:16px; padding:22px; width:min(440px,100%);
     box-shadow:0 20px 60px rgba(0,0,0,.6)}
   .modal-msg{font-size:1.05em; line-height:1.5; margin-bottom:16px; white-space:pre-line}
@@ -470,7 +471,7 @@ function detectFlag(){ try{ const c=document.createElement('canvas'); c.width=20
   for(let i=0;i<d.length;i+=4){const r=d[i],g=d[i+1],b=d[i+2],a=d[i+3]; if(a>0&&((b>90&&r<90)||(r>150&&g>120&&b<90)))n++;} return n>4; }catch(e){return false;} }
 function fl(code){ return FLAG_OK ? (LMETA[code]?LMETA[code].flag:'🏳️') : ''; }
 
-const EDITOR_VERSION = '01.00.09';
+const EDITOR_VERSION = '01.00.10';
 
 /* The game's built-in categories — same keys, so questions land in the right category in-game */
 const DEFAULT_TOPICS = [
