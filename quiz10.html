@@ -95,9 +95,9 @@
     transform-origin:center center;
   }
   #bg{ position:fixed; inset:0; z-index:-2; background-size:cover; background-position:center;
-       opacity:0; transition:opacity .45s ease; pointer-events:none; filter:blur(3px); transform:scale(1.06); }
+       opacity:0; transition:opacity 1.8s ease; pointer-events:none; filter:blur(3px); transform:scale(1.06); }
   #bg.on{ opacity:1; }
-  #bgShade{ position:fixed; inset:0; z-index:-1; background:#0a0c14; opacity:0; transition:opacity .45s ease; pointer-events:none; }
+  #bgShade{ position:fixed; inset:0; z-index:-1; background:#0a0c14; opacity:0; transition:opacity 1.8s ease; pointer-events:none; }
   body.has-bg #bgShade{ opacity:var(--bg-dark, .78); }
   body.has-bg .q-title, body.has-bg .sub, body.has-bg .brand, body.has-bg .tagline,
   body.has-bg .set-label, body.has-bg .diffhint, body.has-bg #topicTitle, body.has-bg .wb-title,
@@ -899,9 +899,9 @@ const T = {
     tagline:"Uskalla tai passaa -tietovisa",
     newGame:"Uusi peli",
     rules:"Säännöt",
-    modeTitle:"Valitse pelimuoto", modeSweepName:"Sweep", modeSweepTag:"monta oikein", modeBullName:"Napakymppi", modeBullTag:"yksi oikein", modeNoQ:"Tälle pelimuodolle ei ole vielä kysymyksiä",
+    modeTitle:"Valitse pelimuoto", modeSweepName:"Sweep", modeSweepTag:"monta oikein", modeBullName:"Bullseye", modeBullTag:"yksi oikein", modeNoQ:"Tälle pelimuodolle ei ole vielä kysymyksiä",
     rulesTitle:"Pelin säännöt",
-    rulesBody:"<h3>Uskalla tai passaa — talleta pisteet</h3><ol><li>Pelaajat tai joukkueet pelaavat vuorotellen. Omalla vuorollasi saat aiheen, jossa on enintään 10 mahdollista vastausta — osa on oikein, osa ei.</li><li>Valitse yksi kerrallaan ne vastaukset, joita pidät oikeina. Jokainen oikea valinta kerryttää kierroksen pisteitä.</li><li>Uskalla: jatka valintoja saadaksesi lisää pisteitä, mutta yksi väärä vastaus päättää vuorosi ja menetät kaikki kierroksen pisteet.</li><li>Pelaa varman päälle: paina <b>Passaa &amp; talleta</b> lukitaksesi kierroksen pisteet ja päättääksesi vuoron ennen kuin mokaat.</li><li>Ensimmäinen pelaaja tai joukkue, joka saavuttaa tavoitepisteet (15, 25 tai 40), voittaa.</li></ol><h3>Napakymppi — yksi oikein</h3><ol><li>Valitse kategoria. Jokaisessa kysymyksessä on 10 vastausta, ja vain yksi on oikein.</li><li>Pelaajat pelaavat vuorotellen. Omalla vuorollasi valitse vastaus, jota pidät oikeana.</li><li>Väärä vastaus: putoat siltä kysymykseltä. Seuraava pelaaja yrittää samaa kysymystä ja näkee jo väärin menneet vastaukset.</li><li>Oikea vastaus: saat pisteen ja seuraava pelaaja saa uuden kysymyksen.</li><li>Jos kaikki menevät väärin, pistettä ei tule ja uusi kysymys alkaa.</li><li>Ensimmäisenä tavoitteeseen (10, 15 tai 20) yltävä voittaa. Yksinpelissä tulee 5 kysymystä per kategoria.</li></ol><div class=\"rnote\">Vinkki: jokainen pelaaja voi valita oman kielensä kysymysnäytön lipusta. Valitse voittopisteet ja vaikeustaso uutta peliä aloittaessasi.</div>",
+    rulesBody:"<h3>Uskalla tai passaa — talleta pisteet</h3><ol><li>Pelaajat tai joukkueet pelaavat vuorotellen. Omalla vuorollasi saat aiheen, jossa on enintään 10 mahdollista vastausta — osa on oikein, osa ei.</li><li>Valitse yksi kerrallaan ne vastaukset, joita pidät oikeina. Jokainen oikea valinta kerryttää kierroksen pisteitä.</li><li>Uskalla: jatka valintoja saadaksesi lisää pisteitä, mutta yksi väärä vastaus päättää vuorosi ja menetät kaikki kierroksen pisteet.</li><li>Pelaa varman päälle: paina <b>Passaa &amp; talleta</b> lukitaksesi kierroksen pisteet ja päättääksesi vuoron ennen kuin mokaat.</li><li>Ensimmäinen pelaaja tai joukkue, joka saavuttaa tavoitepisteet (15, 25 tai 40), voittaa.</li></ol><h3>Bullseye — yksi oikein</h3><ol><li>Valitse kategoria. Jokaisessa kysymyksessä on 10 vastausta, ja vain yksi on oikein.</li><li>Pelaajat pelaavat vuorotellen. Omalla vuorollasi valitse vastaus, jota pidät oikeana.</li><li>Väärä vastaus: putoat siltä kysymykseltä. Seuraava pelaaja yrittää samaa kysymystä ja näkee jo väärin menneet vastaukset.</li><li>Oikea vastaus: saat pisteen ja seuraava pelaaja saa uuden kysymyksen.</li><li>Jos kaikki menevät väärin, pistettä ei tule ja uusi kysymys alkaa.</li><li>Ensimmäisenä tavoitteeseen (10, 15 tai 20) yltävä voittaa. Yksinpelissä tulee 5 kysymystä per kategoria.</li></ol><div class=\"rnote\">Vinkki: jokainen pelaaja voi valita oman kielensä kysymysnäytön lipusta. Valitse voittopisteet ja vaikeustaso uutta peliä aloittaessasi.</div>",
     loadGame:"Lataa peli",
     settings:"Asetukset",
     settingsTitle:"Asetukset",
@@ -979,9 +979,9 @@ const T = {
     tagline:"El concurso de arriesgar o pasar",
     newGame:"Nuevo juego",
     rules:"Reglas",
-    modeTitle:"Elige el modo de juego", modeSweepName:"Sweep", modeSweepTag:"varias correctas", modeBullName:"Diana", modeBullTag:"una correcta", modeNoQ:"Aún no hay preguntas para este modo",
+    modeTitle:"Elige el modo de juego", modeSweepName:"Sweep", modeSweepTag:"varias correctas", modeBullName:"Bullseye", modeBullTag:"una correcta", modeNoQ:"Aún no hay preguntas para este modo",
     rulesTitle:"Cómo jugar",
-    rulesBody:"<h3>Arriésgate y guarda tus puntos</h3><ol><li>Los jugadores o equipos juegan por turnos. En tu turno recibes una categoría con hasta 10 respuestas posibles: algunas son correctas y otras no.</li><li>Elige de una en una las respuestas que creas correctas. Cada acierto suma puntos a tu ronda.</li><li>Arriésgate: sigue eligiendo para ganar más puntos, pero una respuesta incorrecta termina tu turno y pierdes todos los puntos de esa ronda.</li><li>Juega seguro: pulsa <b>Pasar y guardar</b> para asegurar los puntos de la ronda y terminar tu turno antes de fallar.</li><li>El primer jugador o equipo en alcanzar la puntuación objetivo (15, 25 o 40) gana.</li></ol><h3>Diana — una correcta</h3><ol><li>Elige una categoría. Cada pregunta tiene 10 respuestas y solo una es correcta.</li><li>Los jugadores juegan por turnos. En tu turno, elige la respuesta que creas correcta.</li><li>Respuesta incorrecta: quedas fuera de esa pregunta. El siguiente jugador prueba la misma pregunta y ve las respuestas que ya fallaron.</li><li>Respuesta correcta: ganas un punto y el siguiente jugador recibe una pregunta nueva.</li><li>Si todos fallan, no se gana ningún punto y empieza una pregunta nueva.</li><li>El primero en llegar al objetivo (10, 15 o 20) gana. En solitario hay 5 preguntas por categoría.</li></ol><div class=\"rnote\">Consejo: cada jugador puede elegir su idioma con la bandera en la pantalla de preguntas. Elige la puntuación para ganar y la dificultad al empezar una partida.</div>",
+    rulesBody:"<h3>Arriésgate y guarda tus puntos</h3><ol><li>Los jugadores o equipos juegan por turnos. En tu turno recibes una categoría con hasta 10 respuestas posibles: algunas son correctas y otras no.</li><li>Elige de una en una las respuestas que creas correctas. Cada acierto suma puntos a tu ronda.</li><li>Arriésgate: sigue eligiendo para ganar más puntos, pero una respuesta incorrecta termina tu turno y pierdes todos los puntos de esa ronda.</li><li>Juega seguro: pulsa <b>Pasar y guardar</b> para asegurar los puntos de la ronda y terminar tu turno antes de fallar.</li><li>El primer jugador o equipo en alcanzar la puntuación objetivo (15, 25 o 40) gana.</li></ol><h3>Bullseye — una correcta</h3><ol><li>Elige una categoría. Cada pregunta tiene 10 respuestas y solo una es correcta.</li><li>Los jugadores juegan por turnos. En tu turno, elige la respuesta que creas correcta.</li><li>Respuesta incorrecta: quedas fuera de esa pregunta. El siguiente jugador prueba la misma pregunta y ve las respuestas que ya fallaron.</li><li>Respuesta correcta: ganas un punto y el siguiente jugador recibe una pregunta nueva.</li><li>Si todos fallan, no se gana ningún punto y empieza una pregunta nueva.</li><li>El primero en llegar al objetivo (10, 15 o 20) gana. En solitario hay 5 preguntas por categoría.</li></ol><div class=\"rnote\">Consejo: cada jugador puede elegir su idioma con la bandera en la pantalla de preguntas. Elige la puntuación para ganar y la dificultad al empezar una partida.</div>",
     loadGame:"Cargar juego",
     settings:"Ajustes",
     settingsTitle:"Ajustes",
@@ -1161,9 +1161,11 @@ const QUESTIONS = [
   { topic:'gen', cat:{en:"Which of these are units of measurement?", fi:"Mitkä näistä ovat mittayksiköitä?"},
     o:[["Metre","Metri",1],["Kelvin","Kelvin",1],["Litre","Litra",1],["Quartz","Kvartsi",0],
        ["Ampere","Ampeeri",1],["Photon","Fotoni",0],["Gram","Gramma",1],["Neutron","Neutroni",0],
-       ["Second","Sekunti",1],["Proton","Protoni",0]] },
+       ["Second","Sekunti",1],["Proton","Protoni",0]] }
+];
 
-  /* ---- BULLSEYE (Napakymppi): one correct of ten, trilingual fi/en/es ---- */
+/* ---------- Bullseye bank (always on, independent of questions.json) ---------- */
+const BULLSEYE_QUESTIONS = [
   { topic:'geo', mode:'bullseye', d:'easy', L:['fi','en','es'], cat:{en:"Rome is the capital of which country?",fi:"Minkä maan pääkaupunki on Rooma?",es:"¿Roma es la capital de qué país?"}, o:[["Itävalta","Itävalta","Itävalta",0],["Kreikka","Kreikka","Kreikka",0],["Kroatia","Kroatia","Kroatia",0],["Portugali","Portugali","Portugali",0],["Ranska","Ranska","Ranska",0],["Espanja","Espanja","Espanja",0],["Malta","Malta","Malta",0],["Turkki","Turkey","Turquía",0],["Sveitsi","Switzerland","Suiza",0],["Italia","Italy","Italia",1]] },
   { topic:'geo', mode:'bullseye', d:'easy', L:['fi','en','es'], cat:{en:"Berlin is the capital of which country?",fi:"Minkä maan pääkaupunki on Berliini?",es:"¿Berlín es la capital de qué país?"}, o:[["Belgia","Belgium","Bélgica",0],["Ruotsi","Sweden","Suecia",0],["Unkari","Hungary","Hungría",0],["Saksa","Germany","Alemania",1],["Tšekki","Czechia","Chequia",0],["Puola","Poland","Polonia",0],["Alankomaat","Netherlands","Países Bajos",0],["Sveitsi","Switzerland","Suiza",0],["Itävalta","Austria","Austria",0],["Tanska","Denmark","Dinamarca",0]] },
   { topic:'geo', mode:'bullseye', d:'normal', L:['fi','en','es'], cat:{en:"In which country is the Taj Mahal?",fi:"Missä maassa sijaitsee Taj Mahal?",es:"¿En qué país está el Taj Mahal?"}, o:[["Kiina","China","China",0],["Egypti","Egypt","Egipto",0],["Pakistan","Pakistan","Pakistán",0],["Bangladesh","Bangladesh","Bangladés",0],["Marokko","Morocco","Marruecos",0],["Intia","India","India",1],["Iran","Iran","Irán",0],["Nepal","Nepal","Nepal",0],["Thaimaa","Thailand","Tailandia",0],["Turkki","Turkey","Turquía",0]] },
@@ -1365,7 +1367,7 @@ const QUESTIONS = [
 
 const PLAYER_COLORS = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
-const APP_VERSION = '01.00.11';
+const APP_VERSION = '01.00.12';
 
 let questionsStatus = '';
 const QCACHE_KEY = 'quiz10_qcache';
@@ -1390,7 +1392,10 @@ function questionEnabled(q){ return !disabledQ.has(q.cat.en); }
 // Merge base set (if on) + active packs into the live QUESTIONS array (skipping disabled).
 function rebuildQuestions(){
   QUESTIONS.length = 0;
-  if(baseOn) baseQuestions.forEach(q => { if(questionEnabled(q)) QUESTIONS.push(q); });
+  if(baseOn){
+    baseQuestions.forEach(q => { if(questionEnabled(q)) QUESTIONS.push(q); });
+    BULLSEYE_QUESTIONS.forEach(q => { if(questionEnabled(q)) QUESTIONS.push(q); });   // built-in bullseye, survives questions.json refresh
+  }
   packs.forEach(p => { if(p.active && Array.isArray(p.questions)) p.questions.forEach(q => { if(questionEnabled(q)) QUESTIONS.push(q); }); });
   usedQ = new Set();
 }
@@ -1703,13 +1708,20 @@ function clearBg(){
 function tryRepoBg(names){
   if(!names.length) return;                         // none found → keep gradient
   const img = new Image();
-  img.onload = ()=> applyBg(names[0]);
+  img.onload = ()=> lightsOn(names[0]);
   img.onerror = ()=> tryRepoBg(names.slice(1));
   img.src = names[0];
 }
+// "Someone flips the pub lights on": hold on the dark gradient for ~2s, then fade the background up.
+let bgLit = false;
+function lightsOn(url){
+  if(bgLit){ applyBg(url); return; }                // later changes (settings) apply immediately
+  bgLit = true;
+  setTimeout(()=> applyBg(url), 2000);
+}
 function loadBackground(){
   const custom = lsGet(BG_KEY);
-  if(custom){ applyBg(custom); return; }            // user's own image wins
+  if(custom){ lightsOn(custom); return; }            // user's own image wins (still gets the lights-on fade)
   tryRepoBg(['background.jpg','background.jpeg','background.png','background.webp']);
 }
 function initBgFileInput(){

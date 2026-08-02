@@ -346,7 +346,7 @@ const I18N = {
     catNameLbl:'Kategorian nimi (jokaisella kielellä)', iconLbl:'Kuvake', ownEmoji:'oma emoji',
     cancel:'Peruuta', saveCat:'Tallenna kategoria',
     qNew:'Uusi kysymys', qEdit:'Muokkaa kysymystä', category:'Kategoria', difficulty:'Vaikeustaso',
-    easy:'Helppo', normal:'Normaali', hard:'Vaikea', modeLbl:'Pelimuoto', modeSweep:'Sweep', modeBullseye:'Napakymppi', modeSweepDesc:'monta oikein', modeBullseyeDesc:'yksi oikein', tBull1:'Napakympissä tasan yksi vaihtoehto saa olla oikein.',
+    easy:'Helppo', normal:'Normaali', hard:'Vaikea', modeLbl:'Pelimuoto', modeSweep:'Sweep', modeBullseye:'Bullseye', modeSweepDesc:'monta oikein', modeBullseyeDesc:'yksi oikein', tBull1:'Bullseyessä tasan yksi vaihtoehto saa olla oikein.',
     qLangLbl:'Kieli — täytä kysymys jokaisella kielellä', question:'Kysymys',
     optionsLbl:'Vaihtoehdot', optionsHead:'— merkitse oikeat vihreällä (1–9 oikeaa)',
     optionsHint:'Oikein/väärin on sama kaikilla kielillä — käännä vain tekstit.',
@@ -428,7 +428,7 @@ const I18N = {
     catNameLbl:'Nombre de la categoría (en cada idioma)', iconLbl:'Icono', ownEmoji:'emoji propio',
     cancel:'Cancelar', saveCat:'Guardar categoría',
     qNew:'Nueva pregunta', qEdit:'Editar pregunta', category:'Categoría', difficulty:'Dificultad',
-    easy:'Fácil', normal:'Normal', hard:'Difícil', modeLbl:'Modo de juego', modeSweep:'Sweep', modeBullseye:'Diana', modeSweepDesc:'varias correctas', modeBullseyeDesc:'una correcta', tBull1:'En Diana exactamente una opción puede ser correcta.',
+    easy:'Fácil', normal:'Normal', hard:'Difícil', modeLbl:'Modo de juego', modeSweep:'Sweep', modeBullseye:'Bullseye', modeSweepDesc:'varias correctas', modeBullseyeDesc:'una correcta', tBull1:'En Bullseye exactamente una opción puede ser correcta.',
     qLangLbl:'Idioma — rellena la pregunta en cada idioma', question:'Pregunta',
     optionsLbl:'Opciones', optionsHead:'— marca las correctas en verde (1–9 correctas)',
     optionsHint:'Correcto/incorrecto es igual en todos los idiomas — solo traduce los textos.',
@@ -485,7 +485,7 @@ function detectFlag(){ try{ const c=document.createElement('canvas'); c.width=20
   for(let i=0;i<d.length;i+=4){const r=d[i],g=d[i+1],b=d[i+2],a=d[i+3]; if(a>0&&((b>90&&r<90)||(r>150&&g>120&&b<90)))n++;} return n>4; }catch(e){return false;} }
 function fl(code){ return FLAG_OK ? (LMETA[code]?LMETA[code].flag:'🏳️') : ''; }
 
-const EDITOR_VERSION = '01.00.12';
+const EDITOR_VERSION = '01.00.13';
 
 /* The game's built-in categories — same keys, so questions land in the right category in-game */
 const DEFAULT_TOPICS = [
