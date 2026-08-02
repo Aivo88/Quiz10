@@ -369,12 +369,12 @@
   .menu-col{display:flex; flex-direction:column; gap:clamp(16px,3vh,28px); width:min(640px,90vw); margin-top:clamp(20px,4vh,44px)}
   .btn.block{width:100%; justify-content:flex-start; gap:.6em}
   .btn.block .mi{font-size:1.2em}
-  #screen-menu .menu-col .btn.block{
+  #screen-menu .menu-col .btn.block, #screen-mode .menu-col .btn.block{
     justify-content:center; gap:.5em; border-width:2px; border-radius:22px;
     padding:clamp(20px,3.6vh,38px) clamp(24px,3vw,40px);
     font-size:calc(clamp(22px,3.1vw,42px) * var(--fs)); font-weight:800;
   }
-  #screen-menu .menu-col .btn.block .mi{ font-size:1.35em; }
+  #screen-menu .menu-col .btn.block .mi, #screen-mode .menu-col .btn.block .mi{ font-size:1.35em; }
   .btn.disabled{opacity:.4; pointer-events:none}
 
   /* topic grid */
@@ -661,13 +661,11 @@
   <section id="screen-mode" class="screen">
     <div class="center">
       <h2 class="q-title" data-i="modeTitle">Choose game mode</h2>
-      <div class="stack" style="gap:14px; max-width:520px; margin:18px auto">
-        <button class="btn gold block focusable" data-focus data-action="setmode" data-mode="sweep">
-          <b data-i="modeSweepName">Sweep</b> · <span data-i="modeSweepTag">many correct</span></button>
-        <button class="btn gold block focusable" data-action="setmode" data-mode="bullseye">
-          <b data-i="modeBullName">Bullseye</b> · <span data-i="modeBullTag">one correct</span></button>
+      <div class="menu-col">
+        <button class="btn gold block focusable" data-focus data-action="setmode" data-mode="sweep"><span class="mi">🧹</span><span data-i="modeSweepName">Sweep</span></button>
+        <button class="btn gold block focusable" data-action="setmode" data-mode="bullseye"><span class="mi">🎯</span><span data-i="modeBullName">Bullseye</span></button>
       </div>
-      <button class="btn back focusable" data-action="backToLang" data-i="back">Back</button>
+      <button class="btn back focusable" data-action="backToLang" data-i="back" style="margin-top:clamp(20px,4vh,44px)">Back</button>
     </div>
   </section>
 
@@ -1168,7 +1166,7 @@ const QUESTIONS = [
 
 const PLAYER_COLORS = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
-const APP_VERSION = '01.00.09';
+const APP_VERSION = '01.00.10';
 
 let questionsStatus = '';
 const QCACHE_KEY = 'quiz10_qcache';
@@ -2161,8 +2159,8 @@ function doPickBull(i){
       // next player tries the same question, seeing the wrong picks
       setTimeout(()=>{ turnIdx=nextActive(turnIdx); updateHeader(); updateScorebar(); announceTurn(); }, 900);
     } else {
-      revealBullCorrect();                  // everyone missed — show the answer, no point
-      setTimeout(()=>afterBullResolved(false), 1600);
+      // everyone missed — no point, straight to the next question (answer stays hidden)
+      setTimeout(()=>afterBullResolved(false), 1100);
     }
   }
 }
