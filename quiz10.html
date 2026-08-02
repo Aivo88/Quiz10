@@ -322,7 +322,7 @@
   }
   body.kbd .corner-flag.focused{ border-color:var(--focus); box-shadow:0 0 0 4px rgba(255,224,138,.45); background:var(--panel2); }
   /* Home-screen flag: larger, easier to hit */
-  #menuFlag{ padding:clamp(8px,1.3vh,14px) clamp(16px,1.8vw,24px); border-radius:16px;
+  #menuFlag, #modeFlag{ padding:clamp(8px,1.3vh,14px) clamp(16px,1.8vw,24px); border-radius:16px;
              font-size:calc(clamp(34px,4.2vw,52px) * var(--fs)); }
   /* Rules screen */
   .rules-body{ width:min(760px,94vw); margin:0 auto clamp(16px,3vh,28px); text-align:left;
@@ -659,6 +659,7 @@
 
   <!-- GAME MODE -->
   <section id="screen-mode" class="screen">
+    <button class="corner-flag focusable" data-action="cyclelangglobal" id="modeFlag" title="Language">🇬🇧</button>
     <div class="center">
       <h2 class="q-title" data-i="modeTitle">Choose game mode</h2>
       <div class="menu-col">
@@ -852,7 +853,7 @@ const T = {
     packHint:"Load extra question packs as a .json file. Once loaded they are saved on this device and mixed into the game when active. In the future you'll be able to download packs here too.",
     questionsWord:"questions", activeWord:"On", offWord:"Off", deleteWord:"Delete",
     fromPacksWord:"from packs", packAdded:"Pack added", packError:"Could not load file",
-    viewWord:"View", allWord:"All", searchWord:"Search questions…", noMatches:"No matches", baseBankName:"Default questions", inPlayWord:"questions in play", baseOffWord:"default off",
+    viewWord:"View", allWord:"All", searchWord:"Search questions…", noMatches:"No matches", baseBankName:"Default questions", bullBankName:"Bullseye", inPlayWord:"questions in play", baseOffWord:"default off",
     confirmDeletePack:"Delete pack", needQuestions:"Turn on some questions first",
     updating:"Updating…",
     updChecking:"Checking…",
@@ -932,7 +933,7 @@ const T = {
     packHint:"Lataa lisää kysymyspaketteja .json-tiedostona. Ladatut paketit tallentuvat tälle laitteelle ja sekoittuvat peliin, kun ne ovat aktiivisia. Tulevaisuudessa paketteja voi ladata myös täältä.",
     questionsWord:"kysymystä", activeWord:"Päällä", offWord:"Pois", deleteWord:"Poista",
     fromPacksWord:"paketeista", packAdded:"Paketti lisätty", packError:"Tiedostoa ei voitu ladata",
-    viewWord:"Selaa", allWord:"Kaikki", searchWord:"Etsi kysymyksiä…", noMatches:"Ei osumia", baseBankName:"Oletuskysymykset", inPlayWord:"kysymystä pelissä", baseOffWord:"oletus pois",
+    viewWord:"Selaa", allWord:"Kaikki", searchWord:"Etsi kysymyksiä…", noMatches:"Ei osumia", baseBankName:"Oletuskysymykset", bullBankName:"Bullseye", inPlayWord:"kysymystä pelissä", baseOffWord:"oletus pois",
     confirmDeletePack:"Poista paketti", needQuestions:"Laita ensin kysymyksiä päälle",
     updating:"Päivitetään…",
     updChecking:"Tarkistetaan…",
@@ -1012,7 +1013,7 @@ const T = {
     packHint:"Carga más paquetes de preguntas como archivo .json. Una vez cargados se guardan en este dispositivo y se mezclan en el juego cuando están activos. En el futuro también podrás descargar paquetes aquí.",
     questionsWord:"preguntas", activeWord:"Activo", offWord:"Off", deleteWord:"Borrar",
     fromPacksWord:"de paquetes", packAdded:"Paquete añadido", packError:"No se pudo cargar el archivo",
-    viewWord:"Ver", allWord:"Todas", searchWord:"Buscar preguntas…", noMatches:"Sin resultados", baseBankName:"Preguntas predeterminadas", inPlayWord:"preguntas en juego", baseOffWord:"predeterminadas off",
+    viewWord:"Ver", allWord:"Todas", searchWord:"Buscar preguntas…", noMatches:"Sin resultados", baseBankName:"Preguntas predeterminadas", bullBankName:"Bullseye", inPlayWord:"preguntas en juego", baseOffWord:"predeterminadas off",
     confirmDeletePack:"Borrar paquete", needQuestions:"Activa primero algunas preguntas",
     updating:"Actualizando…",
     updChecking:"Comprobando…",
@@ -1367,17 +1368,19 @@ const BULLSEYE_QUESTIONS = [
 
 const PLAYER_COLORS = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
-const APP_VERSION = '01.00.12';
+const APP_VERSION = '01.00.13';
 
 let questionsStatus = '';
 const QCACHE_KEY = 'quiz10_qcache';
 const PACKS_KEY  = 'quiz10_packs';
 const BASEON_KEY = 'quiz10_baseon';
+const BULLON_KEY = 'quiz10_bullon';
 const DISABLED_KEY = 'quiz10_disabledq';
 
 let baseQuestions = QUESTIONS.slice();   // the built-in / downloaded base set
 let packs = [];                          // user-loaded question packs
 let baseOn = true;                       // include the base question bank?
+let bullseyeOn = true;                   // include the built-in bullseye bank?
 let disabledQ = new Set();               // cat.en of individually disabled questions
 
 // question browser state (Settings → Questions)
@@ -1392,16 +1395,16 @@ function questionEnabled(q){ return !disabledQ.has(q.cat.en); }
 // Merge base set (if on) + active packs into the live QUESTIONS array (skipping disabled).
 function rebuildQuestions(){
   QUESTIONS.length = 0;
-  if(baseOn){
-    baseQuestions.forEach(q => { if(questionEnabled(q)) QUESTIONS.push(q); });
-    BULLSEYE_QUESTIONS.forEach(q => { if(questionEnabled(q)) QUESTIONS.push(q); });   // built-in bullseye, survives questions.json refresh
-  }
+  if(baseOn) baseQuestions.forEach(q => { if(questionEnabled(q)) QUESTIONS.push(q); });
+  if(bullseyeOn) BULLSEYE_QUESTIONS.forEach(q => { if(questionEnabled(q)) QUESTIONS.push(q); });   // built-in bullseye, survives questions.json refresh
   packs.forEach(p => { if(p.active && Array.isArray(p.questions)) p.questions.forEach(q => { if(questionEnabled(q)) QUESTIONS.push(q); }); });
   usedQ = new Set();
 }
 function loadDisabled(){ try{ const raw=lsGet(DISABLED_KEY); if(raw){ const a=JSON.parse(raw); if(Array.isArray(a)) disabledQ=new Set(a); } }catch(e){} }
 function saveDisabled(){ try{ lsSet(DISABLED_KEY, JSON.stringify([...disabledQ])); }catch(e){} }
 function loadBaseOn(){ try{ const v=lsGet(BASEON_KEY); if(v==='0') baseOn=false; }catch(e){} }
+function saveBullOn(){ try{ lsSet(BULLON_KEY, bullseyeOn?'1':'0'); }catch(e){} }
+function loadBullOn(){ try{ const v=lsGet(BULLON_KEY); if(v==='0') bullseyeOn=false; }catch(e){} }
 function saveBaseOn(){ try{ lsSet(BASEON_KEY, baseOn?'1':'0'); }catch(e){} }
 
 function applyQuestionArray(arr){
@@ -1521,6 +1524,18 @@ function renderPackList(){
         <button class="btn chip focusable ${baseOn?'on':''}" data-action="toggleBase">${baseOn?tr('activeWord'):tr('offWord')}</button>
       </div>
     </div>`;
+  html += `
+    <div class="pack-row">
+      <div class="pack-info">
+        <div class="pack-name">${tr('bullBankName')}</div>
+        <div class="pack-meta">${BULLSEYE_QUESTIONS.length} ${tr('questionsWord')}</div>
+        <div class="pack-flags">${langFlagsHtml(BASE_LANGS)}</div>
+      </div>
+      <div class="pack-actions">
+        <button class="btn chip focusable" data-action="qbOpen" data-src="bullseye">${tr('viewWord')}</button>
+        <button class="btn chip focusable ${bullseyeOn?'on':''}" data-action="toggleBull">${bullseyeOn?tr('activeWord'):tr('offWord')}</button>
+      </div>
+    </div>`;
   if(!packs.length){
     html += `<div class="set-hint">${tr('noPacks')}</div>`;
   } else {
@@ -1543,8 +1558,8 @@ function renderPackList(){
 function escapeHtml(s){ return String(s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 
 /* ---- Question browser (Settings → Questions) ---- */
-function sourceQuestions(src){ return src==='base' ? baseQuestions : ((packs.find(p=>p.id===src)||{}).questions || []); }
-function sourceName(src){ return src==='base' ? tr('baseBankName') : ((packs.find(p=>p.id===src)||{}).name || ''); }
+function sourceQuestions(src){ if(src==='base') return baseQuestions; if(src==='bullseye') return BULLSEYE_QUESTIONS; return (packs.find(p=>p.id===src)||{}).questions || []; }
+function sourceName(src){ if(src==='base') return tr('baseBankName'); if(src==='bullseye') return tr('bullBankName'); return (packs.find(p=>p.id===src)||{}).name || ''; }
 function catLangG(q){ return (q.cat && q.cat[lang]) || (q.cat && q.cat.en) || ''; }
 function optLangG(o, L){ L = (Array.isArray(L)&&L.length) ? L : BASE_LANGS; const i=L.indexOf(lang); return (i>=0 && typeof o[i]==='string' ? o[i] : o[0]) || o[0]; }
 function diffLabel(d){ return d==='easy'?tr('diffEasy'):d==='hard'?tr('diffHard'):tr('diffNormal'); }
@@ -1993,8 +2008,8 @@ function applyStaticText(){
 let lastWinner = null;
 function updateCornerFlags(){
   const f = flagFor(lang);
-  const a=$('#menuFlag'), b=$('#winFlag');
-  if(a) a.textContent=f; if(b) b.textContent=f;
+  const a=$('#menuFlag'), b=$('#winFlag'), c=$('#modeFlag');
+  if(a) a.textContent=f; if(b) b.textContent=f; if(c) c.textContent=f;
 }
 function saveLang(){ try{ lsSet('quiz10_lang', lang); }catch(e){} }
 function loadLang(){
@@ -2672,6 +2687,7 @@ function activate(el){
   else if(a==='qbFilter'){ qbFilter=el.dataset.f; $$('#packList .qb-filter .chip').forEach(b=>b.classList.toggle('on', b.dataset.f===qbFilter)); renderQRows(); }
   else if(a==='qbToggleQ'){ const q=sourceQuestions(qbSrc)[+el.dataset.qi]; if(q){ if(disabledQ.has(q.cat.en)) disabledQ.delete(q.cat.en); else disabledQ.add(q.cat.en); saveDisabled(); rebuildQuestions(); renderQRows(); updateQStatus(); } }
   else if(a==='toggleBase'){ baseOn=!baseOn; saveBaseOn(); rebuildQuestions(); renderPackList(); updateQStatus(); }
+  else if(a==='toggleBull'){ bullseyeOn=!bullseyeOn; saveBullOn(); rebuildQuestions(); renderPackList(); updateQStatus(); }
   else if(a==='togglePack'){ const p=packs.find(x=>x.id===el.dataset.id); if(p){ p.active=!p.active; savePacks(); rebuildQuestions(); renderPackList(); updateQStatus(); } }
   else if(a==='deletePack'){
     const id=el.dataset.id; const p=packs.find(x=>x.id===id);
@@ -2838,7 +2854,7 @@ updateVer();
 window.addEventListener('resize', updateVer);
 setFocus($('#screen-menu [data-focus]'));
 loadPacks();
-loadBaseOn();
+loadBaseOn(); loadBullOn();
 loadDisabled();
 loadRecent();
 rebuildQuestions();       // built-in base + active packs
