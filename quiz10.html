@@ -657,6 +657,20 @@
     </div>
   </section>
 
+  <!-- GAME MODE -->
+  <section id="screen-mode" class="screen">
+    <div class="center">
+      <h2 class="q-title" data-i="modeTitle">Choose game mode</h2>
+      <div class="stack" style="gap:14px; max-width:520px; margin:18px auto">
+        <button class="btn gold block focusable" data-focus data-action="setmode" data-mode="sweep">
+          <b data-i="modeSweepName">Sweep</b> · <span data-i="modeSweepTag">many correct</span></button>
+        <button class="btn gold block focusable" data-action="setmode" data-mode="bullseye">
+          <b data-i="modeBullName">Bullseye</b> · <span data-i="modeBullTag">one correct</span></button>
+      </div>
+      <button class="btn back focusable" data-action="backToLang" data-i="back">Back</button>
+    </div>
+  </section>
+
   <!-- SETUP -->
   <section id="screen-setup" class="screen">
     <div class="center">
@@ -691,7 +705,7 @@
       </div>
 
       <div class="row">
-        <button class="btn back focusable" data-action="backToLang" data-i="back">Back</button>
+        <button class="btn back focusable" data-action="backToMode" data-i="back">Back</button>
         <button class="btn gold back focusable" data-action="start" data-i="startBtn">Start game</button>
       </div>
     </div>
@@ -807,8 +821,9 @@ const T = {
     tagline:"The push-your-luck trivia game",
     newGame:"New game",
     rules:"Rules",
+    modeTitle:"Choose game mode", modeSweepName:"Sweep", modeSweepTag:"many correct", modeBullName:"Bullseye", modeBullTag:"one correct", modeNoQ:"No questions for this mode yet",
     rulesTitle:"How to play",
-    rulesBody:"<h3>Push your luck, bank your points</h3><ol><li>Players or teams take turns. On your turn you get a category with up to 10 possible answers — some are correct, some are not.</li><li>Pick the answers you believe are correct, one at a time. Each correct pick adds points to your round.</li><li>Push your luck: keep picking for more points, but one wrong answer ends your turn and you lose every point from that round.</li><li>Play it safe: press <b>Pass &amp; bank</b> to lock in your round points and end your turn before you slip up.</li><li>The first player or team to reach the target score (15, 25 or 40) wins.</li></ol><div class=\"rnote\">Tip: each player can pick their own language with the flag on the question screen. Set the winning score and difficulty when you start a new game.</div>",
+    rulesBody:"<h3>Push your luck, bank your points</h3><ol><li>Players or teams take turns. On your turn you get a category with up to 10 possible answers — some are correct, some are not.</li><li>Pick the answers you believe are correct, one at a time. Each correct pick adds points to your round.</li><li>Push your luck: keep picking for more points, but one wrong answer ends your turn and you lose every point from that round.</li><li>Play it safe: press <b>Pass &amp; bank</b> to lock in your round points and end your turn before you slip up.</li><li>The first player or team to reach the target score (15, 25 or 40) wins.</li></ol><h3>Bullseye — one correct</h3><ol><li>Pick a category. Every question has 10 answers and only one is correct.</li><li>Players take turns. On your turn, pick the answer you think is right.</li><li>Wrong answer: you are out for that question. The next player tries the same question and can see which answers already failed.</li><li>Correct answer: you score a point and the next player gets a fresh question.</li><li>If everyone misses, no point is scored and a new question begins.</li><li>First to the target score (10, 15 or 20) wins. Solo play gives 5 questions per category.</li></ol><div class=\"rnote\">Tip: each player can pick their own language with the flag on the question screen. Set the winning score and difficulty when you start a new game.</div>",
     loadGame:"Load game",
     settings:"Settings",
     settingsTitle:"Settings",
@@ -886,8 +901,9 @@ const T = {
     tagline:"Uskalla tai passaa -tietovisa",
     newGame:"Uusi peli",
     rules:"Säännöt",
+    modeTitle:"Valitse pelimuoto", modeSweepName:"Sweep", modeSweepTag:"monta oikein", modeBullName:"Napakymppi", modeBullTag:"yksi oikein", modeNoQ:"Tälle pelimuodolle ei ole vielä kysymyksiä",
     rulesTitle:"Pelin säännöt",
-    rulesBody:"<h3>Uskalla tai passaa — talleta pisteet</h3><ol><li>Pelaajat tai joukkueet pelaavat vuorotellen. Omalla vuorollasi saat aiheen, jossa on enintään 10 mahdollista vastausta — osa on oikein, osa ei.</li><li>Valitse yksi kerrallaan ne vastaukset, joita pidät oikeina. Jokainen oikea valinta kerryttää kierroksen pisteitä.</li><li>Uskalla: jatka valintoja saadaksesi lisää pisteitä, mutta yksi väärä vastaus päättää vuorosi ja menetät kaikki kierroksen pisteet.</li><li>Pelaa varman päälle: paina <b>Passaa &amp; talleta</b> lukitaksesi kierroksen pisteet ja päättääksesi vuoron ennen kuin mokaat.</li><li>Ensimmäinen pelaaja tai joukkue, joka saavuttaa tavoitepisteet (15, 25 tai 40), voittaa.</li></ol><div class=\"rnote\">Vinkki: jokainen pelaaja voi valita oman kielensä kysymysnäytön lipusta. Valitse voittopisteet ja vaikeustaso uutta peliä aloittaessasi.</div>",
+    rulesBody:"<h3>Uskalla tai passaa — talleta pisteet</h3><ol><li>Pelaajat tai joukkueet pelaavat vuorotellen. Omalla vuorollasi saat aiheen, jossa on enintään 10 mahdollista vastausta — osa on oikein, osa ei.</li><li>Valitse yksi kerrallaan ne vastaukset, joita pidät oikeina. Jokainen oikea valinta kerryttää kierroksen pisteitä.</li><li>Uskalla: jatka valintoja saadaksesi lisää pisteitä, mutta yksi väärä vastaus päättää vuorosi ja menetät kaikki kierroksen pisteet.</li><li>Pelaa varman päälle: paina <b>Passaa &amp; talleta</b> lukitaksesi kierroksen pisteet ja päättääksesi vuoron ennen kuin mokaat.</li><li>Ensimmäinen pelaaja tai joukkue, joka saavuttaa tavoitepisteet (15, 25 tai 40), voittaa.</li></ol><h3>Napakymppi — yksi oikein</h3><ol><li>Valitse kategoria. Jokaisessa kysymyksessä on 10 vastausta, ja vain yksi on oikein.</li><li>Pelaajat pelaavat vuorotellen. Omalla vuorollasi valitse vastaus, jota pidät oikeana.</li><li>Väärä vastaus: putoat siltä kysymykseltä. Seuraava pelaaja yrittää samaa kysymystä ja näkee jo väärin menneet vastaukset.</li><li>Oikea vastaus: saat pisteen ja seuraava pelaaja saa uuden kysymyksen.</li><li>Jos kaikki menevät väärin, pistettä ei tule ja uusi kysymys alkaa.</li><li>Ensimmäisenä tavoitteeseen (10, 15 tai 20) yltävä voittaa. Yksinpelissä tulee 5 kysymystä per kategoria.</li></ol><div class=\"rnote\">Vinkki: jokainen pelaaja voi valita oman kielensä kysymysnäytön lipusta. Valitse voittopisteet ja vaikeustaso uutta peliä aloittaessasi.</div>",
     loadGame:"Lataa peli",
     settings:"Asetukset",
     settingsTitle:"Asetukset",
@@ -965,8 +981,9 @@ const T = {
     tagline:"El concurso de arriesgar o pasar",
     newGame:"Nuevo juego",
     rules:"Reglas",
+    modeTitle:"Elige el modo de juego", modeSweepName:"Sweep", modeSweepTag:"varias correctas", modeBullName:"Diana", modeBullTag:"una correcta", modeNoQ:"Aún no hay preguntas para este modo",
     rulesTitle:"Cómo jugar",
-    rulesBody:"<h3>Arriésgate y guarda tus puntos</h3><ol><li>Los jugadores o equipos juegan por turnos. En tu turno recibes una categoría con hasta 10 respuestas posibles: algunas son correctas y otras no.</li><li>Elige de una en una las respuestas que creas correctas. Cada acierto suma puntos a tu ronda.</li><li>Arriésgate: sigue eligiendo para ganar más puntos, pero una respuesta incorrecta termina tu turno y pierdes todos los puntos de esa ronda.</li><li>Juega seguro: pulsa <b>Pasar y guardar</b> para asegurar los puntos de la ronda y terminar tu turno antes de fallar.</li><li>El primer jugador o equipo en alcanzar la puntuación objetivo (15, 25 o 40) gana.</li></ol><div class=\"rnote\">Consejo: cada jugador puede elegir su idioma con la bandera en la pantalla de preguntas. Elige la puntuación para ganar y la dificultad al empezar una partida.</div>",
+    rulesBody:"<h3>Arriésgate y guarda tus puntos</h3><ol><li>Los jugadores o equipos juegan por turnos. En tu turno recibes una categoría con hasta 10 respuestas posibles: algunas son correctas y otras no.</li><li>Elige de una en una las respuestas que creas correctas. Cada acierto suma puntos a tu ronda.</li><li>Arriésgate: sigue eligiendo para ganar más puntos, pero una respuesta incorrecta termina tu turno y pierdes todos los puntos de esa ronda.</li><li>Juega seguro: pulsa <b>Pasar y guardar</b> para asegurar los puntos de la ronda y terminar tu turno antes de fallar.</li><li>El primer jugador o equipo en alcanzar la puntuación objetivo (15, 25 o 40) gana.</li></ol><h3>Diana — una correcta</h3><ol><li>Elige una categoría. Cada pregunta tiene 10 respuestas y solo una es correcta.</li><li>Los jugadores juegan por turnos. En tu turno, elige la respuesta que creas correcta.</li><li>Respuesta incorrecta: quedas fuera de esa pregunta. El siguiente jugador prueba la misma pregunta y ve las respuestas que ya fallaron.</li><li>Respuesta correcta: ganas un punto y el siguiente jugador recibe una pregunta nueva.</li><li>Si todos fallan, no se gana ningún punto y empieza una pregunta nueva.</li><li>El primero en llegar al objetivo (10, 15 o 20) gana. En solitario hay 5 preguntas por categoría.</li></ol><div class=\"rnote\">Consejo: cada jugador puede elegir su idioma con la bandera en la pantalla de preguntas. Elige la puntuación para ganar y la dificultad al empezar una partida.</div>",
     loadGame:"Cargar juego",
     settings:"Ajustes",
     settingsTitle:"Ajustes",
@@ -1151,7 +1168,7 @@ const QUESTIONS = [
 
 const PLAYER_COLORS = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
-const APP_VERSION = '01.00.08';
+const APP_VERSION = '01.00.09';
 
 let questionsStatus = '';
 const QCACHE_KEY = 'quiz10_qcache';
@@ -1243,6 +1260,7 @@ function normalizePack(arr, langs){
       return {
         topic: allowed.has(q.topic) ? q.topic : 'gen',
         d: ['easy','normal','hard'].includes(q.d) ? q.d : 'normal',
+        mode: q.mode==='bullseye' ? 'bullseye' : 'sweep',
         cat,
         o: q.o,
         L
@@ -1546,6 +1564,9 @@ let current = null;      // current question (localized) + shuffled options
 let turnActive = false;  // locked briefly between picks / at game end
 let awaitingTurn = false; // true while the "up next" banner is showing
 let currentTopic = 'mixed';
+let gameMode = 'sweep';      // 'sweep' (many correct) or 'bullseye' (one correct)
+const BULL_PER_CAT = 5;      // bullseye: questions per category before choosing a new one
+let bullQInCat = 0;
 let difficulties = { easy:false, normal:true, hard:true };   // default: Medium + Hard
 function selectedDiffs(){ return ['easy','normal','hard'].filter(k=>difficulties[k]); }
 let playerLang = [];      // per-player question language, remembered for the game
@@ -1787,9 +1808,12 @@ function cycleGlobalLang(){
 /* ---------- Setup interactions ---------- */
 function refreshSetup(){
   $('#playersVal').textContent = numPlayers;
-  $$('#targetRow .btn').forEach(b=>{
-    b.classList.toggle('gold', +b.dataset.v===target);
-  });
+  // Bullseye uses lower targets (10/15/20); Sweep keeps 15/25/40
+  const vals = (gameMode==='bullseye') ? [10,15,20] : [15,25,40];
+  const btns = $$('#targetRow .btn');
+  btns.forEach((b,i)=>{ if(vals[i]!=null){ b.dataset.v=vals[i]; b.textContent=vals[i]; } });
+  if(!vals.includes(target)) { target = vals[1]; }
+  btns.forEach(b=>{ b.classList.toggle('gold', +b.dataset.v===target); });
   $$('#diffRow .btn').forEach(b=>{
     b.classList.toggle('sel', !!difficulties[b.dataset.v]);
   });
@@ -1809,6 +1833,7 @@ function startGame(){
   turnIdx = 0;
   roundStarter = 0;
   roundsPlayed = 0;
+  bullQInCat = 0;
   topicDecks = {};
   usedQ = new Set();
   usedIds = new Set();
@@ -1849,6 +1874,7 @@ function updateScorebar(){
 /* ---------- Topic selection (start of each round) ---------- */
 function poolFor(topic){
   let idx = QUESTIONS.map((q,i)=> ((topic==='mixed' || q.topic===topic) ? i : -1)).filter(i=>i>=0);
+  idx = idx.filter(i => (QUESTIONS[i].mode||'sweep') === gameMode);   // only questions for the chosen game mode
   const sel = selectedDiffs();
   if(sel.length && sel.length < 3){
     const f = idx.filter(i => sel.includes(QUESTIONS[i].d || 'normal'));
@@ -1906,7 +1932,7 @@ function renderTopicMeta(si, L){
 function renderTopics(L){
   L = L || lang;
   const grid = $('#topicGrid'); grid.innerHTML='';
-  const avail = new Set(QUESTIONS.map(q => q.topic));   // only show categories that have questions
+  const avail = new Set(QUESTIONS.filter(q=>(q.mode||'sweep')===gameMode).map(q => q.topic));   // categories that have questions for this mode
   TOPICS.forEach(t=>{
     if(t.key!=='mixed' && !avail.has(t.key)) return;
     const b = document.createElement('button');
@@ -2060,9 +2086,12 @@ function updateHeader(){
   const p = players[turnIdx];
   $('#screen-game').style.setProperty('--c-turn', `var(${p.color})`);
   $('#turnLabel').innerHTML = `<b style="color:var(${p.color})">${pName(turnIdx)}</b>${tg('turn')}`;
-  $('#roundBank').textContent = tg('roundLabel')+' '+roundTokens[turnIdx]+' '+tg('pointsShort');
-  const pb = $('#passBtn');
-  pb.textContent = `💰 ${tg('pass')}${roundTokens[turnIdx]>0?` (${roundTokens[turnIdx]})`:''}`;
+  const isBull = gameMode==='bullseye';
+  const rb = $('#roundBank'); const pb = $('#passBtn');
+  if(rb) rb.style.display = isBull ? 'none' : '';
+  if(pb){ pb.style.display = isBull ? 'none' : '';
+    pb.textContent = `\ud83d\udcb0 ${tg('pass')}${roundTokens[turnIdx]>0?` (${roundTokens[turnIdx]})`:''}`; }
+  if(!isBull && rb) rb.textContent = tg('roundLabel')+' '+roundTokens[turnIdx]+' '+tg('pointsShort');
 }
 
 function focusFirstOption(){
@@ -2092,6 +2121,7 @@ function pickOption(i){
   } else doPick(i);
 }
 function doPick(i){
+  if(gameMode==='bullseye') return doPickBull(i);
   const o = current.opts[i];
   if(!o || o.state!=='idle') return;
   const el = $(`#board .opt[data-i="${i}"]`);
@@ -2110,7 +2140,51 @@ function doPick(i){
   advance(o.correct ? 650 : 850);
 }
 
-/* current player passes: bank collected tokens, out for the round */
+/* ---------- Bullseye mode: 10 options, exactly one correct ---------- */
+function doPickBull(i){
+  const o = current.opts[i];
+  if(!o || o.state!=='idle') return;
+  const el = $(`#board .opt[data-i="${i}"]`);
+  turnActive = false;
+  if(o.correct){
+    o.state='claimed'; o.by=turnIdx;
+    players[turnIdx].score++;               // one point straight to the score
+    syncOpt(el,o); sfx.correct();
+    updateScorebar();
+    setTimeout(()=>afterBullResolved(true), 950);
+  } else {
+    o.state='wrong'; o.by=turnIdx;
+    syncOpt(el,o); sfx.wrong();
+    pstatus[turnIdx]='busted';              // out for this question
+    updateScorebar();
+    if(anyActive()){
+      // next player tries the same question, seeing the wrong picks
+      setTimeout(()=>{ turnIdx=nextActive(turnIdx); updateHeader(); updateScorebar(); announceTurn(); }, 900);
+    } else {
+      revealBullCorrect();                  // everyone missed — show the answer, no point
+      setTimeout(()=>afterBullResolved(false), 1600);
+    }
+  }
+}
+function revealBullCorrect(){
+  const ci = current.opts.findIndex(o=>o.correct && o.state==='idle');
+  if(ci<0) return;
+  current.opts[ci].state='claimed';
+  const el = $(`#board .opt[data-i="${ci}"]`);
+  if(el){ el.classList.add('claimed'); el.style.setProperty('--c','#3fae6b'); const tk=el.querySelector('.tick'); if(tk) tk.textContent='✓'; el.classList.remove('focusable'); }
+}
+function afterBullResolved(scored){
+  if(scored){
+    const reached = players.map((p,i)=>({i,s:p.score})).filter(x=>x.s>=target);
+    if(reached.length){ reached.sort((a,b)=>b.s-a.s); endGame(reached[0].i); return; }
+  }
+  roundStarter = (roundStarter+1) % players.length;   // next player opens
+  bullQInCat++;
+  if(bullQInCat >= BULL_PER_CAT){ bullQInCat=0; roundsPlayed++; chooseTopic(); }   // new category after 5
+  else newQuestion();                                                             // next question, same category
+}
+
+
 function passTurn(){
   if(!turnActive || pstatus[turnIdx]!=='active') return;
   if(settings.confirmB){
@@ -2356,7 +2430,7 @@ function activate(el){
   // Text fields (e.g. question search): OK/Enter opens the on-screen keyboard
   if(el.tagName==='INPUT' && el.type==='text'){ try{ el.focus(); }catch(e){} return; }
   const a = el.dataset.action;
-  const menuSfx = ['lang','players','sizeStep','edgeStep','bgDarkStep','target','toggleDiff','toggleBase','start','again','newgame','settings','rules','menu','mainmenu','backToLang','setTheme','setLang','toggleA','toggleB','topic','confirmYes','confirmNo','settab','togglePack','deletePack','importQuestions','qbOpen','qbBack','qbDetail','qbBackList','qbToggleQ','qbFilter','chooseBg','resetBg','quitGame','cyclelangtopic'];
+  const menuSfx = ['lang','players','sizeStep','edgeStep','bgDarkStep','target','toggleDiff','toggleBase','start','again','newgame','setmode','backToMode','settings','rules','menu','mainmenu','backToLang','setTheme','setLang','toggleA','toggleB','topic','confirmYes','confirmNo','settab','togglePack','deletePack','importQuestions','qbOpen','qbBack','qbDetail','qbBackList','qbToggleQ','qbFilter','chooseBg','resetBg','quitGame','cyclelangtopic'];
   if(menuSfx.includes(a)) sfx.select();
 
   if(a==='newgame'){
@@ -2366,9 +2440,18 @@ function activate(el){
       showScreen('screen-settings');
       return;
     }
+    showScreen('screen-mode');
+  }
+  else if(a==='setmode'){
+    gameMode = el.dataset.mode==='bullseye' ? 'bullseye' : 'sweep';
+    // make sure the chosen mode actually has questions
+    const has = QUESTIONS.some(q => (q.mode||'sweep')===gameMode);
+    if(!has){ showToastMsg(tr('modeNoQ')||'No questions for this mode yet'); return; }
+    target = (gameMode==='bullseye') ? 15 : 25;   // sensible default per mode
     showScreen('screen-setup'); refreshSetup();
   }
   else if(a==='backToLang'){ showScreen('screen-menu'); }
+  else if(a==='backToMode'){ showScreen('screen-mode'); }
   else if(a==='settings'){ applySettings(); qbMode='packs'; setTab('settings'); updateQStatus(); renderPackList(); showScreen('screen-settings'); }
   else if(a==='rules'){ showScreen('screen-rules'); const b=$('#screen-rules [data-focus]'); if(b) setFocus(b); }
   else if(a==='settab'){ qbMode='packs'; setTab(el.dataset.tab); }
@@ -2410,7 +2493,7 @@ function activate(el){
     refreshSetup();
   }
   else if(a==='start'){ startGame(); }
-  else if(a==='topic'){ currentTopic = el.dataset.topic; newQuestion(); }
+  else if(a==='topic'){ currentTopic = el.dataset.topic; if(gameMode==='bullseye') bullQInCat=0; newQuestion(); }
   else if(a==='pick'){ pickOption(+el.dataset.i); }
   else if(a==='pass'){ passTurn(); }
   else if(a==='quitGame'){ askConfirm(tg('quitGameQ'), ()=> quitToMenu()); }
@@ -2500,7 +2583,8 @@ function goBack(){
   if(confirmOpen()){ closeConfirm(false); return true; }
   if(awaitingTurn){ return true; }
   const active = $('.screen.active').id;
-  if(active==='screen-setup'){ showScreen('screen-menu'); return true; }
+  if(active==='screen-mode'){ showScreen('screen-menu'); return true; }
+  if(active==='screen-setup'){ showScreen('screen-mode'); return true; }
   if(active==='screen-topic'){ askConfirm(tg('quitGameQ'), ()=> quitToMenu()); return true; }
   if(active==='screen-settings'){
     if(qbMode==='detail'){ qbMode='list'; renderQBrowser(); qbFocusFirst(); return true; }
