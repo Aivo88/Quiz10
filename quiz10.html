@@ -2184,7 +2184,7 @@ const BULLSEYE_QUESTIONS = [
 
 const PLAYER_COLORS = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
-const APP_VERSION = '01.00.23';
+const APP_VERSION = '01.00.24';
 
 let questionsStatus = '';
 const QCACHE_KEY = 'quiz10_qcache';
@@ -2781,7 +2781,7 @@ function move(dir){
 /* ---------- Localisation of static text ---------- */
 // Languages actually present in the questions currently in play (keeps LANG_ORDER order).
 function availableLangs(){
-  const set = [];
+  const set = BASE_LANGS.slice();   // fi/en/es are always available (game is trilingual)
   const qs = (typeof QUESTIONS!=='undefined' && Array.isArray(QUESTIONS)) ? QUESTIONS : [];
   for(const q of qs){
     const ls = (Array.isArray(q.L)&&q.L.length) ? q.L : Object.keys(q.cat||{});
