@@ -1313,7 +1313,7 @@
    "topic": "geo",
    "d": "normal",
    "cat": {
-    "fi": "Missä maassa on eniten aikavyöhykkeitä maailmassa (mannerosuudella)?",
+    "fi": "Missä maassa on eniten aikavyöhykkeitä maailmassa?",
     "en": "Which country spans the most time zones?",
     "es": "¿Qué país abarca más husos horarios?"
    },
@@ -4318,7 +4318,7 @@
    "cat": {
     "fi": "Mikä soitin kuuluu vaskipuhaltimiin?",
     "en": "Which instrument is a brass instrument?",
-    "es": "¿Qué instrumento es de metal (viento-metal)?"
+    "es": "¿Qué instrumento es de metal?"
    },
    "o": [
     [
@@ -5240,7 +5240,7 @@
    "topic": "arts",
    "d": "normal",
    "cat": {
-    "fi": "Kuka maalasi \"Amerikkalainen gotiikka\" (haarukkaa pitävä pariskunta)?",
+    "fi": "Kuka maalasi \"Amerikkalainen gotiikka\"?",
     "en": "Who painted \"American Gothic\"?",
     "es": "¿Quién pintó \"Gótico americano\"?"
    },
@@ -5933,7 +5933,7 @@
    "topic": "sport",
    "d": "hard",
    "cat": {
-    "fi": "Kuka on voittanut eniten Grand Slam -tennisturnauksia miehistä (2020-luvun alku)?",
+    "fi": "Kuka on voittanut eniten Grand Slam -tennisturnauksia miehistä?",
     "en": "Which man had won the most Grand Slam tennis titles by the early 2020s?",
     "es": "¿Qué hombre había ganado más títulos de Grand Slam a inicios de los 2020?"
    },
@@ -6012,7 +6012,7 @@
    "cat": {
     "fi": "Missä lajissa on \"slam dunk\"?",
     "en": "In which sport do you \"slam dunk\"?",
-    "es": "¿En qué deporte se hace un \"mate\" (slam dunk)?"
+    "es": "¿En qué deporte se hace un \"mate\"?"
    },
    "o": [
     [
@@ -7396,7 +7396,7 @@
    "topic": "sport",
    "d": "hard",
    "cat": {
-    "fi": "Kuka piti pitkään maailmanennätystä 100 metrin juoksussa (9,58 s)?",
+    "fi": "Kuka piti pitkään maailmanennätystä 100 metrin juoksussa?",
     "en": "Who set the 100 m world record of 9.58 seconds?",
     "es": "¿Quién estableció el récord mundial de 100 m con 9,58 s?"
    },
@@ -9783,9 +9783,9 @@
    "topic": "gen",
    "d": "easy",
    "cat": {
-    "fi": "Mikä on jään sulamislämpötila (°C)?",
-    "en": "At what temperature does ice melt (°C)?",
-    "es": "¿A qué temperatura se derrite el hielo (°C)?"
+    "fi": "Mikä on jään sulamislämpötila?",
+    "en": "At what temperature does ice melt?",
+    "es": "¿A qué temperatura se derrite el hielo?"
    },
    "o": [
     [
@@ -9860,9 +9860,9 @@
    "topic": "gen",
    "d": "normal",
    "cat": {
-    "fi": "Mikä on maailman väkirikkain maa (2020-luvun alku)?",
-    "en": "Which is the world's most populous country (early 2020s)?",
-    "es": "¿Cuál es el país más poblado (inicios de los 2020)?"
+    "fi": "Mikä on maailman väkirikkain maa?",
+    "en": "Which is the world's most populous country?",
+    "es": "¿Cuál es el país más poblado?"
    },
    "o": [
     [
@@ -10476,7 +10476,7 @@
    "topic": "gen",
    "d": "hard",
    "cat": {
-    "fi": "Mikä on kemiallinen merkki suolalle (natriumkloridi)?",
+    "fi": "Mikä on kemiallinen merkki suolalle?",
     "en": "What is the chemical formula for table salt?",
     "es": "¿Cuál es la fórmula química de la sal común?"
    },
@@ -11246,7 +11246,7 @@
    "topic": "gen",
    "d": "hard",
    "cat": {
-    "fi": "Mikä on maailman vanhin jatkuvasti asuttu kaupunki (yleisesti mainittu)?",
+    "fi": "Mikä on maailman vanhin jatkuvasti asuttu kaupunki?",
     "en": "Which is often cited as the world's oldest continuously inhabited city?",
     "es": "¿Cuál se cita a menudo como la ciudad habitada más antigua?"
    },
@@ -11785,7 +11785,7 @@
    "topic": "film",
    "d": "hard",
    "cat": {
-    "fi": "Mikä elokuva voitti parhaan elokuvan Oscarin vuonna 1994 (Tom Hanks, sulka)?",
+    "fi": "Mikä elokuva voitti parhaan elokuvan Oscarin vuonna 1994?",
     "en": "Which 1994 film with Tom Hanks won Best Picture?",
     "es": "¿Qué película de 1994 con Tom Hanks ganó Mejor Película?"
    },
@@ -12249,7 +12249,7 @@
    "cat": {
     "fi": "Mikä TV-sarja sijoittuu Westerosiin ja kuvaa valtaistuinkamppailua?",
     "en": "Which TV series is set in Westeros?",
-    "es": "¿Qué serie de TV transcurre en Poniente (Westeros)?"
+    "es": "¿Qué serie de TV transcurre en Poniente?"
    },
    "o": [
     [
@@ -13327,7 +13327,7 @@
    "cat": {
     "fi": "Montako sivua kuutiolla (noppa) on?",
     "en": "How many faces does a cube (die) have?",
-    "es": "¿Cuántas caras tiene un cubo (dado)?"
+    "es": "¿Cuántas caras tiene un cubo?"
    },
    "o": [
     [
@@ -13787,9 +13787,9 @@
    "topic": "mixed",
    "d": "easy",
    "cat": {
-    "fi": "Mikä on veden kiehumispiste merenpinnan tasolla (°C)?",
-    "en": "What is water's boiling point at sea level (°C)?",
-    "es": "¿Cuál es el punto de ebullición del agua al nivel del mar (°C)?"
+    "fi": "Mikä on veden kiehumispiste merenpinnan tasolla?",
+    "en": "What is water's boiling point at sea level?",
+    "es": "¿Cuál es el punto de ebullición del agua al nivel del mar?"
    },
    "o": [
     [
@@ -14249,7 +14249,7 @@
    "topic": "mixed",
    "d": "hard",
    "cat": {
-    "fi": "Mikä on maailman myydyin videopeli (yksittäinen, kaikki alustat)?",
+    "fi": "Mikä on maailman myydyin videopeli?",
     "en": "What is the best-selling video game of all time?",
     "es": "¿Cuál es el videojuego más vendido de todos los tiempos?"
    },
@@ -14480,7 +14480,7 @@
    "topic": "mixed",
    "d": "hard",
    "cat": {
-    "fi": "Mikä on maailman suurin muna-solu (yksittäinen solu)?",
+    "fi": "Mikä on maailman suurin muna-solu?",
     "en": "What is the largest single cell in the world?",
     "es": "¿Cuál es la célula individual más grande del mundo?"
    },
@@ -15019,9 +15019,9 @@
    "topic": "mixed",
    "d": "hard",
    "cat": {
-    "fi": "Mikä planeetta pyörii kyljellään (kallistunut lähes 90°)?",
-    "en": "Which planet rotates on its side (tilted nearly 90°)?",
-    "es": "¿Qué planeta gira de lado (inclinado casi 90°)?"
+    "fi": "Mikä planeetta pyörii kyljellään?",
+    "en": "Which planet rotates on its side?",
+    "es": "¿Qué planeta gira de lado?"
    },
    "o": [
     [
@@ -15327,9 +15327,9 @@
    "topic": "geo",
    "d": "hard",
    "cat": {
-    "fi": "Mikä on Kazakstanin pääkaupunki (vuodesta 2019)?",
-    "en": "What is the capital of Kazakhstan (since 2019)?",
-    "es": "¿Cuál es la capital de Kazajistán (desde 2019)?"
+    "fi": "Mikä on Kazakstanin pääkaupunki?",
+    "en": "What is the capital of Kazakhstan?",
+    "es": "¿Cuál es la capital de Kazajistán?"
    },
    "o": [
     [
@@ -15558,7 +15558,7 @@
    "topic": "geo",
    "d": "hard",
    "cat": {
-    "fi": "Millä maalla on eniten naapurimaita (14, tasan Kiinan kanssa)?",
+    "fi": "Millä maalla on eniten naapurimaita?",
     "en": "Which country besides China borders 14 nations?",
     "es": "¿Qué país además de China limita con 14 naciones?"
    },
@@ -15635,7 +15635,7 @@
    "topic": "geo",
    "d": "hard",
    "cat": {
-    "fi": "Mikä on korkein pääkaupunki maailmassa (yli 3600 m)?",
+    "fi": "Mikä on korkein pääkaupunki maailmassa?",
     "en": "Which is the highest capital city in the world?",
     "es": "¿Cuál es la capital más alta del mundo?"
    },
@@ -16713,9 +16713,9 @@
    "topic": "sci",
    "d": "hard",
    "cat": {
-    "fi": "Mikä planeetta on tiheydeltään pienin (kelluisi vedessä)?",
-    "en": "Which planet is the least dense (would float on water)?",
-    "es": "¿Qué planeta es el menos denso (flotaría en agua)?"
+    "fi": "Mikä planeetta on tiheydeltään pienin?",
+    "en": "Which planet is the least dense?",
+    "es": "¿Qué planeta es el menos denso?"
    },
    "o": [
     [
@@ -16944,7 +16944,7 @@
    "topic": "sci",
    "d": "hard",
    "cat": {
-    "fi": "Mikä on DNA:n emästen lukumäärä (kirjaintyypit)?",
+    "fi": "Mikä on DNA:n emästen lukumäärä?",
     "en": "How many base types make up DNA?",
     "es": "¿Cuántos tipos de bases forman el ADN?"
    },
@@ -17175,7 +17175,7 @@
    "topic": "sci",
    "d": "hard",
    "cat": {
-    "fi": "Kuka esitti ensimmäisenä, että maapallo kiertää aurinkoa (heliosentrinen malli)?",
+    "fi": "Kuka esitti ensimmäisenä, että maapallo kiertää aurinkoa?",
     "en": "Who first proposed the heliocentric model?",
     "es": "¿Quién propuso primero el modelo heliocéntrico?"
    },
@@ -18330,9 +18330,9 @@
    "topic": "sport",
    "d": "hard",
    "cat": {
-    "fi": "Kuka voitti eniten Tour de France -kisoja (7, myöhemmin mitätöity)?",
-    "en": "Who won a record 7 Tours de France (later stripped)?",
-    "es": "¿Quién ganó 7 Tours de Francia (luego anulados)?"
+    "fi": "Kuka voitti eniten Tour de France -kisoja?",
+    "en": "Who won a record 7 Tours de France?",
+    "es": "¿Quién ganó 7 Tours de Francia?"
    },
    "o": [
     [
@@ -18638,7 +18638,7 @@
    "topic": "sport",
    "d": "hard",
    "cat": {
-    "fi": "Mikä maa isännöi talviolympialaiset 1994 (Lillehammer)?",
+    "fi": "Mikä maa isännöi talviolympialaiset 1994?",
     "en": "Which country hosted the 1994 Winter Olympics?",
     "es": "¿Qué país acogió los Juegos de Invierno de 1994?"
    },
@@ -18869,7 +18869,7 @@
    "topic": "sport",
    "d": "hard",
    "cat": {
-    "fi": "Kuka voitti eniten Formula 1 -mestaruuksia (7, jaettu Schumacherin kanssa)?",
+    "fi": "Kuka voitti eniten Formula 1 -mestaruuksia?",
     "en": "Who tied the record of 7 F1 world titles?",
     "es": "¿Quién igualó el récord de 7 títulos de F1?"
    },
@@ -18946,7 +18946,7 @@
    "topic": "sport",
    "d": "hard",
    "cat": {
-    "fi": "Missä maassa keksittiin sulkapallo (nykymuoto, 1800-luku)?",
+    "fi": "Missä maassa keksittiin sulkapallo?",
     "en": "In which country was modern badminton codified?",
     "es": "¿En qué país se codificó el bádminton moderno?"
    },
@@ -19023,7 +19023,7 @@
    "topic": "sport",
    "d": "hard",
    "cat": {
-    "fi": "Kuka on tennistähti, joka voitti 24 Grand Slam -mestaruutta (naiset)?",
+    "fi": "Kuka on tennistähti, joka voitti 24 Grand Slam -mestaruutta?",
     "en": "Which woman won 24 Grand Slam singles titles?",
     "es": "¿Qué mujer ganó 24 títulos de Grand Slam individuales?"
    },
@@ -21410,9 +21410,9 @@
    "topic": "film",
    "d": "hard",
    "cat": {
-    "fi": "Mikä elokuva voitti parhaan elokuvan Oscarin 2020 (ohjaaja Chloé Zhao)?",
-    "en": "Which film won Best Picture at the 2021 Oscars (dir. Chloé Zhao)?",
-    "es": "¿Qué película ganó Mejor Película en los Óscar de 2021 (dir. Chloé Zhao)?"
+    "fi": "Mikä elokuva voitti parhaan elokuvan Oscarin 2020?",
+    "en": "Which film won Best Picture at the 2021 Oscars?",
+    "es": "¿Qué película ganó Mejor Película en los Óscar de 2021?"
    },
    "o": [
     [
@@ -21949,7 +21949,7 @@
    "topic": "film",
    "d": "hard",
    "cat": {
-    "fi": "Mikä maa tuotti elokuvan \"Pan's Labyrinth\" -ohjaajan (del Toro)?",
+    "fi": "Mikä maa tuotti elokuvan \"Pan's Labyrinth\" -ohjaajan?",
     "en": "Which country is \"Pan's Labyrinth\" director del Toro from?",
     "es": "¿De qué país es del Toro, director de \"El laberinto del fauno\"?"
    },
@@ -22411,7 +22411,7 @@
    "topic": "mixed",
    "d": "hard",
    "cat": {
-    "fi": "Mikä on ihmisen kromosomien lukumäärä (23 paria)?",
+    "fi": "Mikä on ihmisen kromosomien lukumäärä?",
     "en": "How many chromosomes do humans have?",
     "es": "¿Cuántos cromosomas tiene el ser humano?"
    },
@@ -23874,7 +23874,7 @@
    "topic": "geo",
    "d": "hard",
    "cat": {
-    "fi": "Mikä maa on maailman pohjoisin manneralue (Grönlannin lisäksi)?",
+    "fi": "Mikä maa on maailman pohjoisin manneralue?",
     "en": "Which country reaches farthest north on the mainland?",
     "es": "¿Qué país llega más al norte en el continente?"
    },
@@ -25722,7 +25722,7 @@
    "topic": "arts",
    "d": "normal",
    "cat": {
-    "fi": "Mikä on maailman kuuluisin lyhytkarvainen romaani vanhuksesta ja marliinista (Hemingway)?",
+    "fi": "Mikä on maailman kuuluisin lyhytkarvainen romaani vanhuksesta ja marliinista?",
     "en": "Which Hemingway novella is about an old fisherman and a marlin?",
     "es": "¿Qué novela corta de Hemingway trata de un viejo pescador y un marlín?"
    },
@@ -26185,8 +26185,8 @@
    "d": "hard",
    "cat": {
     "fi": "Mikä maa on voittanut eniten olympiakultaa jääkiekossa?",
-    "en": "Which country has won the most Olympic ice hockey golds (men)?",
-    "es": "¿Qué país ha ganado más oros olímpicos en hockey (hombres)?"
+    "en": "Which country has won the most Olympic ice hockey golds?",
+    "es": "¿Qué país ha ganado más oros olímpicos en hockey?"
    },
    "o": [
     [
@@ -28573,7 +28573,7 @@
    "cat": {
     "fi": "Mikä metalli ruostuu?",
     "en": "Which metal rusts?",
-    "es": "¿Qué metal se oxida (se herrumbra)?"
+    "es": "¿Qué metal se oxida?"
    },
    "o": [
     [
@@ -29726,7 +29726,7 @@
    "topic": "film",
    "d": "normal",
    "cat": {
-    "fi": "Mikä elokuvasarja kertoo autoista ja katukilpailuista (Dom Toretto)?",
+    "fi": "Mikä elokuvasarja kertoo autoista ja katukilpailuista?",
     "en": "Which film series features street racing and Dom Toretto?",
     "es": "¿Qué saga trata de carreras callejeras y Dom Toretto?"
    },
@@ -31504,8 +31504,8 @@
    "o": [
     [
      "Maldiivit",
-     "Maldiivit",
-     "Maldiivit",
+     "Maldives",
+     "Maldivas",
      0
     ],
     [
@@ -33191,7 +33191,7 @@
    "topic": "arts",
    "d": "normal",
    "cat": {
-    "fi": "Kuka on säveltänyt \"Häämarssin\" (\"Lohengrin\")?",
+    "fi": "Kuka on säveltänyt \"Häämarssin\"?",
     "en": "Who composed the \"Bridal Chorus\" from \"Lohengrin\"?",
     "es": "¿Quién compuso la \"Marcha nupcial\" de \"Lohengrin\"?"
    },
@@ -33576,7 +33576,7 @@
    "topic": "arts",
    "d": "hard",
    "cat": {
-    "fi": "Kuka maalasi \"Impression, auringonnousu\" (antoi impressionismille nimen)?",
+    "fi": "Kuka maalasi \"Impression, auringonnousu\"?",
     "en": "Who painted \"Impression, Sunrise\"?",
     "es": "¿Quién pintó \"Impresión, sol naciente\"?"
    },
@@ -34731,7 +34731,7 @@
    "topic": "sport",
    "d": "normal",
    "cat": {
-    "fi": "Montako pelaajaa on jääkiekkojoukkueessa kentällä (kenttäpelaajat + maalivahti)?",
+    "fi": "Montako pelaajaa on jääkiekkojoukkueessa kentällä?",
     "en": "How many players per ice hockey team are on the ice?",
     "es": "¿Cuántos jugadores por equipo hay en la pista de hockey?"
    },
@@ -38351,8 +38351,8 @@
    "d": "hard",
    "cat": {
     "fi": "Mikä metalli sulaa kädessä, koska sen sulamispiste on n. 30 °C?",
-    "en": "Which metal melts in your hand (melting point ~30 °C)?",
-    "es": "¿Qué metal se funde en la mano (punto de fusión ~30 °C)?"
+    "en": "Which metal melts in your hand?",
+    "es": "¿Qué metal se funde en la mano?"
    },
    "o": [
     [
@@ -38707,8 +38707,8 @@
     ],
     [
      "Huuto",
-     "Huuto",
-     "Huuto",
+     "Shout",
+     "Grito",
      0
     ],
     [
@@ -41431,8 +41431,8 @@
    "d": "hard",
    "cat": {
     "fi": "Kuka sävelsi baletin \"Romeo ja Julia\"?",
-    "en": "Who composed the ballet \"Romeo and Juliet\" (1930s)?",
-    "es": "¿Quién compuso el ballet \"Romeo y Julieta\" (años 30)?"
+    "en": "Who composed the ballet \"Romeo and Juliet\"?",
+    "es": "¿Quién compuso el ballet \"Romeo y Julieta\"?"
    },
    "o": [
     [
@@ -41584,9 +41584,9 @@
    "topic": "arts",
    "d": "hard",
    "cat": {
-    "fi": "Kuka maalasi teoksen \"Yökahvila\" (Nighthawks)?",
+    "fi": "Kuka maalasi teoksen \"Yökahvila\"?",
     "en": "Who painted \"Nighthawks\"?",
-    "es": "¿Quién pintó \"Nighthawks\" (Halcones de la noche)?"
+    "es": "¿Quién pintó \"Nighthawks\"?"
    },
    "o": [
     [
@@ -44523,8 +44523,8 @@
     ],
     [
      "Kiivi",
-     "Kiivi",
-     "Kiivi",
+     "Kiwi",
+     "Kiwi",
      0
     ],
     [
@@ -44974,7 +44974,7 @@
    "cat": {
     "fi": "Kuka ohjasi elokuvan \"Goodfellas\"?",
     "en": "Who directed \"Goodfellas\"?",
-    "es": "¿Quién dirigió \"Uno de los nuestros\" (Goodfellas)?"
+    "es": "¿Quién dirigió \"Uno de los nuestros\"?"
    },
    "o": [
     [
@@ -45056,8 +45056,8 @@
    "o": [
     [
      "Terminaattori",
-     "Terminaattori",
-     "Terminaattori",
+     "The Terminator",
+     "Terminator",
      0
     ],
     [
@@ -52904,8 +52904,8 @@
    "d": "hard",
    "cat": {
     "fi": "Mikä joukkue on voittanut eniten Super Bowleja?",
-    "en": "Which NFL team has won a record six Super Bowls (tie)?",
-    "es": "¿Qué equipo de la NFL ganó seis Super Bowls (empate)?"
+    "en": "Which NFL team has won a record six Super Bowls?",
+    "es": "¿Qué equipo de la NFL ganó seis Super Bowls?"
    },
    "o": [
     [
@@ -58524,7 +58524,7 @@
    "topic": "film",
    "d": "hard",
    "cat": {
-    "fi": "Kuka näytteli Andy Dufresneä elokuvassa \"Rita Hayworth - avain pakoon\" (Shawshank)?",
+    "fi": "Kuka näytteli Andy Dufresneä elokuvassa \"Rita Hayworth - avain pakoon\"?",
     "en": "Who played Andy Dufresne in \"The Shawshank Redemption\"?",
     "es": "¿Quién interpretó a Andy Dufresne en \"Cadena perpetua\"?"
    },
@@ -64145,7 +64145,7 @@
    "topic": "sci",
    "d": "normal",
    "cat": {
-    "fi": "Mikä eläinryhmä on selkärangaton ja niveljalkainen (hyönteiset)?",
+    "fi": "Mikä eläinryhmä on selkärangaton ja niveljalkainen?",
     "en": "To which group do insects belong?",
     "es": "¿A qué grupo pertenecen los insectos?"
    },
@@ -65069,7 +65069,7 @@
    "topic": "sci",
    "d": "normal",
    "cat": {
-    "fi": "Mikä on tärkein kasvien vedenkuljetusjärjestelmä (nilaputket ja puuosa)?",
+    "fi": "Mikä on tärkein kasvien vedenkuljetusjärjestelmä?",
     "en": "Which plant tissue transports water upward?",
     "es": "¿Qué tejido vegetal transporta agua hacia arriba?"
    },
@@ -66841,7 +66841,7 @@
    "d": "hard",
    "cat": {
     "fi": "Kuka kirjoitti \"Sinuhe egyptiläinen\" -romaanin?",
-    "en": "Which Finnish author wrote \"The Egyptian\" (Sinuhe)?",
+    "en": "Which Finnish author wrote \"The Egyptian\"?",
     "es": "¿Qué autor finlandés escribió \"Sinuhé, el egipcio\"?"
    },
    "o": [
@@ -68689,8 +68689,8 @@
    "d": "hard",
    "cat": {
     "fi": "Mikä joukkue on voittanut eniten NBA-mestaruuksia?",
-    "en": "Which NBA team has won the most championships (tie)?",
-    "es": "¿Qué equipo de la NBA ganó más títulos (empate)?"
+    "en": "Which NBA team has won the most championships?",
+    "es": "¿Qué equipo de la NBA ganó más títulos?"
    },
    "o": [
     [
@@ -69150,7 +69150,7 @@
    "topic": "hist",
    "d": "hard",
    "cat": {
-    "fi": "Mikä valtakunta rakensi Angkor Watin (khmerit)?",
+    "fi": "Mikä valtakunta rakensi Angkor Watin?",
     "en": "Which empire built Angkor Wat?",
     "es": "¿Qué imperio construyó Angkor Wat?"
    },
@@ -70928,8 +70928,8 @@
    "o": [
     [
      "Kiivi",
-     "Kiivi",
-     "Kiivi",
+     "Kiwi",
+     "Kiwi",
      0
     ],
     [
@@ -76775,7 +76775,7 @@
    "cat": {
     "fi": "Kuka ohjasi elokuvan \"Inception\"?",
     "en": "Who directed \"Inception\"?",
-    "es": "¿Quién dirigió \"Origen\" (Inception)?"
+    "es": "¿Quién dirigió \"Origen\"?"
    },
    "o": [
     [
