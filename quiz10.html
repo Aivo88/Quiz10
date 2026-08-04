@@ -1999,7 +1999,7 @@ const BULLSEYE_QUESTIONS = [
   { topic:'geo', mode:'bullseye', d:'normal', L:['fi','en','es'], cat:{en:"What is Germany's second-largest city?",fi:"Mikä on Saksan toiseksi suurin kaupunki?",es:"¿Cuál es la segunda ciudad de Alemania?"}, o:[["München","München","München",0],["Dresden","Dresden","Dresden",0],["Düsseldorf","Düsseldorf","Düsseldorf",0],["Frankfurt","Frankfurt","Frankfurt",0],["Hampuri","Hampuri","Hampuri",1],["Köln","Cologne","Colonia",0],["Bremen","Bremen","Bremen",0],["Stuttgart","Stuttgart","Stuttgart",0],["Leipzig","Leipzig","Leipzig",0],["Berliini","Berliini","Berliini",0]] },
   { topic:'geo', mode:'bullseye', d:'hard', L:['fi','en','es'], cat:{en:"Which country governs Tahiti and French Polynesia?",fi:"Mikä maa hallitsee Tahitia ja Ranskan Polynesiaa?",es:"¿Qué país gobierna Tahití y la Polinesia Francesa?"}, o:[["Chile","Chile","Chile",0],["Yhdysvallat","United States","Estados Unidos",0],["Japani","Japan","Japón",0],["Uusi-Seelanti","New Zealand","Nueva Zelanda",0],["Portugali","Portugal","Portugal",0],["Ranska","France","Francia",1],["Alankomaat","Netherlands","Países Bajos",0],["Australia","Australia","Australia",0],["Espanja","Spain","España",0],["Iso-Britannia","United Kingdom","Reino Unido",0]] },
   { topic:'geo', mode:'bullseye', d:'normal', L:['fi','en','es'], cat:{en:"Which is the world's most populous metropolitan area?",fi:"Mikä on maailman suurin kaupunki väkiluvultaan?",es:"¿Cuál es el área metropolitana más poblada del mundo?"}, o:[["Mumbai","Mumbai","Mumbai",0],["Shanghai","Shanghai","Shanghai",0],["New York","New York","New York",0],["Delhi","Delhi","Delhi",0],["Tokio","Tokio","Tokio",1],["Jakarta","Jakarta","Jakarta",0],["Mexico City","Mexico City","Mexico City",0],["Peking","Peking","Peking",0],["São Paulo","São Paulo","São Paulo",0],["Kairo","Kairo","Kairo",0]] },
-  { topic:'geo', mode:'bullseye', d:'hard', L:['fi','en','es'], cat:{en:"Which is generally cited as the world's longest river?",fi:"Mikä on maailman pisin joki?",es:"¿Cuál se cita como el río más largo del mundo?"}, o:[["Mekong","Mekong","Mekong",0],["Ob","Ob","Ob",0],["Keltainenjoki","Keltainenjoki","Keltainenjoki",0],["Kongo","Congo","Congo",0],["Niili","Niili","Niili",1],["Jangtse","Jangtse","Jangtse",0],["Jenisei","Jenisei","Jenisei",0],["Amazon","Amazon","Amazon",0],["Mississippi","Mississippi","Mississippi",0],["Volga","Volga","Volga",0]] },
+  { topic:'geo', mode:'bullseye', d:'hard', L:['fi','en','es'], cat:{en:"Which is generally cited as the world's longest river?",fi:"Mikä on maailman pisin joki?",es:"¿Cuál se cita como el río más largo del mundo?"}, o:[["Mekong","Mekong","Mekong",0],["Ob","Ob","Ob",0],["Keltainenjoki","Yellow River","Río Amarillo",0],["Kongo","Congo","Congo",0],["Niili","Niili","Niili",1],["Jangtse","Jangtse","Jangtse",0],["Jenisei","Jenisei","Jenisei",0],["Amazon","Amazon","Amazon",0],["Mississippi","Mississippi","Mississippi",0],["Volga","Volga","Volga",0]] },
   { topic:'geo', mode:'bullseye', d:'normal', L:['fi','en','es'], cat:{en:"What is France's second-largest city?",fi:"Mikä on Ranskan toiseksi suurin kaupunki?",es:"¿Cuál es la segunda ciudad de Francia?"}, o:[["Toulouse","Toulouse","Toulouse",0],["Marseille","Marseille","Marseille",1],["Strasbourg","Strasbourg","Strasbourg",0],["Nantes","Nantes","Nantes",0],["Lille","Lille","Lille",0],["Pariisi","Pariisi","Pariisi",0],["Bordeaux","Bordeaux","Bordeaux",0],["Cannes","Cannes","Cannes",0],["Lyon","Lyon","Lyon",0],["Nizza","Nizza","Nizza",0]] },
   { topic:'geo', mode:'bullseye', d:'hard', L:['fi','en','es'], cat:{en:"Which country is continental Europe's westernmost?",fi:"Mikä maa on maailman läntisin manner-Euroopassa?",es:"¿Qué país es el más occidental de la Europa continental?"}, o:[["Islanti","Iceland","Islandia",0],["Espanja","Spain","España",0],["Iso-Britannia","United Kingdom","Reino Unido",0],["Ranska","France","Francia",0],["Belgia","Belgium","Bélgica",0],["Alankomaat","Netherlands","Países Bajos",0],["Portugali","Portugal","Portugal",1],["Irlanti","Ireland","Irlanda",0],["Marokko","Morocco","Marruecos",0],["Norja","Norway","Noruega",0]] },
   { topic:'geo', mode:'bullseye', d:'normal', L:['fi','en','es'], cat:{en:"Which Dutch city hosts the government and parliament?",fi:"Mikä on Alankomaiden hallinnollinen keskus, jossa hallitus toimii?",es:"¿Qué ciudad neerlandesa alberga el gobierno?"}, o:[["Rotterdam","Rotterdam","Rotterdam",0],["Haarlem","Haarlem","Haarlem",0],["Delft","Delft","Delft",0],["Haag","Haag","Haag",1],["Utrecht","Utrecht","Utrecht",0],["Eindhoven","Eindhoven","Eindhoven",0],["Amsterdam","Amsterdam","Amsterdam",0],["Groningen","Groningen","Groningen",0],["Maastricht","Maastricht","Maastricht",0],["Leiden","Leiden","Leiden",0]] },
@@ -2184,7 +2184,7 @@ const BULLSEYE_QUESTIONS = [
 
 const PLAYER_COLORS = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
-const APP_VERSION = '01.00.27';
+const APP_VERSION = '01.00.28';
 
 let questionsStatus = '';
 const QCACHE_KEY = 'quiz10_qcache';
@@ -3516,7 +3516,12 @@ function activate(el){
       packs = packs.filter(x=>x.id!==id); savePacks(); rebuildQuestions(); renderPackList(); updateQStatus();
     });
   }
-  else if(a==='menu'){ saveSettings(); showScreen('screen-menu'); }
+  else if(a==='menu'){
+    const onQ = $('#tab-questions') && $('#tab-questions').classList.contains('active');
+    if(onQ && qbMode==='detail'){ qbMode='list'; renderQBrowser(); qbFocusFirst(); }
+    else if(onQ && qbMode==='list'){ qbMode='packs'; renderQBrowser(); qbFocusFirst(); }
+    else { saveSettings(); showScreen('screen-menu'); }
+  }
   else if(a==='mainmenu'){ showScreen('screen-menu'); }
   else if(a==='setTheme'){ settings.theme=el.dataset.v; applySettings(); saveSettings(); }
   else if(a==='cyclelangglobal'){ cycleGlobalLang(); }
