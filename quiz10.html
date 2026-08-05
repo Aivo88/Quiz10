@@ -2184,7 +2184,7 @@ const BULLSEYE_QUESTIONS = [
 
 const PLAYER_COLORS = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
-const APP_VERSION = '01.00.35';
+const APP_VERSION = '01.00.36';
 
 let questionsStatus = '';
 const QCACHE_KEY = 'quiz10_qcache';
@@ -2927,11 +2927,12 @@ function poolFor(topic){
   return idx;
 }
 function refreshTopicScreen(){
-  const si = roundStarter % players.length;
+  const si = roundsPlayed % players.length;
   const sl = playerLang[si] || lang;
   const prompt = (T[sl]||T[lang]).topicPrompt;
   $('#topicTitle').innerHTML = `<span style="color:var(${players[si].color})">${nameIn(si, sl)}</span> — ${prompt}`;
   const tf = $('#langFlagTopic'); if(tf) tf.textContent = flagFor(sl);
+  const bk = $('#screen-topic [data-i="back"]'); if(bk) bk.textContent = (TT(sl,'back')||(T[sl]||T[lang]).back||'Back');
   renderTopicMeta(si, sl);
   renderTopics(sl);
 }
@@ -2942,7 +2943,7 @@ function chooseTopic(){
   showScreen('screen-topic');
 }
 function cycleLangTopic(){
-  const si = roundStarter % players.length;
+  const si = roundsPlayed % players.length;
   const av = availableLangs();
   const cur = playerLang[si] || lang;
   const i = av.indexOf(cur);
