@@ -3729,7 +3729,10 @@ function cycleGlobalLang(){
   saveLang();
   applyStaticText(); updateCornerFlags(); applySettings();
   sfx.select();
-  if($('#screen-win').classList.contains('active') && lastWinner!=null) endGame(lastWinner, true);
+  if($('#screen-win').classList.contains('active') && lastWinner!=null){
+    playerLang[lastWinner] = lang;   // win screen follows the flag: re-render texts in the picked language
+    endGame(lastWinner, true);
+  }
 }
 
 /* ---------- Setup interactions ---------- */
