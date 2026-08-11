@@ -4,6 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>Pub Quiz – Editori</title>
+<link rel="manifest" href="editor-manifest.json">
+<meta name="theme-color" content="#191410">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="PQ Editori">
+<link rel="apple-touch-icon" href="apple-touch-icon-editor.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-editor-192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-editor-32.png">
 <style>
   :root{
     --bg:#191410; --panel:#241c15; --panel2:#2f2418; --line:#463726;
@@ -487,7 +495,7 @@ function detectFlag(){ try{ const c=document.createElement('canvas'); c.width=20
   for(let i=0;i<d.length;i+=4){const r=d[i],g=d[i+1],b=d[i+2],a=d[i+3]; if(a>0&&((b>90&&r<90)||(r>150&&g>120&&b<90)))n++;} return n>4; }catch(e){return false;} }
 function fl(code){ return FLAG_OK ? (LMETA[code]?LMETA[code].flag:'🏳️') : ''; }
 
-const EDITOR_VERSION = '01.00.14';
+const EDITOR_VERSION = '01.00.15';
 
 /* The game's built-in categories — same keys, so questions land in the right category in-game */
 const DEFAULT_TOPICS = [
@@ -989,6 +997,7 @@ async function checkUpdate(){
   btn.textContent=old; updating=false;
 }
 $('#updateBtn').addEventListener('click', checkUpdate);
+if('serviceWorker' in navigator && location.protocol.startsWith('http')){ navigator.serviceWorker.register('editor-sw.js').catch(()=>{}); }
 
 /* UI language */
 function renderUILangSel(){
