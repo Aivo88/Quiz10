@@ -109,6 +109,7 @@
   .emojigrid button:hover{border-color:var(--line)}
   .emojigrid button.sel{border-color:var(--gold); background:var(--panel2)}
   .emojichosen{display:inline-flex; align-items:center; justify-content:center; width:2em; height:2em; font-size:1.5em; background:var(--bg); border:2px solid var(--gold); border-radius:10px}
+  .cat-img{ width:1.3em; height:1.3em; object-fit:cover; border-radius:5px; vertical-align:middle; display:inline-block }
 
   /* language tabs inside editor */
   .langtabs{display:flex; flex-wrap:wrap; gap:7px; margin-bottom:12px}
@@ -126,7 +127,7 @@
   .hint{color:var(--muted); font-size:.84em; margin-top:10px; line-height:1.55}
   .warn{color:#f0b24b; font-size:.86em; margin-top:8px; font-weight:600}
 
-  .toast{position:fixed; left:50%; bottom:22px; transform:translateX(-50%) translateY(20px); opacity:0; transition:.25s;
+  .toast{position:fixed; left:50%; bottom:22px; transform:translateX(-50%) translateY(20px); opacity:0; transition:.25s; pointer-events:none;
     background:var(--gold); color:var(--goldink); font-weight:800; padding:12px 20px; border-radius:12px; z-index:60; box-shadow:0 10px 30px rgba(0,0,0,.5); max-width:90vw; text-align:center}
   .toast.show{opacity:1; transform:translateX(-50%) translateY(0)}
 
@@ -668,6 +669,7 @@ $('#searchClear').addEventListener('click', ()=>{ searchTerm=''; $('#searchBox')
 /* helpers */
 function firstLang(){ return pack.langs[0]||'fi'; }
 function dispName(names){ if(!names) return ''; return names[UILANG] || names[firstLang()] || names[Object.keys(names)[0]] || ''; }
+function iconHtmlE(ic){ ic=ic||'📦'; if(typeof ic==='string'&&ic.slice(0,5)==='data:') return '<img class="cat-img" alt="" src="'+ic+'">'; return esc(ic); }
 function catName(key){ const c=pack.topics.find(t=>t.key===key); if(!c) return t('deletedCat'); return dispName(c.names) || t('noName'); }
 function catIcon(key){ const c=pack.topics.find(t=>t.key===key); return c?c.icon:'❓'; }
 function qFilledLangs(q){ return pack.langs.filter(c => (q.q[c]||'').trim() && q.opts.length===10 && q.opts.every(o=>(o.t[c]||'').trim())); }
@@ -688,7 +690,7 @@ function render(){
     : (!cats.length ? `<div class="empty">${t("noMatch")}</div>`
     : cats.map(tp=>{
         const n=pack.questions.filter(q=>q.topic===tp.key).length;
-        return `<div class="card"><span class="emoji">${esc(tp.icon)}</span>
+        return `<div class="card"><span class="emoji">${iconHtmlE(tp.icon)}</span>
           <div class="grow" data-viewcat="${tp.key}" style="cursor:pointer"><div class="ttl">${esc(catName(tp.key))}</div><div class="sub">${t("nQuestions",n)} ›</div></div>
           <div class="acts"><button class="btn small green" data-addq="${tp.key}">${t("addQ")}</button>
           <button class="btn small" data-editcat="${tp.key}">${t("edit")}</button>
@@ -703,7 +705,7 @@ function render(){
         const correct=q.opts.filter(o=>o.correct).length;
         const done=qFilledLangs(q);
         const langPills = pack.langs.map(c=>`<span class="pill ${done.includes(c)?'correct':'warn'}">${fl(c)} ${c.toUpperCase()}</span>`).join('');
-        return `<div class="card"><span class="emoji">${esc(catIcon(q.topic))}</span>
+        return `<div class="card"><span class="emoji">${iconHtmlE(catIcon(q.topic))}</span>
           <div class="grow"><div class="ttl">${esc(q.q[UILANG]||q.q[firstLang()]||q.q[done[0]]||'—')}</div>
           <div class="sub"><span class="pill">${esc(catName(q.topic))}</span><span class="pill ${q.mode==='bullseye'?'bull':''}">${q.mode==='bullseye'?t('modeBullseye'):t('modeSweep')}</span><span class="pill">${t(q.d)}</span><span class="pill correct">${t("nCorrect",correct)}</span>${langPills}</div></div>
           <div class="acts"><button class="btn small" data-editq="${q.id}">${t("edit")}</button>
@@ -727,7 +729,7 @@ function openCatQuestions(key){ catView=key; renderCatQ(); show('catq'); }
 function closeCatQuestions(){ catView=null; show('main'); render(); }
 function renderCatQ(){
   const c=pack.topics.find(x=>x.key===catView); if(!c){ closeCatQuestions(); return; }
-  $('#cqTitle').innerHTML = `${esc(c.icon)} ${esc(catName(c.key))}`;
+  $('#cqTitle').innerHTML = `${iconHtmlE(c.icon)} ${esc(catName(c.key))}`;
   const qs=pack.questions.filter(q=>q.topic===catView);
   $('#cqList').innerHTML = !qs.length ? `<div class="empty">${t('emptyCatQ')}</div>`
     : qs.map(q=>{
@@ -799,7 +801,7 @@ $('#qText').addEventListener('input', e=>{ if(qDraft) qDraft.q[qActiveLang]=e.ta
 $('#qModePick').addEventListener('click', e=>{ const b=e.target.closest('[data-qmode]'); if(!b||!qDraft) return; qDraft.mode=b.dataset.qmode; $$('#qModePick .modebtn').forEach(x=>x.classList.toggle('on', x.dataset.qmode===qDraft.mode)); });
 
 $('#addQuestionBtn').addEventListener('click', ()=>{ if(!pack.topics.length){ toast(t('tNeedCat')); switchTab('c'); return; } openQ(null); });
-function fillCatSelect(sel){ $('#qCat').innerHTML = pack.topics.map(t=>`<option value="${t.key}">${esc(t.icon)} ${esc(catName(t.key))}</option>`).join(''); if(sel)$('#qCat').value=sel; }
+function fillCatSelect(sel){ $('#qCat').innerHTML = pack.topics.map(t=>`<option value="${t.key}">${(typeof t.icon==='string'&&t.icon.slice(0,5)==='data:')?'🖼️':esc(t.icon)} ${esc(catName(t.key))}</option>`).join(''); if(sel)$('#qCat').value=sel; }
 
 function openQ(id, presetCat){
   editingQId=id;
