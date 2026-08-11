@@ -13322,7 +13322,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "gen",
    "d": "easy",
    "cat": {
     "fi": "Montako sivua kuutiolla (noppa) on?",
@@ -13399,7 +13399,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "gen",
    "d": "normal",
    "cat": {
     "fi": "Mikä yritys valmistaa iPhonen?",
@@ -13476,7 +13476,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "gen",
    "d": "easy",
    "cat": {
     "fi": "Mikä eläin sanoo \"muu\"?",
@@ -13553,7 +13553,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "gen",
    "d": "normal",
    "cat": {
     "fi": "Mikä brändi tunnetaan \"Just Do It\" -iskulauseesta?",
@@ -13630,7 +13630,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "geo",
    "d": "hard",
    "cat": {
     "fi": "Mikä on maailman myydyin virvoitusjuomabrändi?",
@@ -13707,7 +13707,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "gen",
    "d": "normal",
    "cat": {
     "fi": "Mikä planeetta antaa nimen viikonpäivälle \"maanantai\" monissa kielissä?",
@@ -13784,7 +13784,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "geo",
    "d": "easy",
    "cat": {
     "fi": "Mikä on veden kiehumispiste merenpinnan tasolla?",
@@ -13861,7 +13861,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "gen",
    "d": "normal",
    "cat": {
     "fi": "Mikä autobrändi käyttää neljää yhdistettyä rengasta logona?",
@@ -13938,7 +13938,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "sci",
    "d": "hard",
    "cat": {
     "fi": "Mikä on maailman kallein maustelaji painon mukaan?",
@@ -14015,7 +14015,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "gen",
    "d": "normal",
    "cat": {
     "fi": "Mikä on suurin lintujen muna?",
@@ -14092,7 +14092,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "gen",
    "d": "easy",
    "cat": {
     "fi": "Mikä hedelmä on keltainen ja kaareva?",
@@ -14169,7 +14169,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "geo",
    "d": "normal",
    "cat": {
     "fi": "Mikä yritys omistaa hakukoneen nimeltä sama sana?",
@@ -14246,7 +14246,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "sport",
    "d": "hard",
    "cat": {
     "fi": "Mikä on maailman myydyin videopeli?",
@@ -14323,7 +14323,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "sci",
    "d": "normal",
    "cat": {
     "fi": "Mikä on ruskean karhun talviuni-ilmiön nimi?",
@@ -14400,7 +14400,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "gen",
    "d": "easy",
    "cat": {
     "fi": "Kuinka monta jalkaa on hyönteisellä?",
@@ -14477,7 +14477,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "sci",
    "d": "hard",
    "cat": {
     "fi": "Mikä on maailman suurin muna-solu?",
@@ -14554,7 +14554,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "sport",
    "d": "normal",
    "cat": {
     "fi": "Mikä on maailman suosituin urheilulaji katsojamäärältään?",
@@ -14631,7 +14631,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "gen",
    "d": "easy",
    "cat": {
     "fi": "Mikä väri saadaan sekoittamalla punaista ja valkoista?",
@@ -14708,7 +14708,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "sport",
    "d": "normal",
    "cat": {
     "fi": "Mikä yritys tunnetaan \"kolmesta raidasta\"?",
@@ -14785,7 +14785,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "sci",
    "d": "hard",
    "cat": {
     "fi": "Mikä on kevein alkuaine, jota käytetään ilmalaivoissa nykyään turvallisuuden vuoksi?",
@@ -14862,7 +14862,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "gen",
    "d": "easy",
    "cat": {
     "fi": "Kuinka monta sekuntia minuutissa on?",
@@ -14939,7 +14939,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "sci",
    "d": "normal",
    "cat": {
     "fi": "Mikä maustekasvi antaa currylle keltaisen värin?",
@@ -15016,7 +15016,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "sci",
    "d": "hard",
    "cat": {
     "fi": "Mikä planeetta pyörii kyljellään?",
@@ -15093,7 +15093,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "gen",
    "d": "normal",
    "cat": {
     "fi": "Mikä on maailman pisin nisäkkään kaula suhteessa kehoon?",
@@ -15170,7 +15170,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "sci",
    "d": "easy",
    "cat": {
     "fi": "Mikä juoma on kuuluisa aamun piristäjä, joka sisältää kofeiinia ja tehdään pavuista?",
@@ -22023,7 +22023,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "gen",
    "d": "hard",
    "cat": {
     "fi": "Mikä yhtiö kehitti PlayStation-pelikonsolin?",
@@ -22100,7 +22100,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "sport",
    "d": "hard",
    "cat": {
     "fi": "Mikä on maailman myydyin auto?",
@@ -22177,7 +22177,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "gen",
    "d": "hard",
    "cat": {
     "fi": "Mikä kreikkalainen kirjain kuvaa ympyrän kehän ja halkaisijan suhdetta?",
@@ -22254,7 +22254,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "gen",
    "d": "hard",
    "cat": {
     "fi": "Mikä on maailman kallein metalli painon mukaan?",
@@ -22331,7 +22331,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "gen",
    "d": "hard",
    "cat": {
     "fi": "Mikä ohjelmointikieli nimettiin brittiläisen komediaryhmän mukaan?",
@@ -22408,7 +22408,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "gen",
    "d": "hard",
    "cat": {
     "fi": "Mikä on ihmisen kromosomien lukumäärä?",
@@ -22485,7 +22485,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "geo",
    "d": "hard",
    "cat": {
     "fi": "Mikä maa keksi ruudin?",
@@ -22562,7 +22562,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "geo",
    "d": "hard",
    "cat": {
     "fi": "Mikä maa juo eniten kahvia henkeä kohti?",
@@ -22639,7 +22639,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "gen",
    "d": "hard",
    "cat": {
     "fi": "Mikä yritys omistaa Instagramin ja WhatsAppin?",
@@ -22716,7 +22716,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "gen",
    "d": "hard",
    "cat": {
     "fi": "Mikä on kevein metalli jaksollisessa järjestelmässä?",
@@ -22793,7 +22793,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "gen",
    "d": "hard",
    "cat": {
     "fi": "Mikä on ainoa numero, jota ei voi esittää roomalaisin numeroin?",
@@ -22870,7 +22870,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "sci",
    "d": "hard",
    "cat": {
     "fi": "Mikä on maailman yleisin veriryhmä?",
@@ -29954,7 +29954,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "arts",
    "d": "normal",
    "cat": {
     "fi": "Mikä yritys valmistaa Windows-käyttöjärjestelmän?",
@@ -30031,7 +30031,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "arts",
    "d": "hard",
    "cat": {
     "fi": "Mikä on maailman myydyin kirja Raamatun jälkeen?",
@@ -30108,7 +30108,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "gen",
    "d": "normal",
    "cat": {
     "fi": "Mikä yritys tunnetaan omenalogosta?",
@@ -30185,7 +30185,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "gen",
    "d": "hard",
    "cat": {
     "fi": "Mikä eläin on nopein hyönteinen lentäessään?",
@@ -30262,7 +30262,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "geo",
    "d": "normal",
    "cat": {
     "fi": "Mikä on maailman suurin valtameri?",
@@ -30339,7 +30339,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "gen",
    "d": "hard",
    "cat": {
     "fi": "Mikä on kevyin metalli, joka kelluu vedessä?",
@@ -30416,7 +30416,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "hist",
    "d": "normal",
    "cat": {
     "fi": "Mikä planeetta on nimetty sodan jumalan mukaan?",
@@ -30493,7 +30493,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "gen",
    "d": "hard",
    "cat": {
     "fi": "Mikä on maailman suurin timantti raakana löydettynä?",
@@ -30570,7 +30570,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "gen",
    "d": "normal",
    "cat": {
     "fi": "Mikä juusto on kotoisin Italiasta ja käytetään pizzassa?",
@@ -30647,7 +30647,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "gen",
    "d": "hard",
    "cat": {
     "fi": "Mikä on maailman kuumin chilipaprikalajike?",
@@ -30724,7 +30724,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "gen",
    "d": "normal",
    "cat": {
     "fi": "Mikä on maapallon ainoa luonnollinen satelliitti?",
@@ -30801,7 +30801,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "geo",
    "d": "hard",
    "cat": {
     "fi": "Mikä maa keksi paperin?",
@@ -30878,7 +30878,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "gen",
    "d": "normal",
    "cat": {
     "fi": "Mikä hedelmä liitetään perinteisesti lääkärin välttämiseen?",
@@ -37962,7 +37962,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "sci",
    "d": "normal",
    "cat": {
     "fi": "Mikä yritys valmistaa Galaxy-älypuhelimia?",
@@ -38039,7 +38039,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "gen",
    "d": "hard",
    "cat": {
     "fi": "Mikä on maailman puhutuin romaaninen kieli?",
@@ -38116,7 +38116,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "gen",
    "d": "normal",
    "cat": {
     "fi": "Mikä juoma on Japanin perinteinen riisiviini?",
@@ -38193,7 +38193,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "geo",
    "d": "hard",
    "cat": {
     "fi": "Mikä on maailman suurin makean veden järvi tilavuudeltaan?",
@@ -38270,7 +38270,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "sci",
    "d": "normal",
    "cat": {
     "fi": "Mikä yritys tunnetaan kolmisakaraisesta tähtilogosta autoissa?",
@@ -38347,7 +38347,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "gen",
    "d": "hard",
    "cat": {
     "fi": "Mikä metalli sulaa kädessä, koska sen sulamispiste on n. 30 °C?",
@@ -38424,7 +38424,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "sci",
    "d": "normal",
    "cat": {
     "fi": "Mikä planeetta tunnetaan kauniista renkaistaan?",
@@ -38501,7 +38501,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "gen",
    "d": "hard",
    "cat": {
     "fi": "Mikä on maailman kirjoitetuin kirjain latinalaisissa kielissä?",
@@ -38578,7 +38578,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "gen",
    "d": "normal",
    "cat": {
     "fi": "Mikä yritys omistaa YouTuben?",
@@ -38655,7 +38655,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "arts",
    "d": "hard",
    "cat": {
     "fi": "Mikä on kallein maalaus koskaan huutokaupattu?",
@@ -38732,7 +38732,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "sci",
    "d": "normal",
    "cat": {
     "fi": "Mikä on suomalaisten suosikkijuoma, jota valmistetaan pavuista paahtamalla?",
@@ -38809,7 +38809,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "gen",
    "d": "hard",
    "cat": {
     "fi": "Mikä yritys kehitti ensimmäisen graafisen web-selaimen suosituksi?",
@@ -38886,7 +38886,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "geo",
    "d": "normal",
    "cat": {
     "fi": "Mikä on maailman käytetyin hakukone?",
@@ -45970,7 +45970,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "gen",
    "d": "normal",
    "cat": {
     "fi": "Mikä yritys valmistaa Xbox-pelikonsolin?",
@@ -46047,7 +46047,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "geo",
    "d": "hard",
    "cat": {
     "fi": "Mikä on maailman suurin timanttien tuottajamaa?",
@@ -46124,7 +46124,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "gen",
    "d": "normal",
    "cat": {
     "fi": "Mikä on Italian perinteinen litteä leipä juustolla ja tomaatilla?",
@@ -46201,7 +46201,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "gen",
    "d": "hard",
    "cat": {
     "fi": "Mikä on maailman puhutuin kieli äidinkielenä?",
@@ -46278,7 +46278,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "geo",
    "d": "normal",
    "cat": {
     "fi": "Mikä yritys tunnetaan punaisesta pyöreästä logosta ja virvoitusjuomasta?",
@@ -46355,7 +46355,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "gen",
    "d": "hard",
    "cat": {
     "fi": "Mikä metalli on runsain maankuoressa?",
@@ -46432,7 +46432,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "hist",
    "d": "normal",
    "cat": {
     "fi": "Mikä planeetta on nimetty roomalaisen jumalten kuninkaan mukaan?",
@@ -46509,7 +46509,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "geo",
    "d": "hard",
    "cat": {
     "fi": "Mikä japanilainen sana tarkoittaa \"satama-aaltoa\" ja on maailmanlaajuinen termi?",
@@ -46586,7 +46586,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "arts",
    "d": "normal",
    "cat": {
     "fi": "Mikä yritys valmistaa LEGO-palikoita?",
@@ -46663,7 +46663,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "arts",
    "d": "hard",
    "cat": {
     "fi": "Mikä on maailman käytetyin mobiilikäyttöjärjestelmä?",
@@ -46740,7 +46740,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "gen",
    "d": "normal",
    "cat": {
     "fi": "Mikä on maailman suurin verkkokauppa- ja pilvipalveluyritys?",
@@ -46817,7 +46817,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "gen",
    "d": "hard",
    "cat": {
     "fi": "Mikä on maailman yleisin puu viljelykasvina pinta-alaltaan?",
@@ -46894,7 +46894,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "gen",
    "d": "normal",
    "cat": {
     "fi": "Mikä juoma on Kiinan ja Aasian perinteinen kuuma juoma lehdistä?",
@@ -59830,7 +59830,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "arts",
    "d": "normal",
    "cat": {
     "fi": "Mikä yritys valmistaa Nintendo Switch -konsolin?",
@@ -59907,7 +59907,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "gen",
    "d": "hard",
    "cat": {
     "fi": "Mikä on maailman kysytyin verkkotunnuspääte?",
@@ -59984,7 +59984,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "gen",
    "d": "normal",
    "cat": {
     "fi": "Mikä juoma on Irlannin kuuluisa tumma olut?",
@@ -60061,7 +60061,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "gen",
    "d": "hard",
    "cat": {
     "fi": "Mikä on maailman käytetyin viestisovellus?",
@@ -60138,7 +60138,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "gen",
    "d": "normal",
    "cat": {
     "fi": "Mikä on Japanin perinteinen ruokalaji riisistä ja raa'asta kalasta?",
@@ -60215,7 +60215,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "gen",
    "d": "hard",
    "cat": {
     "fi": "Mikä metalli on kallein jalometalli usein?",
@@ -60292,7 +60292,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "sci",
    "d": "normal",
    "cat": {
     "fi": "Mikä planeetta on lähinnä Maata sisäpuolella?",
@@ -60369,7 +60369,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "gen",
    "d": "hard",
    "cat": {
     "fi": "Mikä kieli on virallinen useimmissa maissa maailmassa?",
@@ -60446,7 +60446,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "gen",
    "d": "normal",
    "cat": {
     "fi": "Mikä yritys tunnetaan \"swoosh\"-logostaan?",
@@ -60523,7 +60523,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "gen",
    "d": "hard",
    "cat": {
     "fi": "Mikä on maailman puhutuin arabialainen murre?",
@@ -60600,7 +60600,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "gen",
    "d": "normal",
    "cat": {
     "fi": "Mikä juoma tehdään sokeriruo'osta käymällä?",
@@ -60677,7 +60677,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "sci",
    "d": "hard",
    "cat": {
     "fi": "Mikä on maailman kallein mauste tilavuudessa?",
@@ -60754,7 +60754,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "gen",
    "d": "normal",
    "cat": {
     "fi": "Mikä yritys omistaa Facebookin ja Instagramin?",
@@ -60831,7 +60831,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "gen",
    "d": "hard",
    "cat": {
     "fi": "Mikä on maailman käytetyin ohjelmointikieli verkkosivujen selaimessa?",
@@ -60908,7 +60908,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "geo",
    "d": "normal",
    "cat": {
     "fi": "Mikä on maailman suosituin hakukone mobiililaitteilla?",
@@ -60985,7 +60985,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "geo",
    "d": "hard",
    "cat": {
     "fi": "Mikä maa keksi kompassin?",
@@ -61062,7 +61062,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "gen",
    "d": "normal",
    "cat": {
     "fi": "Mikä yritys valmistaa Coca-Colan kilpailijan Pepsin?",
@@ -61139,7 +61139,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "geo",
    "d": "hard",
    "cat": {
     "fi": "Mikä on maailman suurin kahvintuottajamaa?",
@@ -61216,7 +61216,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "gen",
    "d": "normal",
    "cat": {
     "fi": "Mikä juoma on Skotlannin kuuluisin väkevä?",
@@ -61293,7 +61293,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "gen",
    "d": "hard",
    "cat": {
     "fi": "Mikä on maailman yleisin sukunimi?",
@@ -61370,7 +61370,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "sci",
    "d": "normal",
    "cat": {
     "fi": "Mikä planeetta tunnetaan sinisenä pallona ja on ihmisten koti?",
@@ -61447,7 +61447,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "sci",
    "d": "hard",
    "cat": {
     "fi": "Mikä on maailman suurin autonvalmistaja myynnillä?",
@@ -61524,7 +61524,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "gen",
    "d": "normal",
    "cat": {
     "fi": "Mikä on Ranskan kuuluisa kuohuviini alueeltaan?",
@@ -61601,7 +61601,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "gen",
    "d": "hard",
    "cat": {
     "fi": "Mikä on maailman suurin sosiaalinen media käyttäjämäärältään?",
@@ -61678,7 +61678,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "gen",
    "d": "normal",
    "cat": {
     "fi": "Mikä yritys valmistaa PlayStation 5 -konsolin?",
@@ -74383,7 +74383,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "gen",
    "d": "normal",
    "cat": {
     "fi": "Mikä yritys valmistaa iPadin?",
@@ -74460,7 +74460,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "arts",
    "d": "hard",
    "cat": {
     "fi": "Mikä on maailman käytetyin verkkoselain?",
@@ -74537,7 +74537,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "gen",
    "d": "normal",
    "cat": {
     "fi": "Mikä juoma tehdään mallasohrasta ja tislataan Skotlannissa?",
@@ -74614,7 +74614,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "geo",
    "d": "hard",
    "cat": {
     "fi": "Mikä on maailman suurin hakukonemarkkinaosuus Kiinassa?",
@@ -74691,7 +74691,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "gen",
    "d": "normal",
    "cat": {
     "fi": "Mikä on Italian kuuluisa pastalla ja tomaatilla tehty ruoka?",
@@ -74768,7 +74768,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "gen",
    "d": "hard",
    "cat": {
     "fi": "Mikä metalli johtaa lämpöä parhaiten?",
@@ -74845,7 +74845,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "sci",
    "d": "normal",
    "cat": {
     "fi": "Mikä planeetta on aurinkoa lähinnä?",
@@ -74922,7 +74922,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "geo",
    "d": "hard",
    "cat": {
     "fi": "Mikä on maailman suurin öljyntuottajamaa?",
@@ -74999,7 +74999,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "hist",
    "d": "normal",
    "cat": {
     "fi": "Mikä yritys valmistaa Big Mac -hampurilaisen?",
@@ -75076,7 +75076,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "gen",
    "d": "hard",
    "cat": {
     "fi": "Mikä kieli on Euroopan unionin puhutuin äidinkielenä?",
@@ -75153,7 +75153,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "gen",
    "d": "normal",
    "cat": {
     "fi": "Mikä juusto on kuuluisa italialainen kova raastejuusto?",
@@ -75230,7 +75230,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "geo",
    "d": "hard",
    "cat": {
     "fi": "Mikä maa keksi teen viljelyn ja juonnin ensimmäisenä?",
@@ -75307,7 +75307,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "sci",
    "d": "normal",
    "cat": {
     "fi": "Mikä yritys tekee Model 3 -sähköauton?",
@@ -75384,7 +75384,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "geo",
    "d": "hard",
    "cat": {
     "fi": "Mikä on maailman yleisin ammatti maataloudessa?",
@@ -75461,7 +75461,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "sci",
    "d": "normal",
    "cat": {
     "fi": "Mikä planeetta tunnetaan renkaistaan?",
@@ -75538,7 +75538,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "geo",
    "d": "hard",
    "cat": {
     "fi": "Mikä on maailman käytetyin valuutta kansainvälisessä kaupassa?",
@@ -75615,7 +75615,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "gen",
    "d": "normal",
    "cat": {
     "fi": "Mikä yritys valmistaa Nutellaa?",
@@ -75692,7 +75692,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "geo",
    "d": "hard",
    "cat": {
     "fi": "Mikä maa juo eniten olutta henkeä kohti?",
@@ -75769,7 +75769,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "gen",
    "d": "normal",
    "cat": {
     "fi": "Mikä on Ranskan kuuluisa suolainen munaruoka?",
@@ -75846,7 +75846,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "gen",
    "d": "hard",
    "cat": {
     "fi": "Mikä on maailman suurin timanttikauppias yritys?",
@@ -75923,7 +75923,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "sci",
    "d": "normal",
    "cat": {
     "fi": "Mikä on Japanin kuuluisa nopeajuna?",
@@ -76000,7 +76000,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "geo",
    "d": "hard",
    "cat": {
     "fi": "Mikä on maailman suurin kalastajakansa määrältään?",
@@ -76077,7 +76077,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "gen",
    "d": "normal",
    "cat": {
     "fi": "Mikä on Meksikon kuuluisa maissitortillaruoka täytteineen?",
@@ -76154,7 +76154,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "geo",
    "d": "hard",
    "cat": {
     "fi": "Mikä on maailman suurin autonvalmistajamaa määrältään?",
@@ -76231,7 +76231,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "gen",
    "d": "normal",
    "cat": {
     "fi": "Mikä yritys valmistaa AirPods-kuulokkeet?",
@@ -76847,7 +76847,7 @@
   },
   {
    "mode": "bullseye",
-   "topic": "mixed",
+   "topic": "gen",
    "d": "normal",
    "cat": {
     "fi": "Mikä on maailman suosituin videopalvelu, jonka omistaa Google?",
