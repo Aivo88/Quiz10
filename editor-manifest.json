@@ -1,8 +1,9 @@
 {
+  "id": "pubquiz-editor",
   "name": "Pub Quiz – Editori",
   "short_name": "PQ Editori",
-  "start_url": "./quiz10-editor.html",
-  "scope": "./",
+  "start_url": "./quiz10-editor.html?app=editor",
+  "scope": "./quiz10-editor.html",
   "display": "standalone",
   "orientation": "any",
   "theme_color": "#191410",
