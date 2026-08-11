@@ -247,6 +247,7 @@
     flex:1; min-height:0;
     display:grid; grid-template-columns:1fr 1fr; grid-auto-rows:1fr;
     gap:clamp(8px,1.1vw,16px);
+    transition:opacity .16s ease;
   }
   .opt{
     position:relative;
@@ -3055,7 +3056,7 @@ const BULLSEYE_QUESTIONS = [
 
 const PLAYER_COLORS = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
-const APP_VERSION = '01.00.39';
+const APP_VERSION = '01.00.40';
 
 let questionsStatus = '';
 const QCACHE_KEY = 'quiz10_qcache2';  // bumped: use embedded 1000, ignore old device cache
@@ -3077,6 +3078,7 @@ let qbLang = 'fi';      // language shown in the question browser (independent o
 let qbQi = 0;
 let qbFilter = 'all';   // question-list difficulty filter
 let qbSearch = '';      // question-list text search
+let qbTopic = 'all';   // question-list category filter
 
 function questionEnabled(q){ return !disabledQ.has(q.cat.en); }
 
@@ -3273,6 +3275,7 @@ function renderQList(){
     </div>
     <input type="text" id="qbSearchInput" class="qb-search focusable" placeholder="${tr('searchWord')}" value="${escapeHtml(qbSearch)}">
     <div class="qb-filter">${chip('all',tr('allWord'))}${chip('easy',tr('diffEasy'))}${chip('normal',tr('diffNormal'))}${chip('hard',tr('diffHard'))}</div>
+    <div class="qb-filter qb-topics"><button class="btn chip focusable ${qbTopic==='all'?'on':''}" data-action="qbTopic" data-t="all">${tr('allWord')}</button>${TOPICS.map(t=>`<button class="btn chip focusable ${qbTopic===t.key?'on':''}" data-action="qbTopic" data-t="${t.key}">${t.icon} ${escapeHtml(t[qbLang]||t.en)}</button>`).join('')}</div>
     <div class="qb-filter qb-langs">${sourceLangs(qbSrc).map(c=>`<button class="btn chip focusable ${qbLang===c?'on':''}" data-action="qbSetLang" data-l="${c}">${flagFor(c)} ${c.toUpperCase()}</button>`).join('')}</div>
     <div id="qrows"></div>`;
   const inp=$('#qbSearchInput');
@@ -3286,6 +3289,7 @@ function renderQRows(){
   let shown=0, html='';
   qs.forEach((q,qi)=>{
     if(!(qbFilter==='all' || q.d===qbFilter)) return;
+    if(!(qbTopic==='all' || (q.topic||'')===qbTopic)) return;
     if(term){
       const hay=((q.topic||'')+' '+catLangG(q)+' '+q.o.map(o=>optLangG(o, q.L)).join(' ')).toLowerCase();
       if(hay.indexOf(term)<0) return;
@@ -3883,6 +3887,7 @@ function drawQuestion(){
 
 /* Start the round with the chosen topic; opener plays immediately (no banner) */
 function newQuestion(){
+  const bd=$('#board'); if(bd) bd.style.opacity='0';   // hide during rebuild to avoid flicker
   drawQuestion();
   pstatus = players.map(()=>'active');
   roundTokens = players.map(()=>0);
@@ -3895,7 +3900,7 @@ function newQuestion(){
   turnActive = true;
   applyLang();
   focusFirstOption();
-  requestAnimationFrame(fitBoard);
+  requestAnimationFrame(()=>{ fitBoard(); requestAnimationFrame(()=>{ if(bd) bd.style.opacity='1'; }); });
 }
 
 /* Show the "up next" banner; play begins only on OK / tap */
@@ -4374,12 +4379,13 @@ function activate(el){
   else if(a==='rules'){ showScreen('screen-rules'); const b=$('#screen-rules [data-focus]'); if(b) setFocus(b); }
   else if(a==='settab'){ qbMode='packs'; setTab(el.dataset.tab); }
   else if(a==='importQuestions'){ const f=$('#packFile'); if(f){ f.value=''; f.click(); } }
-  else if(a==='qbOpen'){ qbSrc=el.dataset.src; qbFilter='all'; qbSearch=''; qbMode='list'; { const ls=sourceLangs(qbSrc); qbLang = ls.includes(lang)?lang:ls[0]; } renderQBrowser(); qbFocusFirst(); }
+  else if(a==='qbOpen'){ qbSrc=el.dataset.src; qbFilter='all'; qbTopic='all'; qbSearch=''; qbMode='list'; { const ls=sourceLangs(qbSrc); qbLang = ls.includes(lang)?lang:ls[0]; } renderQBrowser(); qbFocusFirst(); }
   else if(a==='qbBack'){ qbMode='packs'; renderQBrowser(); qbFocusFirst(); }
   else if(a==='qbSetLang'){ qbLang=el.dataset.l; if(qbMode==='detail') renderQDetail(); else renderQList(); }
   else if(a==='qbDetail'){ qbQi=+el.dataset.qi; qbMode='detail'; renderQBrowser(); qbFocusFirst(); }
   else if(a==='qbBackList'){ qbMode='list'; renderQBrowser(); qbFocusFirst(); }
   else if(a==='qbFilter'){ qbFilter=el.dataset.f; $$('#packList .qb-filter .chip').forEach(b=>b.classList.toggle('on', b.dataset.f===qbFilter)); renderQRows(); }
+  else if(a==='qbTopic'){ qbTopic=el.dataset.t; renderQList(); }
   else if(a==='qbToggleQ'){ const q=sourceQuestions(qbSrc)[+el.dataset.qi]; if(q){ if(disabledQ.has(q.cat.en)) disabledQ.delete(q.cat.en); else disabledQ.add(q.cat.en); saveDisabled(); rebuildQuestions(); renderQRows(); updateQStatus(); } }
   else if(a==='toggleBase'){ baseOn=!baseOn; saveBaseOn(); rebuildQuestions(); renderPackList(); updateQStatus(); }
   else if(a==='toggleBull'){ bullseyeOn=!bullseyeOn; saveBullOn(); rebuildQuestions(); renderPackList(); updateQStatus(); }
