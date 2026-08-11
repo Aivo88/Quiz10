@@ -247,6 +247,7 @@
       <div style="display:flex; align-items:center; gap:12px">
         <span class="emojichosen" id="catEmojiChosen">🎵</span>
         <input type="text" id="catEmojiCustom" data-i18n-ph="ownEmoji" placeholder="oma emoji" maxlength="4" style="flex:1; max-width:200px">
+        <label class="btn" style="cursor:pointer; white-space:nowrap">📷 <span data-i18n="chooseImage">Valitse kuva</span><input type="file" id="catImgInput" accept="image/*" hidden></label>
       </div>
       <div class="emojigrid" id="emojiGrid"></div>
     </div>
@@ -343,7 +344,7 @@ const I18N = {
     tabQuestions:'Kysymykset', tabCategories:'Kategoriat',
     newQuestion:'➕ Uusi kysymys', newCategory:'➕ Uusi kategoria',
     back:'‹ Takaisin', catNew:'Uusi kategoria', catEdit:'Muokkaa kategoriaa',
-    catNameLbl:'Kategorian nimi (jokaisella kielellä)', iconLbl:'Kuvake', ownEmoji:'oma emoji',
+    catNameLbl:'Kategorian nimi (jokaisella kielellä)', iconLbl:'Kuvake', ownEmoji:'oma emoji', chooseImage:'Valitse kuva',
     cancel:'Peruuta', saveCat:'Tallenna kategoria',
     qNew:'Uusi kysymys', qEdit:'Muokkaa kysymystä', category:'Kategoria', difficulty:'Vaikeustaso',
     easy:'Helppo', normal:'Normaali', hard:'Vaikea', modeLbl:'Pelimuoto', modeSweep:'Sweep', modeBullseye:'Bullseye', modeSweepDesc:'monta oikein', modeBullseyeDesc:'yksi oikein', tBull1:'Bullseyessä tasan yksi vaihtoehto saa olla oikein.',
@@ -384,7 +385,7 @@ const I18N = {
     tabQuestions:'Questions', tabCategories:'Categories',
     newQuestion:'➕ New question', newCategory:'➕ New category',
     back:'‹ Back', catNew:'New category', catEdit:'Edit category',
-    catNameLbl:'Category name (in each language)', iconLbl:'Icon', ownEmoji:'own emoji',
+    catNameLbl:'Category name (in each language)', iconLbl:'Icon', ownEmoji:'own emoji', chooseImage:'Choose image',
     cancel:'Cancel', saveCat:'Save category',
     qNew:'New question', qEdit:'Edit question', category:'Category', difficulty:'Difficulty',
     easy:'Easy', normal:'Normal', hard:'Hard', modeLbl:'Game mode', modeSweep:'Sweep', modeBullseye:'Bullseye', modeSweepDesc:'many correct', modeBullseyeDesc:'one correct', tBull1:'In Bullseye exactly one option may be correct.',
@@ -425,7 +426,7 @@ const I18N = {
     tabQuestions:'Preguntas', tabCategories:'Categorías',
     newQuestion:'➕ Nueva pregunta', newCategory:'➕ Nueva categoría',
     back:'‹ Atrás', catNew:'Nueva categoría', catEdit:'Editar categoría',
-    catNameLbl:'Nombre de la categoría (en cada idioma)', iconLbl:'Icono', ownEmoji:'emoji propio',
+    catNameLbl:'Nombre de la categoría (en cada idioma)', iconLbl:'Icono', ownEmoji:'emoji propio', chooseImage:'Elegir imagen',
     cancel:'Cancelar', saveCat:'Guardar categoría',
     qNew:'Nueva pregunta', qEdit:'Editar pregunta', category:'Categoría', difficulty:'Dificultad',
     easy:'Fácil', normal:'Normal', hard:'Difícil', modeLbl:'Modo de juego', modeSweep:'Sweep', modeBullseye:'Bullseye', modeSweepDesc:'varias correctas', modeBullseyeDesc:'una correcta', tBull1:'En Bullseye exactamente una opción puede ser correcta.',
@@ -746,7 +747,8 @@ $('#cqAdd').addEventListener('click', ()=>openQ(null, catView));
 function buildEmojiGrid(){ $('#emojiGrid').innerHTML = EMOJIS.map(e=>`<button data-emoji="${e}">${e}</button>`).join(''); }
 $('#emojiGrid').addEventListener('click', e=>{ const b=e.target.closest('button'); if(!b)return; pickedEmoji=b.dataset.emoji; $('#catEmojiCustom').value=''; syncEmoji(); });
 $('#catEmojiCustom').addEventListener('input', e=>{ const v=e.target.value.trim(); if(v)pickedEmoji=v; syncEmoji(); });
-function syncEmoji(){ $('#catEmojiChosen').textContent=pickedEmoji||'❓'; $$('#emojiGrid button').forEach(x=>x.classList.toggle('sel',x.dataset.emoji===pickedEmoji)); }
+$('#catImgInput')&&$('#catImgInput').addEventListener('change', e=>{ const f=e.target.files&&e.target.files[0]; if(!f)return; const rd=new FileReader(); rd.onload=()=>{ const img=new Image(); img.onload=()=>{ const c=document.createElement('canvas'); c.width=c.height=64; const cx=c.getContext('2d'); const s=Math.min(img.width,img.height), sx=(img.width-s)/2, sy=(img.height-s)/2; cx.drawImage(img,sx,sy,s,s,0,0,64,64); pickedEmoji=c.toDataURL('image/png'); $('#catEmojiCustom').value=''; syncEmoji(); }; img.src=rd.result; }; rd.readAsDataURL(f); });
+function syncEmoji(){ const el=$('#catEmojiChosen'); if(pickedEmoji && String(pickedEmoji).slice(0,5)==='data:'){ el.innerHTML='<img src="'+pickedEmoji+'" style="width:1.4em;height:1.4em;object-fit:cover;border-radius:6px;vertical-align:middle">'; } else { el.textContent=pickedEmoji||'❓'; } $$('#emojiGrid button').forEach(x=>x.classList.toggle('sel',x.dataset.emoji===pickedEmoji)); }
 
 /* category editor */
 $('#addCategoryBtn').addEventListener('click', ()=>openCat(null));
