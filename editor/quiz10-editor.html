@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="fi">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>Pub Quiz – Editori</title>
+<title>Pub Quiz Editor</title>
 <link rel="manifest" href="editor-manifest.json">
 <meta name="theme-color" content="#191410">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="PQ Editori">
+<meta name="apple-mobile-web-app-title" content="Pub Quiz Editor">
 <link rel="apple-touch-icon" href="apple-touch-icon-editor.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-editor-192.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-editor-32.png">
@@ -346,7 +346,7 @@ const LS_UILANG = 'pubquiz_editor_uilang';
 /* ---- UI translations (editor's own interface language) ---- */
 const I18N = {
   fi:{
-    brandSub:'Editori', import:'📂 Tuo', export:'💾 Vie paketti', update:'🔄 Tarkista päivitykset',
+    brandSub:'Editor', import:'📂 Tuo', export:'💾 Vie paketti', update:'🔄 Tarkista päivitykset',
     packName:'Paketin nimi', packLangs:'Paketin kielet — valitse mitkä kielet paketti sisältää',
     clearAll:'🗑 Tyhjennä kaikki',
     hint:'Kirjoita jokainen kysymys valitsemillasi kielillä (kielivälilehdet kysymysnäkymässä). Kun paketti on valmis, paina <b>Vie paketti</b> ja tuo .json Pub Quiz -peliin (Asetukset → Kysymykset → Lataa tiedostosta). Jos paketissa on peliin uusi kieli, se lisätään pelin kielivalikkoon automaattisesti.',
@@ -470,8 +470,8 @@ const I18N = {
   }
 };
 const UI_LANGS = [{code:'fi',flag:'🇫🇮',name:'Suomi'},{code:'en',flag:'🇬🇧',name:'English'},{code:'es',flag:'🇪🇸',name:'Español'}];
-let UILANG = (function(){ try{ return localStorage.getItem(LS_UILANG)||'fi'; }catch(e){ return 'fi'; } })();
-if(!I18N[UILANG]) UILANG='fi';
+let UILANG = (function(){ try{ return localStorage.getItem(LS_UILANG)||'en'; }catch(e){ return 'en'; } })();
+if(!I18N[UILANG]) UILANG='en';
 function t(key, arg){ const d=I18N[UILANG]||I18N.fi; let v=d[key]; if(v==null) v=I18N.fi[key]; if(v==null) return key; return (typeof v==='function')? v(arg) : v; }
 const ALL_LANGS = [
   {code:'fi',flag:'🇫🇮',name:'Suomi'}, {code:'en',flag:'🇬🇧',name:'English'},
@@ -495,7 +495,7 @@ function detectFlag(){ try{ const c=document.createElement('canvas'); c.width=20
   for(let i=0;i<d.length;i+=4){const r=d[i],g=d[i+1],b=d[i+2],a=d[i+3]; if(a>0&&((b>90&&r<90)||(r>150&&g>120&&b<90)))n++;} return n>4; }catch(e){return false;} }
 function fl(code){ return FLAG_OK ? (LMETA[code]?LMETA[code].flag:'🏳️') : ''; }
 
-const EDITOR_VERSION = '01.00.17';
+const EDITOR_VERSION = '01.00.18';
 
 /* The game's built-in categories — same keys, so questions land in the right category in-game */
 const DEFAULT_TOPICS = [
