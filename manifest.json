@@ -1,8 +1,9 @@
 {
+  "id": "pubquiz-game",
   "name": "Pub Quiz",
   "short_name": "Pub Quiz",
   "description": "The push-your-luck pub trivia game / Uskalla tai passaa -tietovisa",
-  "start_url": "./quiz10.html",
+  "start_url": "./quiz10.html?app=game",
   "scope": "./",
   "display": "standalone",
   "orientation": "any",
