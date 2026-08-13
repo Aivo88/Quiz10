@@ -413,6 +413,7 @@
   .pack-row{display:flex; align-items:center; justify-content:space-between; gap:clamp(10px,1.5vw,18px);
             padding:clamp(10px,1.6vh,16px) 0; border-top:1px solid var(--line);}
   .pack-info{min-width:0}
+  .pack-mode{font-weight:600; color:var(--gold); font-size:.82em;}
   .pack-name{font-weight:700; color:var(--ink); font-size:calc(clamp(15px,1.8vw,22px) * var(--fs));}
   .pack-meta{color:var(--muted); font-size:.82em}
   .pack-flags{margin-top:4px; font-size:calc(clamp(16px,2vw,24px)); line-height:1; letter-spacing:.04em}
@@ -665,8 +666,8 @@
     <div class="center">
       <h2 class="q-title" data-i="modeTitle">Choose game mode</h2>
       <div class="menu-col">
-        <button class="btn gold block focusable" data-focus data-action="setmode" data-mode="sweep"><span class="mi">🧹</span><span data-i="modeSweepName">Sweep</span></button>
-        <button class="btn gold block focusable" data-action="setmode" data-mode="bullseye"><span class="mi">🎯</span><span data-i="modeBullName">Bullseye</span></button>
+        <button class="btn block focusable" data-focus data-action="setmode" data-mode="sweep"><span class="mi">🧹</span><span data-i="modeSweepName">Sweep</span></button>
+        <button class="btn block focusable" data-action="setmode" data-mode="bullseye"><span class="mi">🎯</span><span data-i="modeBullName">Bullseye</span></button>
       </div>
       <button class="btn back focusable" data-action="backToLang" data-i="back" style="margin-top:clamp(20px,4vh,44px)">Back</button>
     </div>
@@ -855,7 +856,7 @@ const T = {
     packHint:"Load extra question packs as a .json file. Once loaded they are saved on this device and mixed into the game when active. In the future you'll be able to download packs here too.",
     questionsWord:"questions", activeWord:"On", offWord:"Off", deleteWord:"Delete",
     fromPacksWord:"from packs", packAdded:"Pack added", packError:"Could not load file",
-    viewWord:"View", allWord:"All", searchWord:"Search questions…", noMatches:"No matches", baseBankName:"Default questions", bullBankName:"Bullseye", inPlayWord:"questions in play", baseOffWord:"default off",
+    viewWord:"View", allWord:"All", searchWord:"Search questions…", noMatches:"No matches", baseBankName:"Sweep", bullBankName:"Bullseye", inPlayWord:"questions in play", baseOffWord:"default off",
     confirmDeletePack:"Delete pack", needQuestions:"Turn on some questions first",
     updating:"Updating…",
     updChecking:"Checking…",
@@ -935,7 +936,7 @@ const T = {
     packHint:"Lataa lisää kysymyspaketteja .json-tiedostona. Ladatut paketit tallentuvat tälle laitteelle ja sekoittuvat peliin, kun ne ovat aktiivisia. Tulevaisuudessa paketteja voi ladata myös täältä.",
     questionsWord:"kysymystä", activeWord:"Päällä", offWord:"Pois", deleteWord:"Poista",
     fromPacksWord:"paketeista", packAdded:"Paketti lisätty", packError:"Tiedostoa ei voitu ladata",
-    viewWord:"Selaa", allWord:"Kaikki", searchWord:"Etsi kysymyksiä…", noMatches:"Ei osumia", baseBankName:"Oletuskysymykset", bullBankName:"Bullseye", inPlayWord:"kysymystä pelissä", baseOffWord:"oletus pois",
+    viewWord:"Selaa", allWord:"Kaikki", searchWord:"Etsi kysymyksiä…", noMatches:"Ei osumia", baseBankName:"Sweep", bullBankName:"Bullseye", inPlayWord:"kysymystä pelissä", baseOffWord:"oletus pois",
     confirmDeletePack:"Poista paketti", needQuestions:"Laita ensin kysymyksiä päälle",
     updating:"Päivitetään…",
     updChecking:"Tarkistetaan…",
@@ -1015,7 +1016,7 @@ const T = {
     packHint:"Carga más paquetes de preguntas como archivo .json. Una vez cargados se guardan en este dispositivo y se mezclan en el juego cuando están activos. En el futuro también podrás descargar paquetes aquí.",
     questionsWord:"preguntas", activeWord:"Activo", offWord:"Off", deleteWord:"Borrar",
     fromPacksWord:"de paquetes", packAdded:"Paquete añadido", packError:"No se pudo cargar el archivo",
-    viewWord:"Ver", allWord:"Todas", searchWord:"Buscar preguntas…", noMatches:"Sin resultados", baseBankName:"Preguntas predeterminadas", bullBankName:"Bullseye", inPlayWord:"preguntas en juego", baseOffWord:"predeterminadas off",
+    viewWord:"Ver", allWord:"Todas", searchWord:"Buscar preguntas…", noMatches:"Sin resultados", baseBankName:"Sweep", bullBankName:"Bullseye", inPlayWord:"preguntas en juego", baseOffWord:"predeterminadas off",
     confirmDeletePack:"Borrar paquete", needQuestions:"Activa primero algunas preguntas",
     updating:"Actualizando…",
     updChecking:"Comprobando…",
@@ -3057,7 +3058,7 @@ const BULLSEYE_QUESTIONS = [
 
 const PLAYER_COLORS = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
-const APP_VERSION = '01.00.43';
+const APP_VERSION = '01.00.44';
 
 let questionsStatus = '';
 const QCACHE_KEY = 'quiz10_qcache2';  // bumped: use embedded 1000, ignore old device cache
@@ -3233,7 +3234,7 @@ function renderPackList(){
     html += packs.map(p=>`
     <div class="pack-row">
       <div class="pack-info">
-        <div class="pack-name">${escapeHtml(p.name)}</div>
+        <div class="pack-name">${escapeHtml(p.name)}${(()=>{const pm=new Set((p.questions||[]).map(q=>q.mode==='bullseye'?'bullseye':'sweep'));const mt=pm.size===1?(pm.has('bullseye')?tr('bullBankName'):tr('baseBankName')):(pm.size>1?tr('baseBankName')+' + '+tr('bullBankName'):'');return mt?' \u00b7 '+mt:'';})()}</div>
         <div class="pack-meta">${p.questions.length} ${tr('questionsWord')}</div>
         <div class="pack-flags">${langFlagsHtml(packLangCodes(p))}</div>
       </div>
