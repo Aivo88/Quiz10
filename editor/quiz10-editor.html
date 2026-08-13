@@ -205,6 +205,12 @@
         <div class="langchips" id="langChips"></div>
       </div>
       <div class="field">
+        <label class="lbl" data-i18n="packModeLbl">Pelimuoto (koko paketti)</label>
+        <div class="modepick" id="packModePick">
+          <button type="button" class="modebtn" data-pmode="sweep"><b data-i18n="modeSweep">Sweep</b><span data-i18n="modeSweepDesc">monta oikein</span></button>
+          <button type="button" class="modebtn" data-pmode="bullseye"><b data-i18n="modeBullseye">Bullseye</b><span data-i18n="modeBullseyeDesc">yksi oikein</span></button>
+      </div>
+      <div class="field">
         <button class="btn danger block" id="clearAllBtn" data-i18n="clearAll">🗑 Tyhjennä kaikki</button>
       </div>
       <p class="hint" data-i18n="hint">Kirjoita jokainen kysymys valitsemillasi kielillä.</p>
@@ -279,7 +285,7 @@
       <div class="field"><label class="lbl" for="qDiff" data-i18n="difficulty">Vaikeustaso</label>
         <select id="qDiff"><option value="easy" data-i18n="easy">Helppo</option><option value="normal" selected data-i18n="normal">Normaali</option><option value="hard" data-i18n="hard">Vaikea</option></select></div>
     </div>
-    <div class="field">
+    <div class="field hidden">
       <label class="lbl" data-i18n="modeLbl">Pelimuoto</label>
       <div class="modepick" id="qModePick">
         <button type="button" class="modebtn on" data-qmode="sweep"><b data-i18n="modeSweep">Sweep</b><span data-i18n="modeSweepDesc">monta oikein</span></button>
@@ -347,7 +353,7 @@ const LS_UILANG = 'pubquiz_editor_uilang';
 const I18N = {
   fi:{
     brandSub:'Editor', import:'📂 Tuo', export:'💾 Vie paketti', update:'🔄 Tarkista päivitykset',
-    packName:'Paketin nimi', packLangs:'Paketin kielet — valitse mitkä kielet paketti sisältää',
+    packName:'Paketin nimi', packModeLbl:'Pelimuoto (koko paketti)', tPackMode:m=>`Paketin pelimuoto: `, tPackToBull:'Osa kysymyksistä ei ole yksi-oikea. Vaihda silti Bullseye-muotoon?', packLangs:'Paketin kielet — valitse mitkä kielet paketti sisältää',
     clearAll:'🗑 Tyhjennä kaikki',
     hint:'Kirjoita jokainen kysymys valitsemillasi kielillä (kielivälilehdet kysymysnäkymässä). Kun paketti on valmis, paina <b>Vie paketti</b> ja tuo .json Pub Quiz -peliin (Asetukset → Kysymykset → Lataa tiedostosta). Jos paketissa on peliin uusi kieli, se lisätään pelin kielivalikkoon automaattisesti.',
     tabQuestions:'Kysymykset', tabCategories:'Kategoriat',
@@ -388,7 +394,7 @@ const I18N = {
   },
   en:{
     brandSub:'Editor', import:'📂 Import', export:'💾 Export pack', update:'🔄 Check for updates',
-    packName:'Pack name', packLangs:'Pack languages — choose which languages the pack includes',
+    packName:'Pack name', packModeLbl:'Game mode (whole pack)', tPackMode:m=>`Pack mode: `, tPackToBull:'Some questions are not single-answer. Switch to Bullseye anyway?', packLangs:'Pack languages — choose which languages the pack includes',
     clearAll:'🗑 Clear all',
     hint:'Write each question in your chosen languages (use the language tabs in the question view). When the pack is ready, press <b>Export pack</b> and import the .json into Pub Quiz (Settings → Questions → Load from file). If the pack has a language new to the game, it is added to the game\'s language menu automatically.',
     tabQuestions:'Questions', tabCategories:'Categories',
@@ -429,7 +435,7 @@ const I18N = {
   },
   es:{
     brandSub:'Editor', import:'📂 Importar', export:'💾 Exportar paquete', update:'🔄 Buscar actualizaciones',
-    packName:'Nombre del paquete', packLangs:'Idiomas del paquete — elige qué idiomas incluye',
+    packName:'Nombre del paquete', packModeLbl:'Modo de juego (todo el paquete)', tPackMode:m=>`Modo del paquete: `, tPackToBull:'Algunas preguntas no son de una sola respuesta. ¿Cambiar a Bullseye igualmente?', packLangs:'Idiomas del paquete — elige qué idiomas incluye',
     clearAll:'🗑 Borrar todo',
     hint:'Escribe cada pregunta en los idiomas elegidos (usa las pestañas de idioma en la vista de preguntas). Cuando el paquete esté listo, pulsa <b>Exportar paquete</b> e impórtalo en Pub Quiz (Ajustes → Preguntas → Cargar desde archivo). Si el paquete tiene un idioma nuevo para el juego, se añade automáticamente al menú de idiomas.',
     tabQuestions:'Preguntas', tabCategories:'Categorías',
@@ -495,7 +501,7 @@ function detectFlag(){ try{ const c=document.createElement('canvas'); c.width=20
   for(let i=0;i<d.length;i+=4){const r=d[i],g=d[i+1],b=d[i+2],a=d[i+3]; if(a>0&&((b>90&&r<90)||(r>150&&g>120&&b<90)))n++;} return n>4; }catch(e){return false;} }
 function fl(code){ return FLAG_OK ? (LMETA[code]?LMETA[code].flag:'🏳️') : ''; }
 
-const EDITOR_VERSION = '01.00.18';
+const EDITOR_VERSION = '01.00.19';
 
 /* The game's built-in categories — same keys, so questions land in the right category in-game */
 const DEFAULT_TOPICS = [
@@ -509,7 +515,7 @@ const DEFAULT_TOPICS = [
   {key:'mixed',icon:'🎲', names:{en:'Mixed',            fi:'Sekaisin',         es:'Variado'}}
 ];
 function defaultTopics(){ return DEFAULT_TOPICS.map(t=>({ key:t.key, icon:t.icon, names:{...t.names} })); }
-function newPack(){ return { name:'', langs:['fi','en','es'], customLangs:[], topics:defaultTopics(), questions:[] }; }
+function newPack(){ return { name:'', mode:'sweep', langs:['fi','en','es'], customLangs:[], topics:defaultTopics(), questions:[] }; }
 
 let pack = migrate(load()) || newPack();
 if(!pack.customLangs) pack.customLangs = [];
@@ -548,6 +554,7 @@ document.addEventListener('keydown', e=>{ if(!$('#modal').classList.contains('hi
 
 // migrate old single-language format (v1) to multilingual (v2)
 function migrate(p){
+  if(p && !p.mode){ const qs=p.questions||[]; p.mode=(qs.length && qs.every(q=>q.mode==='bullseye'))?'bullseye':'sweep'; }
   if(!p) return p;
   if(Array.isArray(p.langs) && p.topics && p.topics[0] && p.topics[0].names){ if(!p.customLangs)p.customLangs=[]; return p; } // already v2
   const lc = p.lang || 'fi';
@@ -684,6 +691,7 @@ function qFilledLangs(q){ return pack.langs.filter(c => (q.q[c]||'').trim() && q
 
 function render(){
   $('#packName').value = pack.name||'';
+  if(typeof renderPackMode==='function') renderPackMode();
   renderLangChips();
   $('#qCount').textContent=`(${pack.questions.length})`;
   $('#cCount').textContent=`(${pack.topics.length})`;
@@ -807,6 +815,8 @@ function buildOptRows(){
 }
 $('#qText').addEventListener('input', e=>{ if(qDraft) qDraft.q[qActiveLang]=e.target.value; });
 $('#qModePick').addEventListener('click', e=>{ const b=e.target.closest('[data-qmode]'); if(!b||!qDraft) return; qDraft.mode=b.dataset.qmode; $$('#qModePick .modebtn').forEach(x=>x.classList.toggle('on', x.dataset.qmode===qDraft.mode)); });
+function renderPackMode(){ const pm=pack.mode||'sweep'; document.querySelectorAll('#packModePick .modebtn').forEach(x=>x.classList.toggle('on', x.dataset.pmode===pm)); }
+$('#packModePick')&&$('#packModePick').addEventListener('click', e=>{ const b=e.target.closest('[data-pmode]'); if(!b) return; const nm=b.dataset.pmode; if(nm===pack.mode) return; if(pack.questions.length && nm==='bullseye'){ const bad=pack.questions.some(q=>q.opts.filter(o=>o.correct).length!==1); if(bad && !confirm(t('tPackToBull'))) return; } pack.mode=nm; renderPackMode(); save(); toast(t('tPackMode', t(nm==='bullseye'?'modeBullseye':'modeSweep'))); });
 
 $('#addQuestionBtn').addEventListener('click', ()=>{ if(!pack.topics.length){ toast(t('tNeedCat')); switchTab('c'); return; } openQ(null); });
 function fillCatSelect(sel){ $('#qCat').innerHTML = pack.topics.map(t=>`<option value="${t.key}">${(typeof t.icon==='string'&&t.icon.slice(0,5)==='data:')?'🖼️':esc(t.icon)} ${esc(catName(t.key))}</option>`).join(''); if(sel)$('#qCat').value=sel; }
@@ -815,7 +825,7 @@ function openQ(id, presetCat){
   editingQId=id;
   const q=id?pack.questions.find(x=>x.id===id):null;
   // build working draft with all pack languages present
-  qDraft = { mode: q?(q.mode||'sweep'):'sweep', q:{}, opts:Array.from({length:10},()=>({t:{},correct:false})) };
+  qDraft = { mode: pack.mode||'sweep', q:{}, opts:Array.from({length:10},()=>({t:{},correct:false})) };
   pack.langs.forEach(c=>{ qDraft.q[c] = q? (q.q[c]||'') : ''; });
   for(let i=0;i<10;i++){
     const src = q && q.opts[i];
@@ -870,7 +880,7 @@ $('#qSave').addEventListener('click', ()=>{
   // require at least one fully-filled language
   const filledLangs = pack.langs.filter(c=>(qDraft.q[c]||'').trim() && qDraft.opts.every(o=>(o.t[c]||'').trim()));
   if(!filledLangs.length){ warn.textContent=t('tFillOne'); warn.classList.remove('hidden'); return; }
-  const rec = { mode:qDraft.mode||'sweep', topic:$('#qCat').value, d:$('#qDiff').value, q:{...qDraft.q}, opts:qDraft.opts.map(o=>({t:{...o.t}, correct:o.correct})) };
+  const rec = { mode:pack.mode||'sweep', topic:$('#qCat').value, d:$('#qDiff').value, q:{...qDraft.q}, opts:qDraft.opts.map(o=>({t:{...o.t}, correct:o.correct})) };
   if(editingQId){ const q=pack.questions.find(x=>x.id===editingQId); Object.assign(q,rec); }
   else pack.questions.push({ id:uid('q_'), ...rec });
   save();
@@ -893,7 +903,7 @@ function buildPack(){
   const questions=[];
   pack.questions.forEach(q=>{
     const correct=q.opts.filter(o=>o.correct).length;
-    const mode=q.mode==='bullseye'?'bullseye':'sweep';
+    const mode=(pack.mode==='bullseye')?'bullseye':'sweep';
     if(mode==='bullseye'){ if(correct!==1) return; } else if(correct<1||correct>9) return;
     const L = langs.filter(c=>(q.q[c]||'').trim() && q.opts.every(o=>(o.t[c]||'').trim()));
     if(!L.length) return;
