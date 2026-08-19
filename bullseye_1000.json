@@ -26414,52 +26414,33 @@
    "mode": "bullseye",
    "topic": "sport",
    "d": "normal",
+   "L": [
+    "fi",
+    "en",
+    "es"
+   ],
    "cat": {
-    "fi": "Missä lajissa käytetään mailaa lyömään palloa ja juoksemaan pesille?",
-    "en": "Which sport hits a ball with a bat and runs to bases?",
-    "es": "¿Qué deporte batea una pelota y corre a las bases?"
+    "fi": "Missä lajissa pelataan jäällä mailalla ja kiekolla?",
+    "en": "Which sport is played on ice with a stick and a puck?",
+    "es": "¿Qué deporte se juega sobre hielo con un palo y un disco?"
    },
    "o": [
     [
-     "Sulkapallo",
-     "Badminton",
-     "Bádminton",
-     0
-    ],
-    [
-     "Golf",
-     "Golf",
-     "Golf",
-     0
-    ],
-    [
-     "Squash",
-     "Squash",
-     "Squash",
-     0
-    ],
-    [
-     "Pesäpallo",
-     "Finnish baseball",
-     "Pesäpallo",
-     0
-    ],
-    [
-     "Baseball",
-     "Baseball",
-     "Béisbol",
+     "Jääkiekko",
+     "Ice hockey",
+     "Hockey sobre hielo",
      1
     ],
     [
-     "Kriketti",
-     "Cricket",
-     "Críquet",
+     "Jalkapallo",
+     "Football",
+     "Fútbol",
      0
     ],
     [
-     "Padel",
-     "Padel",
-     "Pádel",
+     "Koripallo",
+     "Basketball",
+     "Baloncesto",
      0
     ],
     [
@@ -26469,22 +26450,41 @@
      0
     ],
     [
-     "Softball",
-     "Softball",
-     "Softbol",
+     "Golf",
+     "Golf",
+     "Golf",
      0
     ],
     [
-     "Rounders",
-     "Rounders",
-     "Rounders",
+     "Rugby",
+     "Rugby",
+     "Rugby",
+     0
+    ],
+    [
+     "Kriketti",
+     "Cricket",
+     "Críquet",
+     0
+    ],
+    [
+     "Lentopallo",
+     "Volleyball",
+     "Voleibol",
+     0
+    ],
+    [
+     "Käsipallo",
+     "Handball",
+     "Balonmano",
+     0
+    ],
+    [
+     "Sulkapallo",
+     "Badminton",
+     "Bádminton",
      0
     ]
-   ],
-   "L": [
-    "fi",
-    "en",
-    "es"
    ]
   },
   {
