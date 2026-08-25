@@ -20638,78 +20638,78 @@
   {
    "mode": "bullseye",
    "topic": "gen",
-   "d": "hard",
-   "cat": {
-    "fi": "Mikä on maailman suurin saarivaltio?",
-    "en": "Which is the world's largest island country?",
-    "es": "¿Cuál es el mayor país insular del mundo?"
-   },
-   "o": [
-    [
-     "Uusi-Seelanti",
-     "New Zealand",
-     "Nueva Zelanda",
-     0
-    ],
-    [
-     "Sri Lanka",
-     "Sri Lanka",
-     "Sri Lanka",
-     0
-    ],
-    [
-     "Madagaskar",
-     "Madagascar",
-     "Madagascar",
-     0
-    ],
-    [
-     "Kuuba",
-     "Cuba",
-     "Cuba",
-     0
-    ],
-    [
-     "Filippiinit",
-     "Philippines",
-     "Filipinas",
-     0
-    ],
-    [
-     "Indonesia",
-     "Indonesia",
-     "Indonesia",
-     1
-    ],
-    [
-     "Australia",
-     "Australia",
-     "Australia",
-     0
-    ],
-    [
-     "Japani",
-     "Japan",
-     "Japón",
-     0
-    ],
-    [
-     "Islanti",
-     "Iceland",
-     "Islandia",
-     0
-    ],
-    [
-     "Iso-Britannia",
-     "United Kingdom",
-     "Reino Unido",
-     0
-    ]
-   ],
+   "d": "normal",
    "L": [
     "fi",
     "en",
     "es"
+   ],
+   "cat": {
+    "fi": "Mikä on maailman suurin autiomaa?",
+    "en": "What is the world's largest hot desert?",
+    "es": "¿Cuál es el mayor desierto cálido del mundo?"
+   },
+   "o": [
+    [
+     "Sahara",
+     "Sahara",
+     "Sáhara",
+     1
+    ],
+    [
+     "Gobi",
+     "Gobi",
+     "Gobi",
+     0
+    ],
+    [
+     "Kalahari",
+     "Kalahari",
+     "Kalahari",
+     0
+    ],
+    [
+     "Atacama",
+     "Atacama",
+     "Atacama",
+     0
+    ],
+    [
+     "Namib",
+     "Namib",
+     "Namib",
+     0
+    ],
+    [
+     "Mojave",
+     "Mojave",
+     "Mojave",
+     0
+    ],
+    [
+     "Sonora",
+     "Sonora",
+     "Sonora",
+     0
+    ],
+    [
+     "Arabian aavikko",
+     "Arabian Desert",
+     "Desierto de Arabia",
+     0
+    ],
+    [
+     "Patagonia",
+     "Patagonia",
+     "Patagonia",
+     0
+    ],
+    [
+     "Taklamakan",
+     "Taklamakan",
+     "Taklamakán",
+     0
+    ]
    ]
   },
   {
@@ -21410,7 +21410,7 @@
    "topic": "film",
    "d": "hard",
    "cat": {
-    "fi": "Mikä elokuva voitti parhaan elokuvan Oscarin 2020?",
+    "fi": "Mikä elokuva voitti parhaan elokuvan Oscarin 2021?",
     "en": "Which film won Best Picture at the 2021 Oscars?",
     "es": "¿Qué película ganó Mejor Película en los Óscar de 2021?"
    },
@@ -42353,77 +42353,77 @@
    "mode": "bullseye",
    "topic": "sport",
    "d": "normal",
-   "cat": {
-    "fi": "Montako pistettä on maali jalkapallossa?",
-    "en": "How many points is a goal worth in football?",
-    "es": "¿Cuántos puntos vale un gol en el fútbol?"
-   },
-   "o": [
-    [
-     "7",
-     "7",
-     "7",
-     0
-    ],
-    [
-     "9",
-     "9",
-     "9",
-     0
-    ],
-    [
-     "4",
-     "4",
-     "4",
-     0
-    ],
-    [
-     "1",
-     "1",
-     "1",
-     1
-    ],
-    [
-     "3",
-     "3",
-     "3",
-     0
-    ],
-    [
-     "6",
-     "6",
-     "6",
-     0
-    ],
-    [
-     "5",
-     "5",
-     "5",
-     0
-    ],
-    [
-     "0",
-     "0",
-     "0",
-     0
-    ],
-    [
-     "2",
-     "2",
-     "2",
-     0
-    ],
-    [
-     "10",
-     "10",
-     "10",
-     0
-    ]
-   ],
    "L": [
     "fi",
     "en",
     "es"
+   ],
+   "cat": {
+    "fi": "Mikä maa voitti jalkapallon MM-kisat 2018?",
+    "en": "Which country won the 2018 football World Cup?",
+    "es": "¿Qué país ganó el Mundial de fútbol de 2018?"
+   },
+   "o": [
+    [
+     "Ranska",
+     "France",
+     "Francia",
+     1
+    ],
+    [
+     "Kroatia",
+     "Croatia",
+     "Croacia",
+     0
+    ],
+    [
+     "Brasilia",
+     "Brazil",
+     "Brasil",
+     0
+    ],
+    [
+     "Saksa",
+     "Germany",
+     "Alemania",
+     0
+    ],
+    [
+     "Argentiina",
+     "Argentina",
+     "Argentina",
+     0
+    ],
+    [
+     "Espanja",
+     "Spain",
+     "España",
+     0
+    ],
+    [
+     "Belgia",
+     "Belgium",
+     "Bélgica",
+     0
+    ],
+    [
+     "Englanti",
+     "England",
+     "Inglaterra",
+     0
+    ],
+    [
+     "Italia",
+     "Italy",
+     "Italia",
+     0
+    ],
+    [
+     "Portugali",
+     "Portugal",
+     "Portugal",
+     0
+    ]
    ]
   },
   {
