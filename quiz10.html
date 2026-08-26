@@ -267,20 +267,21 @@
   }
   .opt .txt{flex:1; min-width:0; white-space:normal; overflow-wrap:break-word; word-break:normal; line-height:1.12}
   body.kbd .opt.focused{border-color:var(--focus); background:var(--panel2); box-shadow:inset 0 0 0 4px var(--focus); z-index:2}
-  .opt:not(.claimed):not(.wrong){ border-color:var(--pc,var(--line)); background:color-mix(in srgb, var(--pc, transparent) 45%, var(--panel)); }
+  /* Unanswered: current player's colour as a thick left bar + light tint (turn indicator) */
+  .opt:not(.claimed):not(.wrong){ border-color:var(--pc,var(--line)); background:color-mix(in srgb, var(--pc, transparent) 20%, var(--panel)); box-shadow:inset 8px 0 0 var(--pc,var(--line)) }
   .opt:not(.claimed):not(.wrong) .idx{ background:var(--pc,var(--panel2)); color:#0c1226 }
-  .opt.claimed{border-color:var(--c,var(--good)); background:color-mix(in srgb, var(--c, transparent) 45%, var(--panel)); box-shadow:inset 6px 0 0 var(--good)}
-  .opt.claimed .idx{background:var(--c,var(--good)); color:#0c1226}
+  /* Answered: keep the answerer's colour in the fill; right/wrong shown by a round badge + bar */
+  .opt.claimed{border-color:var(--c,var(--line)); background:color-mix(in srgb, var(--c, transparent) 48%, var(--panel)); box-shadow:inset 8px 0 0 var(--good)}
+  .opt.claimed .idx{background:var(--c,var(--panel2)); color:#0c1226}
   .opt.claimed .txt{color:var(--ink)}
-  .opt.claimed .tick{color:var(--good)}
-  .opt.wrong{border-color:var(--c,var(--bad)); background:color-mix(in srgb, var(--c, transparent) 45%, var(--panel)); box-shadow:inset 6px 0 0 var(--bad)}
-  .opt.wrong .idx{background:var(--c,var(--bad)); color:#0c1226}
+  .opt.wrong{border-color:var(--c,var(--line)); background:color-mix(in srgb, var(--c, transparent) 48%, var(--panel)); box-shadow:inset 8px 0 0 var(--bad)}
+  .opt.wrong .idx{background:var(--c,var(--panel2)); color:#0c1226}
   .opt.wrong .txt{color:var(--ink)}
-  .opt.wrong .tick{color:var(--bad)}
-  .opt.wrong .tick{color:var(--bad)}
-  .opt.claimed .tick{color:var(--good)}
   .opt.dim{opacity:.4}
-  .opt .tick{margin-left:auto; font-size:1.1em; flex:none}
+  /* round result badge — always contrasts with the player colour */
+  .opt .tick{margin-left:auto; flex:none; width:1.7em; height:1.7em; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1em; font-weight:900; box-shadow:0 1px 4px rgba(0,0,0,.4)}
+  .opt.claimed .tick{background:var(--good); color:#08240f}
+  .opt.wrong .tick{background:var(--bad); color:#2a0808}
 
   .actions{display:flex; gap:clamp(10px,1.4vw,20px); justify-content:center; margin-top:clamp(4px,.8vh,10px)}
   /* larger, clearer Back buttons */
@@ -3066,7 +3067,7 @@ const BULLSEYE_QUESTIONS = [
 
 const PLAYER_COLORS = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
-const APP_VERSION = '01.00.51';
+const APP_VERSION = '01.00.52';
 
 let questionsStatus = '';
 const QCACHE_KEY = 'quiz10_qcache2';  // bumped: use embedded 1000, ignore old device cache
