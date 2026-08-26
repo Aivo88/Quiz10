@@ -267,11 +267,13 @@
   }
   .opt .txt{flex:1; min-width:0; white-space:normal; overflow-wrap:break-word; word-break:normal; line-height:1.12}
   body.kbd .opt.focused{border-color:var(--focus); background:var(--panel2); box-shadow:inset 0 0 0 4px var(--focus); z-index:2}
-  .opt.claimed{border-color:var(--c,var(--good)); background:var(--bg2); box-shadow:inset 5px 0 0 var(--c,var(--good))}
-  .opt.claimed .idx{background:var(--c,var(--good)); color:#0c1226}
+  .opt:not(.claimed):not(.wrong):not(.focused){ border-color:var(--pc,var(--line)); background:color-mix(in srgb, var(--pc, transparent) 45%, var(--panel)); }
+  .opt:not(.claimed):not(.wrong):not(.focused) .idx{ background:var(--pc,var(--panel2)); color:#0c1226 }
+  .opt.claimed{border-color:var(--good); background:var(--bg2); box-shadow:inset 5px 0 0 var(--good)}
+  .opt.claimed .idx{background:var(--good); color:#0c1226}
   .opt.claimed .txt{color:var(--ink)}
-  .opt.wrong{border-color:var(--c,var(--bad)); background:var(--bg2); box-shadow:inset 5px 0 0 var(--c,var(--bad)), inset 0 0 0 2px rgba(240,82,82,.45)}
-  .opt.wrong .idx{background:var(--c,var(--bad)); color:#0c1226}
+  .opt.wrong{border-color:var(--bad); background:var(--bg2); box-shadow:inset 5px 0 0 var(--bad), inset 0 0 0 2px rgba(240,82,82,.45)}
+  .opt.wrong .idx{background:var(--bad); color:#0c1226}
   .opt.wrong .tick{color:var(--bad)}
   .opt.claimed .tick{color:var(--good)}
   .opt.dim{opacity:.4}
@@ -603,7 +605,7 @@
         </div>
         <div class="set-row"><span class="set-hint" id="updStatus"></span></div>
         <div class="set-row" style="justify-content:center; margin-top:10px">
-          <span class="set-hint" style="text-align:center; opacity:.7">Tehnyt Antti Kääriäinen</span>
+          <span class="set-hint" style="text-align:center; opacity:.7"><span data-i="madeBy">Tehnyt</span> Antti Kääriäinen</span>
         </div>
       </div>
       </div>
@@ -837,7 +839,7 @@ const T = {
     themeMid:"Midnight", themeForest:"Forest", themeNeon:"Neon", themeLight:"Light",
     themeOcean:"Ocean", themeSunset:"Sunset", themeGrape:"Grape", themeMono:"Mono", themeSepia:"Sepia",
     language:"Language",
-    confirmAnswersLabel:"Confirm each answer",
+    confirmAnswersLabel:"Confirm each answer", madeBy:"Made by",
     confirmBankLabel:"Confirm banking",
     back:"Back",
     saveExit:"💾 Save & quit to menu",
@@ -917,7 +919,7 @@ const T = {
     themeMid:"Yö", themeForest:"Metsä", themeNeon:"Neon", themeLight:"Vaalea",
     themeOcean:"Meri", themeSunset:"Auringonlasku", themeGrape:"Viini", themeMono:"Mono", themeSepia:"Seepia",
     language:"Kieli",
-    confirmAnswersLabel:"Varmista jokainen vastaus",
+    confirmAnswersLabel:"Varmista jokainen vastaus", madeBy:"Tehnyt",
     confirmBankLabel:"Varmista tallennus",
     back:"Takaisin",
     saveExit:"💾 Tallenna & palaa valikkoon",
@@ -997,7 +999,7 @@ const T = {
     themeMid:"Medianoche", themeForest:"Bosque", themeNeon:"Neón", themeLight:"Claro",
     themeOcean:"Océano", themeSunset:"Atardecer", themeGrape:"Uva", themeMono:"Mono", themeSepia:"Sepia",
     language:"Idioma",
-    confirmAnswersLabel:"Confirmar cada respuesta",
+    confirmAnswersLabel:"Confirmar cada respuesta", madeBy:"Hecho por",
     confirmBankLabel:"Confirmar guardado",
     back:"Atrás",
     saveExit:"💾 Guardar y salir al menú",
@@ -3999,11 +4001,9 @@ function syncOpt(el,o){
   const tick = el.querySelector('.tick');
   if(o.state==='claimed'){
     el.classList.add('claimed');
-    el.style.setProperty('--c', `var(${players[o.by].color})`);
     tick.textContent = '✓';
   } else if(o.state==='wrong'){
     el.classList.add('wrong');
-    if(o.by!=null) el.style.setProperty('--c', `var(${players[o.by].color})`);
     tick.textContent = '✕';
   } else {
     tick.textContent = '';
@@ -4014,6 +4014,7 @@ function syncOpt(el,o){
 function updateHeader(){
   const p = players[turnIdx];
   $('#screen-game').style.setProperty('--c-turn', `var(${p.color})`);
+  const bd = $('#board'); if(bd) bd.style.setProperty('--pc', `var(${p.color})`);
   $('#turnLabel').innerHTML = `<b style="color:var(${p.color})">${pName(turnIdx)}</b>${tg('turn')}`;
   const isBull = gameMode==='bullseye';
   const rb = $('#roundBank'); const pb = $('#passBtn');
