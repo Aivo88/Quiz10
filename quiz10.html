@@ -269,12 +269,14 @@
   body.kbd .opt.focused{border-color:var(--focus); background:var(--panel2); box-shadow:inset 0 0 0 4px var(--focus); z-index:2}
   .opt:not(.claimed):not(.wrong){ border-color:var(--pc,var(--line)); background:color-mix(in srgb, var(--pc, transparent) 45%, var(--panel)); }
   .opt:not(.claimed):not(.wrong) .idx{ background:var(--pc,var(--panel2)); color:#0c1226 }
-  .opt.claimed{border-color:var(--good); background:color-mix(in srgb, var(--good) 60%, var(--c, var(--good))); box-shadow:inset 6px 0 0 var(--good)}
-  .opt.claimed .idx{background:var(--good); color:#0c1226}
-  .opt.claimed .txt{color:#fff}
-  .opt.wrong{border-color:var(--bad); background:color-mix(in srgb, var(--bad) 60%, var(--c, var(--bad))); box-shadow:inset 6px 0 0 var(--bad)}
-  .opt.wrong .idx{background:var(--bad); color:#0c1226}
-  .opt.wrong .txt{color:#fff}
+  .opt.claimed{border-color:var(--c,var(--good)); background:color-mix(in srgb, var(--c, transparent) 45%, var(--panel)); box-shadow:inset 6px 0 0 var(--good)}
+  .opt.claimed .idx{background:var(--c,var(--good)); color:#0c1226}
+  .opt.claimed .txt{color:var(--ink)}
+  .opt.claimed .tick{color:var(--good)}
+  .opt.wrong{border-color:var(--c,var(--bad)); background:color-mix(in srgb, var(--c, transparent) 45%, var(--panel)); box-shadow:inset 6px 0 0 var(--bad)}
+  .opt.wrong .idx{background:var(--c,var(--bad)); color:#0c1226}
+  .opt.wrong .txt{color:var(--ink)}
+  .opt.wrong .tick{color:var(--bad)}
   .opt.wrong .tick{color:var(--bad)}
   .opt.claimed .tick{color:var(--good)}
   .opt.dim{opacity:.4}
@@ -3064,7 +3066,7 @@ const BULLSEYE_QUESTIONS = [
 
 const PLAYER_COLORS = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
-const APP_VERSION = '01.00.50';
+const APP_VERSION = '01.00.51';
 
 let questionsStatus = '';
 const QCACHE_KEY = 'quiz10_qcache2';  // bumped: use embedded 1000, ignore old device cache
