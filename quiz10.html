@@ -95,8 +95,10 @@
     transform-origin:center center;
   }
   #bg{ position:fixed; inset:0; z-index:-2; background-size:cover; background-position:center;
-       opacity:0; transition:opacity 1.2s ease; pointer-events:none; filter:blur(3px); transform:scale(1.06); }
+       opacity:0; transition:opacity .3s ease; pointer-events:none; filter:blur(3px); transform:scale(1.06); }
   #bg.on{ opacity:1; }
+  #screen-menu .center{ opacity:0; transition:opacity .3s ease .3s; }
+  body.bg-ready #screen-menu .center{ opacity:1; }
   #bgShade{ position:fixed; inset:0; z-index:-1; background:#0a0c14; opacity:0; transition:opacity 1.2s ease; pointer-events:none; }
   body.has-bg #bgShade{ opacity:var(--bg-dark, .78); }
   body.has-bg .q-title, body.has-bg .sub, body.has-bg .brand, body.has-bg .tagline,
@@ -3067,7 +3069,7 @@ const BULLSEYE_QUESTIONS = [
 
 const PLAYER_COLORS = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
-const APP_VERSION = '01.00.53';
+const APP_VERSION = '01.00.54';
 
 let questionsStatus = '';
 const QCACHE_KEY = 'quiz10_qcache2';  // bumped: use embedded 1000, ignore old device cache
@@ -3421,6 +3423,7 @@ function applyBg(url){
   bg.style.backgroundImage = `url("${url}")`;
   bg.classList.add('on');
   document.body.classList.add('has-bg');
+  document.body.classList.add('bg-ready');
 }
 function clearBg(){
   const bg=$('#bg'); if(bg){ bg.classList.remove('on'); bg.style.backgroundImage=''; }
@@ -3438,9 +3441,11 @@ let bgLit = false;
 function lightsOn(url){
   if(bgLit){ applyBg(url); return; }                // later changes (settings) apply immediately
   bgLit = true;
-  setTimeout(()=> applyBg(url), 1200);
+  setTimeout(()=> applyBg(url), 30);
 }
 function loadBackground(){
+  // safety net: reveal the menu buttons even if no background image loads
+  setTimeout(()=> document.body.classList.add('bg-ready'), 900);
   const custom = lsGet(BG_KEY);
   if(custom){ lightsOn(custom); return; }            // user's own image wins (still gets the lights-on fade)
   tryRepoBg(['background.jpg','background.jpeg','background.png','background.webp']);
