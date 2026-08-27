@@ -95,9 +95,9 @@
     transform-origin:center center;
   }
   #bg{ position:fixed; inset:0; z-index:-2; background-size:cover; background-position:center;
-       opacity:0; transition:opacity .3s ease; pointer-events:none; filter:blur(3px); transform:scale(1.06); }
+       opacity:0; transition:opacity .3s ease .3s; pointer-events:none; filter:blur(3px); transform:scale(1.06); }
   #bg.on{ opacity:1; }
-  #screen-menu .center{ opacity:0; transition:opacity .3s ease .3s; }
+  #screen-menu .center{ opacity:0; transition:opacity .3s ease .6s; }
   body.bg-ready #screen-menu .center{ opacity:1; }
   #bgShade{ position:fixed; inset:0; z-index:-1; background:#0a0c14; opacity:0; transition:opacity 1.2s ease; pointer-events:none; }
   body.has-bg #bgShade{ opacity:var(--bg-dark, .78); }
@@ -3069,7 +3069,7 @@ const BULLSEYE_QUESTIONS = [
 
 const PLAYER_COLORS = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
-const APP_VERSION = '01.00.54';
+const APP_VERSION = '01.00.55';
 
 let questionsStatus = '';
 const QCACHE_KEY = 'quiz10_qcache2';  // bumped: use embedded 1000, ignore old device cache
