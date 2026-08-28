@@ -80,7 +80,7 @@
   .modebig:hover{border-color:var(--gold)}
   .modebig b{font-size:1.5em; letter-spacing:.3px}
   .modebig span{font-size:1em; color:var(--muted)}
-  .modeback{margin-top:4px}
+  .modeback{width:100%; max-width:380px; padding:24px 20px; font-size:1.28em; border-radius:16px; margin-top:4px}
 
   .packhead{margin-top:18px; background:var(--panel); border:2px solid var(--line); border-radius:16px; padding:16px}
   .field{margin-bottom:14px}
@@ -193,6 +193,7 @@
 <body>
 
 <div class="topbar">
+  <button class="btn small hidden" id="mainBackBtn" data-i18n="back">‹ Takaisin</button>
   <div class="brand"><span class="dice">🎲</span><span>Pub Quiz<small data-i18n="brandSub">Editori</small></span></div>
   <div class="spacer"></div>
   <button class="btn small" id="importBtn" data-i18n="import">📂 Tuo</button>
@@ -226,7 +227,7 @@
       <button type="button" class="modebig" id="modeBullBtn"><b>Bullseye</b><span data-i18n="bullDesc">Yksi oikein</span></button>
       <button type="button" class="modebig" id="modeSweepBtn"><b>Sweep</b><span data-i18n="sweepDesc">Useampi oikein</span></button>
     </div>
-    <button class="btn small modeback" id="modeBackBtn" data-i18n="back">‹ Takaisin</button>
+    <button class="btn block modeback" id="modeBackBtn" data-i18n="back">‹ Takaisin</button>
   </div>
 </div>
 
@@ -352,6 +353,17 @@
   </div>
 </div>
 
+<div class="modal-overlay hidden" id="leaveModal">
+  <div class="modal-box">
+    <div class="modal-msg" id="leaveMsg"></div>
+    <div class="modal-btns" style="flex-direction:column">
+      <button class="btn green" id="leaveSaveBtn" data-i18n="leaveSave">Tallenna muutokset</button>
+      <button class="btn" id="leaveDiscardBtn" data-i18n="leaveDiscard">Poistu tallentamatta</button>
+      <button class="btn" id="leaveCancelBtn" data-i18n="cancel">Peruuta</button>
+    </div>
+  </div>
+</div>
+
 <div class="modal-overlay hidden" id="langModal">
   <div class="modal-box">
     <div class="modal-msg" id="langModalTitle"></div>
@@ -384,7 +396,7 @@ const LS_UILANG = 'pubquiz_editor_uilang';
 /* ---- UI translations (editor's own interface language) ---- */
 const I18N = {
   fi:{
-    brandSub:'Editor', import:'📂 Tuo', export:'💾 Vie paketti', update:'🔄 Tarkista päivitykset',
+    brandSub:'Editor', import:'📂 Lataa', export:'💾 Tallenna', update:'🔄 Tarkista päivitykset',
     packName:'Paketin nimi', packModeLbl:'Pelimuoto (koko paketti)', tPackMode:m=>`Paketin pelimuoto: `, tPackToBull:'Osa kysymyksistä ei ole yksi-oikea. Vaihda silti Bullseye-muotoon?', packLangs:'Paketin kielet — valitse mitkä kielet paketti sisältää',
     clearAll:'🗑 Tyhjennä kaikki',
     hint:'Kirjoita jokainen kysymys valitsemillasi kielillä (kielivälilehdet kysymysnäkymässä). Kun paketti on valmis, paina <b>Vie paketti</b> ja tuo .json Pub Quiz -peliin (Asetukset → Kysymykset → Lataa tiedostosta). Jos paketissa on peliin uusi kieli, se lisätään pelin kielivalikkoon automaattisesti.',
@@ -413,7 +425,7 @@ const I18N = {
     tNeedCatName:'Anna kategorialle nimi vähintään yhdellä kielellä', tNeedIcon:'Valitse kuvake',
     tCatSaved:'Kategoria tallennettu', cDelCatQ:n=>`Poistetaanko kategoria ja sen ${n} kysymystä?`,
     cDelCat:'Poistetaanko kategoria?', tCatDeleted:'Kategoria poistettu',
-    startMake:'Aloita kysymysten teko', startLoad:'Lataa kysymykset', startBack:'Takaisin peliin', modeAsk:'Millaisia kysymyksiä teet?', bullDesc:'Yksi oikein', sweepDesc:'Useampi oikein', tMark19:'Sweepissä vähintään 2 vaihtoehtoa (2–9) oikein.', tFillOne:'Täytä kysymys ja kaikki 10 vaihtoehtoa vähintään yhdellä kielellä.',
+    startMake:'Aloita kysymysten teko', startLoad:'Lataa kysymykset', startBack:'Takaisin peliin', modeAsk:'Millaisia kysymyksiä teet?', bullDesc:'Yksi oikein', sweepDesc:'Useampi oikein', cLeaveMsg:'Sinulla on tallentamattomia muutoksia. Tallennetaanko ennen poistumista?', leaveSave:'Tallenna muutokset', leaveDiscard:'Poistu tallentamatta', tMark19:'Sweepissä vähintään 2 vaihtoehtoa (2–9) oikein.', tFillOne:'Täytä kysymys ja kaikki 10 vaihtoehtoa vähintään yhdellä kielellä.',
     tSavedPartial:n=>`Tallennettu (${n} kieltä kesken)`, tQSaved:'Kysymys tallennettu',
     cDelQ:'Poistetaanko kysymys?', tQDeleted:'Kysymys poistettu',
     tNeedQ:'Lisää ainakin yksi kysymys', pPackName:'Anna paketille nimi ennen vientiä:', defPackName:'Oma paketti',
@@ -425,7 +437,7 @@ const I18N = {
     tUpdFail:'Päivitystä ei voitu tarkistaa (oletko verkossa?)'
   },
   en:{
-    brandSub:'Editor', import:'📂 Import', export:'💾 Export pack', update:'🔄 Check for updates',
+    brandSub:'Editor', import:'📂 Load', export:'💾 Save', update:'🔄 Check for updates',
     packName:'Pack name', packModeLbl:'Game mode (whole pack)', tPackMode:m=>`Pack mode: `, tPackToBull:'Some questions are not single-answer. Switch to Bullseye anyway?', packLangs:'Pack languages — choose which languages the pack includes',
     clearAll:'🗑 Clear all',
     hint:'Write each question in your chosen languages (use the language tabs in the question view). When the pack is ready, press <b>Export pack</b> and import the .json into Pub Quiz (Settings → Questions → Load from file). If the pack has a language new to the game, it is added to the game\'s language menu automatically.',
@@ -454,7 +466,7 @@ const I18N = {
     tNeedCatName:'Give the category a name in at least one language', tNeedIcon:'Choose an icon',
     tCatSaved:'Category saved', cDelCatQ:n=>`Delete the category and its ${n} questions?`,
     cDelCat:'Delete the category?', tCatDeleted:'Category deleted',
-    startMake:'Start making questions', startLoad:'Load questions', startBack:'Back to game', modeAsk:'What kind of questions?', bullDesc:'One correct', sweepDesc:'Multiple correct', tMark19:'In Sweep mark at least 2 options (2–9) correct.', tFillOne:'Fill in the question and all 10 options in at least one language.',
+    startMake:'Start making questions', startLoad:'Load questions', startBack:'Back to game', modeAsk:'What kind of questions?', bullDesc:'One correct', sweepDesc:'Multiple correct', cLeaveMsg:'You have unsaved changes. Save before leaving?', leaveSave:'Save changes', leaveDiscard:'Leave without saving', tMark19:'In Sweep mark at least 2 options (2–9) correct.', tFillOne:'Fill in the question and all 10 options in at least one language.',
     tSavedPartial:n=>`Saved (${n} languages incomplete)`, tQSaved:'Question saved',
     cDelQ:'Delete question?', tQDeleted:'Question deleted',
     tNeedQ:'Add at least one question', pPackName:'Name the pack before exporting:', defPackName:'My pack',
@@ -466,7 +478,7 @@ const I18N = {
     tUpdFail:'Couldn\'t check for updates (are you online?)'
   },
   es:{
-    brandSub:'Editor', import:'📂 Importar', export:'💾 Exportar paquete', update:'🔄 Buscar actualizaciones',
+    brandSub:'Editor', import:'📂 Cargar', export:'💾 Guardar', update:'🔄 Buscar actualizaciones',
     packName:'Nombre del paquete', packModeLbl:'Modo de juego (todo el paquete)', tPackMode:m=>`Modo del paquete: `, tPackToBull:'Algunas preguntas no son de una sola respuesta. ¿Cambiar a Bullseye igualmente?', packLangs:'Idiomas del paquete — elige qué idiomas incluye',
     clearAll:'🗑 Borrar todo',
     hint:'Escribe cada pregunta en los idiomas elegidos (usa las pestañas de idioma en la vista de preguntas). Cuando el paquete esté listo, pulsa <b>Exportar paquete</b> e impórtalo en Pub Quiz (Ajustes → Preguntas → Cargar desde archivo). Si el paquete tiene un idioma nuevo para el juego, se añade automáticamente al menú de idiomas.',
@@ -495,7 +507,7 @@ const I18N = {
     tNeedCatName:'Da un nombre a la categoría en al menos un idioma', tNeedIcon:'Elige un icono',
     tCatSaved:'Categoría guardada', cDelCatQ:n=>`¿Eliminar la categoría y sus ${n} preguntas?`,
     cDelCat:'¿Eliminar la categoría?', tCatDeleted:'Categoría eliminada',
-    startMake:'Empezar a crear preguntas', startLoad:'Cargar preguntas', startBack:'Volver al juego', modeAsk:'¿Qué tipo de preguntas?', bullDesc:'Una correcta', sweepDesc:'Varias correctas', tMark19:'En Sweep marca al menos 2 opciones (2–9) correctas.', tFillOne:'Rellena la pregunta y las 10 opciones en al menos un idioma.',
+    startMake:'Empezar a crear preguntas', startLoad:'Cargar preguntas', startBack:'Volver al juego', modeAsk:'¿Qué tipo de preguntas?', bullDesc:'Una correcta', sweepDesc:'Varias correctas', cLeaveMsg:'Tienes cambios sin guardar. ¿Guardar antes de salir?', leaveSave:'Guardar cambios', leaveDiscard:'Salir sin guardar', tMark19:'En Sweep marca al menos 2 opciones (2–9) correctas.', tFillOne:'Rellena la pregunta y las 10 opciones en al menos un idioma.',
     tSavedPartial:n=>`Guardado (${n} idiomas incompletos)`, tQSaved:'Pregunta guardada',
     cDelQ:'¿Eliminar pregunta?', tQDeleted:'Pregunta eliminada',
     tNeedQ:'Añade al menos una pregunta', pPackName:'Nombra el paquete antes de exportar:', defPackName:'Mi paquete',
@@ -533,7 +545,7 @@ function detectFlag(){ try{ const c=document.createElement('canvas'); c.width=20
   for(let i=0;i<d.length;i+=4){const r=d[i],g=d[i+1],b=d[i+2],a=d[i+3]; if(a>0&&((b>90&&r<90)||(r>150&&g>120&&b<90)))n++;} return n>4; }catch(e){return false;} }
 function fl(code){ return FLAG_OK ? (LMETA[code]?LMETA[code].flag:'🏳️') : ''; }
 
-const EDITOR_VERSION = '01.00.24';
+const EDITOR_VERSION = '01.00.25';
 
 /* The game's built-in categories — same keys, so questions land in the right category in-game */
 const DEFAULT_TOPICS = [
@@ -556,7 +568,7 @@ let editingCatId=null, editingQId=null, pickedEmoji='🎵', catView=null, search
 let qActiveLang='fi', qDraft=null;
 
 function load(){ try{ const r=localStorage.getItem(LS_KEY)||localStorage.getItem('quiz10_editor_pack_v1'); return r?JSON.parse(r):null; }catch(e){return null;} }
-function save(){ try{ localStorage.setItem(LS_KEY, JSON.stringify(pack)); }catch(e){} }
+function save(){ dirty=true; try{ localStorage.setItem(LS_KEY, JSON.stringify(pack)); }catch(e){} }
 function uid(p){ return p+Math.random().toString(36).slice(2,7)+Date.now().toString(36).slice(-4); }
 function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
 let toastT; function toast(m){ const t=$('#toast'); t.textContent=m; t.classList.add('show'); clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove('show'),2300); }
@@ -599,8 +611,8 @@ function migrate(p){
   return { name:p.name||'', langs:[lc], customLangs:[], topics, questions };
 }
 
-let newQMode='sweep';
-function show(v){ $('#startView').classList.toggle('hidden',v!=='start'); $('#modeView').classList.toggle('hidden',v!=='mode'); $('#mainView').classList.toggle('hidden',v!=='main'); $('#catEditor').classList.toggle('hidden',v!=='cat'); $('#qEditor').classList.toggle('hidden',v!=='q'); $('#catQuestions').classList.toggle('hidden',v!=='catq'); document.querySelector('.topbar').classList.toggle('hidden', v==='start'||v==='mode'); window.scrollTo(0,0); }
+let newQMode='sweep'; let dirty=false;
+function show(v){ $('#startView').classList.toggle('hidden',v!=='start'); $('#modeView').classList.toggle('hidden',v!=='mode'); $('#mainView').classList.toggle('hidden',v!=='main'); $('#catEditor').classList.toggle('hidden',v!=='cat'); $('#qEditor').classList.toggle('hidden',v!=='q'); $('#catQuestions').classList.toggle('hidden',v!=='catq'); document.querySelector('.topbar').classList.toggle('hidden', v==='start'||v==='mode'); $('#mainBackBtn').classList.toggle('hidden', v!=='main'); window.scrollTo(0,0); }
 
 /* header */
 $('#packName').addEventListener('input', e=>{ pack.name=e.target.value; save(); });
@@ -946,25 +958,28 @@ function buildPack(){
   });
   return { name:pack.name||'Oma paketti', langs:langs.map(c=>({code:c, flag:LMETA[c].flag, name:LMETA[c].name})), topics, questions };
 }
-$('#exportBtn').addEventListener('click', async ()=>{
-  if(!pack.questions.length){ toast(t('tNeedQ')); return; }
+async function doExport(){
+  if(!pack.questions.length){ toast(t('tNeedQ')); return false; }
   if(!(pack.name||'').trim()){
     const nm = await uiPrompt(t('pPackName'), t('defPackName'));
-    if(nm==null) return;                 // cancelled
+    if(nm==null) return false;                 // cancelled
     pack.name = nm.trim() || t('defPackName');
     $('#packName').value = pack.name; save();
   }
   const out=buildPack();
-  if(!out.questions.length){ toast(t('tNoComplete')); return; }
+  if(!out.questions.length){ toast(t('tNoComplete')); return false; }
   const skipped = pack.questions.length - out.questions.length;
-  if(skipped>0 && !await uiConfirm(t('cSkip',skipped))) return;
+  if(skipped>0 && !await uiConfirm(t('cSkip',skipped))) return false;
   const blob=new Blob([JSON.stringify(out,null,2)],{type:'application/json'});
   const a=document.createElement('a');
   const safe=(pack.name||'pub-quiz-paketti').replace(/[^\w\-]+/g,'_').replace(/^_+|_+$/g,'').toLowerCase()||'pub-quiz-paketti';
   a.href=URL.createObjectURL(blob); a.download=safe+'.json'; document.body.appendChild(a); a.click(); a.remove();
   setTimeout(()=>URL.revokeObjectURL(a.href),4000);
+  dirty=false;
   toast(t('tExported',out.questions.length));
-});
+  return true;
+}
+$('#exportBtn').addEventListener('click', doExport);
 
 /* import (reads multilingual packs back in) */
 $('#importBtn').addEventListener('click', ()=>$('#fileInput').click());
@@ -976,7 +991,7 @@ $('#fileInput').addEventListener('change', e=>{
     const arr=Array.isArray(data)?data:(data.questions||[]);
     if(!arr.length && !(data.topics||[]).length){ toast(t('tNoQInFile')); return; }
     if(!await uiConfirm(t('cImport'))) return;
-    importPack(data, arr); toast(t('tImported',pack.questions.length)); show('main');
+    importPack(data, arr); dirty=false; toast(t('tImported',pack.questions.length)); show('main');
   }catch(err){ toast(t('tBadJson')); } };
   r.readAsText(f); e.target.value='';
 });
@@ -1006,7 +1021,7 @@ function importPack(data, arr){
 /* clear */
 $('#clearAllBtn').addEventListener('click', async ()=>{
   if(!await uiConfirm(t('cClearAll'))) return;
-  pack={ name:'', langs:pack.langs.slice(), customLangs:pack.customLangs||[], topics:defaultTopics(), questions:[] }; save(); render(); toast(t('tCleared'));
+  pack={ name:'', langs:pack.langs.slice(), customLangs:pack.customLangs||[], topics:defaultTopics(), questions:[] }; save(); dirty=false; render(); toast(t('tCleared'));
 });
 
 /* corner panel: flag row + update */
@@ -1072,9 +1087,18 @@ $('#startMakeBtn').addEventListener('click',()=>show('mode'));
 $('#modeBackBtn').addEventListener('click',()=>show('start'));
 $('#modeBullBtn').addEventListener('click',()=>{ newQMode='bullseye'; show('main'); });
 $('#modeSweepBtn').addEventListener('click',()=>{ newQMode='sweep'; show('main'); });
+let leaveResolve=null;
+function confirmLeave(){ return new Promise(res=>{ leaveResolve=res; $('#leaveMsg').textContent=t('cLeaveMsg'); $('#leaveModal').classList.remove('hidden'); }); }
+function closeLeave(v){ $('#leaveModal').classList.add('hidden'); const r=leaveResolve; leaveResolve=null; if(r) r(v); }
+$('#leaveSaveBtn').addEventListener('click',()=>closeLeave('save'));
+$('#leaveDiscardBtn').addEventListener('click',()=>closeLeave('discard'));
+$('#leaveCancelBtn').addEventListener('click',()=>closeLeave('cancel'));
+$('#leaveModal').addEventListener('click',e=>{ if(e.target.id==='leaveModal') closeLeave('cancel'); });
+async function backFromMain(){ if(dirty){ const c=await confirmLeave(); if(c==='cancel') return; if(c==='save'){ const ok=await doExport(); if(!ok) return; } } show('mode'); }
+$('#mainBackBtn').addEventListener('click', backFromMain);
 $('#startLoadBtn').addEventListener('click',()=>$('#fileInput').click());
 $('#startBackBtn').addEventListener('click',()=>{ location.href='../quiz10.html'; });
-show('start');
+show('start'); dirty=false;
 </script>
 </body>
 </html>
