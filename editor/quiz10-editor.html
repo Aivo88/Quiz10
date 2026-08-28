@@ -545,18 +545,18 @@ function detectFlag(){ try{ const c=document.createElement('canvas'); c.width=20
   for(let i=0;i<d.length;i+=4){const r=d[i],g=d[i+1],b=d[i+2],a=d[i+3]; if(a>0&&((b>90&&r<90)||(r>150&&g>120&&b<90)))n++;} return n>4; }catch(e){return false;} }
 function fl(code){ return FLAG_OK ? (LMETA[code]?LMETA[code].flag:'🏳️') : ''; }
 
-const EDITOR_VERSION = '01.00.27';
+const EDITOR_VERSION = '01.00.28';
 
 /* The game's built-in categories — same keys, so questions land in the right category in-game */
 const DEFAULT_TOPICS = [
-  {key:'geo',  icon:'🌍', names:{en:'Geography',       fi:'Maantiede',        es:'Geografía'}},
-  {key:'sci',  icon:'🔬', names:{en:'Science & Nature',fi:'Tiede & luonto',   es:'Ciencia y naturaleza'}},
-  {key:'arts', icon:'🎭', names:{en:'Arts & Music',    fi:'Taide & musiikki', es:'Arte y música'}},
-  {key:'sport',icon:'⚽', names:{en:'Sport & Games',   fi:'Urheilu & pelit',  es:'Deporte y juegos'}},
-  {key:'hist', icon:'🏛️', names:{en:'History',          fi:'Historia',         es:'Historia'}},
-  {key:'gen',  icon:'🧠', names:{en:'General',          fi:'Yleistieto',       es:'General'}},
-  {key:'film', icon:'🎬', names:{en:'Film & TV',        fi:'Elokuvat & TV',    es:'Cine y TV'}},
-  {key:'mixed',icon:'🎲', names:{en:'Mixed',            fi:'Sekaisin',         es:'Variado'}}
+  {key:'geo',  icon:'🌍', names:{en:'Geography',       fi:'Maantiede',        es:'Geografía', sv:'Geografi', de:'Geografie', fr:'Géographie', it:'Geografia', pt:'Geografia', nl:'Aardrijkskunde', et:'Geograafia', no:'Geografi', da:'Geografi', pl:'Geografia'}},
+  {key:'sci',  icon:'🔬', names:{en:'Science & Nature',fi:'Tiede & luonto',   es:'Ciencia y naturaleza', sv:'Vetenskap & natur', de:'Wissenschaft & Natur', fr:'Science & nature', it:'Scienza & natura', pt:'Ciência & natureza', nl:'Wetenschap & natuur', et:'Teadus & loodus', no:'Vitenskap & natur', da:'Videnskab & natur', pl:'Nauka i przyroda'}},
+  {key:'arts', icon:'🎭', names:{en:'Arts & Music',    fi:'Taide & musiikki', es:'Arte y música', sv:'Konst & musik', de:'Kunst & Musik', fr:'Arts & musique', it:'Arte & musica', pt:'Arte & música', nl:'Kunst & muziek', et:'Kunst & muusika', no:'Kunst & musikk', da:'Kunst & musik', pl:'Sztuka i muzyka'}},
+  {key:'sport',icon:'⚽', names:{en:'Sport & Games',   fi:'Urheilu & pelit',  es:'Deporte y juegos', sv:'Sport & spel', de:'Sport & Spiele', fr:'Sport & jeux', it:'Sport & giochi', pt:'Desporto & jogos', nl:'Sport & spellen', et:'Sport & mängud', no:'Sport & spill', da:'Sport & spil', pl:'Sport i gry'}},
+  {key:'hist', icon:'🏛️', names:{en:'History',          fi:'Historia',         es:'Historia', sv:'Historia', de:'Geschichte', fr:'Histoire', it:'Storia', pt:'História', nl:'Geschiedenis', et:'Ajalugu', no:'Historie', da:'Historie', pl:'Historia'}},
+  {key:'gen',  icon:'🧠', names:{en:'General',          fi:'Yleistieto',       es:'General', sv:'Allmänbildning', de:'Allgemeinwissen', fr:'Culture générale', it:'Cultura generale', pt:'Conhecimentos gerais', nl:'Algemene kennis', et:'Üldteadmised', no:'Allmennkunnskap', da:'Almen viden', pl:'Wiedza ogólna'}},
+  {key:'film', icon:'🎬', names:{en:'Film & TV',        fi:'Elokuvat & TV',    es:'Cine y TV', sv:'Film & TV', de:'Film & TV', fr:'Cinéma & TV', it:'Cinema & TV', pt:'Cinema & TV', nl:'Film & TV', et:'Film & TV', no:'Film & TV', da:'Film & TV', pl:'Film i TV'}},
+  {key:'mixed',icon:'🎲', names:{en:'Mixed',            fi:'Sekaisin',         es:'Variado', sv:'Blandat', de:'Gemischt', fr:'Divers', it:'Misto', pt:'Variado', nl:'Gemengd', et:'Segu', no:'Blandet', da:'Blandet', pl:'Mieszane'}}
 ];
 function defaultTopics(){ return DEFAULT_TOPICS.map(t=>({ key:t.key, icon:t.icon, names:{...t.names} })); }
 function newPack(){ return { name:'', mode:'sweep', langs:['fi','en','es'], customLangs:[], topics:defaultTopics(), questions:[] }; }
@@ -598,10 +598,14 @@ $('#modalInput').addEventListener('keydown', e=>{ if(e.key==='Enter'){ e.prevent
 document.addEventListener('keydown', e=>{ if(!$('#modal').classList.contains('hidden') && e.key==='Escape') closeModal(modalIsPrompt?null:false); });
 
 // migrate old single-language format (v1) to multilingual (v2)
+function backfillTopicNames(p){
+  const byKey={}; DEFAULT_TOPICS.forEach(d=>byKey[d.key]=d);
+  (p.topics||[]).forEach(t=>{ const d=byKey[t.key]; if(!d||!t.names) return; Object.keys(d.names).forEach(code=>{ if(!(t.names[code]||'').trim()) t.names[code]=d.names[code]; }); });
+}
 function migrate(p){
   if(p && !p.mode){ const qs=p.questions||[]; p.mode=(qs.length && qs.every(q=>q.mode==='bullseye'))?'bullseye':'sweep'; }
   if(!p) return p;
-  if(Array.isArray(p.langs) && p.topics && p.topics[0] && p.topics[0].names){ if(!p.customLangs)p.customLangs=[]; return p; } // already v2
+  if(Array.isArray(p.langs) && p.topics && p.topics[0] && p.topics[0].names){ if(!p.customLangs)p.customLangs=[]; backfillTopicNames(p); return p; } // already v2
   const lc = p.lang || 'fi';
   const topics = (p.topics||[]).map(t=>({ key:t.key, icon:t.icon, names:{[lc]: t.name||''} }));
   const questions = (p.questions||[]).map(q=>({
