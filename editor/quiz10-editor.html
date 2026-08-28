@@ -545,7 +545,7 @@ function detectFlag(){ try{ const c=document.createElement('canvas'); c.width=20
   for(let i=0;i<d.length;i+=4){const r=d[i],g=d[i+1],b=d[i+2],a=d[i+3]; if(a>0&&((b>90&&r<90)||(r>150&&g>120&&b<90)))n++;} return n>4; }catch(e){return false;} }
 function fl(code){ return FLAG_OK ? (LMETA[code]?LMETA[code].flag:'🏳️') : ''; }
 
-const EDITOR_VERSION = '01.00.25';
+const EDITOR_VERSION = '01.00.27';
 
 /* The game's built-in categories — same keys, so questions land in the right category in-game */
 const DEFAULT_TOPICS = [
@@ -568,7 +568,8 @@ let editingCatId=null, editingQId=null, pickedEmoji='🎵', catView=null, search
 let qActiveLang='fi', qDraft=null;
 
 function load(){ try{ const r=localStorage.getItem(LS_KEY)||localStorage.getItem('quiz10_editor_pack_v1'); return r?JSON.parse(r):null; }catch(e){return null;} }
-function save(){ dirty=true; try{ localStorage.setItem(LS_KEY, JSON.stringify(pack)); }catch(e){} }
+function persist(){ try{ localStorage.setItem(LS_KEY, JSON.stringify(pack)); }catch(e){} }
+function save(){ dirty=true; persist(); }
 function uid(p){ return p+Math.random().toString(36).slice(2,7)+Date.now().toString(36).slice(-4); }
 function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
 let toastT; function toast(m){ const t=$('#toast'); t.textContent=m; t.classList.add('show'); clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove('show'),2300); }
@@ -771,7 +772,7 @@ function render(){
           <div class="acts"><button class="btn small" data-editq="${q.id}">${t("edit")}</button>
           <button class="btn small danger" data-delq="${q.id}">${t("del")}</button></div></div>`;
       }).join(''));
-  save();
+  persist();
 }
 
 document.addEventListener('click', e=>{
@@ -1094,7 +1095,7 @@ $('#leaveSaveBtn').addEventListener('click',()=>closeLeave('save'));
 $('#leaveDiscardBtn').addEventListener('click',()=>closeLeave('discard'));
 $('#leaveCancelBtn').addEventListener('click',()=>closeLeave('cancel'));
 $('#leaveModal').addEventListener('click',e=>{ if(e.target.id==='leaveModal') closeLeave('cancel'); });
-async function backFromMain(){ if(dirty){ const c=await confirmLeave(); if(c==='cancel') return; if(c==='save'){ const ok=await doExport(); if(!ok) return; } } show('mode'); }
+async function backFromMain(){ if(dirty){ const c=await confirmLeave(); if(c==='cancel') return; if(c==='save'){ const ok=await doExport(); if(!ok) return; } else if(c==='discard'){ pack={ name:'', langs:pack.langs.slice(), customLangs:pack.customLangs||[], topics:defaultTopics(), questions:[] }; save(); dirty=false; $('#packName').value=''; render(); } } show('mode'); }
 $('#mainBackBtn').addEventListener('click', backFromMain);
 $('#startLoadBtn').addEventListener('click',()=>$('#fileInput').click());
 $('#startBackBtn').addEventListener('click',()=>{ location.href='../quiz10.html'; });
