@@ -3069,7 +3069,7 @@ const BULLSEYE_QUESTIONS = [
 
 const PLAYER_COLORS = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
-const APP_VERSION = '01.00.56';
+const APP_VERSION = '01.00.57';
 
 let questionsStatus = '';
 const QCACHE_KEY = 'quiz10_qcache2';  // bumped: use embedded 1000, ignore old device cache
@@ -3551,9 +3551,9 @@ function nameIn(i, L){
   return (TT(L,'playerTeamName')||'Player %n / Team %n').replace(/%n/g, n);
 }
 function nameShort(i, L){ return (TT(L,'playerShort')||'Player')+' '+(i+1); }
-function pName(i){ return nameIn(i, dispLang()); }
-function pNameShort(i){ return nameShort(i, dispLang()); }
-function tg(k){ const L=dispLang(); if(T[L]&&T[L][k]!=null) return T[L][k]; if(T[lang]&&T[lang][k]!=null) return T[lang][k]; return T.en[k]; }
+function pName(i){ return nameIn(i, lang); }
+function pNameShort(i){ return nameShort(i, lang); }
+function tg(k){ return (T[lang]&&T[lang][k]!=null) ? T[lang][k] : T.en[k]; }
 function labelFor(o, L){ return (o[L]!=null ? o[L] : o.en); }
 function catFor(c, L){ return c[L] || c.en; }
 let topicDecks = {};     // (legacy, unused)
@@ -3684,7 +3684,7 @@ function availableLangs(){
 function renderLangPickers(){
   // Full-screen language chooser
   const row = $('#screen-lang .lang-row');
-  const avail = availableLangs();
+  const avail = BASE_LANGS.slice();
   if(row){
     row.innerHTML = avail.map((code,idx)=>
       `<button class="btn lang focusable"${idx===0?' data-focus':''} data-action="lang" data-lang="${code}">`+
@@ -3731,7 +3731,7 @@ function loadLang(){
   }catch(e){ lang='en'; }
 }
 function cycleGlobalLang(){
-  const av = availableLangs();
+  const av = BASE_LANGS.slice();
   const i = av.indexOf(lang);
   lang = av[(i<0?0:(i+1)) % av.length];
   saveLang();
@@ -3822,11 +3822,11 @@ function poolFor(topic){
 function refreshTopicScreen(){
   const si = roundsPlayed % players.length;
   const sl = playerLang[si] || lang;
-  const prompt = (T[sl]||T[lang]).topicPrompt;
-  $('#topicTitle').innerHTML = `<span style="color:var(${players[si].color})">${nameIn(si, sl)}</span> — ${prompt}`;
+  const prompt = (T[lang]||T.en).topicPrompt;
+  $('#topicTitle').innerHTML = `<span style="color:var(${players[si].color})">${nameIn(si, lang)}</span> — ${prompt}`;
   const tf = $('#langFlagTopic'); if(tf) tf.textContent = flagFor(sl);
-  const bk = $('#screen-topic [data-i="back"]'); if(bk) bk.textContent = (TT(sl,'back')||(T[sl]||T[lang]).back||'Back');
-  renderTopicMeta(si, sl);
+  const bk = $('#screen-topic [data-i="back"]'); if(bk) bk.textContent = (TT(lang,'back')||(T[lang]||T.en).back||'Back');
+  renderTopicMeta(si, lang);
   renderTopics(sl);
 }
 function chooseTopic(){
@@ -3842,7 +3842,6 @@ function cycleLangTopic(){
   const i = av.indexOf(cur);
   const nl = av[(i<0?0:(i+1)) % av.length];
   playerLang[si] = nl;
-  lang = nl; saveLang();   // remember this choice for the win screen and the next game
   sfx.select();
   refreshTopicScreen();   // re-render title, categories and flag in the new language; keeps focus on the flag
 }
@@ -3982,7 +3981,6 @@ function cycleLang(){
   const i = av.indexOf(cur);
   const nl = av[(i<0?0:(i+1)) % av.length];
   playerLang[turnIdx] = nl;
-  lang = nl; saveLang();   // remember this choice for the win screen and the next game
   sfx.select();
   applyLang();
 }
@@ -4236,7 +4234,7 @@ function quitToMenu(){
 /* ---------- Confirm overlay ---------- */
 function askConfirm(msg, onYes, L){
   confirmCb = onYes;
-  const bl = L || dispLang();
+  const bl = L || lang;
   const pick = (k)=> (T[bl]&&T[bl][k]!=null) ? T[bl][k] : T.en[k];
   $('#confirmMsg').textContent = msg;
   $('#confirmYes').textContent = pick('yes');
