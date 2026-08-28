@@ -67,6 +67,12 @@
   .btn.danger:hover{border-color:var(--red); background:#2a1917}
   .btn.small{padding:7px 11px; font-size:.85em; border-radius:9px}
   .btn.block{width:100%; justify-content:center}
+  #startView .startwrap{min-height:72vh; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:28px; text-align:center}
+  .startbrand{display:flex; flex-direction:column; align-items:center; gap:4px; font-size:2em; font-weight:800; letter-spacing:.5px; color:var(--ink)}
+  .startbrand .dice{font-size:1.5em; line-height:1}
+  .startbrand small{display:block; color:var(--gold); font-weight:700; font-size:.32em; letter-spacing:2px; text-transform:uppercase}
+  .startbtns{display:flex; flex-direction:column; gap:14px; width:100%; max-width:340px}
+  .startbtns .btn{padding:16px; font-size:1.05em}
 
   .packhead{margin-top:18px; background:var(--panel); border:2px solid var(--line); border-radius:16px; padding:16px}
   .field{margin-bottom:14px}
@@ -190,6 +196,18 @@
   <div class="uilang" id="uiLangSel"></div>
   <button class="btn small" id="updateBtn" data-i18n="update">🔄 Tarkista päivitykset</button>
   <div class="cp-ver" id="cpVer">v01.00.00</div>
+</div>
+
+<!-- START -->
+<div id="startView">
+  <div class="wrap startwrap">
+    <div class="startbrand"><span class="dice">🎲</span><span>Pub Quiz<small data-i18n="brandSub">Editor</small></span></div>
+    <div class="startbtns">
+      <button class="btn gold block" id="startMakeBtn" data-i18n="startMake">Start making questions</button>
+      <button class="btn block" id="startLoadBtn" data-i18n="startLoad">Load questions</button>
+      <button class="btn block" id="startBackBtn" data-i18n="startBack">Back to game</button>
+    </div>
+  </div>
 </div>
 
 <!-- MAIN -->
@@ -375,7 +393,7 @@ const I18N = {
     tNeedCatName:'Anna kategorialle nimi vähintään yhdellä kielellä', tNeedIcon:'Valitse kuvake',
     tCatSaved:'Kategoria tallennettu', cDelCatQ:n=>`Poistetaanko kategoria ja sen ${n} kysymystä?`,
     cDelCat:'Poistetaanko kategoria?', tCatDeleted:'Kategoria poistettu',
-    tMark19:'Sweepissä vähintään 2 vaihtoehtoa (2–9) oikein.', tFillOne:'Täytä kysymys ja kaikki 10 vaihtoehtoa vähintään yhdellä kielellä.',
+    startMake:'Aloita kysymysten teko', startLoad:'Lataa kysymykset', startBack:'Takaisin peliin', tMark19:'Sweepissä vähintään 2 vaihtoehtoa (2–9) oikein.', tFillOne:'Täytä kysymys ja kaikki 10 vaihtoehtoa vähintään yhdellä kielellä.',
     tSavedPartial:n=>`Tallennettu (${n} kieltä kesken)`, tQSaved:'Kysymys tallennettu',
     cDelQ:'Poistetaanko kysymys?', tQDeleted:'Kysymys poistettu',
     tNeedQ:'Lisää ainakin yksi kysymys', pPackName:'Anna paketille nimi ennen vientiä:', defPackName:'Oma paketti',
@@ -416,7 +434,7 @@ const I18N = {
     tNeedCatName:'Give the category a name in at least one language', tNeedIcon:'Choose an icon',
     tCatSaved:'Category saved', cDelCatQ:n=>`Delete the category and its ${n} questions?`,
     cDelCat:'Delete the category?', tCatDeleted:'Category deleted',
-    tMark19:'In Sweep mark at least 2 options (2–9) correct.', tFillOne:'Fill in the question and all 10 options in at least one language.',
+    startMake:'Start making questions', startLoad:'Load questions', startBack:'Back to game', tMark19:'In Sweep mark at least 2 options (2–9) correct.', tFillOne:'Fill in the question and all 10 options in at least one language.',
     tSavedPartial:n=>`Saved (${n} languages incomplete)`, tQSaved:'Question saved',
     cDelQ:'Delete question?', tQDeleted:'Question deleted',
     tNeedQ:'Add at least one question', pPackName:'Name the pack before exporting:', defPackName:'My pack',
@@ -457,7 +475,7 @@ const I18N = {
     tNeedCatName:'Da un nombre a la categoría en al menos un idioma', tNeedIcon:'Elige un icono',
     tCatSaved:'Categoría guardada', cDelCatQ:n=>`¿Eliminar la categoría y sus ${n} preguntas?`,
     cDelCat:'¿Eliminar la categoría?', tCatDeleted:'Categoría eliminada',
-    tMark19:'En Sweep marca al menos 2 opciones (2–9) correctas.', tFillOne:'Rellena la pregunta y las 10 opciones en al menos un idioma.',
+    startMake:'Empezar a crear preguntas', startLoad:'Cargar preguntas', startBack:'Volver al juego', tMark19:'En Sweep marca al menos 2 opciones (2–9) correctas.', tFillOne:'Rellena la pregunta y las 10 opciones en al menos un idioma.',
     tSavedPartial:n=>`Guardado (${n} idiomas incompletos)`, tQSaved:'Pregunta guardada',
     cDelQ:'¿Eliminar pregunta?', tQDeleted:'Pregunta eliminada',
     tNeedQ:'Añade al menos una pregunta', pPackName:'Nombra el paquete antes de exportar:', defPackName:'Mi paquete',
@@ -495,7 +513,7 @@ function detectFlag(){ try{ const c=document.createElement('canvas'); c.width=20
   for(let i=0;i<d.length;i+=4){const r=d[i],g=d[i+1],b=d[i+2],a=d[i+3]; if(a>0&&((b>90&&r<90)||(r>150&&g>120&&b<90)))n++;} return n>4; }catch(e){return false;} }
 function fl(code){ return FLAG_OK ? (LMETA[code]?LMETA[code].flag:'🏳️') : ''; }
 
-const EDITOR_VERSION = '01.00.21';
+const EDITOR_VERSION = '01.00.22';
 
 /* The game's built-in categories — same keys, so questions land in the right category in-game */
 const DEFAULT_TOPICS = [
@@ -561,7 +579,7 @@ function migrate(p){
   return { name:p.name||'', langs:[lc], customLangs:[], topics, questions };
 }
 
-function show(v){ $('#mainView').classList.toggle('hidden',v!=='main'); $('#catEditor').classList.toggle('hidden',v!=='cat'); $('#qEditor').classList.toggle('hidden',v!=='q'); $('#catQuestions').classList.toggle('hidden',v!=='catq'); window.scrollTo(0,0); }
+function show(v){ $('#startView').classList.toggle('hidden',v!=='start'); $('#mainView').classList.toggle('hidden',v!=='main'); $('#catEditor').classList.toggle('hidden',v!=='cat'); $('#qEditor').classList.toggle('hidden',v!=='q'); $('#catQuestions').classList.toggle('hidden',v!=='catq'); document.querySelector('.topbar').classList.toggle('hidden', v==='start'); window.scrollTo(0,0); }
 
 /* header */
 $('#packName').addEventListener('input', e=>{ pack.name=e.target.value; save(); });
@@ -937,7 +955,7 @@ $('#fileInput').addEventListener('change', e=>{
     const arr=Array.isArray(data)?data:(data.questions||[]);
     if(!arr.length && !(data.topics||[]).length){ toast(t('tNoQInFile')); return; }
     if(!await uiConfirm(t('cImport'))) return;
-    importPack(data, arr); toast(t('tImported',pack.questions.length));
+    importPack(data, arr); toast(t('tImported',pack.questions.length)); show('main');
   }catch(err){ toast(t('tBadJson')); } };
   r.readAsText(f); e.target.value='';
 });
@@ -1029,6 +1047,10 @@ document.addEventListener('click', e=>{
 FLAG_OK = detectFlag();
 $('#cpVer').textContent = 'v'+EDITOR_VERSION;
 buildEmojiGrid(); buildLangEmojiGrid(); buildOptRows(); applyUILang(); render();
+$('#startMakeBtn').addEventListener('click',()=>show('main'));
+$('#startLoadBtn').addEventListener('click',()=>$('#fileInput').click());
+$('#startBackBtn').addEventListener('click',()=>{ location.href='../quiz10.html'; });
+show('start');
 </script>
 </body>
 </html>
