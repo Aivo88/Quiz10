@@ -205,13 +205,6 @@
         <div class="langchips" id="langChips"></div>
       </div>
       <div class="field">
-        <label class="lbl" data-i18n="packModeLbl">Pelimuoto (koko paketti)</label>
-        <div class="modepick" id="packModePick">
-          <button type="button" class="modebtn" data-pmode="sweep"><b data-i18n="modeSweep">Sweep</b><span data-i18n="modeSweepDesc">monta oikein</span></button>
-          <button type="button" class="modebtn" data-pmode="bullseye"><b data-i18n="modeBullseye">Bullseye</b><span data-i18n="modeBullseyeDesc">yksi oikein</span></button>
-        </div>
-      </div>
-      <div class="field">
         <button class="btn danger block" id="clearAllBtn" data-i18n="clearAll">🗑 Tyhjennä kaikki</button>
       </div>
       <p class="hint" data-i18n="hint">Kirjoita jokainen kysymys valitsemillasi kielillä.</p>
@@ -382,7 +375,7 @@ const I18N = {
     tNeedCatName:'Anna kategorialle nimi vähintään yhdellä kielellä', tNeedIcon:'Valitse kuvake',
     tCatSaved:'Kategoria tallennettu', cDelCatQ:n=>`Poistetaanko kategoria ja sen ${n} kysymystä?`,
     cDelCat:'Poistetaanko kategoria?', tCatDeleted:'Kategoria poistettu',
-    tMark19:'Merkitse 1–9 vaihtoehtoa oikeaksi.', tFillOne:'Täytä kysymys ja kaikki 10 vaihtoehtoa vähintään yhdellä kielellä.',
+    tMark19:'Sweepissä vähintään 2 vaihtoehtoa (2–9) oikein.', tFillOne:'Täytä kysymys ja kaikki 10 vaihtoehtoa vähintään yhdellä kielellä.',
     tSavedPartial:n=>`Tallennettu (${n} kieltä kesken)`, tQSaved:'Kysymys tallennettu',
     cDelQ:'Poistetaanko kysymys?', tQDeleted:'Kysymys poistettu',
     tNeedQ:'Lisää ainakin yksi kysymys', pPackName:'Anna paketille nimi ennen vientiä:', defPackName:'Oma paketti',
@@ -423,7 +416,7 @@ const I18N = {
     tNeedCatName:'Give the category a name in at least one language', tNeedIcon:'Choose an icon',
     tCatSaved:'Category saved', cDelCatQ:n=>`Delete the category and its ${n} questions?`,
     cDelCat:'Delete the category?', tCatDeleted:'Category deleted',
-    tMark19:'Mark 1–9 options as correct.', tFillOne:'Fill in the question and all 10 options in at least one language.',
+    tMark19:'In Sweep mark at least 2 options (2–9) correct.', tFillOne:'Fill in the question and all 10 options in at least one language.',
     tSavedPartial:n=>`Saved (${n} languages incomplete)`, tQSaved:'Question saved',
     cDelQ:'Delete question?', tQDeleted:'Question deleted',
     tNeedQ:'Add at least one question', pPackName:'Name the pack before exporting:', defPackName:'My pack',
@@ -464,7 +457,7 @@ const I18N = {
     tNeedCatName:'Da un nombre a la categoría en al menos un idioma', tNeedIcon:'Elige un icono',
     tCatSaved:'Categoría guardada', cDelCatQ:n=>`¿Eliminar la categoría y sus ${n} preguntas?`,
     cDelCat:'¿Eliminar la categoría?', tCatDeleted:'Categoría eliminada',
-    tMark19:'Marca 1–9 opciones como correctas.', tFillOne:'Rellena la pregunta y las 10 opciones en al menos un idioma.',
+    tMark19:'En Sweep marca al menos 2 opciones (2–9) correctas.', tFillOne:'Rellena la pregunta y las 10 opciones en al menos un idioma.',
     tSavedPartial:n=>`Guardado (${n} idiomas incompletos)`, tQSaved:'Pregunta guardada',
     cDelQ:'¿Eliminar pregunta?', tQDeleted:'Pregunta eliminada',
     tNeedQ:'Añade al menos una pregunta', pPackName:'Nombra el paquete antes de exportar:', defPackName:'Mi paquete',
@@ -502,7 +495,7 @@ function detectFlag(){ try{ const c=document.createElement('canvas'); c.width=20
   for(let i=0;i<d.length;i+=4){const r=d[i],g=d[i+1],b=d[i+2],a=d[i+3]; if(a>0&&((b>90&&r<90)||(r>150&&g>120&&b<90)))n++;} return n>4; }catch(e){return false;} }
 function fl(code){ return FLAG_OK ? (LMETA[code]?LMETA[code].flag:'🏳️') : ''; }
 
-const EDITOR_VERSION = '01.00.20';
+const EDITOR_VERSION = '01.00.21';
 
 /* The game's built-in categories — same keys, so questions land in the right category in-game */
 const DEFAULT_TOPICS = [
@@ -692,7 +685,6 @@ function qFilledLangs(q){ return pack.langs.filter(c => (q.q[c]||'').trim() && q
 
 function render(){
   $('#packName').value = pack.name||'';
-  if(typeof renderPackMode==='function') renderPackMode();
   renderLangChips();
   $('#qCount').textContent=`(${pack.questions.length})`;
   $('#cCount').textContent=`(${pack.topics.length})`;
@@ -810,14 +802,14 @@ function buildOptRows(){
     w.appendChild(r);
   }
   w.addEventListener('click', e=>{ const b=e.target.closest('[data-mark]'); if(!b)return;
-    b.classList.toggle('on'); b.textContent=b.classList.contains('on')?t('right'):t('wrong'); });
+    const willOn=!b.classList.contains('on');
+    if(willOn && qDraft && qDraft.mode==='bullseye'){ $$('#optList [data-mark]').forEach(x=>{ x.classList.remove('on'); x.textContent=t('wrong'); }); }
+    b.classList.toggle('on',willOn); b.textContent=willOn?t('right'):t('wrong'); });
   // save typing into draft for the active language
   w.addEventListener('input', e=>{ const inp=e.target.closest('[data-opt]'); if(!inp)return; qDraft.opts[+inp.dataset.opt].t[qActiveLang]=inp.value; });
 }
 $('#qText').addEventListener('input', e=>{ if(qDraft) qDraft.q[qActiveLang]=e.target.value; });
-$('#qModePick').addEventListener('click', e=>{ const b=e.target.closest('[data-qmode]'); if(!b||!qDraft) return; qDraft.mode=b.dataset.qmode; $$('#qModePick .modebtn').forEach(x=>x.classList.toggle('on', x.dataset.qmode===qDraft.mode)); });
-function renderPackMode(){ const pm=pack.mode||'sweep'; document.querySelectorAll('#packModePick .modebtn').forEach(x=>x.classList.toggle('on', x.dataset.pmode===pm)); }
-$('#packModePick')&&$('#packModePick').addEventListener('click', e=>{ const b=e.target.closest('[data-pmode]'); if(!b) return; const nm=b.dataset.pmode; if(nm===pack.mode) return; if(pack.questions.length && nm==='bullseye'){ const bad=pack.questions.some(q=>q.opts.filter(o=>o.correct).length!==1); if(bad && !confirm(t('tPackToBull'))) return; } pack.mode=nm; renderPackMode(); save(); toast(t('tPackMode', t(nm==='bullseye'?'modeBullseye':'modeSweep'))); });
+$('#qModePick').addEventListener('click', e=>{ const b=e.target.closest('[data-qmode]'); if(!b||!qDraft) return; qDraft.mode=b.dataset.qmode; if(qDraft.mode==='bullseye'){ let seen=false; $$('#optList [data-mark]').forEach(x=>{ if(x.classList.contains('on')){ if(seen){ x.classList.remove('on'); x.textContent=t('wrong'); } else seen=true; } }); } $$('#qModePick .modebtn').forEach(x=>x.classList.toggle('on', x.dataset.qmode===qDraft.mode)); });
 
 $('#addQuestionBtn').addEventListener('click', ()=>{ if(!pack.topics.length){ toast(t('tNeedCat')); switchTab('c'); return; } openQ(null); });
 function fillCatSelect(sel){ $('#qCat').innerHTML = pack.topics.map(t=>`<option value="${t.key}">${(typeof t.icon==='string'&&t.icon.slice(0,5)==='data:')?'🖼️':esc(t.icon)} ${esc(catName(t.key))}</option>`).join(''); if(sel)$('#qCat').value=sel; }
@@ -826,7 +818,7 @@ function openQ(id, presetCat){
   editingQId=id;
   const q=id?pack.questions.find(x=>x.id===id):null;
   // build working draft with all pack languages present
-  qDraft = { mode: pack.mode||'sweep', q:{}, opts:Array.from({length:10},()=>({t:{},correct:false})) };
+  qDraft = { mode: q ? (q.mode||'sweep') : 'sweep', q:{}, opts:Array.from({length:10},()=>({t:{},correct:false})) };
   pack.langs.forEach(c=>{ qDraft.q[c] = q? (q.q[c]||'') : ''; });
   for(let i=0;i<10;i++){
     const src = q && q.opts[i];
@@ -877,11 +869,11 @@ $('#qSave').addEventListener('click', ()=>{
   const correct=qDraft.opts.filter(o=>o.correct).length;
   const warn=$('#qWarn');
   if(qDraft.mode==='bullseye'){ if(correct!==1){ warn.textContent=t('tBull1'); warn.classList.remove('hidden'); return; } }
-  else if(correct<1||correct>9){ warn.textContent=t('tMark19'); warn.classList.remove('hidden'); return; }
+  else if(correct<2||correct>9){ warn.textContent=t('tMark19'); warn.classList.remove('hidden'); return; }
   // require at least one fully-filled language
   const filledLangs = pack.langs.filter(c=>(qDraft.q[c]||'').trim() && qDraft.opts.every(o=>(o.t[c]||'').trim()));
   if(!filledLangs.length){ warn.textContent=t('tFillOne'); warn.classList.remove('hidden'); return; }
-  const rec = { mode:pack.mode||'sweep', topic:$('#qCat').value, d:$('#qDiff').value, q:{...qDraft.q}, opts:qDraft.opts.map(o=>({t:{...o.t}, correct:o.correct})) };
+  const rec = { mode:qDraft.mode||'sweep', topic:$('#qCat').value, d:$('#qDiff').value, q:{...qDraft.q}, opts:qDraft.opts.map(o=>({t:{...o.t}, correct:o.correct})) };
   if(editingQId){ const q=pack.questions.find(x=>x.id===editingQId); Object.assign(q,rec); }
   else pack.questions.push({ id:uid('q_'), ...rec });
   save();
@@ -904,8 +896,8 @@ function buildPack(){
   const questions=[];
   pack.questions.forEach(q=>{
     const correct=q.opts.filter(o=>o.correct).length;
-    const mode=(pack.mode==='bullseye')?'bullseye':'sweep';
-    if(mode==='bullseye'){ if(correct!==1) return; } else if(correct<1||correct>9) return;
+    const mode=(q.mode==='bullseye')?'bullseye':'sweep';
+    if(mode==='bullseye'){ if(correct!==1) return; } else if(correct<2||correct>9) return;
     const L = langs.filter(c=>(q.q[c]||'').trim() && q.opts.every(o=>(o.t[c]||'').trim()));
     if(!L.length) return;
     const cat={}; L.forEach(c=>cat[c]=q.q[c].trim());
