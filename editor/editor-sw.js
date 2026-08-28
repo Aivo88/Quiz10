@@ -1,5 +1,5 @@
 // Pub Quiz Editor service worker. Bump CACHE on every editor release.
-const CACHE = 'quiz10-editor-v9';
+const CACHE = 'quiz10-editor-v10';
 const ASSETS = ['./quiz10-editor.html','./editor-manifest.json',
   './icon-editor-192.png','./icon-editor-512.png','./icon-editor-512-maskable.png',
   './apple-touch-icon-editor.png','./favicon-editor-32.png'];

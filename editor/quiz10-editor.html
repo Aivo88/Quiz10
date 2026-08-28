@@ -80,7 +80,7 @@
   .modebig:hover{border-color:var(--gold)}
   .modebig b{font-size:1.5em; letter-spacing:.3px}
   .modebig span{font-size:1em; color:var(--muted)}
-  .modeback{align-self:flex-start}
+  .modeback{margin-top:4px}
 
   .packhead{margin-top:18px; background:var(--panel); border:2px solid var(--line); border-radius:16px; padding:16px}
   .field{margin-bottom:14px}
@@ -221,12 +221,12 @@
 <!-- MODE CHOICE -->
 <div id="modeView" class="hidden">
   <div class="wrap startwrap">
-    <button class="btn small modeback" id="modeBackBtn" data-i18n="back">‹ Takaisin</button>
     <div class="modeask" data-i18n="modeAsk">Millaisia kysymyksiä teet?</div>
     <div class="modebtns">
       <button type="button" class="modebig" id="modeBullBtn"><b>Bullseye</b><span data-i18n="bullDesc">Yksi oikein</span></button>
       <button type="button" class="modebig" id="modeSweepBtn"><b>Sweep</b><span data-i18n="sweepDesc">Useampi oikein</span></button>
     </div>
+    <button class="btn small modeback" id="modeBackBtn" data-i18n="back">‹ Takaisin</button>
   </div>
 </div>
 
@@ -533,7 +533,7 @@ function detectFlag(){ try{ const c=document.createElement('canvas'); c.width=20
   for(let i=0;i<d.length;i+=4){const r=d[i],g=d[i+1],b=d[i+2],a=d[i+3]; if(a>0&&((b>90&&r<90)||(r>150&&g>120&&b<90)))n++;} return n>4; }catch(e){return false;} }
 function fl(code){ return FLAG_OK ? (LMETA[code]?LMETA[code].flag:'🏳️') : ''; }
 
-const EDITOR_VERSION = '01.00.23';
+const EDITOR_VERSION = '01.00.24';
 
 /* The game's built-in categories — same keys, so questions land in the right category in-game */
 const DEFAULT_TOPICS = [
