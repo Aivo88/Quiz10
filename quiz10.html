@@ -828,6 +828,8 @@ const T = {
     roundLabel:"This round:",
     passedTag:"PASSED",
     bustedTag:"OUT",
+    suddenDeath:"SUDDEN DEATH",
+    suddenDeathHint:"Tie-break — play on until someone leads",
     roundOver:"Round over",
     upNext:"Up next",
     startHint:"<span class='press'>OK</span> or tap to start",
@@ -908,6 +910,8 @@ const T = {
     roundLabel:"Tällä kierroksella:",
     passedTag:"PASSASI",
     bustedTag:"ULKONA",
+    suddenDeath:"ÄKKIKUOLEMA",
+    suddenDeathHint:"Tasapeli — pelataan kunnes joku johtaa",
     roundOver:"Kierros ohi",
     upNext:"Vuorossa",
     startHint:"<span class='press'>OK</span> tai napauta aloittaaksesi",
@@ -988,6 +992,8 @@ const T = {
     roundLabel:"En esta ronda:",
     passedTag:"PASÓ",
     bustedTag:"FUERA",
+    suddenDeath:"MUERTE SÚBITA",
+    suddenDeathHint:"Empate — se juega hasta que alguien lidere",
     roundOver:"Ronda terminada",
     upNext:"Turno de",
     startHint:"<span class='press'>OK</span> o toca para empezar",
@@ -3069,7 +3075,7 @@ const BULLSEYE_QUESTIONS = [
 
 const PLAYER_COLORS = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
-const APP_VERSION = '01.00.57';
+const APP_VERSION = '01.00.58';
 
 let questionsStatus = '';
 const QCACHE_KEY = 'quiz10_qcache2';  // bumped: use embedded 1000, ignore old device cache
@@ -3491,6 +3497,8 @@ let target = 25;
 let players = [];        // {name, score, color}
 let turnIdx = 0;
 let roundStarter = 0;    // who leads each new question (rotates)
+let suddenDeath = false;  // sweep tie-break in progress
+let sdPlayers = [];       // indices still contesting the tie
 let roundsPlayed = 0;    // completed rounds this game (for the topic-screen counter)
 let roundTokens = [];    // provisional correct answers this round, per player
 let pstatus = [];        // 'active' | 'passed' | 'busted', per player
@@ -3770,6 +3778,7 @@ function startGame(){
   turnIdx = 0;
   roundStarter = 0;
   roundsPlayed = 0;
+  suddenDeath = false; sdPlayers = [];
   bullQInCat = 0;
   topicDecks = {};
   usedQ = new Set();
@@ -3820,7 +3829,7 @@ function poolFor(topic){
   return idx;
 }
 function refreshTopicScreen(){
-  const si = roundsPlayed % players.length;
+  const si = roundStarter % players.length;
   const sl = playerLang[si] || lang;
   const prompt = (T[lang]||T.en).topicPrompt;
   $('#topicTitle').innerHTML = `<span style="color:var(${players[si].color})">${nameIn(si, lang)}</span> — ${prompt}`;
@@ -3836,7 +3845,7 @@ function chooseTopic(){
   showScreen('screen-topic');
 }
 function cycleLangTopic(){
-  const si = roundsPlayed % players.length;
+  const si = roundStarter % players.length;
   const av = availableLangs();
   const cur = playerLang[si] || lang;
   const i = av.indexOf(cur);
@@ -3905,7 +3914,7 @@ function drawQuestion(){
 function newQuestion(){
   const bd=$('#board'); if(bd) bd.style.opacity='0';   // hide during rebuild to avoid flicker
   drawQuestion();
-  pstatus = players.map(()=>'active');
+  pstatus = players.map((_,i)=> (suddenDeath && sdPlayers.indexOf(i)<0) ? 'eliminated' : 'active');
   roundTokens = players.map(()=>0);
   turnIdx = roundStarter % players.length;
   if(pstatus[turnIdx]!=='active') turnIdx = nextActive(turnIdx);
@@ -4166,16 +4175,50 @@ function endRound(){
   });
   updateScorebar();
 
+  // Sudden death: keep playing among the tied players until one leads outright
+  if(suddenDeath){
+    const smax = Math.max(...sdPlayers.map(i=>players[i].score));
+    const leaders = sdPlayers.filter(i=>players[i].score===smax);
+    if(leaders.length===1){ setTimeout(()=>endGame(leaders[0]), 700); return; }
+    roundsPlayed++;
+    roundStarter = nextSdStarter(roundStarter);
+    setTimeout(chooseTopic, 900);
+    return;
+  }
+
   const reached = players.map((p,i)=>({i,s:p.score})).filter(x=>x.s>=target);
   if(reached.length){
-    reached.sort((a,b)=>b.s-a.s);
-    setTimeout(()=>endGame(reached[0].i), 700);
+    const max = Math.max(...players.map(p=>p.score));
+    const topTied = players.map((p,i)=>i).filter(i=>players[i].score===max);
+    if(topTied.length===1){ setTimeout(()=>endGame(topTied[0]), 700); return; }
+    startSuddenDeath(topTied);   // tie for 1st at/over target → sweep tie-break
     return;
   }
   // next round: rotate starter, pick a new topic
   roundsPlayed++;
   roundStarter = (roundStarter+1)%players.length;
   setTimeout(chooseTopic, 900);
+}
+function nextSdStarter(from){
+  for(let k=1;k<=players.length;k++){ const idx=(from+k)%players.length; if(sdPlayers.indexOf(idx)>=0) return idx; }
+  return from;
+}
+function startSuddenDeath(tied){
+  suddenDeath = true;
+  sdPlayers = tied.slice();
+  roundStarter = sdPlayers[Math.floor(Math.random()*sdPlayers.length)];   // random opener among the tied
+  roundsPlayed++;
+  announceSuddenDeath(()=> setTimeout(chooseTopic, 150));
+}
+function announceSuddenDeath(then){
+  const names = sdPlayers.map(i=>nameShort(i, lang)).join('  &  ');
+  const bn = $('#turnBanner');
+  if(bn){ bn.style.setProperty('--tc', 'var(--bad)');
+    $('#tbEye').textContent = tg('suddenDeath');
+    $('#tbName').textContent = names;
+    $('#tbHint').innerHTML = tg('suddenDeathHint');
+    bn.classList.add('show'); }
+  setTimeout(()=>{ if(bn) bn.classList.remove('show'); then(); }, 2000);
 }
 
 function rankMedal(rank){ return rank===1?'🥇':rank===2?'🥈':rank===3?'🥉':(rank+'.'); }
