@@ -3075,7 +3075,7 @@ const BULLSEYE_QUESTIONS = [
 
 const PLAYER_COLORS = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
-const APP_VERSION = '01.00.58';
+const APP_VERSION = '01.00.59';
 
 let questionsStatus = '';
 const QCACHE_KEY = 'quiz10_qcache2';  // bumped: use embedded 1000, ignore old device cache
@@ -4128,7 +4128,8 @@ function afterBullResolved(scored){
   }
   roundStarter = (roundStarter+1) % players.length;   // next player opens
   bullQInCat++;
-  if(bullQInCat >= BULL_PER_CAT){ bullQInCat=0; roundsPlayed++; chooseTopic(); }   // new category after 5
+  const perCat = Math.ceil(BULL_PER_CAT / players.length) * players.length;   // questions per round = smallest multiple of player count that is >= 5 (solo: 5)
+  if(bullQInCat >= perCat){ bullQInCat=0; roundsPlayed++; roundStarter=(roundStarter+1)%players.length; chooseTopic(); }   // new category; rotate the picker so it isn't always the same player
   else newQuestion();                                                             // next question, same category
 }
 
