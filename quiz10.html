@@ -3075,7 +3075,7 @@ const BULLSEYE_QUESTIONS = [
 
 const PLAYER_COLORS = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
-const APP_VERSION = '01.00.59';
+const APP_VERSION = '01.00.60';
 
 let questionsStatus = '';
 const QCACHE_KEY = 'quiz10_qcache2';  // bumped: use embedded 1000, ignore old device cache
@@ -4640,6 +4640,12 @@ if('serviceWorker' in navigator && location.protocol.startsWith('http')){
    regardless of version — unregister SW, clear caches, cache-busted reload */
 // SE7EN V2 update model: ask the server directly for version.json and compare
 // numbers, so the check reports what it actually found instead of guessing.
+function cmpVer(a,b){
+  const pa=String(a).split('.').map(n=>parseInt(n,10)||0);
+  const pb=String(b).split('.').map(n=>parseInt(n,10)||0);
+  for(let i=0;i<Math.max(pa.length,pb.length);i++){ const d=(pa[i]||0)-(pb[i]||0); if(d) return d<0?-1:1; }
+  return 0;
+}
 function doUpdate(btn){
   const el = $('#updStatus');
   const say = (msg, ok) => { if(el){ el.textContent = msg; el.style.color = ok===false ? 'var(--bad)' : (ok===true ? 'var(--good)' : 'var(--muted)'); } };
@@ -4650,11 +4656,11 @@ function doUpdate(btn){
     .then(info => {
       const remote = info && info.version;
       if(!remote){ say(tr('updReadFail'), false); return; }
-      if(String(remote) === String(APP_VERSION)){
+      if(cmpVer(remote, APP_VERSION) <= 0){
         say(tr('updLatest').replace('%v', APP_VERSION), true);
         return;
       }
-      // A newer version exists → wipe caches + service worker and reload clean.
+      // A strictly newer version exists → wipe caches + service worker and reload clean.
       say(tr('updFound').replace('%v', remote));
       (async()=>{
         try{
