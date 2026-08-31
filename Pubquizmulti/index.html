@@ -473,6 +473,11 @@
 
 
   /* ---- multiplayer extras ---- */
+  /* option buttons are <button>, so reset UA color/font to match the game's .opt <div> */
+  #stage .opt{ appearance:none; -webkit-appearance:none; color:var(--ink); font-family:inherit; }
+  /* game's big menu-button sizing is scoped to #screen-menu/#screen-mode; apply it to all our menu-col buttons */
+  .menu-col .btn.block{ justify-content:center; gap:.5em; border-width:2px; border-radius:22px; padding:clamp(20px,3.6vh,38px) clamp(24px,3vw,40px); font-size:calc(clamp(22px,3.1vw,42px) * var(--fs)); font-weight:800; }
+  .menu-col .btn.block .mi{ font-size:1.35em; }
   input[type=text]{ width:min(440px,90vw); background:var(--bg2); border:2px solid var(--line); color:var(--ink); font:inherit; font-size:1.1rem; font-weight:700; text-align:center; padding:14px; border-radius:14px; outline:none; }
   input[type=text]:focus{ border-color:var(--gold); }
   input[type=range]{ width:min(440px,90vw); accent-color:var(--gold); }
@@ -638,7 +643,7 @@
 <script>
 
 "use strict";
-const MP_VERSION = '00.04.01';
+const MP_VERSION = '00.04.02';
 const $ = s => document.querySelector(s);
 const PCOL = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
