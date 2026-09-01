@@ -651,7 +651,7 @@
 <script>
 
 "use strict";
-const MP_VERSION = '00.04.04';
+const MP_VERSION = '00.04.05';
 const $ = s => document.querySelector(s);
 const PCOL = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
@@ -838,7 +838,7 @@ function onAnswer(pid, idx){
   if(curQ.opts[idx].correct){
     room.scores[pid]=(room.scores[pid]||0)+1;
     room.q.correctIdx=idx; room.q.winnerPid=pid; room.phase='reveal'; clearDeadline(); pushState();
-    if(room.scores[pid]>=room.target) setTimeout(()=>doWin(pid),1700); else setTimeout(nextQuestion,1700);
+    if(room.scores[pid]>=room.target) setTimeout(()=>doWin(pid),1200); else setTimeout(nextQuestion,1000);
   } else {
     room.q.failed.push(idx); tried.add(pid); passToNext();
   }
@@ -948,6 +948,30 @@ function renderHostCtl(sel){
   });
 }
 
+/* ---------- Sound effects (Web Audio, ported from the game) ---------- */
+let actx=null;
+function audioInit(){ if(!actx){ try{ actx=new (window.AudioContext||window.webkitAudioContext)(); }catch(e){ return; } } if(actx && actx.state==='suspended') actx.resume(); }
+function tone(freq,dur,type,vol,when){ if(!actx) return; const t0=actx.currentTime+(when||0); const o=actx.createOscillator(), g=actx.createGain(); o.type=type||'sine'; o.frequency.setValueAtTime(freq,t0); g.gain.setValueAtTime(0.0001,t0); g.gain.exponentialRampToValueAtTime(vol||0.2,t0+0.012); g.gain.exponentialRampToValueAtTime(0.0001,t0+dur); o.connect(g).connect(actx.destination); o.start(t0); o.stop(t0+dur+0.03); }
+const sfx={
+  correct(){ tone(660,0.12,'sine',0.28,0); tone(988,0.20,'sine',0.24,0.09); },
+  wrong(){ tone(196,0.30,'sawtooth',0.20,0); tone(146,0.34,'sawtooth',0.16,0.06); },
+  pass(){ tone(523,0.10,'triangle',0.18,0); tone(392,0.14,'triangle',0.15,0.07); },
+  turn(){ tone(784,0.14,'sine',0.20,0); },
+  win(){ [523,659,784,1047].forEach((f,i)=>tone(f,0.24,'sine',0.26,i*0.13)); },
+  select(){ tone(880,0.05,'square',0.09,0); }
+};
+let snd={phase:'',ans:'',failed:0,revealed:false};
+function soundTick(){
+  if(!room) return;
+  const ph=room.phase, ans=room.answererPid||''; const q=room.q; const fl=q?q.failed.length:0;
+  if(ph==='question' && snd.phase!=='question'){ snd.failed=0; snd.revealed=false; if(ans===ME) sfx.turn(); }
+  else if(ph==='question' && ans!==snd.ans && ans===ME){ sfx.turn(); }
+  if(ph==='question' && fl>snd.failed){ sfx.wrong(); }
+  if(ph==='reveal' && !snd.revealed){ snd.revealed=true; if(q&&q.winnerPid) sfx.correct(); }
+  if(ph==='win' && snd.phase!=='win'){ sfx.win(); }
+  snd.phase=ph; snd.ans=ans; snd.failed=fl;
+}
+
 function renderGame(){
   if(!room) return;
   if(room.langs && room.langs.indexOf(myLang)<0) myLang=room.langs[0]||'fi';
@@ -955,6 +979,7 @@ function renderGame(){
   if(ph==='win'){ show('view-win'); renderWin(); }
   else if(ph==='category'){ show('view-cat'); renderCat(); }
   else { show('view-q'); renderQ(); }
+  soundTick();
   startCountdownDisplay();
 }
 function renderCat(){
@@ -1065,6 +1090,7 @@ $('#hostLeave').addEventListener('click', ()=>{ leaveAll(); show('view-home'); }
 $('#guestLeave').addEventListener('click', ()=>{ leaveAll(); show('view-home'); });
 document.querySelectorAll('.leaveBtn').forEach(bb=> bb.addEventListener('click', ()=>{ leaveAll(); show('view-home'); }));
 document.querySelectorAll('#qFlag,#catFlag').forEach(f=> f.addEventListener('click', cycleMyLang));
+document.addEventListener('click', e=>{ audioInit(); const t=e.target; if(t.closest && t.closest('.btn, .topic, .langflag') && !t.closest('.opt')) sfx.select(); }, true);
 $('#timeSlider').addEventListener('input', e=>{ const v=+e.target.value; $('#timeVal').textContent = v>90?'Ei aikarajaa':(v+' s'); });
 
 /* pub background (same image as the game) */
