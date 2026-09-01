@@ -483,6 +483,8 @@
   #hostPlayers .pchip, #lobbyPlayers .pchip{ flex:none; width:100%; flex-direction:row; align-items:center; min-height:62px; padding:16px 18px; border-radius:16px; }
   #hostPlayers .pchip .pname, #lobbyPlayers .pchip .pname{ font-size:clamp(17px,5vw,24px); color:var(--ink); }
   #hostPlayers .pchip .pscore, #lobbyPlayers .pchip .pscore{ display:none; }
+  #hostPlayers .pchip .pname{ flex:1; }
+  #hostPlayers .pchip .removeBtn{ margin-left:auto; flex:none; }
   #hostPlayers .pchip .tag, #lobbyPlayers .pchip .tag{ font-size:1.1em; top:auto; }
   input[type=text]{ width:min(440px,90vw); background:var(--bg2); border:2px solid var(--line); color:var(--ink); font:inherit; font-size:1.1rem; font-weight:700; text-align:center; padding:14px; border-radius:14px; outline:none; }
   input[type=text]:focus{ border-color:var(--gold); }
@@ -649,7 +651,7 @@
 <script>
 
 "use strict";
-const MP_VERSION = '00.04.03';
+const MP_VERSION = '00.04.04';
 const $ = s => document.querySelector(s);
 const PCOL = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
@@ -845,9 +847,8 @@ function passToNext(){
   const n=room.players.length;
   const curIdx=room.players.findIndex(p=>p.id===room.answererPid);
   for(let k=1;k<=n;k++){ const c=room.players[((curIdx<0?0:curIdx)+k)%n]; if(c && !c.away && !tried.has(c.id)){ room.answererPid=c.id; room.q.answererPid=c.id; setDeadline(); pushState(); return; } }
-  const ci=curQ.opts.findIndex(o=>o.correct);
-  room.q.correctIdx=ci; room.q.winnerPid=null; room.phase='reveal'; clearDeadline(); pushState();
-  setTimeout(nextQuestion,1900);
+  room.q.correctIdx=null; room.q.winnerPid=null; room.phase='reveal'; clearDeadline(); pushState();
+  setTimeout(nextQuestion,1500);
 }
 function nextQuestion(){
   if(room.phase==='win') return;
@@ -918,7 +919,7 @@ function sendAnswer(idx){ if(iamHost) onAnswer(ME,idx); else net.send({t:'action
 function sendReturn(){ if(iamHost) onReturn(ME); else net.send({t:'action',a:'back',id:ME}); }
 function returnBtn(){ const b=document.createElement('button'); b.className='btn gold'; b.textContent='Olen takaisin'; b.onclick=sendReturn; return b; }
 
-function renderChips(sel){
+function renderChips(sel, withCtl){
   const bar=$(sel); if(!bar||!room) return; bar.innerHTML='';
   const cur = room.started ? (room.phase==='category'?room.pickerPid:room.answererPid) : null;
   const hl = room.started && room.phase!=='reveal' && room.phase!=='win';
@@ -928,6 +929,10 @@ function renderChips(sel){
     const nm=(p.id===room.hostId?'★ ':'')+esc(p.name)+(p.id===ME?' (sinä)':'');
     const score=(room.started&&room.scores)?(room.scores[p.id]!=null?room.scores[p.id]:0):'';
     el.innerHTML='<span class="bar"></span><span class="tag">'+(p.away?'💤':'')+'</span><span class="pname">'+nm+'</span><span class="pscore">'+score+'</span>';
+    if(withCtl && iamHost && p.id!==ME){
+      const rm=document.createElement('button'); rm.className='btn chip removeBtn'; rm.textContent='Poista'; rm.onclick=(e)=>{ e.stopPropagation(); hostRemove(p.id); };
+      el.appendChild(rm);
+    }
     bar.appendChild(el);
   });
 }
@@ -965,7 +970,7 @@ function renderCat(){
 }
 function renderQ(){
   const q=room.q; if(!q) return;
-  const reveal=(q.correctIdx!=null); const meAns=(room.answererPid===ME)&&!reveal&&!meAway();
+  const reveal=(room.phase==='reveal'); const meAns=(room.answererPid===ME)&&!reveal&&!meAway();
   $('#qText').textContent = pickMy(q.catML);
   const qf=$('#qFlag'); if(qf) qf.textContent=flagFor(myLang);
   const wrap=$('#qOpts'); wrap.innerHTML='';
@@ -976,7 +981,7 @@ function renderQ(){
     b.innerHTML='<span class="idx">'+(i+1)+'</span><span class="txt">'+esc(pickMy(o))+'</span><span class="tick"></span>';
     const tick=b.querySelector('.tick');
     if(reveal){
-      if(i===q.correctIdx){ b.classList.add('claimed'); const wi=room.players.findIndex(p=>p.id===q.winnerPid); if(wi>=0) b.style.setProperty('--c',playerColor(wi)); tick.textContent='✓'; }
+      if(q.correctIdx!=null && i===q.correctIdx){ b.classList.add('claimed'); const wi=room.players.findIndex(p=>p.id===q.winnerPid); if(wi>=0) b.style.setProperty('--c',playerColor(wi)); tick.textContent='✓'; }
       else if(q.failed.includes(i)){ b.classList.add('wrong'); tick.textContent='✕'; }
       else b.classList.add('dim');
       b.disabled=true;
@@ -995,7 +1000,7 @@ function renderPlayers(sel){ renderChips(sel); }
 function renderHost(){
   $('#hostCode').textContent=room.code;
   const link=joinURL(room.code); $('#joinLink').value=link; drawQR(link);
-  renderChips('#hostPlayers'); renderHostCtl('#hostCtl');
+  renderChips('#hostPlayers', true); const hc=$('#hostCtl'); if(hc) hc.innerHTML='';
   const enough=room.players.length>=2;
   $('#startGame').disabled=!enough;
   $('#startHint').textContent = enough ? 'Valmista — paina Aloita peli.' : 'Tarvitaan vähintään 2 pelaajaa.';
