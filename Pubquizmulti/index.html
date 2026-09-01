@@ -651,7 +651,7 @@
 <script>
 
 "use strict";
-const MP_VERSION = '00.04.05';
+const MP_VERSION = '00.04.06';
 const $ = s => document.querySelector(s);
 const PCOL = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
@@ -827,7 +827,7 @@ function startQuestion(){
   curQ=drawFromTopic(room.currentTopic); tried=new Set();
   room.phase='question';
   const L=room.langs||['fi'];
-  room.q={ catML:curQ.cat, optsML:curQ.opts.map(o=>{ const m={}; L.forEach(l=>{ m[l]=o[l]||''; }); return m; }), failed:[], answererPid:room.answererPid, correctIdx:null, winnerPid:null };
+  room.q={ catML:curQ.cat, optsML:curQ.opts.map(o=>{ const m={}; L.forEach(l=>{ m[l]=o[l]||''; }); return m; }), failed:[], failedBy:{}, answererPid:room.answererPid, correctIdx:null, winnerPid:null };
   setDeadline(); pushState();
 }
 function onAnswer(pid, idx){
@@ -840,7 +840,7 @@ function onAnswer(pid, idx){
     room.q.correctIdx=idx; room.q.winnerPid=pid; room.phase='reveal'; clearDeadline(); pushState();
     if(room.scores[pid]>=room.target) setTimeout(()=>doWin(pid),1200); else setTimeout(nextQuestion,1000);
   } else {
-    room.q.failed.push(idx); tried.add(pid); passToNext();
+    room.q.failed.push(idx); room.q.failedBy[idx]=pid; tried.add(pid); passToNext();
   }
 }
 function passToNext(){
@@ -1005,13 +1005,15 @@ function renderQ(){
     const b=document.createElement('button'); b.className='opt';
     b.innerHTML='<span class="idx">'+(i+1)+'</span><span class="txt">'+esc(pickMy(o))+'</span><span class="tick"></span>';
     const tick=b.querySelector('.tick');
-    if(reveal){
+    if(q.failed.includes(i)){
+      b.classList.add('wrong'); tick.textContent='✕'; b.disabled=true;
+      const fb=q.failedBy&&q.failedBy[i]; const fi=fb?room.players.findIndex(p=>p.id===fb):-1;
+      if(fi>=0) b.style.setProperty('--c', playerColor(fi));
+    } else if(reveal){
       if(q.correctIdx!=null && i===q.correctIdx){ b.classList.add('claimed'); const wi=room.players.findIndex(p=>p.id===q.winnerPid); if(wi>=0) b.style.setProperty('--c',playerColor(wi)); tick.textContent='✓'; }
-      else if(q.failed.includes(i)){ b.classList.add('wrong'); tick.textContent='✕'; }
-      else b.classList.add('dim');
+      else if(q.correctIdx!=null){ b.classList.add('dim'); }   /* dim others only when someone won */
       b.disabled=true;
-    } else if(q.failed.includes(i)){ b.classList.add('wrong'); tick.textContent='✕'; b.disabled=true; }
-    else { b.disabled=!meAns; if(meAns) b.onclick=()=>sendAnswer(i); }
+    } else { b.disabled=!meAns; if(meAns) b.onclick=()=>sendAnswer(i); }
     wrap.appendChild(b);
   });
   const ans=findP(room.answererPid); const turn=$('#qTurn'); turn.innerHTML='';
