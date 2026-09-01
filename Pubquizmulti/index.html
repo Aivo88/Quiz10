@@ -651,7 +651,7 @@
 <script>
 
 "use strict";
-const MP_VERSION = '00.04.06';
+const MP_VERSION = '00.04.08';
 const $ = s => document.querySelector(s);
 const PCOL = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
@@ -964,10 +964,10 @@ let snd={phase:'',ans:'',failed:0,revealed:false};
 function soundTick(){
   if(!room) return;
   const ph=room.phase, ans=room.answererPid||''; const q=room.q; const fl=q?q.failed.length:0;
-  if(ph==='question' && snd.phase!=='question'){ snd.failed=0; snd.revealed=false; if(ans===ME) sfx.turn(); }
-  else if(ph==='question' && ans!==snd.ans && ans===ME){ sfx.turn(); }
-  if(ph==='question' && fl>snd.failed){ sfx.wrong(); }
-  if(ph==='reveal' && !snd.revealed){ snd.revealed=true; if(q&&q.winnerPid) sfx.correct(); }
+  if(ph==='question' && snd.phase!=='question'){ snd.failed=0; snd.revealed=false; }   /* new question: reset */
+  if(fl>snd.failed){ sfx.wrong(); }                                                     /* a wrong pick — also the LAST miss that flips to reveal */
+  if(ph==='reveal' && !snd.revealed && q && q.winnerPid){ snd.revealed=true; sfx.correct(); }
+  if(ph==='question' && ans===ME && (snd.phase!=='question' || ans!==snd.ans)){ sfx.turn(); }
   if(ph==='win' && snd.phase!=='win'){ sfx.win(); }
   snd.phase=ph; snd.ans=ans; snd.failed=fl;
 }
@@ -1000,7 +1000,7 @@ function renderQ(){
   const qf=$('#qFlag'); if(qf) qf.textContent=flagFor(myLang);
   const wrap=$('#qOpts'); wrap.innerHTML='';
   const ansIdx=room.players.findIndex(p=>p.id===room.answererPid);
-  wrap.style.setProperty('--pc', (!reveal && ansIdx>=0)?playerColor(ansIdx):'');
+  wrap.style.setProperty('--pc', ansIdx>=0?playerColor(ansIdx):'');
   q.optsML.forEach((o,i)=>{
     const b=document.createElement('button'); b.className='opt';
     b.innerHTML='<span class="idx">'+(i+1)+'</span><span class="txt">'+esc(pickMy(o))+'</span><span class="tick"></span>';
@@ -1011,7 +1011,7 @@ function renderQ(){
       if(fi>=0) b.style.setProperty('--c', playerColor(fi));
     } else if(reveal){
       if(q.correctIdx!=null && i===q.correctIdx){ b.classList.add('claimed'); const wi=room.players.findIndex(p=>p.id===q.winnerPid); if(wi>=0) b.style.setProperty('--c',playerColor(wi)); tick.textContent='✓'; }
-      else if(q.correctIdx!=null){ b.classList.add('dim'); }   /* dim others only when someone won */
+      /* idle options: left untouched — the game never dims them */
       b.disabled=true;
     } else { b.disabled=!meAns; if(meAns) b.onclick=()=>sendAnswer(i); }
     wrap.appendChild(b);
