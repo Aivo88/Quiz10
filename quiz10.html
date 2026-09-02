@@ -3075,7 +3075,7 @@ const BULLSEYE_QUESTIONS = [
 
 const PLAYER_COLORS = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
-const APP_VERSION = '01.00.65';
+const APP_VERSION = '01.00.66';
 
 let questionsStatus = '';
 const QCACHE_KEY = 'quiz10_qcache2';  // bumped: use embedded 1000, ignore old device cache
@@ -3831,6 +3831,7 @@ function poolFor(topic){
 function refreshTopicScreen(){
   const si = roundStarter % players.length;
   const sl = playerLang[si] || lang;
+  syncEngineLang(si);
   const prompt = (T[lang]||T.en).topicPrompt;
   $('#topicTitle').innerHTML = `<span style="color:var(${players[si].color})">${nameIn(si, lang)}</span> — ${prompt}`;
   const tf = $('#langFlagTopic'); if(tf) tf.textContent = flagFor(sl);
@@ -3919,6 +3920,7 @@ function newQuestion(){
   roundTokens = players.map(()=>0);
   turnIdx = roundStarter % players.length;
   if(pstatus[turnIdx]!=='active') turnIdx = nextActive(turnIdx);
+  syncEngineLang(turnIdx);
   renderBoard();
   updateHeader();
   updateScorebar();
@@ -3933,6 +3935,7 @@ function newQuestion(){
 function announceTurn(){
   turnActive = false;
   awaitingTurn = true;
+  syncEngineLang(turnIdx);
   if(players.length===1){ confirmTurn(); return; }   // solo play: no turn hand-off, continue straight to the next question
   const p = players[turnIdx];
   $('#turnBanner').style.setProperty('--tc', `var(${p.color})`);
@@ -3984,6 +3987,10 @@ function applyLang(){
 }
 function updateFlag(){
   const f = $('#langFlag'); if(f) f.textContent = flagFor(dispLang());
+}
+function syncEngineLang(idx){
+  const pl = playerLang[idx];
+  if(pl && BASE_LANGS.includes(pl) && pl!==lang){ lang=pl; saveLang(); applyStaticText(); updateCornerFlags(); }
 }
 function cycleLang(){
   const av = availableLangs();
@@ -4467,11 +4474,11 @@ function activate(el){
   else if(a==='mainmenu'){ showScreen('screen-menu'); }
   else if(a==='setTheme'){ settings.theme=el.dataset.v; applySettings(); saveSettings(); }
   else if(a==='cyclelangglobal'){ cycleGlobalLang(); }
-  else if(a==='setLang'){ lang=el.dataset.v; saveLang(); applyStaticText(); applySettings(); updateCornerFlags(); saveSettings(); }
+  else if(a==='setLang'){ lang=el.dataset.v; saveLang(); applyStaticText(); applySettings(); updateCornerFlags(); renderLangPickers(); saveSettings(); }
   else if(a==='toggleA'){ settings.confirmA=!settings.confirmA; applySettings(); saveSettings(); }
   else if(a==='toggleB'){ settings.confirmB=!settings.confirmB; applySettings(); saveSettings(); }
   else if(a==='update'){ doUpdate(el); }
-  else if(a==='lang'){ lang=el.dataset.lang; applyStaticText(); refreshSetup(); showScreen('screen-setup'); }
+  else if(a==='lang'){ lang=el.dataset.lang; saveLang(); applyStaticText(); refreshSetup(); showScreen('screen-setup'); }
   else if(a==='players'){ numPlayers = Math.min(8, Math.max(1, numPlayers + (+el.dataset.d))); refreshSetup(); }
   else if(a==='sizeStep'){ setSizeIndex(sizeIndex() + (+el.dataset.d)); }
   else if(a==='edgeStep'){ setEdgeIndex(edgeIndex() + (+el.dataset.d)); }
