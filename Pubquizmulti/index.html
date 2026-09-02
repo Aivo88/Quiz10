@@ -632,7 +632,7 @@
     </div>
     <div class="category" id="qText"></div>
     <div class="board" id="qOpts"></div>
-    <div class="actions"><button class="btn back leaveBtn">Poistu</button></div>
+    <div class="actions"><button class="btn good" id="qPass" style="display:none"></button><button class="btn back leaveBtn">Poistu</button></div>
   </section>
 
   <section class="screen" id="view-win">
@@ -651,7 +651,7 @@
 <script>
 
 "use strict";
-const MP_VERSION = '00.04.08';
+const MP_VERSION = '00.05.00';
 const $ = s => document.querySelector(s);
 const PCOL = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
@@ -690,6 +690,16 @@ let topics = [];
 let used = new Set();
 let curQ = null, curQIdx = -1, tried = new Set();
 let poolLangs = ['fi','en','es'];
+const TOPIC_DEFS=[
+ {key:'geo',icon:'🌍',fi:'Maantiede',en:'Geography',es:'Geografía'},
+ {key:'sci',icon:'🔬',fi:'Tiede & luonto',en:'Science & Nature',es:'Ciencia y naturaleza'},
+ {key:'arts',icon:'🎭',fi:'Taide & musiikki',en:'Arts & Music',es:'Arte y música'},
+ {key:'sport',icon:'⚽',fi:'Urheilu & pelit',en:'Sport & Games',es:'Deporte y juegos'},
+ {key:'hist',icon:'🏛️',fi:'Historia',en:'History',es:'Historia'},
+ {key:'gen',icon:'🧠',fi:'Yleistieto',en:'General',es:'General'},
+ {key:'film',icon:'🎬',fi:'Elokuvat & TV',en:'Film & TV',es:'Cine y TV'},
+ {key:'mixed',icon:'🎲',fi:'Sekaisin',en:'Mixed',es:'Variado'}
+];
 let myLang = 'fi';
 const LANG_FLAG={fi:'🇫🇮',en:'🇬🇧',es:'🇪🇸',sv:'🇸🇪',de:'🇩🇪',fr:'🇫🇷',it:'🇮🇹',pt:'🇵🇹',nl:'🇳🇱',et:'🇪🇪',no:'🇳🇴',da:'🇩🇰',pl:'🇵🇱'};
 function flagFor(c){ return LANG_FLAG[c]||String(c||'').toUpperCase(); }
@@ -715,6 +725,8 @@ function onHostMsg(msg){
   else if(msg.t==='action'){
     if(msg.a==='pickTopic') onPick(msg.id, msg.topic);
     else if(msg.a==='answer') onAnswer(msg.id, msg.idx);
+    else if(msg.a==='pick') sweepPick(msg.id, msg.idx);
+    else if(msg.a==='pass') sweepPass(msg.id);
     else if(msg.a==='back') onReturn(msg.id);
   }
 }
@@ -751,7 +763,7 @@ async function hostBegin(mode){
   room.started=true;
   room.players.forEach(p=>{ p.away=false; p.misses=0; });
   startHostTick();
-  startBullseye();
+  if(room.mode==='sweep') startSweep(); else startBullseye();
 }
 /* --- question loading + normalisation (host only) --- */
 function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
@@ -761,7 +773,7 @@ async function loadPool(mode){
   const data = await r.json();
   const arr = Array.isArray(data) ? data : (data.questions||[]);
   const order = (!Array.isArray(data) && Array.isArray(data.langs)) ? data.langs.map(l=>l.code) : ['en','fi','es'];
-  topics = (!Array.isArray(data) && Array.isArray(data.topics)) ? data.topics.slice() : [];
+  topics = (!Array.isArray(data) && Array.isArray(data.topics)) ? data.topics.slice() : TOPIC_DEFS.slice();
   poolLangs = order.slice();
   const norm = arr.map(q=>normQ(q, order)).filter(q=>q && q.opts.length>=2);
   return shuffle(norm);
@@ -813,7 +825,7 @@ function beginCategory(){
 function onPick(pid, topic){
   if(room.phase!=='category' || pid!==room.pickerPid) return;
   if(!(room.availTopics||[]).some(t=>t.key===topic)) return;
-  room.currentTopic=topic; startQuestion();
+  room.currentTopic=topic; if(room.mode==='sweep') startSweepRound(); else startQuestion();
 }
 function drawFromTopic(topic){
   let idxs=[]; for(let i=0;i<pool.length;i++){ if(pool[i].topic===topic && !used.has(i)) idxs.push(i); }
@@ -861,12 +873,12 @@ function onReturn(pid){ const p=findP(pid); if(p){ p.away=false; p.misses=0; } i
 function reconcile(pid){
   if(!room.started){ pushState(); return; }
   if(room.phase==='category'){ room.pickerPid=seatToActivePid(room.catStarterSeat); room.availTopics=availableTopics(); pushState(); return; }
-  if(room.phase==='question'){ const a=findP(room.answererPid); if(pid===room.answererPid || !a || a.away){ passToNext(); } else pushState(); return; }
+  if(room.phase==='question'){ if(room.mode==='sweep'){ const a=findP(room.q.answererPid); if(pid===room.q.answererPid || !a || a.away){ sweepAdvance(); } else pushState(); return; } const a=findP(room.answererPid); if(pid===room.answererPid || !a || a.away){ passToNext(); } else pushState(); return; }
   pushState();
 }
 function onDeadline(){
   if(room.phase==='category'){ const av=room.availTopics||[]; const t=av[Math.floor(Math.random()*av.length)]; if(t) onPick(room.pickerPid, t.key); return; }
-  if(room.phase==='question'){ const p=findP(room.answererPid); if(p){ p.misses=(p.misses||0)+1; if(p.misses>=2) p.away=true; } tried.add(room.answererPid); passToNext(); }
+  if(room.phase==='question'){ if(room.mode==='sweep'){ sweepPass(room.q.answererPid); return; } const p=findP(room.answererPid); if(p){ p.misses=(p.misses||0)+1; if(p.misses>=2) p.away=true; } tried.add(room.answererPid); passToNext(); }
 }
 function startHostTick(){
   clearInterval(hostTick);
@@ -921,14 +933,19 @@ function returnBtn(){ const b=document.createElement('button'); b.className='btn
 
 function renderChips(sel, withCtl){
   const bar=$(sel); if(!bar||!room) return; bar.innerHTML='';
-  const cur = room.started ? (room.phase==='category'?room.pickerPid:room.answererPid) : null;
+  const cur = !room.started ? null : (room.phase==='category' ? room.pickerPid : ((room.q&&room.q.answererPid)||room.answererPid));
   const hl = room.started && room.phase!=='reveal' && room.phase!=='win';
+  const sweep = room.mode==='sweep' && room.q && room.q.status;
   room.players.forEach((p,i)=>{
-    const el=document.createElement('div'); el.className='pchip'+((p.id===cur&&hl)?' active':'')+(p.away?' out':'');
+    const swst = sweep ? room.q.status[p.id] : null;
+    const out = p.away || swst==='busted';
+    const el=document.createElement('div'); el.className='pchip'+((p.id===cur&&hl)?' active':'')+(out?' out':'');
     el.style.setProperty('--c', playerColor(i));
     const nm=(p.id===room.hostId?'★ ':'')+esc(p.name)+(p.id===ME?' (sinä)':'');
-    const score=(room.started&&room.scores)?(room.scores[p.id]!=null?room.scores[p.id]:0):'';
-    el.innerHTML='<span class="bar"></span><span class="tag">'+(p.away?'💤':'')+'</span><span class="pname">'+nm+'</span><span class="pscore">'+score+'</span>';
+    let score=(room.started&&room.scores)?(room.scores[p.id]!=null?room.scores[p.id]:0):'';
+    if(sweep && swst==='active' && room.q.tokens[p.id]>0) score = score + ' +' + room.q.tokens[p.id];
+    const tag = p.away?'💤':(swst==='busted'?'💥':(swst==='passed'?'✔':''));
+    el.innerHTML='<span class="bar"></span><span class="tag">'+tag+'</span><span class="pname">'+nm+'</span><span class="pscore">'+score+'</span>';
     if(withCtl && iamHost && p.id!==ME){
       const rm=document.createElement('button'); rm.className='btn chip removeBtn'; rm.textContent='Poista'; rm.onclick=(e)=>{ e.stopPropagation(); hostRemove(p.id); };
       el.appendChild(rm);
@@ -963,22 +980,132 @@ const sfx={
 let snd={phase:'',ans:'',failed:0,revealed:false};
 function soundTick(){
   if(!room) return;
-  const ph=room.phase, ans=room.answererPid||''; const q=room.q; const fl=q?q.failed.length:0;
-  if(ph==='question' && snd.phase!=='question'){ snd.failed=0; snd.revealed=false; }   /* new question: reset */
-  if(fl>snd.failed){ sfx.wrong(); }                                                     /* a wrong pick — also the LAST miss that flips to reveal */
+  const ph=room.phase, q=room.q; const ans=(q&&q.answererPid)?q.answererPid:(room.answererPid||'');
+  if(room.mode==='sweep'){
+    if(ph==='category'){ snd.sclaim=0; snd.swrong=0; }
+    if(q && q.optState){
+      const cl=q.optState.filter(x=>x==='claimed').length, wr=q.optState.filter(x=>x==='wrong').length;
+      if(cl>(snd.sclaim||0)) sfx.correct();
+      if(wr>(snd.swrong||0)) sfx.wrong();
+      snd.sclaim=cl; snd.swrong=wr;
+    }
+    if(ph==='question' && ans===ME && (snd.phase!=='question' || ans!==snd.ans)) sfx.turn();
+    if(ph==='win' && snd.phase!=='win') sfx.win();
+    snd.phase=ph; snd.ans=ans; return;
+  }
+  const fl=q?q.failed.length:0;
+  if(ph==='question' && snd.phase!=='question'){ snd.failed=0; snd.revealed=false; }
+  if(fl>snd.failed){ sfx.wrong(); }
   if(ph==='reveal' && !snd.revealed && q && q.winnerPid){ snd.revealed=true; sfx.correct(); }
   if(ph==='question' && ans===ME && (snd.phase!=='question' || ans!==snd.ans)){ sfx.turn(); }
   if(ph==='win' && snd.phase!=='win'){ sfx.win(); }
   snd.phase=ph; snd.ans=ans; snd.failed=fl;
 }
 
+/* ---------- Sweep round (push-your-luck) ---------- */
+function startSweep(){
+  room.lang='fi'; room.langs=(poolLangs&&poolLangs.length)?poolLangs.slice():['fi'];
+  room.scores={}; room.players.forEach(p=>room.scores[p.id]=0);
+  room.catStarterSeat=0; room.winnerPid=null; used=new Set();
+  beginCategory();
+}
+function firstActiveFrom(status, seat){
+  const n=room.players.length;
+  for(let k=0;k<n;k++){ const p=room.players[(seat+k)%n]; if(p && status[p.id]==='active') return p.id; }
+  return null;
+}
+function startSweepRound(){
+  curQ=drawFromTopic(room.currentTopic);
+  const L=room.langs||['fi']; const status={},tokens={};
+  room.players.forEach(p=>{ status[p.id]='active'; tokens[p.id]=0; });
+  const ans=firstActiveFrom(status, room.catStarterSeat%room.players.length);
+  room.phase='question';
+  room.q={ mode:'sweep', catML:curQ.cat,
+    optsML:curQ.opts.map(o=>{ const m={}; L.forEach(l=>m[l]=o[l]||''); return m; }),
+    optState:curQ.opts.map(()=>'idle'), optBy:curQ.opts.map(()=>null),
+    status, tokens, answererPid:ans, roundOver:false };
+  setDeadline(); pushState();
+}
+function sweepPick(pid, idx){
+  if(room.phase!=='question' || !room.q || room.q.mode!=='sweep' || pid!==room.q.answererPid) return;
+  if(typeof idx!=='number' || idx<0 || idx>=curQ.opts.length) return;
+  if(room.q.optState[idx]!=='idle') return;
+  const p=findP(pid); if(p) p.misses=0;
+  if(curQ.opts[idx].correct){ room.q.optState[idx]='claimed'; room.q.optBy[idx]=pid; room.q.tokens[pid]=(room.q.tokens[pid]||0)+1; }
+  else { room.q.optState[idx]='wrong'; room.q.optBy[idx]=pid; room.q.tokens[pid]=0; room.q.status[pid]='busted'; }
+  sweepAdvance();
+}
+function sweepPass(pid){
+  if(room.phase!=='question' || !room.q || room.q.mode!=='sweep' || pid!==room.q.answererPid) return;
+  const p=findP(pid); if(p) p.misses=0;
+  room.scores[pid]=(room.scores[pid]||0)+(room.q.tokens[pid]||0);
+  room.q.status[pid]='passed';
+  sweepAdvance();
+}
+function sweepAdvance(){
+  const anyActive=room.players.some(p=>room.q.status[p.id]==='active');
+  const idleLeft=room.q.optState.some(x=>x==='idle');
+  if(!anyActive || !idleLeft){ sweepEndRound(); return; }
+  const n=room.players.length; const curIdx=room.players.findIndex(p=>p.id===room.q.answererPid);
+  for(let k=1;k<=n;k++){ const c=room.players[((curIdx<0?0:curIdx)+k)%n]; if(c && room.q.status[c.id]==='active'){ room.q.answererPid=c.id; setDeadline(); pushState(); return; } }
+  sweepEndRound();
+}
+function sweepEndRound(){
+  room.players.forEach(p=>{ if(room.q.status[p.id]==='active'){ room.scores[p.id]=(room.scores[p.id]||0)+(room.q.tokens[p.id]||0); room.q.status[p.id]='passed'; } });
+  room.q.roundOver=true; room.phase='reveal'; clearDeadline(); pushState();
+  setTimeout(sweepAfterRound, 1700);
+}
+function sweepAfterRound(){
+  if(room.phase==='win') return;
+  const max=Math.max(...room.players.map(p=>room.scores[p.id]||0));
+  const reached=room.players.some(p=>(room.scores[p.id]||0)>=room.target);
+  if(reached){
+    const top=room.players.filter(p=>(room.scores[p.id]||0)===max);
+    if(top.length===1){ doWin(top[0].id); return; }   /* tie -> keep playing until someone leads alone */
+  }
+  room.catStarterSeat=(room.catStarterSeat+1)%room.players.length;
+  beginCategory();
+}
+function sendSweepPick(idx){ if(iamHost) sweepPick(ME,idx); else net.send({t:'action',a:'pick',idx,id:ME}); }
+function sendPass(){ if(iamHost) sweepPass(ME); else net.send({t:'action',a:'pass',id:ME}); }
+function renderSweep(){
+  const q=room.q; if(!q) return;
+  const reveal=(room.phase==='reveal');
+  const meAns=(q.answererPid===ME) && !reveal && !meAway() && q.status[ME]==='active';
+  $('#qText').textContent=pickMy(q.catML);
+  const qf=$('#qFlag'); if(qf) qf.textContent=flagFor(myLang);
+  const wrap=$('#qOpts'); wrap.innerHTML='';
+  const ansIdx=room.players.findIndex(p=>p.id===q.answererPid);
+  wrap.style.setProperty('--pc', (!reveal && ansIdx>=0)?playerColor(ansIdx):'');
+  q.optsML.forEach((o,i)=>{
+    const b=document.createElement('button'); b.className='opt';
+    b.innerHTML='<span class="idx">'+(i+1)+'</span><span class="txt">'+esc(pickMy(o))+'</span><span class="tick"></span>';
+    const tick=b.querySelector('.tick'); const st=q.optState[i];
+    if(st==='claimed'||st==='wrong'){
+      b.classList.add(st==='claimed'?'claimed':'wrong');
+      const bi=room.players.findIndex(p=>p.id===q.optBy[i]); if(bi>=0) b.style.setProperty('--c',playerColor(bi));
+      tick.textContent = st==='claimed'?'✓':'✕'; b.disabled=true;
+    } else { b.disabled=!meAns; if(meAns) b.onclick=()=>sendSweepPick(i); }
+    wrap.appendChild(b);
+  });
+  const ans=findP(q.answererPid); const turn=$('#qTurn'); turn.innerHTML='';
+  if(reveal){ turn.textContent='Kierros päättyi'; }
+  else if(meAway()){ turn.appendChild(returnBtn()); }
+  else if(meAns){ turn.innerHTML='<b>Sinun vuorosi</b> — poimi tai passaa'; }
+  else { turn.textContent=(ans?ans.name:'Pelaaja')+':n vuoro'; }
+  const pass=$('#qPass');
+  if(pass){ if(meAns){ pass.style.display=''; const tk=q.tokens[ME]||0; pass.textContent='💰 Passaa & talleta'+(tk>0?' ('+tk+')':''); pass.onclick=()=>sendPass(); } else pass.style.display='none'; }
+  renderChips('#qScores');
+}
+
 function renderGame(){
   if(!room) return;
   if(room.langs && room.langs.indexOf(myLang)<0) myLang=room.langs[0]||'fi';
   const ph=room.phase;
+  const pb=$('#qPass'); if(pb) pb.style.display='none';
   if(ph==='win'){ show('view-win'); renderWin(); }
   else if(ph==='category'){ show('view-cat'); renderCat(); }
-  else { show('view-q'); renderQ(); }
+  else { show('view-q'); if(room.mode==='sweep') renderSweep(); else renderQ(); }
   soundTick();
   startCountdownDisplay();
 }
