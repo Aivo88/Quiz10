@@ -27549,77 +27549,6 @@
  },
  {
   "topic": "sci",
-  "d": "hard",
-  "cat": {
-   "en": "Which of these are metric (SI-based) units?",
-   "fi": "Mitkä näistä ovat metrijärjestelmän yksiköitä?",
-   "es": "¿Cuáles de estas son unidades del sistema métrico?"
-  },
-  "o": [
-   [
-    "Metre",
-    "Metri",
-    "Metro",
-    1
-   ],
-   [
-    "Litre",
-    "Litra",
-    "Litro",
-    1
-   ],
-   [
-    "Gram",
-    "Gramma",
-    "Gramo",
-    1
-   ],
-   [
-    "Tonne",
-    "Tonni",
-    "Tonelada",
-    1
-   ],
-   [
-    "Mile",
-    "Maili",
-    "Milla",
-    0
-   ],
-   [
-    "Pound",
-    "Naula",
-    "Libra",
-    0
-   ],
-   [
-    "Gallon",
-    "Gallona",
-    "Galón",
-    0
-   ],
-   [
-    "Inch",
-    "Tuuma",
-    "Pulgada",
-    0
-   ],
-   [
-    "Foot",
-    "Jalka",
-    "Pie",
-    0
-   ],
-   [
-    "Ounce",
-    "Unssi",
-    "Onza",
-    0
-   ]
-  ]
- },
- {
-  "topic": "sci",
   "d": "normal",
   "cat": {
    "en": "Which of these are greenhouse gases?",
@@ -27904,77 +27833,6 @@
  },
  {
   "topic": "geo",
-  "d": "normal",
-  "cat": {
-   "en": "Which of these are Nordic capital cities?",
-   "fi": "Mitkä näistä ovat Pohjoismaiden pääkaupunkeja?",
-   "es": "¿Cuáles de estas son capitales nórdicas?"
-  },
-  "o": [
-   [
-    "Oslo",
-    "Oslo",
-    "Oslo",
-    1
-   ],
-   [
-    "Stockholm",
-    "Tukholma",
-    "Estocolmo",
-    1
-   ],
-   [
-    "Copenhagen",
-    "Kööpenhamina",
-    "Copenhague",
-    1
-   ],
-   [
-    "Helsinki",
-    "Helsinki",
-    "Helsinki",
-    1
-   ],
-   [
-    "Reykjavík",
-    "Reykjavík",
-    "Reikiavik",
-    1
-   ],
-   [
-    "Amsterdam",
-    "Amsterdam",
-    "Ámsterdam",
-    0
-   ],
-   [
-    "Berlin",
-    "Berliini",
-    "Berlín",
-    0
-   ],
-   [
-    "Vienna",
-    "Wien",
-    "Viena",
-    0
-   ],
-   [
-    "Dublin",
-    "Dublin",
-    "Dublín",
-    0
-   ],
-   [
-    "Warsaw",
-    "Varsova",
-    "Varsovia",
-    0
-   ]
-  ]
- },
- {
-  "topic": "geo",
   "d": "hard",
   "cat": {
    "en": "Which of these deserts are in Africa?",
@@ -28111,77 +27969,6 @@
     "Battle of Thermopylae",
     "Thermopylain taistelu",
     "Batalla de las Termópilas",
-    0
-   ]
-  ]
- },
- {
-  "topic": "hist",
-  "d": "normal",
-  "cat": {
-   "en": "Which of these were Presidents of the United States?",
-   "fi": "Mitkä näistä olivat Yhdysvaltain presidenttejä?",
-   "es": "¿Cuáles de estos fueron presidentes de Estados Unidos?"
-  },
-  "o": [
-   [
-    "George Washington",
-    "George Washington",
-    "George Washington",
-    1
-   ],
-   [
-    "Abraham Lincoln",
-    "Abraham Lincoln",
-    "Abraham Lincoln",
-    1
-   ],
-   [
-    "Franklin D. Roosevelt",
-    "Franklin D. Roosevelt",
-    "Franklin D. Roosevelt",
-    1
-   ],
-   [
-    "John F. Kennedy",
-    "John F. Kennedy",
-    "John F. Kennedy",
-    1
-   ],
-   [
-    "Barack Obama",
-    "Barack Obama",
-    "Barack Obama",
-    1
-   ],
-   [
-    "Benjamin Franklin",
-    "Benjamin Franklin",
-    "Benjamin Franklin",
-    0
-   ],
-   [
-    "Alexander Hamilton",
-    "Alexander Hamilton",
-    "Alexander Hamilton",
-    0
-   ],
-   [
-    "Winston Churchill",
-    "Winston Churchill",
-    "Winston Churchill",
-    0
-   ],
-   [
-    "Nelson Mandela",
-    "Nelson Mandela",
-    "Nelson Mandela",
-    0
-   ],
-   [
-    "Albert Einstein",
-    "Albert Einstein",
-    "Albert Einstein",
     0
    ]
   ]
@@ -32518,77 +32305,6 @@
   ]
  },
  {
-  "topic": "sport",
-  "d": "hard",
-  "cat": {
-   "en": "Which of these countries have hosted the Summer Olympic Games?",
-   "fi": "Mitkä näistä maista ovat isännöineet kesäolympialaisia?",
-   "es": "¿Cuáles de estos países han organizado los Juegos Olímpicos de verano?"
-  },
-  "o": [
-   [
-    "Greece",
-    "Kreikka",
-    "Grecia",
-    1
-   ],
-   [
-    "United Kingdom",
-    "Iso-Britannia",
-    "Reino Unido",
-    1
-   ],
-   [
-    "Japan",
-    "Japani",
-    "Japón",
-    1
-   ],
-   [
-    "Brazil",
-    "Brasilia",
-    "Brasil",
-    1
-   ],
-   [
-    "Australia",
-    "Australia",
-    "Australia",
-    1
-   ],
-   [
-    "Finland",
-    "Suomi",
-    "Finlandia",
-    1
-   ],
-   [
-    "Norway",
-    "Norja",
-    "Noruega",
-    0
-   ],
-   [
-    "Switzerland",
-    "Sveitsi",
-    "Suiza",
-    0
-   ],
-   [
-    "India",
-    "Intia",
-    "India",
-    0
-   ],
-   [
-    "Egypt",
-    "Egypti",
-    "Egipto",
-    0
-   ]
-  ]
- },
- {
   "topic": "arts",
   "d": "normal",
   "cat": {
@@ -34151,77 +33867,6 @@
   ]
  },
  {
-  "topic": "sci",
-  "d": "normal",
-  "cat": {
-   "en": "Which of these are chemical elements?",
-   "fi": "Mitkä näistä ovat alkuaineita?",
-   "es": "¿Cuáles de estos son elementos químicos?"
-  },
-  "o": [
-   [
-    "Iron",
-    "Rauta",
-    "Hierro",
-    1
-   ],
-   [
-    "Gold",
-    "Kulta",
-    "Oro",
-    1
-   ],
-   [
-    "Neon",
-    "Neon",
-    "Neón",
-    1
-   ],
-   [
-    "Silicon",
-    "Pii",
-    "Silicio",
-    1
-   ],
-   [
-    "Uranium",
-    "Uraani",
-    "Uranio",
-    1
-   ],
-   [
-    "Zinc",
-    "Sinkki",
-    "Zinc",
-    1
-   ],
-   [
-    "Bronze",
-    "Pronssi",
-    "Bronce",
-    0
-   ],
-   [
-    "Steel",
-    "Teräs",
-    "Acero",
-    0
-   ],
-   [
-    "Brass",
-    "Messinki",
-    "Latón",
-    0
-   ],
-   [
-    "Glass",
-    "Lasi",
-    "Vidrio",
-    0
-   ]
-  ]
- },
- {
   "topic": "gen",
   "d": "normal",
   "cat": {
@@ -35353,77 +34998,6 @@
     "Deuce",
     "Deuce",
     "Deuce",
-    0
-   ]
-  ]
- },
- {
-  "topic": "sport",
-  "d": "normal",
-  "cat": {
-   "en": "Which of these are martial arts?",
-   "fi": "Mitkä näistä ovat kamppailulajeja?",
-   "es": "¿Cuáles de estas son artes marciales?"
-  },
-  "o": [
-   [
-    "Judo",
-    "Judo",
-    "Judo",
-    1
-   ],
-   [
-    "Karate",
-    "Karate",
-    "Kárate",
-    1
-   ],
-   [
-    "Taekwondo",
-    "Taekwondo",
-    "Taekwondo",
-    1
-   ],
-   [
-    "Aikido",
-    "Aikido",
-    "Aikido",
-    1
-   ],
-   [
-    "Kung fu",
-    "Kung fu",
-    "Kung-fu",
-    1
-   ],
-   [
-    "Muay Thai",
-    "Muay thai",
-    "Muay thai",
-    1
-   ],
-   [
-    "Ballet",
-    "Baletti",
-    "Ballet",
-    0
-   ],
-   [
-    "Yoga",
-    "Jooga",
-    "Yoga",
-    0
-   ],
-   [
-    "Pilates",
-    "Pilates",
-    "Pilates",
-    0
-   ],
-   [
-    "Zumba",
-    "Zumba",
-    "Zumba",
     0
    ]
   ]
@@ -52186,148 +51760,6 @@
  },
  {
   "topic": "geo",
-  "d": "normal",
-  "cat": {
-   "en": "Which of these are cities in the United States?",
-   "fi": "Mitkä näistä ovat Yhdysvaltain kaupunkeja?",
-   "es": "¿Cuáles de estas son ciudades de Estados Unidos?"
-  },
-  "o": [
-   [
-    "New York",
-    "New York",
-    "Nueva York",
-    1
-   ],
-   [
-    "Chicago",
-    "Chicago",
-    "Chicago",
-    1
-   ],
-   [
-    "Houston",
-    "Houston",
-    "Houston",
-    1
-   ],
-   [
-    "Phoenix",
-    "Phoenix",
-    "Phoenix",
-    1
-   ],
-   [
-    "Seattle",
-    "Seattle",
-    "Seattle",
-    1
-   ],
-   [
-    "Boston",
-    "Boston",
-    "Boston",
-    1
-   ],
-   [
-    "Toronto",
-    "Toronto",
-    "Toronto",
-    0
-   ],
-   [
-    "Montreal",
-    "Montreal",
-    "Montreal",
-    0
-   ],
-   [
-    "Vancouver",
-    "Vancouver",
-    "Vancouver",
-    0
-   ],
-   [
-    "Mexico City",
-    "Mexico City",
-    "Ciudad de México",
-    0
-   ]
-  ]
- },
- {
-  "topic": "geo",
-  "d": "hard",
-  "cat": {
-   "en": "Which of these are among the world's longest rivers?",
-   "fi": "Mitkä näistä ovat maailman pisimpiä jokia?",
-   "es": "¿Cuáles de estos están entre los ríos más largos del mundo?"
-  },
-  "o": [
-   [
-    "The Nile",
-    "Niili",
-    "El Nilo",
-    1
-   ],
-   [
-    "The Amazon",
-    "Amazon",
-    "El Amazonas",
-    1
-   ],
-   [
-    "The Yangtze",
-    "Jangtse",
-    "El Yangtsé",
-    1
-   ],
-   [
-    "The Mississippi",
-    "Mississippi",
-    "El Misisipi",
-    1
-   ],
-   [
-    "The Yenisei",
-    "Jenisei",
-    "El Yeniséi",
-    1
-   ],
-   [
-    "The Ob",
-    "Ob",
-    "El Obi",
-    1
-   ],
-   [
-    "The Thames",
-    "Thames",
-    "El Támesis",
-    0
-   ],
-   [
-    "The Seine",
-    "Seine",
-    "El Sena",
-    0
-   ],
-   [
-    "The Tiber",
-    "Tiber",
-    "El Tíber",
-    0
-   ],
-   [
-    "The Liffey",
-    "Liffey",
-    "El Liffey",
-    0
-   ]
-  ]
- },
- {
-  "topic": "geo",
   "d": "hard",
   "cat": {
    "en": "Which of these are Portuguese-speaking countries?",
@@ -62623,77 +62055,6 @@
  },
  {
   "topic": "geo",
-  "d": "normal",
-  "cat": {
-   "en": "Which of these are countries that border Germany?",
-   "fi": "Mitkä näistä maista rajoittuvat Saksaan?",
-   "es": "¿Cuáles de estos países limitan con Alemania?"
-  },
-  "o": [
-   [
-    "France",
-    "Ranska",
-    "Francia",
-    1
-   ],
-   [
-    "Poland",
-    "Puola",
-    "Polonia",
-    1
-   ],
-   [
-    "Austria",
-    "Itävalta",
-    "Austria",
-    1
-   ],
-   [
-    "Switzerland",
-    "Sveitsi",
-    "Suiza",
-    1
-   ],
-   [
-    "Netherlands",
-    "Alankomaat",
-    "Países Bajos",
-    1
-   ],
-   [
-    "Denmark",
-    "Tanska",
-    "Dinamarca",
-    1
-   ],
-   [
-    "Italy",
-    "Italia",
-    "Italia",
-    0
-   ],
-   [
-    "Spain",
-    "Espanja",
-    "España",
-    0
-   ],
-   [
-    "Hungary",
-    "Unkari",
-    "Hungría",
-    0
-   ],
-   [
-    "Sweden",
-    "Ruotsi",
-    "Suecia",
-    0
-   ]
-  ]
- },
- {
-  "topic": "geo",
   "d": "hard",
   "cat": {
    "en": "Which of these are major world straits used in shipping?",
@@ -63688,77 +63049,6 @@
  },
  {
   "topic": "arts",
-  "d": "normal",
-  "cat": {
-   "en": "Which of these are famous musicals?",
-   "fi": "Mitkä näistä ovat kuuluisia musikaaleja?",
-   "es": "¿Cuáles de estos son musicales famosos?"
-  },
-  "o": [
-   [
-    "The Lion King",
-    "Leijonakuningas",
-    "El Rey León",
-    1
-   ],
-   [
-    "Hamilton",
-    "Hamilton",
-    "Hamilton",
-    1
-   ],
-   [
-    "Wicked",
-    "Wicked",
-    "Wicked",
-    1
-   ],
-   [
-    "Rent",
-    "Rent",
-    "Rent",
-    1
-   ],
-   [
-    "Hair",
-    "Hair",
-    "Hair",
-    1
-   ],
-   [
-    "A Chorus Line",
-    "A Chorus Line",
-    "A Chorus Line",
-    1
-   ],
-   [
-    "Carmen",
-    "Carmen",
-    "Carmen",
-    0
-   ],
-   [
-    "Swan Lake",
-    "Joutsenlampi",
-    "El lago de los cisnes",
-    0
-   ],
-   [
-    "The Nutcracker",
-    "Pähkinänsärkijä",
-    "El cascanueces",
-    0
-   ],
-   [
-    "Aida",
-    "Aida",
-    "Aida",
-    0
-   ]
-  ]
- },
- {
-  "topic": "arts",
   "d": "hard",
   "cat": {
    "en": "Which of these were composers of the Classical era?",
@@ -64250,77 +63540,6 @@
     "Sprint",
     "Pikajuoksu",
     "Esprint",
-    0
-   ]
-  ]
- },
- {
-  "topic": "sport",
-  "d": "hard",
-  "cat": {
-   "en": "Which of these are famous football World Cup winning countries?",
-   "fi": "Mitkä näistä maista ovat voittaneet jalkapallon MM-kisat?",
-   "es": "¿Cuáles de estos países han ganado la Copa del Mundo de fútbol?"
-  },
-  "o": [
-   [
-    "Brazil",
-    "Brasilia",
-    "Brasil",
-    1
-   ],
-   [
-    "Germany",
-    "Saksa",
-    "Alemania",
-    1
-   ],
-   [
-    "Italy",
-    "Italia",
-    "Italia",
-    1
-   ],
-   [
-    "Argentina",
-    "Argentiina",
-    "Argentina",
-    1
-   ],
-   [
-    "France",
-    "Ranska",
-    "Francia",
-    1
-   ],
-   [
-    "Spain",
-    "Espanja",
-    "España",
-    1
-   ],
-   [
-    "Netherlands",
-    "Alankomaat",
-    "Países Bajos",
-    0
-   ],
-   [
-    "Portugal",
-    "Portugali",
-    "Portugal",
-    0
-   ],
-   [
-    "Belgium",
-    "Belgia",
-    "Bélgica",
-    0
-   ],
-   [
-    "Mexico",
-    "Meksiko",
-    "México",
     0
    ]
   ]
@@ -70859,77 +70078,6 @@
  },
  {
   "topic": "sport",
-  "d": "normal",
-  "cat": {
-   "en": "Which of these are terms used in darts?",
-   "fi": "Mitkä näistä ovat tikanheiton termejä?",
-   "es": "¿Cuáles de estos son términos de los dardos?"
-  },
-  "o": [
-   [
-    "Bullseye",
-    "Napakymppi",
-    "Diana",
-    1
-   ],
-   [
-    "Treble twenty",
-    "Tripla 20",
-    "Triple 20",
-    1
-   ],
-   [
-    "Checkout",
-    "Ulosheitto",
-    "Cierre",
-    1
-   ],
-   [
-    "Oche",
-    "Heittoviiva",
-    "Línea de tiro",
-    1
-   ],
-   [
-    "180",
-    "180",
-    "180",
-    1
-   ],
-   [
-    "Birdie",
-    "Birdie",
-    "Birdie",
-    0
-   ],
-   [
-    "Scrum",
-    "Scrum",
-    "Melé",
-    0
-   ],
-   [
-    "Puck",
-    "Kiekko",
-    "Disco",
-    0
-   ],
-   [
-    "Deuce",
-    "Deuce",
-    "Deuce",
-    0
-   ],
-   [
-    "Touchdown",
-    "Touchdown",
-    "Touchdown",
-    0
-   ]
-  ]
- },
- {
-  "topic": "sport",
   "d": "hard",
   "cat": {
    "en": "Which of these are famous football stadiums in Europe?",
@@ -70995,6 +70143,858 @@
     "Melbourne Cricket Ground",
     "Melbourne Cricket Ground",
     "Melbourne Cricket Ground",
+    0
+   ]
+  ]
+ },
+ {
+  "topic": "sci",
+  "d": "medium",
+  "cat": {
+   "en": "Which of these are DNA bases?",
+   "fi": "Mitkä näistä ovat DNA:n emäksiä?",
+   "es": "¿Cuáles de estas son bases del ADN?"
+  },
+  "o": [
+   [
+    "Adenine",
+    "Adeniini",
+    "Adenina",
+    1
+   ],
+   [
+    "Thymine",
+    "Tymiini",
+    "Timina",
+    1
+   ],
+   [
+    "Guanine",
+    "Guaniini",
+    "Guanina",
+    1
+   ],
+   [
+    "Cytosine",
+    "Sytosiini",
+    "Citosina",
+    1
+   ],
+   [
+    "Uracil",
+    "Urasiili",
+    "Uracilo",
+    0
+   ],
+   [
+    "Glucose",
+    "Glukoosi",
+    "Glucosa",
+    0
+   ],
+   [
+    "Protein",
+    "Proteiini",
+    "Proteína",
+    0
+   ],
+   [
+    "Lipid",
+    "Lipidi",
+    "Lípido",
+    0
+   ],
+   [
+    "Enzyme",
+    "Entsyymi",
+    "Enzima",
+    0
+   ],
+   [
+    "Chloride",
+    "Kloridi",
+    "Cloruro",
+    0
+   ]
+  ]
+ },
+ {
+  "topic": "sci",
+  "d": "medium",
+  "cat": {
+   "en": "Which of these are acids?",
+   "fi": "Mitkä näistä ovat happoja?",
+   "es": "¿Cuáles de estos son ácidos?"
+  },
+  "o": [
+   [
+    "Sulfuric acid",
+    "Rikkihappo",
+    "Ácido sulfúrico",
+    1
+   ],
+   [
+    "Hydrochloric acid",
+    "Suolahappo",
+    "Ácido clorhídrico",
+    1
+   ],
+   [
+    "Nitric acid",
+    "Typpihappo",
+    "Ácido nítrico",
+    1
+   ],
+   [
+    "Acetic acid",
+    "Etikkahappo",
+    "Ácido acético",
+    1
+   ],
+   [
+    "Citric acid",
+    "Sitruunahappo",
+    "Ácido cítrico",
+    1
+   ],
+   [
+    "Sodium hydroxide",
+    "Natriumhydroksidi",
+    "Hidróxido de sodio",
+    0
+   ],
+   [
+    "Ammonia",
+    "Ammoniakki",
+    "Amoníaco",
+    0
+   ],
+   [
+    "Calcium carbonate",
+    "Kalsiumkarbonaatti",
+    "Carbonato de calcio",
+    0
+   ],
+   [
+    "Methane",
+    "Metaani",
+    "Metano",
+    0
+   ],
+   [
+    "Ethanol",
+    "Etanoli",
+    "Etanol",
+    0
+   ]
+  ]
+ },
+ {
+  "topic": "geo",
+  "d": "medium",
+  "cat": {
+   "en": "Through which of these countries do the Alps run?",
+   "fi": "Minkä maiden läpi Alpit kulkevat?",
+   "es": "¿Por cuáles de estos países se extienden los Alpes?"
+  },
+  "o": [
+   [
+    "France",
+    "Ranska",
+    "Francia",
+    1
+   ],
+   [
+    "Switzerland",
+    "Sveitsi",
+    "Suiza",
+    1
+   ],
+   [
+    "Italy",
+    "Italia",
+    "Italia",
+    1
+   ],
+   [
+    "Austria",
+    "Itävalta",
+    "Austria",
+    1
+   ],
+   [
+    "Germany",
+    "Saksa",
+    "Alemania",
+    1
+   ],
+   [
+    "Slovenia",
+    "Slovenia",
+    "Eslovenia",
+    1
+   ],
+   [
+    "Spain",
+    "Espanja",
+    "España",
+    0
+   ],
+   [
+    "Poland",
+    "Puola",
+    "Polonia",
+    0
+   ],
+   [
+    "Greece",
+    "Kreikka",
+    "Grecia",
+    0
+   ],
+   [
+    "Norway",
+    "Norja",
+    "Noruega",
+    0
+   ]
+  ]
+ },
+ {
+  "topic": "hist",
+  "d": "easy",
+  "cat": {
+   "en": "Who of these have served as U.S. President in the 21st century?",
+   "fi": "Ketkä näistä ovat toimineet Yhdysvaltain presidenttinä 2000-luvulla?",
+   "es": "¿Quiénes de estos han sido presidentes de EE. UU. en el siglo XXI?"
+  },
+  "o": [
+   [
+    "George W. Bush",
+    "George W. Bush",
+    "George W. Bush",
+    1
+   ],
+   [
+    "Barack Obama",
+    "Barack Obama",
+    "Barack Obama",
+    1
+   ],
+   [
+    "Donald Trump",
+    "Donald Trump",
+    "Donald Trump",
+    1
+   ],
+   [
+    "Joe Biden",
+    "Joe Biden",
+    "Joe Biden",
+    1
+   ],
+   [
+    "Al Gore",
+    "Al Gore",
+    "Al Gore",
+    0
+   ],
+   [
+    "Hillary Clinton",
+    "Hillary Clinton",
+    "Hillary Clinton",
+    0
+   ],
+   [
+    "John McCain",
+    "John McCain",
+    "John McCain",
+    0
+   ],
+   [
+    "Mitt Romney",
+    "Mitt Romney",
+    "Mitt Romney",
+    0
+   ],
+   [
+    "Ronald Reagan",
+    "Ronald Reagan",
+    "Ronald Reagan",
+    0
+   ],
+   [
+    "Jimmy Carter",
+    "Jimmy Carter",
+    "Jimmy Carter",
+    0
+   ]
+  ]
+ },
+ {
+  "topic": "gen",
+  "d": "easy",
+  "cat": {
+   "en": "Which of these are units of length?",
+   "fi": "Mitkä näistä ovat pituuden yksiköitä?",
+   "es": "¿Cuáles de estas son unidades de longitud?"
+  },
+  "o": [
+   [
+    "Metre",
+    "Metri",
+    "Metro",
+    1
+   ],
+   [
+    "Kilometre",
+    "Kilometri",
+    "Kilómetro",
+    1
+   ],
+   [
+    "Centimetre",
+    "Senttimetri",
+    "Centímetro",
+    1
+   ],
+   [
+    "Foot",
+    "Jalka",
+    "Pie",
+    1
+   ],
+   [
+    "Inch",
+    "Tuuma",
+    "Pulgada",
+    1
+   ],
+   [
+    "Mile",
+    "Maili",
+    "Milla",
+    1
+   ],
+   [
+    "Litre",
+    "Litra",
+    "Litro",
+    0
+   ],
+   [
+    "Kilogram",
+    "Kilogramma",
+    "Kilogramo",
+    0
+   ],
+   [
+    "Second",
+    "Sekunti",
+    "Segundo",
+    0
+   ],
+   [
+    "Kelvin",
+    "Kelvin",
+    "Kelvin",
+    0
+   ]
+  ]
+ },
+ {
+  "topic": "sport",
+  "d": "medium",
+  "cat": {
+   "en": "Which countries have won Olympic gold in men's basketball?",
+   "fi": "Mitkä maat ovat voittaneet miesten koripallon olympiakultaa?",
+   "es": "¿Qué países han ganado el oro olímpico en baloncesto masculino?"
+  },
+  "o": [
+   [
+    "United States",
+    "Yhdysvallat",
+    "Estados Unidos",
+    1
+   ],
+   [
+    "Soviet Union",
+    "Neuvostoliitto",
+    "Unión Soviética",
+    1
+   ],
+   [
+    "Yugoslavia",
+    "Jugoslavia",
+    "Yugoslavia",
+    1
+   ],
+   [
+    "Argentina",
+    "Argentiina",
+    "Argentina",
+    1
+   ],
+   [
+    "France",
+    "Ranska",
+    "Francia",
+    0
+   ],
+   [
+    "Spain",
+    "Espanja",
+    "España",
+    0
+   ],
+   [
+    "Australia",
+    "Australia",
+    "Australia",
+    0
+   ],
+   [
+    "Greece",
+    "Kreikka",
+    "Grecia",
+    0
+   ],
+   [
+    "Lithuania",
+    "Liettua",
+    "Lituania",
+    0
+   ],
+   [
+    "Italy",
+    "Italia",
+    "Italia",
+    0
+   ]
+  ]
+ },
+ {
+  "topic": "mixed",
+  "d": "easy",
+  "cat": {
+   "en": "Which of these are famous video game series?",
+   "fi": "Mitkä näistä ovat kuuluisia videopelisarjoja?",
+   "es": "¿Cuáles de estas son famosas sagas de videojuegos?"
+  },
+  "o": [
+   [
+    "Super Mario",
+    "Super Mario",
+    "Super Mario",
+    1
+   ],
+   [
+    "The Legend of Zelda",
+    "The Legend of Zelda",
+    "The Legend of Zelda",
+    1
+   ],
+   [
+    "Grand Theft Auto",
+    "Grand Theft Auto",
+    "Grand Theft Auto",
+    1
+   ],
+   [
+    "Call of Duty",
+    "Call of Duty",
+    "Call of Duty",
+    1
+   ],
+   [
+    "Final Fantasy",
+    "Final Fantasy",
+    "Final Fantasy",
+    1
+   ],
+   [
+    "The Witcher",
+    "The Witcher",
+    "The Witcher",
+    1
+   ],
+   [
+    "PlayStation",
+    "PlayStation",
+    "PlayStation",
+    0
+   ],
+   [
+    "Xbox",
+    "Xbox",
+    "Xbox",
+    0
+   ],
+   [
+    "Nintendo",
+    "Nintendo",
+    "Nintendo",
+    0
+   ],
+   [
+    "Steam",
+    "Steam",
+    "Steam",
+    0
+   ]
+  ]
+ },
+ {
+  "topic": "gen",
+  "d": "easy",
+  "cat": {
+   "en": "Which of these are dairy products?",
+   "fi": "Mitkä näistä ovat maitotuotteita?",
+   "es": "¿Cuáles de estos son productos lácteos?"
+  },
+  "o": [
+   [
+    "Cheese",
+    "Juusto",
+    "Queso",
+    1
+   ],
+   [
+    "Butter",
+    "Voi",
+    "Mantequilla",
+    1
+   ],
+   [
+    "Yogurt",
+    "Jogurtti",
+    "Yogur",
+    1
+   ],
+   [
+    "Cream",
+    "Kerma",
+    "Nata",
+    1
+   ],
+   [
+    "Ice cream",
+    "Jäätelö",
+    "Helado",
+    1
+   ],
+   [
+    "Quark",
+    "Rahka",
+    "Requesón",
+    1
+   ],
+   [
+    "Margarine",
+    "Margariini",
+    "Margarina",
+    0
+   ],
+   [
+    "Tofu",
+    "Tofu",
+    "Tofu",
+    0
+   ],
+   [
+    "Oat drink",
+    "Kaurajuoma",
+    "Bebida de avena",
+    0
+   ],
+   [
+    "Hummus",
+    "Hummus",
+    "Hummus",
+    0
+   ]
+  ]
+ },
+ {
+  "topic": "sci",
+  "d": "medium",
+  "cat": {
+   "en": "Which of these metals are magnetic (ferromagnetic)?",
+   "fi": "Mitkä näistä metalleista ovat magneettisia (ferromagneettisia)?",
+   "es": "¿Cuáles de estos metales son magnéticos (ferromagnéticos)?"
+  },
+  "o": [
+   [
+    "Iron",
+    "Rauta",
+    "Hierro",
+    1
+   ],
+   [
+    "Nickel",
+    "Nikkeli",
+    "Níquel",
+    1
+   ],
+   [
+    "Cobalt",
+    "Koboltti",
+    "Cobalto",
+    1
+   ],
+   [
+    "Copper",
+    "Kupari",
+    "Cobre",
+    0
+   ],
+   [
+    "Aluminium",
+    "Alumiini",
+    "Aluminio",
+    0
+   ],
+   [
+    "Gold",
+    "Kulta",
+    "Oro",
+    0
+   ],
+   [
+    "Silver",
+    "Hopea",
+    "Plata",
+    0
+   ],
+   [
+    "Zinc",
+    "Sinkki",
+    "Zinc",
+    0
+   ],
+   [
+    "Lead",
+    "Lyijy",
+    "Plomo",
+    0
+   ],
+   [
+    "Tin",
+    "Tina",
+    "Estaño",
+    0
+   ]
+  ]
+ },
+ {
+  "topic": "geo",
+  "d": "medium",
+  "cat": {
+   "en": "Which of these are among the world's largest lakes by area?",
+   "fi": "Mitkä näistä ovat pinta-alaltaan maailman suurimpia järviä?",
+   "es": "¿Cuáles de estos son de los lagos más grandes del mundo por superficie?"
+  },
+  "o": [
+   [
+    "Caspian Sea",
+    "Kaspianmeri",
+    "Mar Caspio",
+    1
+   ],
+   [
+    "Lake Superior",
+    "Yläjärvi",
+    "Lago Superior",
+    1
+   ],
+   [
+    "Lake Victoria",
+    "Victoriajärvi",
+    "Lago Victoria",
+    1
+   ],
+   [
+    "Lake Huron",
+    "Huronjärvi",
+    "Lago Hurón",
+    1
+   ],
+   [
+    "Lake Michigan",
+    "Michiganjärvi",
+    "Lago Míchigan",
+    1
+   ],
+   [
+    "Lake Tanganyika",
+    "Tanganjikajärvi",
+    "Lago Tangañica",
+    1
+   ],
+   [
+    "Lake Geneva",
+    "Genevejärvi",
+    "Lago Lemán",
+    0
+   ],
+   [
+    "Lake Titicaca",
+    "Titicacajärvi",
+    "Lago Titicaca",
+    0
+   ],
+   [
+    "Lake Balaton",
+    "Balatonjärvi",
+    "Lago Balatón",
+    0
+   ],
+   [
+    "Lake Vänern",
+    "Vänern",
+    "Lago Vänern",
+    0
+   ]
+  ]
+ },
+ {
+  "topic": "hist",
+  "d": "easy",
+  "cat": {
+   "en": "Which of these were Allied Powers in World War II?",
+   "fi": "Mitkä näistä olivat liittoutuneita toisessa maailmansodassa?",
+   "es": "¿Cuáles de estos fueron potencias Aliadas en la Segunda Guerra Mundial?"
+  },
+  "o": [
+   [
+    "United States",
+    "Yhdysvallat",
+    "Estados Unidos",
+    1
+   ],
+   [
+    "United Kingdom",
+    "Iso-Britannia",
+    "Reino Unido",
+    1
+   ],
+   [
+    "Soviet Union",
+    "Neuvostoliitto",
+    "Unión Soviética",
+    1
+   ],
+   [
+    "France",
+    "Ranska",
+    "Francia",
+    1
+   ],
+   [
+    "China",
+    "Kiina",
+    "China",
+    1
+   ],
+   [
+    "Canada",
+    "Kanada",
+    "Canadá",
+    1
+   ],
+   [
+    "Germany",
+    "Saksa",
+    "Alemania",
+    0
+   ],
+   [
+    "Italy",
+    "Italia",
+    "Italia",
+    0
+   ],
+   [
+    "Japan",
+    "Japani",
+    "Japón",
+    0
+   ],
+   [
+    "Hungary",
+    "Unkari",
+    "Hungría",
+    0
+   ]
+  ]
+ },
+ {
+  "topic": "gen",
+  "d": "medium",
+  "cat": {
+   "en": "Which of these are Germanic languages?",
+   "fi": "Mitkä näistä ovat germaanisia kieliä?",
+   "es": "¿Cuáles de estos son idiomas germánicos?"
+  },
+  "o": [
+   [
+    "English",
+    "Englanti",
+    "Inglés",
+    1
+   ],
+   [
+    "German",
+    "Saksa",
+    "Alemán",
+    1
+   ],
+   [
+    "Dutch",
+    "Hollanti",
+    "Neerlandés",
+    1
+   ],
+   [
+    "Swedish",
+    "Ruotsi",
+    "Sueco",
+    1
+   ],
+   [
+    "Norwegian",
+    "Norja",
+    "Noruego",
+    1
+   ],
+   [
+    "Danish",
+    "Tanska",
+    "Danés",
+    1
+   ],
+   [
+    "French",
+    "Ranska",
+    "Francés",
+    0
+   ],
+   [
+    "Spanish",
+    "Espanja",
+    "Español",
+    0
+   ],
+   [
+    "Italian",
+    "Italia",
+    "Italiano",
+    0
+   ],
+   [
+    "Finnish",
+    "Suomi",
+    "Finés",
     0
    ]
   ]

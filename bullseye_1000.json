@@ -51671,83 +51671,6 @@
    "topic": "arts",
    "d": "hard",
    "cat": {
-    "fi": "Kuka veisti \"Ajattelijan\"?",
-    "en": "Who sculpted \"The Kiss\" marble statue?",
-    "es": "¿Quién esculpió la estatua \"El beso\"?"
-   },
-   "o": [
-    [
-     "Praxiteles",
-     "Praxiteles",
-     "Praxiteles",
-     0
-    ],
-    [
-     "Cellini",
-     "Cellini",
-     "Cellini",
-     0
-    ],
-    [
-     "Brâncuși",
-     "Brâncuși",
-     "Brâncuși",
-     0
-    ],
-    [
-     "Henry Moore",
-     "Henry Moore",
-     "Henry Moore",
-     0
-    ],
-    [
-     "Auguste Rodin",
-     "Auguste Rodin",
-     "Auguste Rodin",
-     1
-    ],
-    [
-     "Donatello",
-     "Donatello",
-     "Donatello",
-     0
-    ],
-    [
-     "Bernini",
-     "Bernini",
-     "Bernini",
-     0
-    ],
-    [
-     "Michelangelo",
-     "Michelangelo",
-     "Miguel Ángel",
-     0
-    ],
-    [
-     "Giacometti",
-     "Giacometti",
-     "Giacometti",
-     0
-    ],
-    [
-     "Canova",
-     "Canova",
-     "Canova",
-     0
-    ]
-   ],
-   "L": [
-    "fi",
-    "en",
-    "es"
-   ]
-  },
-  {
-   "mode": "bullseye",
-   "topic": "arts",
-   "d": "hard",
-   "cat": {
     "fi": "Kuka sävelsi oopperan \"Trubaduuri\" ja \"Nabucco\"?",
     "en": "Who composed \"Nabucco\" and \"Il trovatore\"?",
     "es": "¿Quién compuso \"Nabucco\" y \"El trovador\"?"
@@ -57048,83 +56971,6 @@
      "Tick",
      "Garrapata",
      0
-    ]
-   ],
-   "L": [
-    "fi",
-    "en",
-    "es"
-   ]
-  },
-  {
-   "mode": "bullseye",
-   "topic": "gen",
-   "d": "normal",
-   "cat": {
-    "fi": "Mikä on maailman korkein maaeläin?",
-    "en": "What is the tallest land animal?",
-    "es": "¿Cuál es el animal terrestre más alto?"
-   },
-   "o": [
-    [
-     "Hevonen",
-     "Horse",
-     "Caballo",
-     0
-    ],
-    [
-     "Laama",
-     "Llama",
-     "Llama",
-     0
-    ],
-    [
-     "Poro",
-     "Reindeer",
-     "Reno",
-     0
-    ],
-    [
-     "Antilooppi",
-     "Antelope",
-     "Antílope",
-     0
-    ],
-    [
-     "Gnu",
-     "Wildebeest",
-     "Ñu",
-     0
-    ],
-    [
-     "Karhu",
-     "Bear",
-     "Oso",
-     0
-    ],
-    [
-     "Strutsi",
-     "Ostrich",
-     "Avestruz",
-     0
-    ],
-    [
-     "Kameli",
-     "Camel",
-     "Camello",
-     0
-    ],
-    [
-     "Norsu",
-     "Elephant",
-     "Elefante",
-     0
-    ],
-    [
-     "Kirahvi",
-     "Giraffe",
-     "Jirafa",
-     1
     ]
    ],
    "L": [
@@ -63746,83 +63592,6 @@
      "Antimoni",
      "Antimony",
      "Antimonio",
-     0
-    ]
-   ],
-   "L": [
-    "fi",
-    "en",
-    "es"
-   ]
-  },
-  {
-   "mode": "bullseye",
-   "topic": "sci",
-   "d": "hard",
-   "cat": {
-    "fi": "Mikä alkuaine on kemialliselta merkiltään Fe?",
-    "en": "Which metal has the chemical symbol Fe?",
-    "es": "¿Qué metal tiene el símbolo químico Fe?"
-   },
-   "o": [
-    [
-     "Kupari",
-     "Copper",
-     "Cobre",
-     0
-    ],
-    [
-     "Sinkki",
-     "Zinc",
-     "Zinc",
-     0
-    ],
-    [
-     "Kromi",
-     "Chromium",
-     "Cromo",
-     0
-    ],
-    [
-     "Mangaani",
-     "Manganese",
-     "Manganeso",
-     0
-    ],
-    [
-     "Koboltti",
-     "Cobalt",
-     "Cobalto",
-     0
-    ],
-    [
-     "Tina",
-     "Tin",
-     "Estaño",
-     0
-    ],
-    [
-     "Rauta",
-     "Iron",
-     "Hierro",
-     1
-    ],
-    [
-     "Titaani",
-     "Titanium",
-     "Titanio",
-     0
-    ],
-    [
-     "Lyijy",
-     "Lead",
-     "Plomo",
-     0
-    ],
-    [
-     "Nikkeli",
-     "Nickel",
-     "Níquel",
      0
     ]
    ],
@@ -77144,6 +76913,237 @@
      "Beaumarchais",
      "Beaumarchais",
      "Beaumarchais",
+     0
+    ]
+   ],
+   "L": [
+    "fi",
+    "en",
+    "es"
+   ]
+  },
+  {
+   "mode": "bullseye",
+   "topic": "sci",
+   "d": "medium",
+   "cat": {
+    "fi": "Mikä kaasu yläilmakehässä imee eniten ultraviolettisäteilyä?",
+    "en": "Which gas in the upper atmosphere absorbs most ultraviolet radiation?",
+    "es": "¿Qué gas de la alta atmósfera absorbe la mayor parte de la radiación ultravioleta?"
+   },
+   "o": [
+    [
+     "Otsoni",
+     "Ozone",
+     "Ozono",
+     1
+    ],
+    [
+     "Happi",
+     "Oxygen",
+     "Oxígeno",
+     0
+    ],
+    [
+     "Typpi",
+     "Nitrogen",
+     "Nitrógeno",
+     0
+    ],
+    [
+     "Hiilidioksidi",
+     "Carbon dioxide",
+     "Dióxido de carbono",
+     0
+    ],
+    [
+     "Vety",
+     "Hydrogen",
+     "Hidrógeno",
+     0
+    ],
+    [
+     "Helium",
+     "Helium",
+     "Helio",
+     0
+    ],
+    [
+     "Metaani",
+     "Methane",
+     "Metano",
+     0
+    ],
+    [
+     "Argon",
+     "Argon",
+     "Argón",
+     0
+    ],
+    [
+     "Vesihöyry",
+     "Water vapour",
+     "Vapor de agua",
+     0
+    ],
+    [
+     "Neon",
+     "Neon",
+     "Neón",
+     0
+    ]
+   ],
+   "L": [
+    "fi",
+    "en",
+    "es"
+   ]
+  },
+  {
+   "mode": "bullseye",
+   "topic": "geo",
+   "d": "easy",
+   "cat": {
+    "fi": "Missä maassa sijaitsee Machu Picchu?",
+    "en": "In which country is Machu Picchu located?",
+    "es": "¿En qué país se encuentra Machu Picchu?"
+   },
+   "o": [
+    [
+     "Peru",
+     "Peru",
+     "Perú",
+     1
+    ],
+    [
+     "Meksiko",
+     "Mexico",
+     "México",
+     0
+    ],
+    [
+     "Chile",
+     "Chile",
+     "Chile",
+     0
+    ],
+    [
+     "Bolivia",
+     "Bolivia",
+     "Bolivia",
+     0
+    ],
+    [
+     "Kolumbia",
+     "Colombia",
+     "Colombia",
+     0
+    ],
+    [
+     "Ecuador",
+     "Ecuador",
+     "Ecuador",
+     0
+    ],
+    [
+     "Brasilia",
+     "Brazil",
+     "Brasil",
+     0
+    ],
+    [
+     "Argentiina",
+     "Argentina",
+     "Argentina",
+     0
+    ],
+    [
+     "Guatemala",
+     "Guatemala",
+     "Guatemala",
+     0
+    ],
+    [
+     "Honduras",
+     "Honduras",
+     "Honduras",
+     0
+    ]
+   ],
+   "L": [
+    "fi",
+    "en",
+    "es"
+   ]
+  },
+  {
+   "mode": "bullseye",
+   "topic": "sci",
+   "d": "medium",
+   "cat": {
+    "fi": "Mikä metalli on nestemäistä huoneenlämmössä?",
+    "en": "Which metal is liquid at room temperature?",
+    "es": "¿Qué metal es líquido a temperatura ambiente?"
+   },
+   "o": [
+    [
+     "Elohopea",
+     "Mercury",
+     "Mercurio",
+     1
+    ],
+    [
+     "Rauta",
+     "Iron",
+     "Hierro",
+     0
+    ],
+    [
+     "Kulta",
+     "Gold",
+     "Oro",
+     0
+    ],
+    [
+     "Lyijy",
+     "Lead",
+     "Plomo",
+     0
+    ],
+    [
+     "Alumiini",
+     "Aluminium",
+     "Aluminio",
+     0
+    ],
+    [
+     "Kupari",
+     "Copper",
+     "Cobre",
+     0
+    ],
+    [
+     "Sinkki",
+     "Zinc",
+     "Zinc",
+     0
+    ],
+    [
+     "Hopea",
+     "Silver",
+     "Plata",
+     0
+    ],
+    [
+     "Tina",
+     "Tin",
+     "Estaño",
+     0
+    ],
+    [
+     "Nikkeli",
+     "Nickel",
+     "Níquel",
      0
     ]
    ],
