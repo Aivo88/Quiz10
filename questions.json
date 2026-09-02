@@ -277,7 +277,7 @@
    ],
    [
     "Red Sea",
-    "Punainenmeri",
+    "Punainen meri",
     "Mar Rojo",
     1
    ]
@@ -6732,7 +6732,7 @@
    ],
    [
     "Red Sea",
-    "Punainenmeri",
+    "Punainen meri",
     "Mar Rojo",
     0
    ],
@@ -8566,7 +8566,7 @@
    ],
    [
     "Yellow River",
-    "Keltainenjoki",
+    "Keltainen joki",
     "Río Amarillo",
     1
    ],
@@ -17920,7 +17920,7 @@
    ],
    [
     "Red Sea",
-    "Punainenmeri",
+    "Punainen meri",
     "Mar Rojo",
     0
    ],
@@ -18038,7 +18038,7 @@
   "d": "normal",
   "cat": {
    "en": "Which of these countries has won the World Hockey Championship? Before 2026",
-   "fi": "Mitkä näistä maista on voittanut jääkiekon maailmanmestaruuden? Ennen 2026",
+   "fi": "Mitkä näistä maista ovat voittaneet jääkiekon maailmanmestaruuden (ennen 2026)?",
    "es": "¿Cuál de estos países ha ganado el Campeonato Mundial de Hockey? Antes de 2026"
   },
   "o": [
@@ -22239,55 +22239,55 @@
    ],
    [
     "The Wedding at Cana",
-    "The Wedding at Cana",
+    "Kaanaan häät",
     "Las bodas de Caná",
     1
    ],
    [
     "Liberty Leading the People",
-    "Liberty Leading the People",
+    "Vapaus johtaa kansaa",
     "La Libertad guiando al pueblo",
     1
    ],
    [
     "The Raft of the Medusa",
-    "The Raft of the Medusa",
+    "Medusan lautta",
     "La balsa de la Medusa",
     1
    ],
    [
     "The Coronation of Napoleon",
-    "The Coronation of Napoleon",
+    "Napoleonin kruunajaiset",
     "La coronación de Napoleón",
     1
    ],
    [
     "The Lacemaker",
-    "The Lacemaker",
+    "Pitsintekijä",
     "La encajera",
     1
    ],
    [
     "The Starry Night",
-    "The Starry Night",
+    "Tähtikirkas yö",
     "La noche estrellada",
     0
    ],
    [
     "The Scream",
-    "The Scream",
+    "Huuto",
     "El grito",
     0
    ],
    [
     "Girl with a Pearl Earring",
-    "Girl with a Pearl Earring",
+    "Tyttö ja helmikorvakoru",
     "La joven de la perla",
     0
    ],
    [
     "The Birth of Venus",
-    "The Birth of Venus",
+    "Venuksen syntymä",
     "El nacimiento de Venus",
     0
    ]
@@ -48740,7 +48740,7 @@
    ],
    [
     "Yellow River",
-    "Keltainenjoki",
+    "Keltainen joki",
     "Río Amarillo",
     1
    ],
