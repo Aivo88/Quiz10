@@ -3075,7 +3075,7 @@ const BULLSEYE_QUESTIONS = [
 
 const PLAYER_COLORS = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
-const APP_VERSION = '01.00.64';
+const APP_VERSION = '01.00.65';
 
 let questionsStatus = '';
 const QCACHE_KEY = 'quiz10_qcache2';  // bumped: use embedded 1000, ignore old device cache
@@ -3851,6 +3851,7 @@ function cycleLangTopic(){
   const i = av.indexOf(cur);
   const nl = av[(i<0?0:(i+1)) % av.length];
   playerLang[si] = nl;
+  if(BASE_LANGS.includes(nl)){ lang = nl; saveLang(); applyStaticText(); updateCornerFlags(); buildScorebar(); }
   sfx.select();
   refreshTopicScreen();   // re-render title, categories and flag in the new language; keeps focus on the flag
 }
@@ -3990,6 +3991,7 @@ function cycleLang(){
   const i = av.indexOf(cur);
   const nl = av[(i<0?0:(i+1)) % av.length];
   playerLang[turnIdx] = nl;
+  if(BASE_LANGS.includes(nl)){ lang = nl; saveLang(); applyStaticText(); updateCornerFlags(); buildScorebar(); updateHeader(); }
   sfx.select();
   applyLang();
 }
