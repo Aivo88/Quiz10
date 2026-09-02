@@ -473,6 +473,7 @@
 
 
   /* ---- multiplayer extras ---- */
+  #qPass{ min-width:14ch; padding:clamp(15px,2.2vh,24px) clamp(30px,4.5vw,56px); font-size:calc(clamp(18px,2.2vw,28px) * var(--fs)); font-weight:800; border-radius:16px; box-shadow:0 6px 20px rgba(0,0,0,.4); }
   /* option buttons are <button>, so reset UA color/font to match the game's .opt <div> */
   #stage .opt{ appearance:none; -webkit-appearance:none; color:var(--ink); font-family:inherit; }
   /* game's big menu-button sizing is scoped to #screen-menu/#screen-mode; apply it to all our menu-col buttons */
@@ -632,7 +633,7 @@
     </div>
     <div class="category" id="qText"></div>
     <div class="board" id="qOpts"></div>
-    <div class="actions"><button class="btn good" id="qPass" style="display:none"></button><button class="btn back leaveBtn">Poistu</button></div>
+    <div class="actions" style="flex-direction:column; align-items:center; gap:10px"><button class="btn good" id="qPass" style="display:none"></button><button class="btn back leaveBtn">Poistu</button></div>
   </section>
 
   <section class="screen" id="view-win">
@@ -651,7 +652,7 @@
 <script>
 
 "use strict";
-const MP_VERSION = '00.05.00';
+const MP_VERSION = '00.05.01';
 const $ = s => document.querySelector(s);
 const PCOL = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
@@ -812,7 +813,7 @@ function startBullseye(){
   room.lang='fi'; room.langs=(poolLangs&&poolLangs.length)?poolLangs.slice():['fi'];
   room.scores={}; room.players.forEach(p=>room.scores[p.id]=0);
   room.catStarterSeat=0; room.bullQInCat=0; room.winnerPid=null;
-  used=new Set();
+  used=new Set(); room.suddenDeath=false; room.sdPlayers=[];
   beginCategory();
 }
 function beginCategory(){
@@ -938,14 +939,19 @@ function renderChips(sel, withCtl){
   const sweep = room.mode==='sweep' && room.q && room.q.status;
   room.players.forEach((p,i)=>{
     const swst = sweep ? room.q.status[p.id] : null;
-    const out = p.away || swst==='busted';
-    const el=document.createElement('div'); el.className='pchip'+((p.id===cur&&hl)?' active':'')+(out?' out':'');
+    let cls='pchip';
+    if(p.id===cur && hl) cls+=' active';
+    if(swst==='passed') cls+=' passed';
+    if(swst==='busted') cls+=' busted out';
+    if(swst==='eliminated' || p.away) cls+=' out';
+    const el=document.createElement('div'); el.className=cls;
     el.style.setProperty('--c', playerColor(i));
     const nm=(p.id===room.hostId?'★ ':'')+esc(p.name)+(p.id===ME?' (sinä)':'');
-    let score=(room.started&&room.scores)?(room.scores[p.id]!=null?room.scores[p.id]:0):'';
-    if(sweep && swst==='active' && room.q.tokens[p.id]>0) score = score + ' +' + room.q.tokens[p.id];
-    const tag = p.away?'💤':(swst==='busted'?'💥':(swst==='passed'?'✔':''));
-    el.innerHTML='<span class="bar"></span><span class="tag">'+tag+'</span><span class="pname">'+nm+'</span><span class="pscore">'+score+'</span>';
+    const base=(room.started&&room.scores)?(room.scores[p.id]!=null?room.scores[p.id]:0):'';
+    let prov='';
+    if(sweep && swst==='active' && room.q.tokens[p.id]>0) prov=' <span style="color:var(--gold);font-size:.6em">+'+room.q.tokens[p.id]+'</span>';
+    const tag = p.away?'TAUOLLA':(swst==='busted'?'ULKONA':(swst==='passed'?'PASSASI':(swst==='eliminated'?'PUDONNUT':'')));
+    el.innerHTML='<span class="bar"></span><span class="tag">'+tag+'</span><span class="pname">'+nm+'</span><span class="pscore">'+base+prov+'</span>';
     if(withCtl && iamHost && p.id!==ME){
       const rm=document.createElement('button'); rm.className='btn chip removeBtn'; rm.textContent='Poista'; rm.onclick=(e)=>{ e.stopPropagation(); hostRemove(p.id); };
       el.appendChild(rm);
@@ -1007,6 +1013,7 @@ function startSweep(){
   room.lang='fi'; room.langs=(poolLangs&&poolLangs.length)?poolLangs.slice():['fi'];
   room.scores={}; room.players.forEach(p=>room.scores[p.id]=0);
   room.catStarterSeat=0; room.winnerPid=null; used=new Set();
+  room.suddenDeath=false; room.sdPlayers=[];
   beginCategory();
 }
 function firstActiveFrom(status, seat){
@@ -1017,7 +1024,7 @@ function firstActiveFrom(status, seat){
 function startSweepRound(){
   curQ=drawFromTopic(room.currentTopic);
   const L=room.langs||['fi']; const status={},tokens={};
-  room.players.forEach(p=>{ status[p.id]='active'; tokens[p.id]=0; });
+  room.players.forEach(p=>{ status[p.id] = (room.suddenDeath && room.sdPlayers.indexOf(p.id)<0) ? 'eliminated' : 'active'; tokens[p.id]=0; });
   const ans=firstActiveFrom(status, room.catStarterSeat%room.players.length);
   room.phase='question';
   room.q={ mode:'sweep', catML:curQ.cat,
@@ -1057,14 +1064,33 @@ function sweepEndRound(){
 }
 function sweepAfterRound(){
   if(room.phase==='win') return;
+  if(room.suddenDeath){
+    const smax=Math.max(...room.sdPlayers.map(id=>room.scores[id]||0));
+    const leaders=room.sdPlayers.filter(id=>(room.scores[id]||0)===smax);
+    if(leaders.length===1){ doWin(leaders[0]); return; }
+    room.catStarterSeat=nextSdSeat(room.catStarterSeat);
+    beginCategory(); return;
+  }
   const max=Math.max(...room.players.map(p=>room.scores[p.id]||0));
   const reached=room.players.some(p=>(room.scores[p.id]||0)>=room.target);
   if(reached){
     const top=room.players.filter(p=>(room.scores[p.id]||0)===max);
-    if(top.length===1){ doWin(top[0].id); return; }   /* tie -> keep playing until someone leads alone */
+    if(top.length===1){ doWin(top[0].id); return; }
+    startSuddenDeath(top.map(p=>p.id)); return;
   }
   room.catStarterSeat=(room.catStarterSeat+1)%room.players.length;
   beginCategory();
+}
+function startSuddenDeath(tied){
+  room.suddenDeath=true; room.sdPlayers=tied.slice();
+  const startId=tied[Math.floor(Math.random()*tied.length)];
+  room.catStarterSeat=room.players.findIndex(p=>p.id===startId);
+  beginCategory();
+}
+function nextSdSeat(seat){
+  const n=room.players.length;
+  for(let k=1;k<=n;k++){ const idx=(seat+k)%n; const p=room.players[idx]; if(p && room.sdPlayers.indexOf(p.id)>=0) return idx; }
+  return seat;
 }
 function sendSweepPick(idx){ if(iamHost) sweepPick(ME,idx); else net.send({t:'action',a:'pick',idx,id:ME}); }
 function sendPass(){ if(iamHost) sweepPass(ME); else net.send({t:'action',a:'pass',id:ME}); }
@@ -1112,7 +1138,8 @@ function renderGame(){
 function renderCat(){
   const picker=findP(room.pickerPid); const iAmPicker=(room.pickerPid===ME)&&!meAway();
   const cf=$('#catFlag'); if(cf) cf.textContent=flagFor(myLang);
-  $('#catPrompt').textContent = iAmPicker ? 'Valitse kategoria' : ((picker?picker.name:'Pelaaja')+' valitsee kategoriaa…');
+  const sd = room.suddenDeath ? '⚡ Äkkikuolema — ' : '';
+  $('#catPrompt').textContent = sd + (iAmPicker ? 'Valitse kategoria' : ((picker?picker.name:'Pelaaja')+' valitsee kategoriaa…'));
   const grid=$('#catGrid'); grid.innerHTML=''; const wait=$('#catWait'); wait.innerHTML='';
   if(meAway()){ wait.appendChild(returnBtn()); }
   else if(iAmPicker){
