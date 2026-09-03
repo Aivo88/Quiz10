@@ -578,8 +578,8 @@
       <div class="scorebar" id="hostPlayers" style="width:min(560px,92vw)"></div>
       <div class="hostctl" id="hostCtl"></div>
       <button class="btn gold block" id="startGame" disabled style="width:min(560px,92vw)"><span>Aloita peli</span></button>
-      <div class="hint" id="startHint">Tarvitaan vähintään 2 pelaajaa.</div>
-      <button class="btn back" id="hostLeave">Poistu</button>
+      <button class="btn back" id="hostLeave" style="margin-bottom:38px">Poistu</button>
+      <div class="hint" id="startHint" style="position:fixed; bottom:8px; left:50%; transform:translateX(-50%); width:min(46ch,92vw); text-align:center; z-index:6; pointer-events:none; color:var(--ink); font-weight:600"></div>
     </div>
   </section>
 
@@ -661,7 +661,7 @@
 <script>
 
 "use strict";
-const MP_VERSION = '00.06.08';
+const MP_VERSION = '00.06.09';
 const $ = s => document.querySelector(s);
 const PCOL = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
@@ -1270,12 +1270,12 @@ $('#mpJoin').addEventListener('click', ()=>{ show('view-name-join'); setTimeout(
 document.querySelectorAll('[data-back]').forEach(b=> b.addEventListener('click', ()=> show('view-'+b.dataset.back)));
 
 $('#createRoom').addEventListener('click', ()=>{
-  const name = ($('#hostName').value||'').trim() || 'Isäntä';
+  const name = ($('#hostName').value||'').trim() || t('hostPh');
   hostCreate(name);
 });
 $('#doJoin').addEventListener('click', ()=>{
   const cd = ($('#joinCode').value||'').trim().toUpperCase();
-  const name = ($('#joinName').value||'').trim() || 'Pelaaja';
+  const name = ($('#joinName').value||'').trim() || t('playerPh');
   if(cd.length!==4){ toast('Syötä 4-merkkinen koodi'); return; }
   guestJoin(cd, name);
 });
