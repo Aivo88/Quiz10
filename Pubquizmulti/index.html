@@ -497,7 +497,7 @@
   .qrbox svg{ width:210px; height:210px; background:#fff; border-radius:12px; padding:10px; display:block; }
   .linkrow{ display:flex; gap:8px; width:min(520px,92vw); }
   .linkrow input{ text-align:left; font-size:.78rem; letter-spacing:0; }
-  .hint{ color:var(--muted); font-size:clamp(13px,1.6vw,18px); text-align:center; max-width:60ch; line-height:1.4; }
+  .hint{ position:static; color:var(--muted); font-size:clamp(13px,1.6vw,18px); text-align:center; max-width:60ch; line-height:1.4; }
   .mpfoot{ display:flex; gap:12px; align-items:center; justify-content:center; color:var(--muted); font-size:.85rem; margin-top:6px; }
   .seg{ display:flex; gap:8px; flex-wrap:wrap; justify-content:center; }
   .hostctl{ display:flex; flex-direction:column; gap:6px; width:min(520px,92vw); }
@@ -570,16 +570,18 @@
 
   <section class="screen" id="view-host">
     <button class="corner-flag" title="Language">🇬🇧</button>
-    <div class="center">
+    <div style="flex:1; min-height:0; overflow-y:auto; display:flex; flex-direction:column; align-items:center; gap:clamp(10px,2vh,18px); padding:clamp(14px,3vh,30px) 0 12px; width:100%">
       <div class="lbl2">Huonekoodi</div>
       <div class="code" id="hostCode">----</div>
       <div class="qrbox" id="qrbox"></div>
       <div class="linkrow"><input type="text" id="joinLink" readonly><button class="btn chip" id="copyLink">Kopioi</button></div>
       <div class="scorebar" id="hostPlayers" style="width:min(560px,92vw)"></div>
       <div class="hostctl" id="hostCtl"></div>
+    </div>
+    <div style="flex:none; display:flex; flex-direction:column; align-items:center; gap:8px; padding:10px 0 16px; width:100%; background:linear-gradient(to top, var(--bg) 55%, rgba(11,15,25,0))">
       <button class="btn gold block" id="startGame" disabled style="width:min(560px,92vw)"><span>Aloita peli</span></button>
-      <button class="btn back" id="hostLeave" style="margin-bottom:38px">Poistu</button>
-      <div class="hint" id="startHint" style="position:fixed; bottom:8px; left:50%; transform:translateX(-50%); width:min(46ch,92vw); text-align:center; z-index:6; pointer-events:none; color:var(--ink); font-weight:600"></div>
+      <div class="hint" id="startHint" style="color:var(--ink); font-weight:600; text-align:center"></div>
+      <button class="btn back" id="hostLeave">Poistu</button>
     </div>
   </section>
 
@@ -661,7 +663,7 @@
 <script>
 
 "use strict";
-const MP_VERSION = '00.06.10';
+const MP_VERSION = '00.06.12';
 const $ = s => document.querySelector(s);
 const PCOL = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
