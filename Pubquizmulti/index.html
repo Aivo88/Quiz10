@@ -661,7 +661,7 @@
 <script>
 
 "use strict";
-const MP_VERSION = '00.06.09';
+const MP_VERSION = '00.06.10';
 const $ = s => document.querySelector(s);
 const PCOL = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
@@ -742,7 +742,7 @@ function applyUITexts(){
   document.querySelectorAll('.leaveBtn').forEach(el=>{ el.textContent=t('leave'); });
   setTxt('#view-win .sub','winner');
 }
-function cycleMyLang(){ const L=(room&&room.langs&&room.langs.length)?room.langs:['fi','en','es']; let i=L.indexOf(myLang); if(i<0)i=0; myLang=L[(i+1)%L.length]; try{localStorage.setItem('mpLang',myLang);}catch(e){} if(typeof sfx==='object'&&sfx.select){audioInit&&audioInit();sfx.select();} applyUITexts(); updateFlags(); renderGame(); }
+function cycleMyLang(){ const L=(room&&room.langs&&room.langs.length)?room.langs:['fi','en','es']; let i=L.indexOf(myLang); if(i<0)i=0; myLang=L[(i+1)%L.length]; try{localStorage.setItem('mpLang',myLang);}catch(e){} if(typeof sfx==='object'&&sfx.select){audioInit&&audioInit();sfx.select();} applyUITexts(); updateFlags(); if(room&&room.started) renderGame(); else if(room&&iamHost) renderHost(); else if(room) renderChips('#lobbyPlayers'); }
 let starting = false;
 
 /* ---------- HOST logic (authoritative) ---------- */
@@ -950,7 +950,7 @@ function onGuestMsg(msg){
   if(msg.t==='state'){
     room = msg.room;
     if(room.started){ renderGame(); }
-    else { show('view-lobby'); $('#lobbyStatus').textContent='Odota että isäntä aloittaa pelin…'; renderChips('#lobbyPlayers'); }
+    else { show('view-lobby'); $('#lobbyStatus').textContent=t('waitHost'); renderChips('#lobbyPlayers'); }
   }
 }
 function startGuestHeartbeat(){
@@ -1171,7 +1171,7 @@ function renderSweep(){
 }
 
 function renderGame(){
-  if(!room) return;
+  if(!room || !room.started) return;
   if(room.langs && room.langs.indexOf(myLang)<0) myLang=room.langs[0]||'fi';
   const ph=room.phase;
   const pb=$('#qPass'); if(pb) pb.style.display='none';
