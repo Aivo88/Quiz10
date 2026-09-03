@@ -652,7 +652,7 @@
 <script>
 
 "use strict";
-const MP_VERSION = '00.05.01';
+const MP_VERSION = '00.05.02';
 const $ = s => document.querySelector(s);
 const PCOL = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
@@ -1120,7 +1120,14 @@ function renderSweep(){
   else if(meAns){ turn.innerHTML='<b>Sinun vuorosi</b> — poimi tai passaa'; }
   else { turn.textContent=(ans?ans.name:'Pelaaja')+':n vuoro'; }
   const pass=$('#qPass');
-  if(pass){ if(meAns){ pass.style.display=''; const tk=q.tokens[ME]||0; pass.textContent='💰 Passaa & talleta'+(tk>0?' ('+tk+')':''); pass.onclick=()=>sendPass(); } else pass.style.display='none'; }
+  if(pass){
+    pass.style.display='';                       /* always reserve the space so the board doesn't resize */
+    const tk=q.tokens[ME]||0;
+    pass.textContent='💰 Passaa & talleta'+(meAns&&tk>0?' ('+tk+')':'');
+    pass.style.visibility = meAns ? 'visible' : 'hidden';
+    pass.disabled = !meAns;
+    pass.onclick = meAns ? (()=>sendPass()) : null;
+  }
   renderChips('#qScores');
 }
 
