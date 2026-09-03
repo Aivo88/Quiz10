@@ -517,17 +517,19 @@
 <div id="stage">
 
   <section class="screen active" id="view-home">
+    <button class="corner-flag" title="Language">🇬🇧</button>
     <div class="center">
       <div style="text-align:center"><div class="brand">PUB <b>QUIZ</b></div><div class="tagline">Multiplayer</div></div>
       <div class="menu-col">
         <button class="btn gold block" id="homeNew"><span class="mi">▶</span><span>Uusi peli</span></button>
         <button class="btn block" id="homeMulti"><span class="mi">👥</span><span>Multiplayer</span></button>
       </div>
-      <div class="mpfoot"><button class="langflag" id="homeFlag">🇫🇮</button><span id="verLabel">v0</span><button class="btn chip" id="checkUpd">Tarkista päivitykset</button></div>
+      <div class="mpfoot"><span id="verLabel">v0</span><button class="btn chip" id="checkUpd">Tarkista päivitykset</button></div>
     </div>
   </section>
 
   <section class="screen" id="view-mp">
+    <button class="corner-flag" title="Language">🇬🇧</button>
     <div class="center">
       <div style="text-align:center"><div class="brand">PUB <b>QUIZ</b></div><div class="tagline">Multiplayer</div></div>
       <div class="menu-col">
@@ -539,6 +541,7 @@
   </section>
 
   <section class="screen" id="view-name-host">
+    <button class="corner-flag" title="Language">🇬🇧</button>
     <div class="center">
       <h2 class="q-title">Nimesi</h2>
       <div class="mpcard">
@@ -550,6 +553,7 @@
   </section>
 
   <section class="screen" id="view-name-join">
+    <button class="corner-flag" title="Language">🇬🇧</button>
     <div class="center">
       <h2 class="q-title">Liity peliin</h2>
       <div class="mpcard">
@@ -564,6 +568,7 @@
   </section>
 
   <section class="screen" id="view-host">
+    <button class="corner-flag" title="Language">🇬🇧</button>
     <div class="center">
       <div class="lbl2">Huonekoodi</div>
       <div class="code" id="hostCode">----</div>
@@ -578,6 +583,7 @@
   </section>
 
   <section class="screen" id="view-lobby">
+    <button class="corner-flag" title="Language">🇬🇧</button>
     <div class="center">
       <div class="lbl2">Huonekoodi</div>
       <div class="code" id="lobbyCode">----</div>
@@ -588,6 +594,7 @@
   </section>
 
   <section class="screen" id="view-mode">
+    <button class="corner-flag" title="Language">🇬🇧</button>
     <div class="center">
       <div style="text-align:center"><div class="brand">PUB <b>QUIZ</b></div><div class="tagline">Multiplayer</div></div>
       <h2 class="q-title">Valitse pelimuoto</h2>
@@ -637,11 +644,11 @@
   </section>
 
   <section class="screen" id="view-win">
+    <button class="corner-flag" title="Language">🇬🇧</button>
     <div class="center">
       <h2 class="q-title" id="winName">🏆</h2>
       <div class="sub">Voittaja!</div>
       <div class="scorebar" id="winScores" style="width:min(560px,92vw)"></div>
-      <button class="langflag" id="winFlag" style="align-self:center">🇫🇮</button>
       <button class="btn back leaveBtn">Poistu</button>
     </div>
   </section>
@@ -653,7 +660,7 @@
 <script>
 
 "use strict";
-const MP_VERSION = '00.06.02';
+const MP_VERSION = '00.06.03';
 const $ = s => document.querySelector(s);
 const PCOL = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
@@ -713,7 +720,7 @@ const T = {
 };
 function uiLang(){ return ['fi','en','es'].includes(myLang) ? myLang : 'en'; }
 function t(key, sub){ let str=(T[uiLang()]&&T[uiLang()][key])||T.en[key]||key; if(sub!=null) str=str.replace('%s', sub); return str; }
-function updateFlags(){ document.querySelectorAll('#catFlag,#qFlag,#winFlag,#homeFlag').forEach(f=>{ f.textContent=flagFor(myLang); }); }
+function updateFlags(){ document.querySelectorAll('.corner-flag,#catFlag,#qFlag').forEach(f=>{ f.textContent=flagFor(myLang); }); }
 function applyUITexts(){
   const setLast=(sel,key)=>document.querySelectorAll(sel).forEach(b=>{ const sp=b.querySelector('span:last-child'); if(sp) sp.textContent=t(key); });
   const setTxt=(sel,key)=>document.querySelectorAll(sel).forEach(el=>{ el.textContent=t(key); });
@@ -734,7 +741,7 @@ function applyUITexts(){
   document.querySelectorAll('.leaveBtn').forEach(el=>{ el.textContent=t('leave'); });
   setTxt('#view-win .sub','winner');
 }
-function cycleMyLang(){ const L=(room&&room.langs&&room.langs.length)?room.langs:['fi','en','es']; let i=L.indexOf(myLang); if(i<0)i=0; myLang=L[(i+1)%L.length]; try{localStorage.setItem('mpLang',myLang);}catch(e){} applyUITexts(); updateFlags(); renderGame(); }
+function cycleMyLang(){ const L=(room&&room.langs&&room.langs.length)?room.langs:['fi','en','es']; let i=L.indexOf(myLang); if(i<0)i=0; myLang=L[(i+1)%L.length]; try{localStorage.setItem('mpLang',myLang);}catch(e){} if(typeof sfx==='object'&&sfx.select){audioInit&&audioInit();sfx.select();} applyUITexts(); updateFlags(); renderGame(); }
 let starting = false;
 
 /* ---------- HOST logic (authoritative) ---------- */
@@ -1284,7 +1291,7 @@ $('#hostLeave').addEventListener('click', ()=>{ leaveAll(); show('view-home'); }
 $('#guestLeave').addEventListener('click', ()=>{ leaveAll(); show('view-home'); });
 document.querySelectorAll('.leaveBtn').forEach(bb=> bb.addEventListener('click', ()=>{ leaveAll(); show('view-home'); }));
 try{ const sv=localStorage.getItem('mpLang'); if(sv) myLang=sv; }catch(e){}
-document.querySelectorAll('#qFlag,#catFlag,#winFlag,#homeFlag').forEach(f=> f.addEventListener('click', cycleMyLang));
+document.querySelectorAll('.corner-flag,#catFlag,#qFlag').forEach(f=> f.addEventListener('click', cycleMyLang));
 applyUITexts(); updateFlags();
 document.addEventListener('click', e=>{ audioInit(); const t=e.target; if(t.closest && t.closest('.btn, .topic, .langflag') && !t.closest('.opt')) sfx.select(); }, true);
 $('#timeSlider').addEventListener('input', e=>{ const v=+e.target.value; $('#timeVal').textContent = v>90?'Ei aikarajaa':(v+' s'); });
