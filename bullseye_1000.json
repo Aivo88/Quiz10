@@ -34483,9 +34483,9 @@
      0
     ],
     [
-     "Minigolf",
-     "Mini golf",
-     "Minigolf",
+     "Jääkiekko",
+     "Ice hockey",
+     "Hockey sobre hielo",
      0
     ]
    ],
@@ -50670,7 +50670,7 @@
    "topic": "sci",
    "d": "hard",
    "cat": {
-    "fi": "Kuka löysi röntgensäteet 1895?",
+    "fi": "Kuka löysi röntgensäteet vuonna 1895?",
     "en": "Who discovered X-rays in 1895?",
     "es": "¿Quién descubrió los rayos X en 1895?"
    },
@@ -50724,9 +50724,9 @@
      0
     ],
     [
-     "Antoine Becquerel",
-     "Antoine Becquerel",
-     "Antoine Becquerel",
+     "Nikola Tesla",
+     "Nikola Tesla",
+     "Nikola Tesla",
      0
     ],
     [
@@ -56291,7 +56291,7 @@
    "topic": "gen",
    "d": "hard",
    "cat": {
-    "fi": "Mikä on maailman pisin luu ihmisen kehossa?",
+    "fi": "Mikä on pisin luu ihmisen kehossa?",
     "en": "What is the longest bone in the human body?",
     "es": "¿Cuál es el hueso más largo del cuerpo humano?"
    },
