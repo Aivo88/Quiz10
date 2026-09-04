@@ -677,6 +677,7 @@
       <div class="topic-head">
         <button class="langflag focusable" id="langFlagTopic" data-action="cyclelangtopic" title="Language">🇬🇧</button>
         <h2 class="q-title" id="topicTitle"></h2>
+        <div class="roundbank" id="topicTimerEl" style="display:none"></div>
       </div>
       <div class="scorebar topic-scorebar" id="topicScorebar"></div>
       <div class="topic-grid" id="topicGrid"></div>
@@ -3089,7 +3090,7 @@ const BULLSEYE_QUESTIONS = [
 
 const PLAYER_COLORS = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
-const APP_VERSION = '01.00.69';
+const APP_VERSION = '01.00.70';
 
 let questionsStatus = '';
 const QCACHE_KEY = 'quiz10_qcache2';  // bumped: use embedded 1000, ignore old device cache
@@ -3601,7 +3602,7 @@ const SIZES = [ {v:0.85,n:'S'}, {v:1.0,n:'M'}, {v:1.3,n:'L'}, {v:1.7,n:'XL'}, {v
 const EDGES = [1, 0.95, 0.9, 0.85, 0.8, 0.75, 0.7];   // fit-to-screen zoom steps
 const BGDARK = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0];   // background darkness 0-100%
 const TURNTIME = [0, 10, 15, 20, 30, 45, 60, 90];   // per-turn time limit (0 = no limit)
-let turnTimer = null, turnEndsAt = 0;
+let turnTimer = null, turnEndsAt = 0, catTimeouts = 0;
 
 /* ---------- Helpers ---------- */
 const $ = s => document.querySelector(s);
@@ -3637,6 +3638,7 @@ const sfx = {
 };
 
 function showScreen(id){
+  if(id!=='screen-game' && id!=='screen-topic') clearTurnTimer();
   $$('.screen').forEach(s=>s.classList.remove('active'));
   $('#'+id).classList.add('active');
   // focus first default (or first focusable) on the new screen
@@ -3860,6 +3862,7 @@ function chooseTopic(){
   $('#turnBanner').classList.remove('show');
   refreshTopicScreen();
   showScreen('screen-topic');
+  startTopicTimer();
 }
 function cycleLangTopic(){
   const si = roundStarter % players.length;
@@ -4438,8 +4441,24 @@ function turnTimeSecs(){ return TURNTIME[turnTimeIndex()]||0; }
 function updateTurnTimeSlider(){ const idx=turnTimeIndex(), pct=idx/(TURNTIME.length-1)*100; const fill=$('#turnTimeFill'),thumb=$('#turnTimeThumb'),lab=$('#turnTimeValLabel'); if(fill) fill.style.width=pct+'%'; if(thumb) thumb.style.left=pct+'%'; if(lab) lab.textContent = TURNTIME[idx]===0 ? tg('noLimit') : (TURNTIME[idx]+' s'); }
 function setTurnTimeIndex(idx){ idx=Math.max(0,Math.min(TURNTIME.length-1,idx)); const changed=idx!==turnTimeIndex(); settings.turntime=String(TURNTIME[idx]); updateTurnTimeSlider(); saveSettings(); if(changed) sfx.select(); }
 function turnTimeIdxFromX(x){ const t=$('#turnTimeTrack'); if(!t) return turnTimeIndex(); const r=t.getBoundingClientRect(); let ratio=(x-r.left)/r.width; ratio=Math.max(0,Math.min(1,ratio)); return Math.round(ratio*(TURNTIME.length-1)); }
-function clearTurnTimer(){ if(turnTimer){ clearInterval(turnTimer); turnTimer=null; } const el=$('#turnTimerEl'); if(el) el.style.display='none'; }
-function startTurnTimer(){ clearTurnTimer(); const secs=turnTimeSecs(); if(!secs || !turnActive) return; turnEndsAt=Date.now()+secs*1000; const el=$('#turnTimerEl'); if(el) el.style.display=''; const tick=()=>{ const rem=Math.ceil((turnEndsAt-Date.now())/1000); const e2=$('#turnTimerEl'); if(e2){ e2.textContent=Math.max(0,rem)+' s'; e2.style.color = rem<=5 ? 'var(--bad)' : ''; } if(rem<=0){ clearTurnTimer(); turnTimeout(); } }; tick(); turnTimer=setInterval(tick,200); }
+function clearTurnTimer(){ if(turnTimer){ clearInterval(turnTimer); turnTimer=null; } const a=$('#turnTimerEl'), b=$('#topicTimerEl'); if(a) a.style.display='none'; if(b) b.style.display='none'; }
+function startTimerFor(elId, onExpire){
+  clearTurnTimer();
+  const secs=turnTimeSecs(); if(!secs) return;
+  turnEndsAt=Date.now()+secs*1000;
+  const el=$('#'+elId); if(el) el.style.display='';
+  const tick=()=>{ const rem=Math.ceil((turnEndsAt-Date.now())/1000); const e2=$('#'+elId); if(e2){ e2.textContent=Math.max(0,rem)+' s'; e2.style.color = rem<=5 ? 'var(--bad)' : ''; } if(rem<=0){ clearTurnTimer(); onExpire(); } };
+  tick(); turnTimer=setInterval(tick,200);
+}
+function startTurnTimer(){ if(!turnActive) return; startTimerFor('turnTimerEl', turnTimeout); }
+function startTopicTimer(){ startTimerFor('topicTimerEl', catTimeout); }
+function randomTopicKey(){ const btns=[...document.querySelectorAll('#topicGrid [data-topic]')]; return btns.length ? btns[Math.floor(Math.random()*btns.length)].dataset.topic : 'gen'; }
+function catTimeout(){
+  catTimeouts=(catTimeouts||0)+1;
+  if(catTimeouts>=Math.max(1,players.length)){ catTimeouts=0; currentTopic=randomTopicKey(); if(gameMode==='bullseye') bullQInCat=0; newQuestion(); return; }
+  roundStarter=(roundStarter+1)%players.length;
+  chooseTopic();
+}
 function turnTimeout(){
   if(!turnActive || pstatus[turnIdx]!=='active') return;
   clearTurnTimer();
@@ -4525,7 +4544,7 @@ function activate(el){
     refreshSetup();
   }
   else if(a==='start'){ startGame(); }
-  else if(a==='topic'){ currentTopic = el.dataset.topic; if(gameMode==='bullseye') bullQInCat=0; newQuestion(); }
+  else if(a==='topic'){ clearTurnTimer(); catTimeouts=0; currentTopic = el.dataset.topic; if(gameMode==='bullseye') bullQInCat=0; newQuestion(); }
   else if(a==='pick'){ pickOption(+el.dataset.i); }
   else if(a==='pass'){ passTurn(); }
   else if(a==='quitGame'){ askConfirm(tg('quitGameQ'), ()=> quitToMenu()); }
