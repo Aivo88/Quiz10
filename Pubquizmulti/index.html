@@ -524,7 +524,7 @@
         <button class="btn gold block" id="homeNew"><span class="mi">▶</span><span>Uusi peli</span></button>
         <button class="btn block" id="homeMulti"><span class="mi">👥</span><span>Multiplayer</span></button>
       </div>
-      <div class="mpfoot"><span id="verLabel">v0</span><button class="btn chip" id="checkUpd">Tarkista päivitykset</button></div>
+      <div class="mpfoot"><button class="btn chip" id="vibeToggle">📳</button><span id="verLabel">v0</span><button class="btn chip" id="checkUpd">Tarkista päivitykset</button></div>
     </div>
   </section>
 
@@ -609,7 +609,14 @@
         <button class="btn block" data-startmode="sweep"><span class="mi">🧹</span><span>Sweep</span></button>
         <button class="btn block" data-startmode="bullseye"><span class="mi">🎯</span><span>Bullseye</span></button>
       </div>
-      <div class="hint" id="modeStatus"></div>
+      <button class="btn back" id="modeBack">Takaisin aulaan</button>
+    </div>
+  </section>
+
+  <section class="screen" id="view-modeset">
+    <button class="corner-flag" title="Language">🇬🇧</button>
+    <div class="center">
+      <div style="text-align:center"><div class="brand">PUB <b>QUIZ</b></div><div class="tagline" id="modesetMode">Sweep</div></div>
       <div class="mpcard">
         <div class="lbl2">Tavoite (pistettä)</div>
         <div class="seg" id="targetPick">
@@ -619,15 +626,17 @@
         </div>
         <div class="lbl2" style="margin-top:6px">Vaikeustaso</div>
         <div class="seg" id="diffPick">
-          <button class="btn diff" data-d="easy">Helppo</button>
-          <button class="btn diff sel" data-d="normal">Normaali</button>
-          <button class="btn diff sel" data-d="hard">Vaikea</button>
+          <button class="btn diff" data-v="easy">Helppo</button>
+          <button class="btn diff sel" data-v="normal">Normaali</button>
+          <button class="btn diff sel" data-v="hard">Vaikea</button>
         </div>
         <div class="lbl2" style="margin-top:6px">Vastausaika</div>
         <input type="range" id="timeSlider" min="10" max="95" step="5" value="30">
         <div style="font-weight:800;color:var(--gold)" id="timeVal">30 s</div>
       </div>
-      <button class="btn back" id="modeBack">Takaisin aulaan</button>
+      <div class="hint" id="modeStatus"></div>
+      <button class="btn gold block" id="startMode"><span>Aloita peli</span></button>
+      <button class="btn back" id="modesetBack">Takaisin</button>
     </div>
   </section>
 
@@ -673,7 +682,7 @@
 <script>
 
 "use strict";
-const MP_VERSION = '00.07.03';
+const MP_VERSION = '00.07.05';
 const $ = s => document.querySelector(s);
 const PCOL = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
@@ -727,9 +736,9 @@ const LANG_FLAG={fi:'🇫🇮',en:'🇬🇧',es:'🇪🇸',sv:'🇸🇪',de:'�
 function flagFor(c){ return LANG_FLAG[c]||String(c||'').toUpperCase(); }
 function pickMy(o){ if(!o) return ''; return o[myLang] || o[(room&&room.langs&&room.langs[0])] || Object.values(o)[0] || ''; }
 const T = {
- fi:{ homeNew:'Uusi peli', homeMulti:'Multiplayer', checkUpd:'Tarkista päivitykset', mpHost:'Luo peli', mpJoin:'Liity peliin', back:'Takaisin', backLobby:'Takaisin aulaan', yourName:'Nimesi', createRoom:'Luo huone', hostPh:'Isäntä', joinTitle:'Liity peliin', roomCode:'Huonekoodi', join:'Liity', playerPh:'Pelaaja', copy:'Kopioi', startGame:'Aloita peli', needTwo:'Tarvitaan vähintään 2 pelaajaa.', ready:'Valmista — paina Aloita peli.', leave:'Poistu', waitHost:'Odota että isäntä aloittaa pelin…', chooseMode:'Valitse pelimuoto', target:'Tavoite (pistettä)', answerTime:'Vastausaika', winner:'Voittaja!', remove:'Poista', you:'(sinä)', chooseCategory:'Valitse kategoria', picksCategory:'%s valitsee kategoriaa…', waitCategory:'Odota kategorian valintaa…', suddenDeath:'⚡ Äkkikuolema — ', yourTurn:'Sinun vuorosi', pickOrPass:'poimi tai passaa', xAnswers:'%s vastaa', xTurn:'%s:n vuoro', xCorrect:'%s vastasi oikein!', nobody:'Kukaan ei osannut', roundOver:'Kierros päättyi', imBack:'Olen takaisin', pass:'Passaa & talleta', stAway:'TAUOLLA', stOut:'ULKONA', stPassed:'PASSASI', stElim:'PUDONNUT', copied:'Linkki kopioitu', hostPlaysLabel:'Isäntä pelaa mukana', spectating:'Katsot peliä — isäntä ei pelaa.', difficulty:'Vaikeustaso', diffEasy:'Helppo', diffNormal:'Normaali', diffHard:'Vaikea', hostInfo:'📶 Pelaajat liittyvät skannaamalla QR-koodin. Kaikkien on oltava samassa wifi-verkossa — verkon yli pelaaminen ei onnistu.' },
- en:{ homeNew:'New game', homeMulti:'Multiplayer', checkUpd:'Check for updates', mpHost:'Create game', mpJoin:'Join game', back:'Back', backLobby:'Back to lobby', yourName:'Your name', createRoom:'Create room', hostPh:'Host', joinTitle:'Join game', roomCode:'Room code', join:'Join', playerPh:'Player', copy:'Copy', startGame:'Start game', needTwo:'At least 2 players needed.', ready:'Ready — press Start game.', leave:'Leave', waitHost:'Waiting for the host to start…', chooseMode:'Choose game mode', target:'Target (points)', answerTime:'Answer time', winner:'Winner!', remove:'Remove', you:'(you)', chooseCategory:'Choose a category', picksCategory:'%s is choosing a category…', waitCategory:'Waiting for the category…', suddenDeath:'⚡ Sudden death — ', yourTurn:'Your turn', pickOrPass:'pick or pass', xAnswers:'%s is answering', xTurn:"%s's turn", xCorrect:'%s answered correctly!', nobody:'Nobody got it', roundOver:'Round over', imBack:"I'm back", pass:'Pass & bank', stAway:'AWAY', stOut:'OUT', stPassed:'PASSED', stElim:'KNOCKED OUT', copied:'Link copied', hostPlaysLabel:'Host is playing', spectating:"You're spectating — host isn't playing.", difficulty:'Difficulty', diffEasy:'Easy', diffNormal:'Normal', diffHard:'Hard', hostInfo:'📶 Players join by scanning the QR code. Everyone must be on the same wifi network — playing over the internet isn\'t possible.' },
- es:{ homeNew:'Nueva partida', homeMulti:'Multijugador', checkUpd:'Buscar actualizaciones', mpHost:'Crear partida', mpJoin:'Unirse', back:'Atrás', backLobby:'Volver a la sala', yourName:'Tu nombre', createRoom:'Crear sala', hostPh:'Anfitrión', joinTitle:'Unirse a la partida', roomCode:'Código de sala', join:'Unirse', playerPh:'Jugador', copy:'Copiar', startGame:'Empezar', needTwo:'Se necesitan al menos 2 jugadores.', ready:'Listo — pulsa Empezar.', leave:'Salir', waitHost:'Esperando a que el anfitrión empiece…', chooseMode:'Elige el modo', target:'Objetivo (puntos)', answerTime:'Tiempo de respuesta', winner:'¡Ganador!', remove:'Quitar', you:'(tú)', chooseCategory:'Elige una categoría', picksCategory:'%s está eligiendo categoría…', waitCategory:'Esperando la categoría…', suddenDeath:'⚡ Muerte súbita — ', yourTurn:'Tu turno', pickOrPass:'elige o pasa', xAnswers:'%s responde', xTurn:'Turno de %s', xCorrect:'¡%s acertó!', nobody:'Nadie acertó', roundOver:'Fin de la ronda', imBack:'He vuelto', pass:'Pasar y guardar', stAway:'AUSENTE', stOut:'FUERA', stPassed:'PASÓ', stElim:'ELIMINADO', copied:'Enlace copiado', hostPlaysLabel:'El anfitrión juega', spectating:'Estás observando — el anfitrión no juega.', difficulty:'Dificultad', diffEasy:'Fácil', diffNormal:'Normal', diffHard:'Difícil', hostInfo:'📶 Los jugadores se unen escaneando el código QR. Todos deben estar en la misma red wifi — no se puede jugar por internet.' }
+ fi:{ homeNew:'Uusi peli', homeMulti:'Multiplayer', checkUpd:'Tarkista päivitykset', mpHost:'Luo peli', mpJoin:'Liity peliin', back:'Takaisin', backLobby:'Takaisin aulaan', yourName:'Nimesi', createRoom:'Luo huone', hostPh:'Isäntä', joinTitle:'Liity peliin', roomCode:'Huonekoodi', join:'Liity', playerPh:'Pelaaja', copy:'Kopioi', startGame:'Aloita peli', needTwo:'Tarvitaan vähintään 2 pelaajaa.', ready:'Valmista — paina Aloita peli.', leave:'Poistu', waitHost:'Odota että isäntä aloittaa pelin…', chooseMode:'Valitse pelimuoto', target:'Tavoite (pistettä)', answerTime:'Vastausaika', winner:'Voittaja!', remove:'Poista', you:'(sinä)', chooseCategory:'Valitse kategoria', picksCategory:'%s valitsee kategoriaa…', waitCategory:'Odota kategorian valintaa…', suddenDeath:'⚡ Äkkikuolema — ', yourTurn:'Sinun vuorosi', pickOrPass:'poimi tai passaa', xAnswers:'%s vastaa', xTurn:'%s:n vuoro', xCorrect:'%s vastasi oikein!', nobody:'Kukaan ei osannut', roundOver:'Kierros päättyi', imBack:'Olen takaisin', pass:'Passaa & talleta', stAway:'TAUOLLA', stOut:'ULKONA', stPassed:'PASSASI', stElim:'PUDONNUT', copied:'Linkki kopioitu', hostPlaysLabel:'Isäntä pelaa mukana', vibeOn:'Värinä: päällä', vibeOff:'Värinä: pois', loadingQ:'Ladataan kysymyksiä…', spectating:'Katsot peliä — isäntä ei pelaa.', difficulty:'Vaikeustaso', diffEasy:'Helppo', diffNormal:'Normaali', diffHard:'Vaikea', hostInfo:'📶 Pelaajat liittyvät skannaamalla QR-koodin. Kaikkien on oltava samassa wifi-verkossa — verkon yli pelaaminen ei onnistu.' },
+ en:{ homeNew:'New game', homeMulti:'Multiplayer', checkUpd:'Check for updates', mpHost:'Create game', mpJoin:'Join game', back:'Back', backLobby:'Back to lobby', yourName:'Your name', createRoom:'Create room', hostPh:'Host', joinTitle:'Join game', roomCode:'Room code', join:'Join', playerPh:'Player', copy:'Copy', startGame:'Start game', needTwo:'At least 2 players needed.', ready:'Ready — press Start game.', leave:'Leave', waitHost:'Waiting for the host to start…', chooseMode:'Choose game mode', target:'Target (points)', answerTime:'Answer time', winner:'Winner!', remove:'Remove', you:'(you)', chooseCategory:'Choose a category', picksCategory:'%s is choosing a category…', waitCategory:'Waiting for the category…', suddenDeath:'⚡ Sudden death — ', yourTurn:'Your turn', pickOrPass:'pick or pass', xAnswers:'%s is answering', xTurn:"%s's turn", xCorrect:'%s answered correctly!', nobody:'Nobody got it', roundOver:'Round over', imBack:"I'm back", pass:'Pass & bank', stAway:'AWAY', stOut:'OUT', stPassed:'PASSED', stElim:'KNOCKED OUT', copied:'Link copied', hostPlaysLabel:'Host is playing', vibeOn:'Vibration: on', vibeOff:'Vibration: off', loadingQ:'Loading questions…', spectating:"You're spectating — host isn't playing.", difficulty:'Difficulty', diffEasy:'Easy', diffNormal:'Normal', diffHard:'Hard', hostInfo:'📶 Players join by scanning the QR code. Everyone must be on the same wifi network — playing over the internet isn\'t possible.' },
+ es:{ homeNew:'Nueva partida', homeMulti:'Multijugador', checkUpd:'Buscar actualizaciones', mpHost:'Crear partida', mpJoin:'Unirse', back:'Atrás', backLobby:'Volver a la sala', yourName:'Tu nombre', createRoom:'Crear sala', hostPh:'Anfitrión', joinTitle:'Unirse a la partida', roomCode:'Código de sala', join:'Unirse', playerPh:'Jugador', copy:'Copiar', startGame:'Empezar', needTwo:'Se necesitan al menos 2 jugadores.', ready:'Listo — pulsa Empezar.', leave:'Salir', waitHost:'Esperando a que el anfitrión empiece…', chooseMode:'Elige el modo', target:'Objetivo (puntos)', answerTime:'Tiempo de respuesta', winner:'¡Ganador!', remove:'Quitar', you:'(tú)', chooseCategory:'Elige una categoría', picksCategory:'%s está eligiendo categoría…', waitCategory:'Esperando la categoría…', suddenDeath:'⚡ Muerte súbita — ', yourTurn:'Tu turno', pickOrPass:'elige o pasa', xAnswers:'%s responde', xTurn:'Turno de %s', xCorrect:'¡%s acertó!', nobody:'Nadie acertó', roundOver:'Fin de la ronda', imBack:'He vuelto', pass:'Pasar y guardar', stAway:'AUSENTE', stOut:'FUERA', stPassed:'PASÓ', stElim:'ELIMINADO', copied:'Enlace copiado', hostPlaysLabel:'El anfitrión juega', vibeOn:'Vibración: activada', vibeOff:'Vibración: desactivada', loadingQ:'Cargando preguntas…', spectating:'Estás observando — el anfitrión no juega.', difficulty:'Dificultad', diffEasy:'Fácil', diffNormal:'Normal', diffHard:'Difícil', hostInfo:'📶 Los jugadores se unen escaneando el código QR. Todos deben estar en la misma red wifi — no se puede jugar por internet.' }
 };
 function uiLang(){ return ['fi','en','es'].includes(myLang) ? myLang : 'en'; }
 function t(key, sub){ let str=(T[uiLang()]&&T[uiLang()][key])||T.en[key]||key; if(sub!=null) str=str.replace('%s', sub); return str; }
@@ -750,19 +759,21 @@ function applyUITexts(){
   setTxt('#copyLink','copy'); setTxt('#hostLeave','leave'); setTxt('#guestLeave','leave');
   setTxt('#lobbyStatus','waitHost');
   setTxt('#view-mode .q-title','chooseMode');
-  document.querySelectorAll('#view-mode .lbl2').forEach((el,i)=>{ el.textContent=t(['target','difficulty','answerTime'][i]||'answerTime'); });
-  document.querySelectorAll('#diffPick .btn').forEach(b=>{ const k={easy:'diffEasy',normal:'diffNormal',hard:'diffHard'}[b.dataset.d]; if(k) b.textContent=t(k); });
+  document.querySelectorAll('#view-modeset .lbl2').forEach((el,i)=>{ el.textContent=t(['target','difficulty','answerTime'][i]||'answerTime'); });
+  { const sm=$('#startMode span'); if(sm) sm.textContent=t('startGame'); const mb=$('#modesetBack'); if(mb) mb.textContent=t('back'); }
+  document.querySelectorAll('#diffPick .btn').forEach(b=>{ const k={easy:'diffEasy',normal:'diffNormal',hard:'diffHard'}[b.dataset.v]; if(k) b.textContent=t(k); });
   const sg=document.querySelector('#startGame span'); if(sg) sg.textContent=t('startGame');
   document.querySelectorAll('.leaveBtn').forEach(el=>{ el.textContent=t('leave'); });
   setTxt('#view-win .sub','winner');
+  updateVibeBtn();
 }
 function cycleMyLang(){ const L=(room&&room.langs&&room.langs.length)?room.langs:['fi','en','es']; let i=L.indexOf(myLang); if(i<0)i=0; myLang=L[(i+1)%L.length]; try{localStorage.setItem('mpLang',myLang);}catch(e){} if(typeof sfx==='object'&&sfx.select){audioInit&&audioInit();sfx.select();} applyUITexts(); updateFlags(); if(room&&room.started) renderGame(); else if(room&&iamHost) renderHost(); else if(room) renderChips('#lobbyPlayers'); }
 let starting = false;
 
 /* ---------- HOST logic (authoritative) ---------- */
-function hostCreate(name, plays){
+function hostCreate(name, plays, def){
   iamHost = true; myName = name;
-  room = { code: code4(), hostId: ME, hostPlays: plays!==false, started:false, timeLimit:30, mode:'bullseye', target:15, poolCount:0, turn:null, players: (plays!==false) ? [ { id:ME, name:name, ts:Date.now(), away:false, misses:0 } ] : [] };
+  room = { code: code4(), hostId: ME, hostPlays: plays!==false, started:false, timeLimit:30, mode:'bullseye', target:15, poolCount:0, turn:null, players: (plays!==false) ? [ { id:ME, name:name, def:def||null, ts:Date.now(), away:false, misses:0 } ] : [] };
   net.open(room.code);
   net.onMessage(onHostMsg);
   startHostHeartbeat();
@@ -770,8 +781,8 @@ function hostCreate(name, plays){
   show('view-host');
 }
 function onHostMsg(msg){
-  if(msg.t==='join'){ upsertPlayer(msg.id, msg.name); if(room.started && room.scores && room.scores[msg.id]==null) room.scores[msg.id]=0; pushState(); }
-  else if(msg.t==='leave'){ const pid=msg.id; removePlayer(pid); if(room.scores) delete room.scores[pid]; if(room.started) reconcile(pid); else pushState(); }
+  if(msg.t==='join'){ upsertPlayer(msg.id, msg.name, msg.def); if(room.started && room.scores && room.scores[msg.id]==null) room.scores[msg.id]=0; pushState(); }
+  else if(msg.t==='leave'){ const pid=msg.id; removePlayer(pid); if(room.scores) delete room.scores[pid]; if(room.hostPlays===false && room.players.length===0){ leaveAll(); show('view-home'); return; } if(room.started) reconcile(pid); else pushState(); }
   else if(msg.t==='hello'){ pushState(); }
   else if(msg.t==='ping'){ touch(msg.id); }
   else if(msg.t==='action'){
@@ -782,11 +793,12 @@ function onHostMsg(msg){
     else if(msg.a==='back') onReturn(msg.id);
   }
 }
-function upsertPlayer(id,name){
+function upsertPlayer(id,name,def){
   const p = room.players.find(x=>x.id===id);
-  if(p){ p.name=name; p.ts=Date.now(); }
-  else if(room.players.length<8){ room.players.push({id,name,ts:Date.now(),away:false,misses:0}); }
+  if(p){ p.name=name; if(def!==undefined) p.def=def||null; p.ts=Date.now(); }
+  else if(room.players.length<8){ room.players.push({id,name,def:def||null,ts:Date.now(),away:false,misses:0}); }
 }
+function pdName(p){ if(!p) return '—'; return p.def ? t(p.def==='host'?'hostPh':'playerPh') : p.name; }
 function removePlayer(id){ room.players = room.players.filter(x=>x.id!==id); }
 function touch(id){ const p=room.players.find(x=>x.id===id); if(p) p.ts=Date.now(); }
 function pushState(){ net.send({t:'state', room}); if(room && room.started) renderGame(); else renderHost(); }
@@ -796,11 +808,12 @@ function startHostHeartbeat(){
     const now=Date.now(); const before=room.players.length;
     const curPid = room.started ? (room.phase==='category'?room.pickerPid:room.answererPid) : null; let curDropped=false;
     room.players = room.players.filter(p=>{ const keep = p.id===room.hostId || (now-p.ts)<9000; if(!keep){ if(room.scores) delete room.scores[p.id]; if(p.id===curPid) curDropped=true; } return keep; });
+    if(room.hostPlays===false && room.players.length===0){ leaveAll(); show('view-home'); return; }
     if(room.players.length!==before){ if(room.started){ if(curDropped) reconcile(curPid); else pushState(); } else pushState(); }
   }, 3000);
 }
 function openModeScreen(){ if(room.players.length>=2) show('view-mode'); }
-function modeLoading(on){ document.querySelectorAll('[data-startmode]').forEach(b=>b.disabled=on); const st=$('#modeStatus'); if(st) st.textContent = on?'Ladataan kysymyksiä…':''; }
+function modeLoading(on){ const sm=$('#startMode'); if(sm) sm.disabled=on; const st=$('#modeStatus'); if(st) st.textContent = on?t('loadingQ'):''; }
 async function hostBegin(mode){
   if(starting || room.players.length<2) return;
   room.mode = mode;
@@ -965,12 +978,12 @@ function hostRemove(pid){ removePlayer(pid); if(room.scores) delete room.scores[
 
 /* ---------- GUEST logic ---------- */
 
-function guestJoin(cd, name){
+function guestJoin(cd, name, def){
   iamHost=false; myName=name;
   room = { code:cd, hostId:null, started:false, players:[] };
   net.open(cd);
   net.onMessage(onGuestMsg);
-  net.send({t:'join', id:ME, name});
+  net.send({t:'join', id:ME, name, def});
   net.send({t:'hello', id:ME});
   startGuestHeartbeat();
   show('view-lobby');
@@ -1019,7 +1032,7 @@ function renderChips(sel, withCtl){
     if((swst==='eliminated' || p.away) && !onWin) cls+=' out';
     const el=document.createElement('div'); el.className=cls;
     el.style.setProperty('--c', playerColor(i));
-    const nm=(p.id===room.hostId?'★ ':'')+esc(p.name)+(p.id===ME?' '+t('you'):'');
+    const nm=(p.id===room.hostId?'★ ':'')+esc(pdName(p))+(p.id===ME?' '+t('you'):'');
     const base=(room.started&&room.scores)?(room.scores[p.id]!=null?room.scores[p.id]:0):'';
     let prov='';
     if(sweep && swst==='active' && room.q.tokens[p.id]>0) prov=' <span style="color:var(--gold);font-size:.6em">+'+room.q.tokens[p.id]+'</span>';
@@ -1037,7 +1050,7 @@ function renderHostCtl(sel){
   if(!iamHost) return;
   room.players.filter(p=>p.id!==ME).forEach(p=>{
     const r=document.createElement('div'); r.className='row';
-    const nm=document.createElement('span'); nm.className='nm'; nm.textContent=(p.away?'💤 ':'')+p.name; r.appendChild(nm);
+    const nm=document.createElement('span'); nm.className='nm'; nm.textContent=(p.away?'💤 ':'')+pdName(p); r.appendChild(nm);
     if(room.started){ const t=document.createElement('button'); t.className='btn chip'; t.textContent=p.away?'Palauta':'Tauko'; t.onclick=()=>hostToggleAway(p.id); r.appendChild(t); }
     const rm=document.createElement('button'); rm.className='btn chip'; rm.textContent='Poista'; rm.onclick=()=>hostRemove(p.id); r.appendChild(rm);
     box.appendChild(r);
@@ -1057,7 +1070,9 @@ const sfx={
   select(){ tone(880,0.05,'square',0.09,0); }
 };
 let snd={phase:'',ans:'',failed:0,revealed:false};
-function vibrate(pat){ try{ if(navigator.vibrate) navigator.vibrate(pat); }catch(e){} }
+let vibeOn=true; try{ vibeOn = localStorage.getItem('mpVibe')!=='0'; }catch(e){}
+function vibrate(pat){ if(!vibeOn) return; try{ if(navigator.vibrate) navigator.vibrate(pat); }catch(e){} }
+function updateVibeBtn(){ const b=$('#vibeToggle'); if(b) b.textContent='📳 '+(vibeOn?t('vibeOn'):t('vibeOff')); }
 function soundTick(){
   if(!room) return;
   const ph=room.phase, q=room.q; const ans=(q&&q.answererPid)?q.answererPid:(room.answererPid||'');
@@ -1194,7 +1209,7 @@ function renderSweep(){
   if(reveal){ turn.textContent=t('roundOver'); }
   else if(meAway()){ turn.appendChild(returnBtn()); }
   else if(meAns){ turn.innerHTML='<b>'+esc(t('yourTurn'))+'</b> — '+esc(t('pickOrPass')); }
-  else { turn.textContent=t('xTurn', ans?ans.name:'—'); }
+  else { turn.textContent=t('xTurn', pdName(ans)); }
   const pass=$('#qPass');
   if(pass){
     pass.style.display='';                       /* always reserve the space so the board doesn't resize */
@@ -1222,7 +1237,7 @@ function renderCat(){
   const picker=findP(room.pickerPid); const iAmPicker=(room.pickerPid===ME)&&!meAway();
   updateFlags();
   const sd = room.suddenDeath ? t('suddenDeath') : '';
-  $('#catPrompt').textContent = sd + (iAmPicker ? t('chooseCategory') : t('picksCategory', picker?picker.name:'—'));
+  $('#catPrompt').textContent = sd + (iAmPicker ? t('chooseCategory') : t('picksCategory', pdName(picker)));
   const grid=$('#catGrid'); grid.innerHTML=''; const wait=$('#catWait'); wait.innerHTML='';
   if(meAway()){ wait.appendChild(returnBtn()); }
   else if(iAmPicker){
@@ -1254,12 +1269,12 @@ function renderQ(){
     wrap.appendChild(b);
   });
   const ans=findP(room.answererPid); const turn=$('#qTurn'); turn.innerHTML='';
-  if(reveal){ turn.textContent = q.winnerPid ? t('xCorrect', ((findP(q.winnerPid)||{}).name||'?')) : t('nobody'); }
+  if(reveal){ turn.textContent = q.winnerPid ? t('xCorrect', pdName(findP(q.winnerPid))) : t('nobody'); }
   else if(meAway()){ turn.appendChild(returnBtn()); }
-  else { turn.innerHTML = meAns ? '<b>'+esc(t('yourTurn'))+'</b>' : esc(t('xAnswers', ans?ans.name:'—')); }
+  else { turn.innerHTML = meAns ? '<b>'+esc(t('yourTurn'))+'</b>' : esc(t('xAnswers', pdName(ans))); }
   renderChips('#qScores');
 }
-function renderWin(){ const w=findP(room.winnerPid); $('#winName').innerHTML='🏆 '+esc(w?w.name:'Voittaja'); renderChips('#winScores'); }
+function renderWin(){ const w=findP(room.winnerPid); $('#winName').innerHTML='🏆 '+esc(w?pdName(w):t('winner')); renderChips('#winScores'); }
 function renderPlayers(sel){ renderChips(sel); }
 function renderHost(){
   $('#hostCode').textContent=room.code;
@@ -1308,21 +1323,25 @@ $('#mpJoin').addEventListener('click', ()=>{ show('view-name-join'); setTimeout(
 document.querySelectorAll('[data-back]').forEach(b=> b.addEventListener('click', ()=> show('view-'+b.dataset.back)));
 
 $('#createRoom').addEventListener('click', ()=>{
-  const name = ($('#hostName').value||'').trim() || t('hostPh');
+  const raw = ($('#hostName').value||'').trim();
+  const name = raw || t('hostPh'); const def = raw ? null : 'host';
   const plays = $('#hostPlays') ? $('#hostPlays').checked : true;
-  hostCreate(name, plays);
+  hostCreate(name, plays, def);
 });
 $('#doJoin').addEventListener('click', ()=>{
   const cd = ($('#joinCode').value||'').trim().toUpperCase();
-  const name = ($('#joinName').value||'').trim() || t('playerPh');
+  const raw = ($('#joinName').value||'').trim();
+  const name = raw || t('playerPh'); const def = raw ? null : 'player';
   if(cd.length!==4){ toast('Syötä 4-merkkinen koodi'); return; }
-  guestJoin(cd, name);
+  guestJoin(cd, name, def);
 });
 $('#startGame').addEventListener('click', openModeScreen);
 $('#modeBack').addEventListener('click', ()=> show('view-host'));
-document.querySelectorAll('[data-startmode]').forEach(b=> b.addEventListener('click', ()=> hostBegin(b.dataset.startmode)));
+document.querySelectorAll('[data-startmode]').forEach(b=> b.addEventListener('click', ()=>{ hostMode=b.dataset.startmode; const mm=$('#modesetMode'); if(mm) mm.textContent = hostMode==='sweep'?'Sweep':'Bullseye'; show('view-modeset'); }));
+{ const sm=$('#startMode'); if(sm) sm.addEventListener('click', ()=> hostBegin(hostMode)); }
+{ const mb=$('#modesetBack'); if(mb) mb.addEventListener('click', ()=> show('view-mode')); }
 document.querySelectorAll('#targetPick .btn').forEach(b=> b.addEventListener('click', ()=>{ hostTarget=+b.dataset.t; document.querySelectorAll('#targetPick .btn').forEach(x=>x.classList.toggle('sel', x===b)); }));
-document.querySelectorAll('#diffPick .btn').forEach(b=> b.addEventListener('click', ()=>{ const d=b.dataset.d; const on=!hostDiffs[d]; const cnt=Object.values(hostDiffs).filter(Boolean).length; if(!on && cnt<=1) return; hostDiffs[d]=on; b.classList.toggle('sel', on); }));
+document.querySelectorAll('#diffPick .btn').forEach(b=> b.addEventListener('click', ()=>{ const d=b.dataset.v; const on=!hostDiffs[d]; const cnt=Object.values(hostDiffs).filter(Boolean).length; if(!on && cnt<=1) return; hostDiffs[d]=on; b.classList.toggle('sel', on); }));
 $('#copyLink').addEventListener('click', ()=>{
   const v=$('#joinLink').value;
   if(navigator.clipboard){ navigator.clipboard.writeText(v).then(()=>toast('Linkki kopioitu')).catch(()=>toast('Kopiointi ei onnistunut')); }
@@ -1333,6 +1352,7 @@ $('#guestLeave').addEventListener('click', ()=>{ leaveAll(); show('view-home'); 
 document.querySelectorAll('.leaveBtn').forEach(bb=> bb.addEventListener('click', ()=>{ leaveAll(); show('view-home'); }));
 try{ const sv=localStorage.getItem('mpLang'); if(sv) myLang=sv; }catch(e){}
 document.querySelectorAll('.corner-flag,#catFlag,#qFlag').forEach(f=> f.addEventListener('click', cycleMyLang));
+{ const vb=$('#vibeToggle'); if(vb) vb.addEventListener('click', ()=>{ vibeOn=!vibeOn; try{localStorage.setItem('mpVibe', vibeOn?'1':'0');}catch(e){} updateVibeBtn(); if(vibeOn) vibrate(60); }); }
 applyUITexts(); updateFlags();
 document.addEventListener('click', e=>{ audioInit(); const t=e.target; if(t.closest && t.closest('.btn, .topic, .langflag') && !t.closest('.opt')) sfx.select(); }, true);
 $('#timeSlider').addEventListener('input', e=>{ const v=+e.target.value; $('#timeVal').textContent = v>90?'Ei aikarajaa':(v+' s'); });
