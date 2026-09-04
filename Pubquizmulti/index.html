@@ -547,6 +547,10 @@
       <h2 class="q-title">Nimesi</h2>
       <div class="mpcard">
         <input type="text" id="hostName" maxlength="16" placeholder="Isäntä" autocomplete="off">
+        <label class="hostplay" style="display:flex; align-items:center; gap:10px; cursor:pointer; font-weight:700; color:var(--ink); justify-content:center">
+          <input type="checkbox" id="hostPlays" checked style="width:22px; height:22px; accent-color:var(--gold)">
+          <span>Isäntä pelaa mukana</span>
+        </label>
         <button class="btn gold block" id="createRoom"><span>Luo huone</span></button>
       </div>
       <button class="btn back" data-back="mp">Takaisin</button>
@@ -615,10 +619,9 @@
         </div>
         <div class="lbl2" style="margin-top:6px">Vaikeustaso</div>
         <div class="seg" id="diffPick">
-          <button class="btn chip sel" data-d="all">Kaikki</button>
-          <button class="btn chip" data-d="easy">Helppo</button>
-          <button class="btn chip" data-d="medium">Keski</button>
-          <button class="btn chip" data-d="hard">Vaikea</button>
+          <button class="btn diff" data-d="easy">Helppo</button>
+          <button class="btn diff sel" data-d="normal">Normaali</button>
+          <button class="btn diff sel" data-d="hard">Vaikea</button>
         </div>
         <div class="lbl2" style="margin-top:6px">Vastausaika</div>
         <input type="range" id="timeSlider" min="10" max="95" step="5" value="30">
@@ -670,7 +673,7 @@
 <script>
 
 "use strict";
-const MP_VERSION = '00.07.01';
+const MP_VERSION = '00.07.03';
 const $ = s => document.querySelector(s);
 const PCOL = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
@@ -703,7 +706,7 @@ let stateWaitTimer = null;
 let hostTick = null;
 let cdTimer = null;
 let hostMode = 'bullseye';
-let hostTarget = 15; let hostDifficulty = 'all';
+let hostTarget = 15; let hostDiffs = {easy:false, normal:true, hard:true};
 let pool = [];
 let topics = [];
 let used = new Set();
@@ -724,9 +727,9 @@ const LANG_FLAG={fi:'🇫🇮',en:'🇬🇧',es:'🇪🇸',sv:'🇸🇪',de:'�
 function flagFor(c){ return LANG_FLAG[c]||String(c||'').toUpperCase(); }
 function pickMy(o){ if(!o) return ''; return o[myLang] || o[(room&&room.langs&&room.langs[0])] || Object.values(o)[0] || ''; }
 const T = {
- fi:{ homeNew:'Uusi peli', homeMulti:'Multiplayer', checkUpd:'Tarkista päivitykset', mpHost:'Luo peli', mpJoin:'Liity peliin', back:'Takaisin', backLobby:'Takaisin aulaan', yourName:'Nimesi', createRoom:'Luo huone', hostPh:'Isäntä', joinTitle:'Liity peliin', roomCode:'Huonekoodi', join:'Liity', playerPh:'Pelaaja', copy:'Kopioi', startGame:'Aloita peli', needTwo:'Tarvitaan vähintään 2 pelaajaa.', ready:'Valmista — paina Aloita peli.', leave:'Poistu', waitHost:'Odota että isäntä aloittaa pelin…', chooseMode:'Valitse pelimuoto', target:'Tavoite (pistettä)', answerTime:'Vastausaika', winner:'Voittaja!', remove:'Poista', you:'(sinä)', chooseCategory:'Valitse kategoria', picksCategory:'%s valitsee kategoriaa…', waitCategory:'Odota kategorian valintaa…', suddenDeath:'⚡ Äkkikuolema — ', yourTurn:'Sinun vuorosi', pickOrPass:'poimi tai passaa', xAnswers:'%s vastaa', xTurn:'%s:n vuoro', xCorrect:'%s vastasi oikein!', nobody:'Kukaan ei osannut', roundOver:'Kierros päättyi', imBack:'Olen takaisin', pass:'Passaa & talleta', stAway:'TAUOLLA', stOut:'ULKONA', stPassed:'PASSASI', stElim:'PUDONNUT', copied:'Linkki kopioitu', difficulty:'Vaikeustaso', diffAll:'Kaikki', diffEasy:'Helppo', diffMedium:'Keski', diffHard:'Vaikea', hostInfo:'📶 Pelaajat liittyvät skannaamalla QR-koodin. Kaikkien on oltava samassa wifi-verkossa — verkon yli pelaaminen ei onnistu.' },
- en:{ homeNew:'New game', homeMulti:'Multiplayer', checkUpd:'Check for updates', mpHost:'Create game', mpJoin:'Join game', back:'Back', backLobby:'Back to lobby', yourName:'Your name', createRoom:'Create room', hostPh:'Host', joinTitle:'Join game', roomCode:'Room code', join:'Join', playerPh:'Player', copy:'Copy', startGame:'Start game', needTwo:'At least 2 players needed.', ready:'Ready — press Start game.', leave:'Leave', waitHost:'Waiting for the host to start…', chooseMode:'Choose game mode', target:'Target (points)', answerTime:'Answer time', winner:'Winner!', remove:'Remove', you:'(you)', chooseCategory:'Choose a category', picksCategory:'%s is choosing a category…', waitCategory:'Waiting for the category…', suddenDeath:'⚡ Sudden death — ', yourTurn:'Your turn', pickOrPass:'pick or pass', xAnswers:'%s is answering', xTurn:"%s's turn", xCorrect:'%s answered correctly!', nobody:'Nobody got it', roundOver:'Round over', imBack:"I'm back", pass:'Pass & bank', stAway:'AWAY', stOut:'OUT', stPassed:'PASSED', stElim:'KNOCKED OUT', copied:'Link copied', difficulty:'Difficulty', diffAll:'All', diffEasy:'Easy', diffMedium:'Medium', diffHard:'Hard', hostInfo:'📶 Players join by scanning the QR code. Everyone must be on the same wifi network — playing over the internet isn\'t possible.' },
- es:{ homeNew:'Nueva partida', homeMulti:'Multijugador', checkUpd:'Buscar actualizaciones', mpHost:'Crear partida', mpJoin:'Unirse', back:'Atrás', backLobby:'Volver a la sala', yourName:'Tu nombre', createRoom:'Crear sala', hostPh:'Anfitrión', joinTitle:'Unirse a la partida', roomCode:'Código de sala', join:'Unirse', playerPh:'Jugador', copy:'Copiar', startGame:'Empezar', needTwo:'Se necesitan al menos 2 jugadores.', ready:'Listo — pulsa Empezar.', leave:'Salir', waitHost:'Esperando a que el anfitrión empiece…', chooseMode:'Elige el modo', target:'Objetivo (puntos)', answerTime:'Tiempo de respuesta', winner:'¡Ganador!', remove:'Quitar', you:'(tú)', chooseCategory:'Elige una categoría', picksCategory:'%s está eligiendo categoría…', waitCategory:'Esperando la categoría…', suddenDeath:'⚡ Muerte súbita — ', yourTurn:'Tu turno', pickOrPass:'elige o pasa', xAnswers:'%s responde', xTurn:'Turno de %s', xCorrect:'¡%s acertó!', nobody:'Nadie acertó', roundOver:'Fin de la ronda', imBack:'He vuelto', pass:'Pasar y guardar', stAway:'AUSENTE', stOut:'FUERA', stPassed:'PASÓ', stElim:'ELIMINADO', copied:'Enlace copiado', difficulty:'Dificultad', diffAll:'Todos', diffEasy:'Fácil', diffMedium:'Medio', diffHard:'Difícil', hostInfo:'📶 Los jugadores se unen escaneando el código QR. Todos deben estar en la misma red wifi — no se puede jugar por internet.' }
+ fi:{ homeNew:'Uusi peli', homeMulti:'Multiplayer', checkUpd:'Tarkista päivitykset', mpHost:'Luo peli', mpJoin:'Liity peliin', back:'Takaisin', backLobby:'Takaisin aulaan', yourName:'Nimesi', createRoom:'Luo huone', hostPh:'Isäntä', joinTitle:'Liity peliin', roomCode:'Huonekoodi', join:'Liity', playerPh:'Pelaaja', copy:'Kopioi', startGame:'Aloita peli', needTwo:'Tarvitaan vähintään 2 pelaajaa.', ready:'Valmista — paina Aloita peli.', leave:'Poistu', waitHost:'Odota että isäntä aloittaa pelin…', chooseMode:'Valitse pelimuoto', target:'Tavoite (pistettä)', answerTime:'Vastausaika', winner:'Voittaja!', remove:'Poista', you:'(sinä)', chooseCategory:'Valitse kategoria', picksCategory:'%s valitsee kategoriaa…', waitCategory:'Odota kategorian valintaa…', suddenDeath:'⚡ Äkkikuolema — ', yourTurn:'Sinun vuorosi', pickOrPass:'poimi tai passaa', xAnswers:'%s vastaa', xTurn:'%s:n vuoro', xCorrect:'%s vastasi oikein!', nobody:'Kukaan ei osannut', roundOver:'Kierros päättyi', imBack:'Olen takaisin', pass:'Passaa & talleta', stAway:'TAUOLLA', stOut:'ULKONA', stPassed:'PASSASI', stElim:'PUDONNUT', copied:'Linkki kopioitu', hostPlaysLabel:'Isäntä pelaa mukana', spectating:'Katsot peliä — isäntä ei pelaa.', difficulty:'Vaikeustaso', diffEasy:'Helppo', diffNormal:'Normaali', diffHard:'Vaikea', hostInfo:'📶 Pelaajat liittyvät skannaamalla QR-koodin. Kaikkien on oltava samassa wifi-verkossa — verkon yli pelaaminen ei onnistu.' },
+ en:{ homeNew:'New game', homeMulti:'Multiplayer', checkUpd:'Check for updates', mpHost:'Create game', mpJoin:'Join game', back:'Back', backLobby:'Back to lobby', yourName:'Your name', createRoom:'Create room', hostPh:'Host', joinTitle:'Join game', roomCode:'Room code', join:'Join', playerPh:'Player', copy:'Copy', startGame:'Start game', needTwo:'At least 2 players needed.', ready:'Ready — press Start game.', leave:'Leave', waitHost:'Waiting for the host to start…', chooseMode:'Choose game mode', target:'Target (points)', answerTime:'Answer time', winner:'Winner!', remove:'Remove', you:'(you)', chooseCategory:'Choose a category', picksCategory:'%s is choosing a category…', waitCategory:'Waiting for the category…', suddenDeath:'⚡ Sudden death — ', yourTurn:'Your turn', pickOrPass:'pick or pass', xAnswers:'%s is answering', xTurn:"%s's turn", xCorrect:'%s answered correctly!', nobody:'Nobody got it', roundOver:'Round over', imBack:"I'm back", pass:'Pass & bank', stAway:'AWAY', stOut:'OUT', stPassed:'PASSED', stElim:'KNOCKED OUT', copied:'Link copied', hostPlaysLabel:'Host is playing', spectating:"You're spectating — host isn't playing.", difficulty:'Difficulty', diffEasy:'Easy', diffNormal:'Normal', diffHard:'Hard', hostInfo:'📶 Players join by scanning the QR code. Everyone must be on the same wifi network — playing over the internet isn\'t possible.' },
+ es:{ homeNew:'Nueva partida', homeMulti:'Multijugador', checkUpd:'Buscar actualizaciones', mpHost:'Crear partida', mpJoin:'Unirse', back:'Atrás', backLobby:'Volver a la sala', yourName:'Tu nombre', createRoom:'Crear sala', hostPh:'Anfitrión', joinTitle:'Unirse a la partida', roomCode:'Código de sala', join:'Unirse', playerPh:'Jugador', copy:'Copiar', startGame:'Empezar', needTwo:'Se necesitan al menos 2 jugadores.', ready:'Listo — pulsa Empezar.', leave:'Salir', waitHost:'Esperando a que el anfitrión empiece…', chooseMode:'Elige el modo', target:'Objetivo (puntos)', answerTime:'Tiempo de respuesta', winner:'¡Ganador!', remove:'Quitar', you:'(tú)', chooseCategory:'Elige una categoría', picksCategory:'%s está eligiendo categoría…', waitCategory:'Esperando la categoría…', suddenDeath:'⚡ Muerte súbita — ', yourTurn:'Tu turno', pickOrPass:'elige o pasa', xAnswers:'%s responde', xTurn:'Turno de %s', xCorrect:'¡%s acertó!', nobody:'Nadie acertó', roundOver:'Fin de la ronda', imBack:'He vuelto', pass:'Pasar y guardar', stAway:'AUSENTE', stOut:'FUERA', stPassed:'PASÓ', stElim:'ELIMINADO', copied:'Enlace copiado', hostPlaysLabel:'El anfitrión juega', spectating:'Estás observando — el anfitrión no juega.', difficulty:'Dificultad', diffEasy:'Fácil', diffNormal:'Normal', diffHard:'Difícil', hostInfo:'📶 Los jugadores se unen escaneando el código QR. Todos deben estar en la misma red wifi — no se puede jugar por internet.' }
 };
 function uiLang(){ return ['fi','en','es'].includes(myLang) ? myLang : 'en'; }
 function t(key, sub){ let str=(T[uiLang()]&&T[uiLang()][key])||T.en[key]||key; if(sub!=null) str=str.replace('%s', sub); return str; }
@@ -740,6 +743,7 @@ function applyUITexts(){
   document.querySelectorAll('[data-back]').forEach(b=>{ b.textContent=t('back'); });
   setTxt('#modeBack','backLobby');
   setTxt('#view-name-host .q-title','yourName'); setTxt('#hostInfo','hostInfo'); setTxt('#createRoom span','createRoom'); setPh('#hostName','hostPh');
+  { const hp=$('#hostPlays'); if(hp){ const sp=hp.parentElement.querySelector('span'); if(sp) sp.textContent=t('hostPlaysLabel'); } }
   setTxt('#view-name-join .q-title','joinTitle'); setTxt('#doJoin span','join'); setPh('#joinName','playerPh');
   document.querySelectorAll('#view-name-join .lbl2').forEach((el,i)=>{ el.textContent=t(i===0?'roomCode':'yourName'); });
   document.querySelectorAll('#view-host .lbl2, #view-lobby .lbl2').forEach(el=>{ el.textContent=t('roomCode'); });
@@ -747,7 +751,7 @@ function applyUITexts(){
   setTxt('#lobbyStatus','waitHost');
   setTxt('#view-mode .q-title','chooseMode');
   document.querySelectorAll('#view-mode .lbl2').forEach((el,i)=>{ el.textContent=t(['target','difficulty','answerTime'][i]||'answerTime'); });
-  document.querySelectorAll('#diffPick .btn').forEach(b=>{ const k={all:'diffAll',easy:'diffEasy',medium:'diffMedium',hard:'diffHard'}[b.dataset.d]; if(k) b.textContent=t(k); });
+  document.querySelectorAll('#diffPick .btn').forEach(b=>{ const k={easy:'diffEasy',normal:'diffNormal',hard:'diffHard'}[b.dataset.d]; if(k) b.textContent=t(k); });
   const sg=document.querySelector('#startGame span'); if(sg) sg.textContent=t('startGame');
   document.querySelectorAll('.leaveBtn').forEach(el=>{ el.textContent=t('leave'); });
   setTxt('#view-win .sub','winner');
@@ -756,9 +760,9 @@ function cycleMyLang(){ const L=(room&&room.langs&&room.langs.length)?room.langs
 let starting = false;
 
 /* ---------- HOST logic (authoritative) ---------- */
-function hostCreate(name){
+function hostCreate(name, plays){
   iamHost = true; myName = name;
-  room = { code: code4(), hostId: ME, started:false, timeLimit:30, mode:'bullseye', target:15, poolCount:0, turn:null, players:[ { id:ME, name:name, ts:Date.now(), away:false, misses:0 } ] };
+  room = { code: code4(), hostId: ME, hostPlays: plays!==false, started:false, timeLimit:30, mode:'bullseye', target:15, poolCount:0, turn:null, players: (plays!==false) ? [ { id:ME, name:name, ts:Date.now(), away:false, misses:0 } ] : [] };
   net.open(room.code);
   net.onMessage(onHostMsg);
   startHostHeartbeat();
@@ -807,8 +811,8 @@ async function hostBegin(mode){
   catch(e){ starting=false; modeLoading(false); toast('Kysymysten lataus epäonnistui'); return; }
   starting = false; modeLoading(false);
   if(!pool.length){ toast('Ei kysymyksiä'); return; }
-  room.difficulty = hostDifficulty;
-  if(hostDifficulty!=='all'){ const f=pool.filter(q=>q.d===hostDifficulty); if(f.length) pool=f; }
+  const selD=Object.keys(hostDiffs).filter(k=>hostDiffs[k]); room.difficulty=selD;
+  if(selD.length && selD.length<3){ const f=pool.filter(q=>selD.includes(q.d)); if(f.length) pool=f; }
   room.poolCount = pool.length;
   room.started=true;
   room.players.forEach(p=>{ p.away=false; p.misses=0; });
@@ -836,7 +840,7 @@ function normQ(q, order){
     obj.correct = (o[order.length]===1 || o[order.length]===true);
     return obj;
   });
-  return { topic:q.topic||'gen', mode:q.mode||mode0(order), d:q.d||'medium', cat:q.cat||{}, opts };
+  return { topic:q.topic||'gen', mode:q.mode||mode0(order), d:(['easy','normal','hard'].includes(q.d)?q.d:'normal'), cat:q.cat||{}, opts };
 }
 function mode0(){ return 'sweep'; }
 /* --- Bullseye game machine (host-authoritative) --- */
@@ -1263,7 +1267,8 @@ function renderHost(){
   renderChips('#hostPlayers', true); const hc=$('#hostCtl'); if(hc) hc.innerHTML='';
   const enough=room.players.length>=2;
   $('#startGame').disabled=!enough;
-  $('#startHint').textContent = enough ? t('ready') : t('needTwo');
+  const spec = room.hostPlays===false;
+  $('#startHint').textContent = enough ? (spec?t('spectating'):t('ready')) : t('needTwo');
 }
 function startCountdownDisplay(){
   clearInterval(cdTimer);
@@ -1304,7 +1309,8 @@ document.querySelectorAll('[data-back]').forEach(b=> b.addEventListener('click',
 
 $('#createRoom').addEventListener('click', ()=>{
   const name = ($('#hostName').value||'').trim() || t('hostPh');
-  hostCreate(name);
+  const plays = $('#hostPlays') ? $('#hostPlays').checked : true;
+  hostCreate(name, plays);
 });
 $('#doJoin').addEventListener('click', ()=>{
   const cd = ($('#joinCode').value||'').trim().toUpperCase();
@@ -1316,7 +1322,7 @@ $('#startGame').addEventListener('click', openModeScreen);
 $('#modeBack').addEventListener('click', ()=> show('view-host'));
 document.querySelectorAll('[data-startmode]').forEach(b=> b.addEventListener('click', ()=> hostBegin(b.dataset.startmode)));
 document.querySelectorAll('#targetPick .btn').forEach(b=> b.addEventListener('click', ()=>{ hostTarget=+b.dataset.t; document.querySelectorAll('#targetPick .btn').forEach(x=>x.classList.toggle('sel', x===b)); }));
-document.querySelectorAll('#diffPick .btn').forEach(b=> b.addEventListener('click', ()=>{ hostDifficulty=b.dataset.d; document.querySelectorAll('#diffPick .btn').forEach(x=>x.classList.toggle('sel', x===b)); }));
+document.querySelectorAll('#diffPick .btn').forEach(b=> b.addEventListener('click', ()=>{ const d=b.dataset.d; const on=!hostDiffs[d]; const cnt=Object.values(hostDiffs).filter(Boolean).length; if(!on && cnt<=1) return; hostDiffs[d]=on; b.classList.toggle('sel', on); }));
 $('#copyLink').addEventListener('click', ()=>{
   const v=$('#joinLink').value;
   if(navigator.clipboard){ navigator.clipboard.writeText(v).then(()=>toast('Linkki kopioitu')).catch(()=>toast('Kopiointi ei onnistunut')); }
