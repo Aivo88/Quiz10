@@ -597,6 +597,19 @@
           </div>
         </div>
         <div class="set-row">
+          <span class="set-label" data-i="turnTimeLabel">Turn timer</span>
+          <div class="set-opts">
+            <div class="sliderwrap">
+              <button class="arrow sarrow focusable" data-action="turnTimeStep" data-d="-1">−</button>
+              <div class="slider focusable" id="turnTimeSlider" data-role="slider">
+                <div class="track" id="turnTimeTrack"><div class="fill" id="turnTimeFill"></div><div class="thumb" id="turnTimeThumb"></div></div>
+                <div class="slabel" id="turnTimeValLabel">Off</div>
+              </div>
+              <button class="arrow sarrow focusable" data-action="turnTimeStep" data-d="1">+</button>
+            </div>
+          </div>
+        </div>
+        <div class="set-row">
           <span class="set-label" data-i="bgLabel">Background image</span>
           <div class="set-opts">
             <button class="btn chip focusable" data-action="chooseBg" data-i="bgChoose">Choose from device</button>
@@ -734,6 +747,7 @@
         <div class="turnlabel" id="turnLabel"></div>
       </div>
       <div class="roundbank" id="roundBank"></div>
+      <div class="roundbank" id="turnTimerEl" style="display:none"></div>
     </div>
     <div class="category" id="category"></div>
 
@@ -814,7 +828,7 @@ const T = {
     bank:"Bank points",
     bankZero:"End turn",
     turn:"'s turn",
-    roundBank:"Round: ",
+    roundBank:"Round: ", turnTimeLabel:"Turn timer", noLimit:"Off",
     pointsShort:"pt",
     correctBanner:"Correct!",
     wrongBanner:"Wrong!",
@@ -848,7 +862,7 @@ const T = {
     themeOcean:"Ocean", themeSunset:"Sunset", themeGrape:"Grape", themeMono:"Mono", themeSepia:"Sepia",
     language:"Language",
     confirmAnswersLabel:"Confirm each answer", madeBy:"Made by",
-    confirmBankLabel:"Confirm banking",
+    confirmBankLabel:"Confirm pass & bank",
     back:"Back",
     saveExit:"💾 Save & quit to menu",
     topicPrompt:"choose this round's topic",
@@ -896,7 +910,7 @@ const T = {
     bank:"Talleta pisteet",
     bankZero:"Lopeta vuoro",
     turn:":n vuoro",
-    roundBank:"Kierros: ",
+    roundBank:"Kierros: ", turnTimeLabel:"Vuoroaika", noLimit:"Ei rajaa",
     pointsShort:"p",
     correctBanner:"Oikein!",
     wrongBanner:"Väärin!",
@@ -930,7 +944,7 @@ const T = {
     themeOcean:"Meri", themeSunset:"Auringonlasku", themeGrape:"Viini", themeMono:"Mono", themeSepia:"Seepia",
     language:"Kieli",
     confirmAnswersLabel:"Varmista jokainen vastaus", madeBy:"Tehnyt",
-    confirmBankLabel:"Varmista tallennus",
+    confirmBankLabel:"Varmista passaa & talleta",
     back:"Takaisin",
     saveExit:"💾 Tallenna & palaa valikkoon",
     topicPrompt:"valitse tämän kierroksen aihe",
@@ -978,7 +992,7 @@ const T = {
     bank:"Guardar puntos",
     bankZero:"Terminar turno",
     turn:", tu turno",
-    roundBank:"Ronda: ",
+    roundBank:"Ronda: ", turnTimeLabel:"Tiempo por turno", noLimit:"Sin límite",
     pointsShort:"pt",
     correctBanner:"¡Correcto!",
     wrongBanner:"¡Incorrecto!",
@@ -1012,7 +1026,7 @@ const T = {
     themeOcean:"Océano", themeSunset:"Atardecer", themeGrape:"Uva", themeMono:"Mono", themeSepia:"Sepia",
     language:"Idioma",
     confirmAnswersLabel:"Confirmar cada respuesta", madeBy:"Hecho por",
-    confirmBankLabel:"Confirmar guardado",
+    confirmBankLabel:"Confirmar pasar y guardar",
     back:"Atrás",
     saveExit:"💾 Guardar y salir al menú",
     topicPrompt:"elige el tema de esta ronda",
@@ -3075,7 +3089,7 @@ const BULLSEYE_QUESTIONS = [
 
 const PLAYER_COLORS = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
-const APP_VERSION = '01.00.68';
+const APP_VERSION = '01.00.69';
 
 let questionsStatus = '';
 const QCACHE_KEY = 'quiz10_qcache2';  // bumped: use embedded 1000, ignore old device cache
@@ -3582,10 +3596,12 @@ function commitRecentGame(){
   }
 }
 let confirmCb = null;    // pending confirm callback
-let settings = { size:'1', edge:'1', theme:'mono', confirmA:true, confirmB:true, bgdark:'0.8' };
+let settings = { size:'1', edge:'1', theme:'mono', confirmA:true, confirmB:true, bgdark:'0.8', turntime:'0' };
 const SIZES = [ {v:0.85,n:'S'}, {v:1.0,n:'M'}, {v:1.3,n:'L'}, {v:1.7,n:'XL'}, {v:2.2,n:'XXL'} ];
 const EDGES = [1, 0.95, 0.9, 0.85, 0.8, 0.75, 0.7];   // fit-to-screen zoom steps
 const BGDARK = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0];   // background darkness 0-100%
+const TURNTIME = [0, 10, 15, 20, 30, 45, 60, 90];   // per-turn time limit (0 = no limit)
+let turnTimer = null, turnEndsAt = 0;
 
 /* ---------- Helpers ---------- */
 const $ = s => document.querySelector(s);
@@ -4051,7 +4067,7 @@ function updateHeader(){
   if(!isBull && rb) rb.textContent = tg('roundLabel')+' '+roundTokens[turnIdx]+' '+tg('pointsShort');
 }
 
-function focusFirstOption(){
+function focusFirstOption(){ startTurnTimer();
   requestAnimationFrame(()=>{
     const first = $('#board .opt.focusable');
     setFocus(first || focusables()[0]);
@@ -4166,6 +4182,7 @@ function bustPlayer(p){
 }
 
 function advance(delay){
+  clearTurnTimer();
   turnActive=false; // brief lock
   if(!anyActive() || !idleLeft()){
     setTimeout(endRound, delay);
@@ -4178,7 +4195,7 @@ function advance(delay){
   }
 }
 
-function endRound(){
+function endRound(){ clearTurnTimer();
   // if the round ended with the board exhausted, still-active players keep their tokens
   players.forEach((p,i)=>{
     if(pstatus[i]==='active'){ p.score += roundTokens[i]; pstatus[i]='passed'; }
@@ -4232,7 +4249,7 @@ function announceSuddenDeath(then){
 }
 
 function rankMedal(rank){ return rank===1?'🥇':rank===2?'🥈':rank===3?'🥉':(rank+'.'); }
-function endGame(winnerIdx, silent, forceLang){
+function endGame(winnerIdx, silent, forceLang){ clearTurnTimer();
   hideBanner();
   lastWinner = winnerIdx;
   awaitingTurn=false; $('#turnBanner').classList.remove('show');
@@ -4326,6 +4343,7 @@ function applySettings(){
   updateSlider();
   updateEdgeSlider();
   updateBgDarkSlider();
+  updateTurnTimeSlider();
   $$('[data-action="setTheme"]').forEach(b=> b.classList.toggle('sel', b.dataset.v===settings.theme));
   $$('[data-action="setLang"]').forEach(b=> b.classList.toggle('sel', b.dataset.v===lang));
   const swA=$('#swA'), swB=$('#swB');
@@ -4415,6 +4433,19 @@ function bgDarkIdxFromX(x){
   let ratio=(x-r.left)/r.width; ratio=Math.max(0,Math.min(1,ratio));
   return Math.round(ratio*(BGDARK.length-1));
 }
+function turnTimeIndex(){ let v=parseInt(settings.turntime); if(isNaN(v)) v=0; let best=0,bd=1e9; TURNTIME.forEach((e,i)=>{ const d=Math.abs(e-v); if(d<bd){ bd=d; best=i; } }); return best; }
+function turnTimeSecs(){ return TURNTIME[turnTimeIndex()]||0; }
+function updateTurnTimeSlider(){ const idx=turnTimeIndex(), pct=idx/(TURNTIME.length-1)*100; const fill=$('#turnTimeFill'),thumb=$('#turnTimeThumb'),lab=$('#turnTimeValLabel'); if(fill) fill.style.width=pct+'%'; if(thumb) thumb.style.left=pct+'%'; if(lab) lab.textContent = TURNTIME[idx]===0 ? tg('noLimit') : (TURNTIME[idx]+' s'); }
+function setTurnTimeIndex(idx){ idx=Math.max(0,Math.min(TURNTIME.length-1,idx)); const changed=idx!==turnTimeIndex(); settings.turntime=String(TURNTIME[idx]); updateTurnTimeSlider(); saveSettings(); if(changed) sfx.select(); }
+function turnTimeIdxFromX(x){ const t=$('#turnTimeTrack'); if(!t) return turnTimeIndex(); const r=t.getBoundingClientRect(); let ratio=(x-r.left)/r.width; ratio=Math.max(0,Math.min(1,ratio)); return Math.round(ratio*(TURNTIME.length-1)); }
+function clearTurnTimer(){ if(turnTimer){ clearInterval(turnTimer); turnTimer=null; } const el=$('#turnTimerEl'); if(el) el.style.display='none'; }
+function startTurnTimer(){ clearTurnTimer(); const secs=turnTimeSecs(); if(!secs || !turnActive) return; turnEndsAt=Date.now()+secs*1000; const el=$('#turnTimerEl'); if(el) el.style.display=''; const tick=()=>{ const rem=Math.ceil((turnEndsAt-Date.now())/1000); const e2=$('#turnTimerEl'); if(e2){ e2.textContent=Math.max(0,rem)+' s'; e2.style.color = rem<=5 ? 'var(--bad)' : ''; } if(rem<=0){ clearTurnTimer(); turnTimeout(); } }; tick(); turnTimer=setInterval(tick,200); }
+function turnTimeout(){
+  if(!turnActive || pstatus[turnIdx]!=='active') return;
+  clearTurnTimer();
+  if(gameMode==='sweep'){ turnActive=false; bustPlayer(turnIdx); sfx.wrong(); updateHeader(); updateScorebar(); advance(850); }
+  else { const wi=current.opts.findIndex(o=>o.state==='idle' && !o.correct); if(wi>=0){ doPickBull(wi); } else { turnActive=false; advance(850); } }
+}
 
 /* ---------- Global click + key handling ---------- */
 function activate(el){
@@ -4422,7 +4453,7 @@ function activate(el){
   // Text fields (e.g. question search): OK/Enter opens the on-screen keyboard
   if(el.tagName==='INPUT' && el.type==='text'){ try{ el.focus(); }catch(e){} return; }
   const a = el.dataset.action;
-  const menuSfx = ['lang','players','sizeStep','edgeStep','bgDarkStep','target','toggleDiff','toggleBase','start','again','newgame','setmode','backToMode','settings','rules','menu','mainmenu','backToLang','setTheme','setLang','toggleA','toggleB','topic','confirmYes','confirmNo','settab','togglePack','deletePack','importQuestions','qbOpen','qbBack','qbDetail','qbBackList','qbToggleQ','qbFilter','chooseBg','resetBg','quitGame','cyclelangtopic'];
+  const menuSfx = ['lang','players','sizeStep','edgeStep','bgDarkStep','turnTimeStep','target','toggleDiff','toggleBase','start','again','newgame','setmode','backToMode','settings','rules','menu','mainmenu','backToLang','setTheme','setLang','toggleA','toggleB','topic','confirmYes','confirmNo','settab','togglePack','deletePack','importQuestions','qbOpen','qbBack','qbDetail','qbBackList','qbToggleQ','qbFilter','chooseBg','resetBg','quitGame','cyclelangtopic'];
   if(menuSfx.includes(a)) sfx.select();
 
   if(a==='newgame'){
@@ -4483,6 +4514,7 @@ function activate(el){
   else if(a==='sizeStep'){ setSizeIndex(sizeIndex() + (+el.dataset.d)); }
   else if(a==='edgeStep'){ setEdgeIndex(edgeIndex() + (+el.dataset.d)); }
   else if(a==='bgDarkStep'){ setBgDarkIndex(bgDarkIndex() + (+el.dataset.d)); }
+  else if(a==='turnTimeStep'){ setTurnTimeIndex(turnTimeIndex() + (+el.dataset.d)); }
   else if(a==='target'){ target = +el.dataset.v; refreshSetup(); }
   else if(a==='toggleDiff'){
     const v = el.dataset.v;
@@ -4717,6 +4749,15 @@ function doUpdate(btn){
   const getX = e => (e.touches && e.touches[0]) ? e.touches[0].clientX : e.clientX;
   const apply = e => { setBgDarkIndex(bgDarkIdxFromX(getX(e))); };
   track.addEventListener('pointerdown', e=>{ dragging=true; setFocus($('#bgDarkSlider')); apply(e); e.preventDefault(); });
+  window.addEventListener('pointermove', e=>{ if(dragging) apply(e); });
+  window.addEventListener('pointerup', ()=>{ dragging=false; });
+})();
+(function(){
+  const track=$('#turnTimeTrack'); if(!track) return;
+  let dragging=false;
+  const getX = e => (e.touches && e.touches[0]) ? e.touches[0].clientX : e.clientX;
+  const apply = e => { setTurnTimeIndex(turnTimeIdxFromX(getX(e))); };
+  track.addEventListener('pointerdown', e=>{ dragging=true; setFocus($('#turnTimeSlider')); apply(e); e.preventDefault(); });
   window.addEventListener('pointermove', e=>{ if(dragging) apply(e); });
   window.addEventListener('pointerup', ()=>{ dragging=false; });
 })();
