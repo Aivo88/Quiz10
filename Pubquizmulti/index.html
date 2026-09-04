@@ -544,7 +544,7 @@
 
   <section class="screen" id="view-name-host">
     <button class="corner-flag" title="Language">🇬🇧</button>
-    <div class="hint" id="hostInfo" style="position:fixed; top:52px; left:50%; transform:translateX(-50%); width:min(46ch,92vw); text-align:center; z-index:6; pointer-events:none; color:var(--ink); font-weight:600; font-size:clamp(15px,4.4vw,21px); line-height:1.35"></div>
+    <div class="hint" id="hostInfo" style="position:fixed; top:92px; left:50%; transform:translateX(-50%); width:min(46ch,92vw); text-align:center; z-index:6; pointer-events:none; color:var(--ink); font-weight:600; font-size:clamp(15px,4.4vw,21px); line-height:1.35"></div>
     <div class="center">
       <h2 class="q-title">Nimesi</h2>
       <div class="mpcard">
@@ -684,7 +684,7 @@
 <script>
 
 "use strict";
-const MP_VERSION = '00.07.06';
+const MP_VERSION = '00.07.07';
 const $ = s => document.querySelector(s);
 const PCOL = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
@@ -784,7 +784,7 @@ function hostCreate(name, plays, def){
 }
 function onHostMsg(msg){
   if(msg.t==='join'){ upsertPlayer(msg.id, msg.name, msg.def); if(room.started && room.scores && room.scores[msg.id]==null) room.scores[msg.id]=0; pushState(); }
-  else if(msg.t==='leave'){ const pid=msg.id; removePlayer(pid); if(room.scores) delete room.scores[pid]; if(room.hostPlays===false && room.players.length===0){ leaveAll(); show('view-home'); return; } if(room.started) reconcile(pid); else pushState(); }
+  else if(msg.t==='leave'){ const pid=msg.id; removePlayer(pid); if(room.scores) delete room.scores[pid]; if(room.hostPlays===false && room.hadPlayers && room.players.length===0){ leaveAll(); show('view-home'); return; } if(room.started) reconcile(pid); else pushState(); }
   else if(msg.t==='hello'){ pushState(); }
   else if(msg.t==='ping'){ touch(msg.id); }
   else if(msg.t==='action'){
@@ -798,7 +798,7 @@ function onHostMsg(msg){
 function upsertPlayer(id,name,def){
   const p = room.players.find(x=>x.id===id);
   if(p){ p.name=name; if(def!==undefined) p.def=def||null; p.ts=Date.now(); }
-  else if(room.players.length<8){ room.players.push({id,name,def:def||null,ts:Date.now(),away:false,misses:0}); }
+  else if(room.players.length<8){ room.players.push({id,name,def:def||null,ts:Date.now(),away:false,misses:0}); room.hadPlayers=true; }
 }
 function pdName(p){ if(!p) return '—'; return p.def ? t(p.def==='host'?'hostPh':'playerPh') : p.name; }
 function removePlayer(id){ room.players = room.players.filter(x=>x.id!==id); }
@@ -810,7 +810,7 @@ function startHostHeartbeat(){
     const now=Date.now(); const before=room.players.length;
     const curPid = room.started ? (room.phase==='category'?room.pickerPid:room.answererPid) : null; let curDropped=false;
     room.players = room.players.filter(p=>{ const keep = p.id===room.hostId || (now-p.ts)<9000; if(!keep){ if(room.scores) delete room.scores[p.id]; if(p.id===curPid) curDropped=true; } return keep; });
-    if(room.hostPlays===false && room.players.length===0){ leaveAll(); show('view-home'); return; }
+    if(room.hostPlays===false && room.hadPlayers && room.players.length===0){ leaveAll(); show('view-home'); return; }
     if(room.players.length!==before){ if(room.started){ if(curDropped) reconcile(curPid); else pushState(); } else pushState(); }
   }, 3000);
 }
@@ -1339,7 +1339,15 @@ $('#doJoin').addEventListener('click', ()=>{
 });
 $('#startGame').addEventListener('click', openModeScreen);
 $('#modeBack').addEventListener('click', ()=> show('view-host'));
-document.querySelectorAll('[data-startmode]').forEach(b=> b.addEventListener('click', ()=>{ hostMode=b.dataset.startmode; const mm=$('#modesetMode'); if(mm) mm.textContent = hostMode==='sweep'?'Sweep':'Bullseye'; show('view-modeset'); }));
+function setTargetsForMode(mode){
+  const vals = mode==='bullseye' ? [10,15,20] : [15,25,40];
+  const def = mode==='bullseye' ? 15 : 25;
+  hostTarget = def;
+  const tp = $('#targetPick'); if(!tp) return;
+  tp.innerHTML = vals.map(v=>'<button class="btn num'+(v===def?' sel':'')+'" data-t="'+v+'">'+v+'</button>').join('');
+  tp.querySelectorAll('.btn').forEach(bb=> bb.addEventListener('click', ()=>{ hostTarget=+bb.dataset.t; tp.querySelectorAll('.btn').forEach(x=>x.classList.toggle('sel', x===bb)); }));
+}
+document.querySelectorAll('[data-startmode]').forEach(b=> b.addEventListener('click', ()=>{ hostMode=b.dataset.startmode; const mm=$('#modesetMode'); if(mm) mm.textContent = hostMode==='sweep'?'Sweep':'Bullseye'; setTargetsForMode(hostMode); show('view-modeset'); }));
 { const sm=$('#startMode'); if(sm) sm.addEventListener('click', ()=> hostBegin(hostMode)); }
 { const mb=$('#modesetBack'); if(mb) mb.addEventListener('click', ()=> show('view-mode')); }
 document.querySelectorAll('#targetPick .btn').forEach(b=> b.addEventListener('click', ()=>{ hostTarget=+b.dataset.t; document.querySelectorAll('#targetPick .btn').forEach(x=>x.classList.toggle('sel', x===b)); }));
