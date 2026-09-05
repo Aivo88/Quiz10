@@ -1,0 +1,17 @@
+{
+  "name": "Pub Quiz — Multiplayer",
+  "short_name": "Pub Quiz",
+  "description": "Trilingual pub quiz you play together on your phones.",
+  "lang": "fi",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0E1428",
+  "theme_color": "#0E1428",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
