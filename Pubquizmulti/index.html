@@ -699,7 +699,7 @@
 <script>
 
 "use strict";
-const MP_VERSION = '00.08.08';
+const MP_VERSION = '00.09.00';
 const $ = s => document.querySelector(s);
 const PCOL = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
@@ -712,14 +712,44 @@ function myId(){ let id=sessionStorage.getItem('pqm_id'); if(!id){ id='c'+Math.r
 /* ---------- transport adapter ----------
    Phase 1: BroadcastChannel (same browser, many tabs — no server, no internet).
    Later (APK): swap this object for the host's local server. Game logic stays identical. */
+const RELAY_URL = (function(){
+  try{
+    const u = new URLSearchParams(location.search).get('relay');
+    if(u){ localStorage.setItem('pqm_relay', u); return u; }
+    return localStorage.getItem('pqm_relay') || '';
+  }catch(e){ return ''; }
+})();
+
+/* Transport: WebSocket relay when RELAY_URL is set (multi-device, same wifi via a
+   dumb relay — later the host's native local server), else BroadcastChannel (same browser). */
 const net = (function(){
-  let ch=null, cb=null;
-  return {
-    open(roomCode){ this.close(); ch=new BroadcastChannel('pqm-'+roomCode); ch.onmessage=e=>{ if(cb) cb(e.data); }; },
-    send(msg){ if(ch) ch.postMessage(msg); },
-    onMessage(fn){ cb=fn; },
-    close(){ if(ch){ ch.onmessage=null; ch.close(); ch=null; } }
-  };
+  let cb=null;
+  function wsTransport(){
+    let ws=null, room=null, queue=[], open=false, closed=false, retry=0;
+    function connect(){
+      try{ ws=new WebSocket(RELAY_URL); }catch(e){ return; }
+      ws.onopen=()=>{ open=true; retry=0; if(room) ws.send(JSON.stringify({__join:room})); queue.forEach(m=>ws.send(m)); queue=[]; };
+      ws.onmessage=e=>{ let d; try{ d=JSON.parse(e.data); }catch(_){ return; } if(d && d.__sys) return; if(cb) cb(d); };
+      ws.onclose=()=>{ open=false; if(!closed){ retry++; setTimeout(connect, Math.min(600*retry,4000)); } };
+      ws.onerror=()=>{ try{ ws.close(); }catch(_){}} ;
+    }
+    return {
+      open(roomCode){ room=roomCode; closed=false; if(open && ws){ try{ ws.send(JSON.stringify({__join:room})); }catch(_){}} else connect(); },
+      send(msg){ const s=JSON.stringify(msg); if(open && ws && ws.readyState===1){ try{ ws.send(s); }catch(_){ queue.push(s); } } else queue.push(s); },
+      onMessage(fn){ cb=fn; },
+      close(){ closed=true; try{ if(ws){ ws.onmessage=null; ws.close(); } }catch(_){}; ws=null; open=false; queue=[]; }
+    };
+  }
+  function bcTransport(){
+    let ch=null;
+    return {
+      open(roomCode){ this.close(); ch=new BroadcastChannel('pqm-'+roomCode); ch.onmessage=e=>{ if(cb) cb(e.data); }; },
+      send(msg){ if(ch) ch.postMessage(msg); },
+      onMessage(fn){ cb=fn; },
+      close(){ if(ch){ ch.onmessage=null; ch.close(); ch=null; } }
+    };
+  }
+  return RELAY_URL ? wsTransport() : bcTransport();
 })();
 
 /* ---------- shared state ---------- */
@@ -1039,7 +1069,7 @@ function startGuestHeartbeat(){
 function esc(x){ return String(x).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 function meAway(){ const p=findP(ME); return !!(p&&p.away); }
 function playerColor(i){ const v=['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'][i%8]; return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
-function joinURL(cd){ return location.origin + location.pathname + '?room=' + cd; }
+function joinURL(cd){ let u = location.origin + location.pathname + '?room=' + cd; if(RELAY_URL) u += '&relay=' + encodeURIComponent(RELAY_URL); return u; }
 function drawQR(text){ try{ const qr=qrcode(0,'M'); qr.addData(text); qr.make(); $('#qrbox').innerHTML=qr.createSvgTag({cellSize:5,margin:1,scalable:true}); }catch(e){ $('#qrbox').innerHTML=''; } }
 function sendPick(topic){ if(iamHost) onPick(ME,topic); else net.send({t:'action',a:'pickTopic',topic,id:ME}); }
 function sendAnswer(idx){ if(iamHost) onAnswer(ME,idx); else net.send({t:'action',a:'answer',idx,id:ME}); }
