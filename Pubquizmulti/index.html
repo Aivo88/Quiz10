@@ -699,7 +699,7 @@
 <script>
 
 "use strict";
-const MP_VERSION = '00.09.00';
+const MP_VERSION = '00.09.01';
 const $ = s => document.querySelector(s);
 const PCOL = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
@@ -712,10 +712,13 @@ function myId(){ let id=sessionStorage.getItem('pqm_id'); if(!id){ id='c'+Math.r
 /* ---------- transport adapter ----------
    Phase 1: BroadcastChannel (same browser, many tabs — no server, no internet).
    Later (APK): swap this object for the host's local server. Game logic stays identical. */
+const NATIVE = (typeof window!=='undefined' && window.PQNative && typeof window.PQNative.wifiIp==='function');
+function nativeIp(){ try{ return NATIVE ? (window.PQNative.wifiIp()||'') : ''; }catch(e){ return ''; } }
 const RELAY_URL = (function(){
   try{
     const u = new URLSearchParams(location.search).get('relay');
-    if(u){ localStorage.setItem('pqm_relay', u); return u; }
+    if(u){ try{ localStorage.setItem('pqm_relay', u); }catch(e){} return u; }
+    if(NATIVE) return 'ws://localhost:8787';   // native host connects to its own on-phone relay
     return localStorage.getItem('pqm_relay') || '';
   }catch(e){ return ''; }
 })();
@@ -1069,7 +1072,7 @@ function startGuestHeartbeat(){
 function esc(x){ return String(x).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 function meAway(){ const p=findP(ME); return !!(p&&p.away); }
 function playerColor(i){ const v=['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'][i%8]; return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
-function joinURL(cd){ let u = location.origin + location.pathname + '?room=' + cd; if(RELAY_URL) u += '&relay=' + encodeURIComponent(RELAY_URL); return u; }
+function joinURL(cd){ if(NATIVE){ return 'pubquiz://join?ip=' + encodeURIComponent(nativeIp()) + '&port=8787&room=' + cd; } let u = location.origin + location.pathname + '?room=' + cd; if(RELAY_URL) u += '&relay=' + encodeURIComponent(RELAY_URL); return u; }
 function drawQR(text){ try{ const qr=qrcode(0,'M'); qr.addData(text); qr.make(); $('#qrbox').innerHTML=qr.createSvgTag({cellSize:5,margin:1,scalable:true}); }catch(e){ $('#qrbox').innerHTML=''; } }
 function sendPick(topic){ if(iamHost) onPick(ME,topic); else net.send({t:'action',a:'pickTopic',topic,id:ME}); }
 function sendAnswer(idx){ if(iamHost) onAnswer(ME,idx); else net.send({t:'action',a:'answer',idx,id:ME}); }
