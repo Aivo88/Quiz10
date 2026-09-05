@@ -224,7 +224,7 @@
     color:#fff; font-weight:800; letter-spacing:.06em;
   }
   body.nofe .lang .flag{ color:var(--focus); font-weight:800; letter-spacing:.04em; margin-right:.15em }
-  .turnlabel{color:var(--muted); font-size:clamp(13px,1.5vw,20px); letter-spacing:.06em}
+  .turnlabel{color:var(--muted); font-size:clamp(13px,1.5vw,20px); letter-spacing:.06em; min-height:2.5em; display:flex; align-items:center}
   .turnlabel b{color:var(--c-turn,var(--gold))}
   .roundbank{
     font-size:clamp(14px,1.7vw,22px); font-weight:800;
@@ -691,7 +691,7 @@
 <script>
 
 "use strict";
-const MP_VERSION = '00.08.04';
+const MP_VERSION = '00.08.07';
 const $ = s => document.querySelector(s);
 const PCOL = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
@@ -1363,8 +1363,14 @@ function renderSimul(){
   else if(meLocked){ turn.textContent = t('locked')+' — '+t('waitingCount', lc+'/'+tot); }
   else { turn.innerHTML='<b>'+esc(t('answerNow'))+'</b>'; }
   const pass=$('#qPass'), lock=$('#qLock');
-  if(pass){ if(!reveal && room.mode==='sweep' && iAmPlayer){ pass.style.display=''; const tk=q.tokens[ME]||0; pass.textContent='💰 '+t('pass')+(tk>0?' ('+tk+')':''); pass.disabled=!canPick; pass.onclick = canPick ? (()=>simulBank()) : null; } else { pass.style.display='none'; pass.disabled=false; } }
-  if(lock){ if(reveal && iAmPlayer && !q.continued[ME]){ lock.style.display=''; lock.textContent='▶ '+t('continueBtn'); lock.onclick=()=>simulCont(); } else lock.style.display='none'; }
+  if(pass){ pass.style.display='none'; pass.disabled=false; }
+  if(lock){
+    lock.style.display='';  // always occupy the slot with text -> no board resize
+    let txt='▶ '+t('continueBtn'), show=false, dis=true, handler=null;
+    if(reveal){ if(iAmPlayer && !q.continued[ME]){ show=true; dis=false; handler=()=>simulCont(); } }
+    else if(room.mode==='sweep' && iAmPlayer){ show=true; const tk=q.tokens[ME]||0; txt='💰 '+t('pass')+(tk>0?' ('+tk+')':''); dis=!canPick; handler=canPick?(()=>simulBank()):null; }
+    lock.textContent=txt; lock.style.visibility = show?'visible':'hidden'; lock.disabled=dis; lock.onclick=handler;
+  }
   renderChips('#qScores');
 }
 
