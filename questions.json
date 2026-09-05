@@ -288,7 +288,7 @@
   "d": "normal",
   "cat": {
    "en": "Which of these countries border Finland?",
-   "fi": "Mitkä näistä maista rajoittuvat Suomeen?",
+   "fi": "Mitkä näistä ovat Suomen naapurimaita?",
    "es": "¿Cuáles de estos países limitan con Finlandia?"
   },
   "o": [
@@ -8879,7 +8879,7 @@
   "d": "hard",
   "cat": {
    "en": "Which of these countries border Germany?",
-   "fi": "Mitkä näistä maista rajoittuvat Saksaan?",
+   "fi": "Mitkä näistä ovat Saksan naapurimaita?",
    "es": "¿Cuáles de estos países limitan con Alemania?"
   },
   "o": [
@@ -11009,7 +11009,7 @@
   "d": "hard",
   "cat": {
    "en": "Which of these countries border France?",
-   "fi": "Mitkä näistä maista rajoittuvat Ranskaan?",
+   "fi": "Mitkä näistä ovat Ranskan naapurimaita?",
    "es": "¿Cuáles de estos países limitan con Francia?"
   },
   "o": [
@@ -17896,7 +17896,7 @@
   "d": "hard",
   "cat": {
    "en": "Which of these seas border Europe?",
-   "fi": "Mitkä näistä meristä rajoittuvat Eurooppaan?",
+   "fi": "Mitkä näistä meristä ympäröivät Eurooppaa?",
    "es": "¿Cuáles de estos mares limitan con Europa?"
   },
   "o": [
@@ -22440,7 +22440,7 @@
   "d": "hard",
   "cat": {
    "en": "Which of these countries share a land border with Russia?",
-   "fi": "Mitkä näistä maista rajoittuvat maarajalla Venäjään?",
+   "fi": "Millä näistä maista on maaraja Venäjän kanssa?",
    "es": "¿Cuáles de estos países tienen frontera terrestre con Rusia?"
   },
   "o": [
@@ -45160,7 +45160,7 @@
   "d": "normal",
   "cat": {
    "en": "Which of these countries border the Baltic Sea?",
-   "fi": "Mitkä näistä maista rajoittuvat Itämereen?",
+   "fi": "Mitkä näistä maista sijaitsevat Itämeren rannalla?",
    "es": "¿Cuáles de estos países tienen costa en el mar Báltico?"
   },
   "o": [
