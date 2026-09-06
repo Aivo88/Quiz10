@@ -1,6 +1,10 @@
 package com.aivo.pubquiz;
 
 import android.Manifest;
+import android.app.UiModeManager;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
+import android.view.View;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -42,6 +46,13 @@ public class MainActivity extends Activity {
 
     @Override protected void onCreate(Bundle b) {
         super.onCreate(b);
+        try {
+            UiModeManager um = (UiModeManager) getSystemService(UI_MODE_SERVICE);
+            boolean isTv = um != null && um.getCurrentModeType() == Configuration.UI_MODE_TYPE_TELEVISION;
+            setRequestedOrientation(isTv ? ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+                                         : ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        } catch (Exception ignored) {}
+        hideSystemUi();
         try { relay = new RelayServer(RELAY_PORT); relay.setReuseAddr(true); relay.start(); } catch (Exception ignored) {}
         try { http = new AssetHttpServer(HTTP_PORT, getAssets()); http.start(fi.iki.elonen.NanoHTTPD.SOCKET_READ_TIMEOUT, false); } catch (Exception ignored) {}
 
@@ -99,7 +110,7 @@ public class MainActivity extends Activity {
         @JavascriptInterface public String wifiIp() { return getWifiIp(); }
         @JavascriptInterface public int relayPort() { return RELAY_PORT; }
         @JavascriptInterface public void vibrate(int ms) { doVibrate(ms, false); }
-        @JavascriptInterface public void vibrateTest() { doVibrate(400, true); }
+        @JavascriptInterface public void vibrateTest() { doVibrate(220, false); }
         @JavascriptInterface public void scanQr() {
             runOnUiThread(() -> {
                 try {
@@ -171,6 +182,22 @@ public class MainActivity extends Activity {
         return "";
     }
 
+    private void hideSystemUi() {
+        try {
+            View d = getWindow().getDecorView();
+            d.setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+        } catch (Exception ignored) {}
+    }
+    @Override public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) hideSystemUi();
+    }
     @Override public void onBackPressed() {
         if (web != null && web.canGoBack()) web.goBack(); else super.onBackPressed();
     }
