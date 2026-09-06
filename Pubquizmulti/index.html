@@ -705,7 +705,7 @@
 <script>
 
 "use strict";
-const MP_VERSION = '00.09.06';
+const MP_VERSION = '00.09.07';
 const $ = s => document.querySelector(s);
 const PCOL = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
@@ -1150,7 +1150,7 @@ const sfx={
 let snd={phase:'',ans:'',failed:0,revealed:false};
 let vibeOn=true; try{ vibeOn = localStorage.getItem('mpVibe')!=='0'; }catch(e){}
 let lastHostSeen=0;
-function vibrate(pat){ if(!vibeOn) return; try{ if(window.PQNative && typeof window.PQNative.vibrate==='function'){ const ms=Array.isArray(pat)?pat.reduce((a,b)=>a+b,0):pat; window.PQNative.vibrate(ms|0); return; } }catch(e){} try{ if(navigator.vibrate) navigator.vibrate(pat); }catch(e){} }
+function vibrate(pat){ if(!vibeOn) return; try{ if(window.PQNative && typeof window.PQNative.vibrate==='function'){ const ms=Array.isArray(pat)?pat.reduce((a,b)=>a+b,0):pat; window.PQNative.vibrate(ms|0); } }catch(e){} try{ if(navigator.vibrate) navigator.vibrate(pat); }catch(e){} }
 function updateVibeBtn(){ const b=$('#vibeToggle'); if(b) b.textContent='📳 '+(vibeOn?t('vibeOn'):t('vibeOff')); }
 function soundTick(){
   if(!room) return;
@@ -1552,7 +1552,8 @@ $('#verLabel').textContent = 'v'+MP_VERSION;
     if(room){ const jc=$('#joinCode'); if(jc) jc.value=room; }
     const jn=$('#joinName'); if(jn) jn.focus(); toast(t('scanned'));
   }
-  const sb=$('#scanBtn'); if(sb) sb.addEventListener('click', startScan);
+  window.__onScan = onScan;
+  const sb=$('#scanBtn'); if(sb) sb.addEventListener('click', ()=>{ if(NATIVE && window.PQNative && typeof window.PQNative.scanQr==='function'){ try{ window.PQNative.scanQr(); return; }catch(e){} } startScan(); });
   const sc=$('#scanClose'); if(sc) sc.addEventListener('click', stopScan);
 })();
 if('serviceWorker' in navigator){ window.addEventListener('load', ()=>{ navigator.serviceWorker.register('sw.js').catch(()=>{}); }); }

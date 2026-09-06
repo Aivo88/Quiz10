@@ -18,6 +18,12 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.google.mlkit.vision.barcode.common.Barcode;
+import com.google.mlkit.vision.codescanner.GmsBarcodeScanner;
+import com.google.mlkit.vision.codescanner.GmsBarcodeScannerOptions;
+import com.google.mlkit.vision.codescanner.GmsBarcodeScanning;
+import org.json.JSONObject;
+
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.util.Collections;
@@ -105,6 +111,23 @@ public class MainActivity extends Activity {
                     v.vibrate(VibrationEffect.createOneShot(ms, VibrationEffect.DEFAULT_AMPLITUDE));
                 else v.vibrate(ms);
             } catch (Exception ignored) {}
+        }
+        @JavascriptInterface public void scanQr() {
+            runOnUiThread(() -> {
+                try {
+                    GmsBarcodeScannerOptions opts = new GmsBarcodeScannerOptions.Builder()
+                            .setBarcodeFormats(Barcode.FORMAT_QR_CODE).build();
+                    GmsBarcodeScanner scanner = GmsBarcodeScanning.getClient(MainActivity.this, opts);
+                    scanner.startScan()
+                        .addOnSuccessListener(bc -> {
+                            String raw = bc.getRawValue();
+                            if (raw != null) web.evaluateJavascript(
+                                "window.__onScan && window.__onScan(" + JSONObject.quote(raw) + ")", null);
+                        })
+                        .addOnFailureListener(e -> {})
+                        .addOnCanceledListener(() -> {});
+                } catch (Exception ignored) {}
+            });
         }
     }
 
