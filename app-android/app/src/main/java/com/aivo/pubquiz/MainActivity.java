@@ -5,19 +5,18 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import android.os.VibratorManager;
 import android.webkit.JavascriptInterface;
 import android.webkit.PermissionRequest;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
-import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-
-import androidx.webkit.WebViewAssetLoader;
 
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -25,34 +24,27 @@ import java.util.Collections;
 import java.util.List;
 
 public class MainActivity extends Activity {
-    static final int PORT = 8787;
-    // Served over https via WebViewAssetLoader -> secure origin (camera + fetch work).
-    private static final String BASE =
-            "https://appassets.androidplatform.net/assets/www/Pubquizmulti/index.html";
+    static final int RELAY_PORT = 8787;   // WebSocket relay (guests connect here)
+    static final int HTTP_PORT  = 8788;   // local asset server for our own WebView
+    private static final String BASE = "http://127.0.0.1:" + HTTP_PORT + "/Pubquizmulti/index.html";
+
     private WebView web;
     private RelayServer relay;
-    private WebViewAssetLoader assetLoader;
+    private AssetHttpServer http;
 
     @Override protected void onCreate(Bundle b) {
         super.onCreate(b);
-        try { relay = new RelayServer(PORT); relay.setReuseAddr(true); relay.start(); } catch (Exception ignored) {}
-
-        assetLoader = new WebViewAssetLoader.Builder()
-                .addPathHandler("/assets/", new WebViewAssetLoader.AssetsPathHandler(this))
-                .build();
+        try { relay = new RelayServer(RELAY_PORT); relay.setReuseAddr(true); relay.start(); } catch (Exception ignored) {}
+        try { http = new AssetHttpServer(HTTP_PORT, getAssets()); http.start(fi.iki.elonen.NanoHTTPD.SOCKET_READ_TIMEOUT, false); } catch (Exception ignored) {}
 
         web = new WebView(this);
         WebSettings s = web.getSettings();
         s.setJavaScriptEnabled(true);
         s.setDomStorageEnabled(true);
         s.setMediaPlaybackRequiresUserGesture(false);
-        s.setAllowFileAccess(false);
-        s.setAllowContentAccess(true);
+        s.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
         web.setKeepScreenOn(true);
         web.setWebViewClient(new WebViewClient() {
-            @Override public WebResourceResponse shouldInterceptRequest(WebView v, WebResourceRequest req) {
-                return assetLoader.shouldInterceptRequest(req.getUrl());
-            }
             @Override public boolean shouldOverrideUrlLoading(WebView v, WebResourceRequest req) {
                 Uri u = req.getUrl();
                 if (u != null && "pubquiz".equals(u.getScheme())) { loadFromDeepLink(u); return true; }
@@ -60,14 +52,16 @@ public class MainActivity extends Activity {
             }
         });
         web.setWebChromeClient(new WebChromeClient() {
-            @Override public void onPermissionRequest(final PermissionRequest r) { r.grant(r.getResources()); }
+            @Override public void onPermissionRequest(final PermissionRequest r) {
+                runOnUiThread(() -> r.grant(r.getResources()));
+            }
         });
         web.addJavascriptInterface(new Bridge(), "PQNative");
         WebView.setWebContentsDebuggingEnabled(true);
         setContentView(web);
 
         try {
-            if (android.os.Build.VERSION.SDK_INT >= 23
+            if (Build.VERSION.SDK_INT >= 23
                     && checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                 requestPermissions(new String[]{ Manifest.permission.CAMERA }, 1);
             }
@@ -86,7 +80,7 @@ public class MainActivity extends Activity {
 
     private void loadFromDeepLink(Uri u) {
         String ip = u.getQueryParameter("ip");
-        String port = u.getQueryParameter("port"); if (port == null) port = String.valueOf(PORT);
+        String port = u.getQueryParameter("port"); if (port == null) port = String.valueOf(RELAY_PORT);
         String room = u.getQueryParameter("room");
         String url = BASE + "?relay=" + Uri.encode("ws://" + ip + ":" + port)
                 + (room != null ? "&room=" + Uri.encode(room) : "");
@@ -95,12 +89,19 @@ public class MainActivity extends Activity {
 
     public class Bridge {
         @JavascriptInterface public String wifiIp() { return getWifiIp(); }
-        @JavascriptInterface public int relayPort() { return PORT; }
+        @JavascriptInterface public int relayPort() { return RELAY_PORT; }
         @JavascriptInterface public void vibrate(int ms) {
             try {
-                Vibrator v = (Vibrator) getSystemService(VIBRATOR_SERVICE);
-                if (v == null || ms <= 0) return;
-                if (android.os.Build.VERSION.SDK_INT >= 26)
+                if (ms <= 0) return;
+                Vibrator v;
+                if (Build.VERSION.SDK_INT >= 31) {
+                    VibratorManager vm = (VibratorManager) getSystemService(VIBRATOR_MANAGER_SERVICE);
+                    v = vm != null ? vm.getDefaultVibrator() : null;
+                } else {
+                    v = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+                }
+                if (v == null) return;
+                if (Build.VERSION.SDK_INT >= 26)
                     v.vibrate(VibrationEffect.createOneShot(ms, VibrationEffect.DEFAULT_AMPLITUDE));
                 else v.vibrate(ms);
             } catch (Exception ignored) {}
@@ -127,5 +128,6 @@ public class MainActivity extends Activity {
     @Override protected void onDestroy() {
         super.onDestroy();
         try { if (relay != null) relay.stop(); } catch (Exception ignored) {}
+        try { if (http != null) http.stop(); } catch (Exception ignored) {}
     }
 }
