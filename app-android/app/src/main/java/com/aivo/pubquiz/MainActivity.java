@@ -1,6 +1,8 @@
 package com.aivo.pubquiz;
 
+import android.Manifest;
 import android.app.Activity;
+import android.content.pm.PackageManager;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -46,6 +48,8 @@ public class MainActivity extends Activity {
         web.addJavascriptInterface(new Bridge(), "PQNative");
         WebView.setWebContentsDebuggingEnabled(true);
         setContentView(web);
+
+        try { if (android.os.Build.VERSION.SDK_INT >= 23 && checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) requestPermissions(new String[]{ Manifest.permission.CAMERA }, 1); } catch (Exception ignored) {}
 
         Uri data = getIntent() != null ? getIntent().getData() : null;
         if (data != null && "pubquiz".equals(data.getScheme())) loadFromDeepLink(data);
