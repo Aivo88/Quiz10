@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.os.VibratorManager;
+import android.widget.Toast;
 import android.webkit.JavascriptInterface;
 import android.webkit.PermissionRequest;
 import android.webkit.WebChromeClient;
@@ -96,22 +97,8 @@ public class MainActivity extends Activity {
     public class Bridge {
         @JavascriptInterface public String wifiIp() { return getWifiIp(); }
         @JavascriptInterface public int relayPort() { return RELAY_PORT; }
-        @JavascriptInterface public void vibrate(int ms) {
-            try {
-                if (ms <= 0) return;
-                Vibrator v;
-                if (Build.VERSION.SDK_INT >= 31) {
-                    VibratorManager vm = (VibratorManager) getSystemService(VIBRATOR_MANAGER_SERVICE);
-                    v = vm != null ? vm.getDefaultVibrator() : null;
-                } else {
-                    v = (Vibrator) getSystemService(VIBRATOR_SERVICE);
-                }
-                if (v == null) return;
-                if (Build.VERSION.SDK_INT >= 26)
-                    v.vibrate(VibrationEffect.createOneShot(ms, VibrationEffect.DEFAULT_AMPLITUDE));
-                else v.vibrate(ms);
-            } catch (Exception ignored) {}
-        }
+        @JavascriptInterface public void vibrate(int ms) { doVibrate(ms, false); }
+        @JavascriptInterface public void vibrateTest() { doVibrate(400, true); }
         @JavascriptInterface public void scanQr() {
             runOnUiThread(() -> {
                 try {
@@ -129,6 +116,33 @@ public class MainActivity extends Activity {
                 } catch (Exception ignored) {}
             });
         }
+    }
+
+    private Vibrator getVib() {
+        try {
+            if (Build.VERSION.SDK_INT >= 31) {
+                VibratorManager vm = (VibratorManager) getSystemService(VIBRATOR_MANAGER_SERVICE);
+                return vm != null ? vm.getDefaultVibrator() : null;
+            }
+            return (Vibrator) getSystemService(VIBRATOR_SERVICE);
+        } catch (Exception e) { return null; }
+    }
+    private void doVibrate(final int ms, final boolean toast) {
+        try {
+            if (ms <= 0) return;
+            final Vibrator v = getVib();
+            final boolean has = (v != null && v.hasVibrator());
+            if (toast) runOnUiThread(() -> Toast.makeText(MainActivity.this,
+                    "vibrate " + ms + (has ? " (has vibrator)" : " (NO vibrator!)"), Toast.LENGTH_SHORT).show());
+            if (v == null) return;
+            try {
+                if (Build.VERSION.SDK_INT >= 26)
+                    v.vibrate(VibrationEffect.createOneShot(ms, VibrationEffect.DEFAULT_AMPLITUDE));
+                else v.vibrate(ms);
+            } catch (Exception e) {
+                try { v.vibrate(ms); } catch (Exception ignored) {}
+            }
+        } catch (Exception ignored) {}
     }
 
     static String getWifiIp() {

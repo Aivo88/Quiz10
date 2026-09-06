@@ -705,7 +705,7 @@
 <script>
 
 "use strict";
-const MP_VERSION = '00.09.07';
+const MP_VERSION = '00.09.08';
 const $ = s => document.querySelector(s);
 const PCOL = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
@@ -1614,7 +1614,7 @@ $('#guestLeave').addEventListener('click', ()=>{ leaveAll(); show('view-home'); 
 document.querySelectorAll('.leaveBtn').forEach(bb=> bb.addEventListener('click', ()=>{ leaveAll(); show('view-home'); }));
 try{ const sv=localStorage.getItem('mpLang'); if(sv) myLang=sv; }catch(e){}
 document.querySelectorAll('.corner-flag,#catFlag,#qFlag').forEach(f=> f.addEventListener('click', cycleMyLang));
-{ const vb=$('#vibeToggle'); if(vb) vb.addEventListener('click', ()=>{ vibeOn=!vibeOn; try{localStorage.setItem('mpVibe', vibeOn?'1':'0');}catch(e){} updateVibeBtn(); if(vibeOn) vibrate(120); }); }
+{ const vb=$('#vibeToggle'); if(vb) vb.addEventListener('click', ()=>{ vibeOn=!vibeOn; try{localStorage.setItem('mpVibe', vibeOn?'1':'0');}catch(e){} updateVibeBtn(); if(vibeOn){ try{ if(window.PQNative && typeof window.PQNative.vibrateTest==='function'){ window.PQNative.vibrateTest(); } else { vibrate(200); } }catch(e){ vibrate(200); } } }); }
 applyUITexts(); updateFlags();
 document.addEventListener('click', e=>{ audioInit(); const t=e.target; if(t.closest && t.closest('.btn, .topic, .langflag') && !t.closest('.opt')) sfx.select(); }, true);
 $('#timeSlider').addEventListener('input', e=>{ const v=+e.target.value; $('#timeVal').textContent = v>90?'Ei aikarajaa':(v+' s'); });
