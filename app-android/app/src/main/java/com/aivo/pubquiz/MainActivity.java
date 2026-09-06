@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.os.VibratorManager;
+import android.media.AudioAttributes;
 import android.widget.Toast;
 import android.webkit.JavascriptInterface;
 import android.webkit.PermissionRequest;
@@ -135,10 +136,22 @@ public class MainActivity extends Activity {
             if (toast) runOnUiThread(() -> Toast.makeText(MainActivity.this,
                     "vibrate " + ms + (has ? " (has vibrator)" : " (NO vibrator!)"), Toast.LENGTH_SHORT).show());
             if (v == null) return;
+            AudioAttributes aa = null;
             try {
-                if (Build.VERSION.SDK_INT >= 26)
-                    v.vibrate(VibrationEffect.createOneShot(ms, VibrationEffect.DEFAULT_AMPLITUDE));
-                else v.vibrate(ms);
+                aa = new AudioAttributes.Builder()
+                        .setUsage(AudioAttributes.USAGE_ALARM)
+                        .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION).build();
+            } catch (Exception ignored) {}
+            try {
+                if (Build.VERSION.SDK_INT >= 26) {
+                    // waveform: buzz - pause - buzz, full amplitude (255) -> hard for MIUI to swallow
+                    long[] pat = new long[]{ 0, ms, 90, ms };
+                    int[] amp = new int[]{ 0, 255, 0, 255 };
+                    VibrationEffect eff = VibrationEffect.createWaveform(pat, amp, -1);
+                    if (aa != null) v.vibrate(eff, aa); else v.vibrate(eff);
+                } else {
+                    v.vibrate(new long[]{ 0, ms, 90, ms }, -1);
+                }
             } catch (Exception e) {
                 try { v.vibrate(ms); } catch (Exception ignored) {}
             }
