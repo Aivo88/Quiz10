@@ -705,7 +705,7 @@
 <script>
 
 "use strict";
-const MP_VERSION = '00.09.05';
+const MP_VERSION = '00.09.06';
 const $ = s => document.querySelector(s);
 const PCOL = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
@@ -1529,6 +1529,7 @@ $('#verLabel').textContent = 'v'+MP_VERSION;
   function parsePub(str){ const q=(str.split('?')[1]||''); const p={}; q.split('&').forEach(kv=>{ const a=kv.split('='); p[a[0]]=decodeURIComponent(a[1]||''); }); return p; }
   async function startScan(){
     if(!ov) return; ov.style.display='flex'; if(msg) msg.textContent=t('scanAim');
+    if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){ if(msg) msg.textContent=t('scanNoCam')+' [mediaDevices puuttuu]'; return; }
     try{
       stream = await navigator.mediaDevices.getUserMedia({ video:{ facingMode:{ ideal:'environment' } }, audio:false });
       vid.srcObject=stream; await vid.play();
@@ -1542,7 +1543,7 @@ $('#verLabel').textContent = 'v'+MP_VERSION;
         raf=requestAnimationFrame(tick);
       };
       raf=requestAnimationFrame(tick);
-    }catch(e){ if(msg) msg.textContent=t('scanNoCam'); }
+    }catch(e){ if(msg) msg.textContent=t('scanNoCam')+' ['+((e&&(e.name||e.message))||'?')+']'; }
   }
   function stopScan(){ if(raf) cancelAnimationFrame(raf); raf=null; if(stream){ stream.getTracks().forEach(t=>t.stop()); stream=null; } if(ov) ov.style.display='none'; }
   function onScan(data){
@@ -1612,7 +1613,7 @@ $('#guestLeave').addEventListener('click', ()=>{ leaveAll(); show('view-home'); 
 document.querySelectorAll('.leaveBtn').forEach(bb=> bb.addEventListener('click', ()=>{ leaveAll(); show('view-home'); }));
 try{ const sv=localStorage.getItem('mpLang'); if(sv) myLang=sv; }catch(e){}
 document.querySelectorAll('.corner-flag,#catFlag,#qFlag').forEach(f=> f.addEventListener('click', cycleMyLang));
-{ const vb=$('#vibeToggle'); if(vb) vb.addEventListener('click', ()=>{ vibeOn=!vibeOn; try{localStorage.setItem('mpVibe', vibeOn?'1':'0');}catch(e){} updateVibeBtn(); if(vibeOn) vibrate(60); }); }
+{ const vb=$('#vibeToggle'); if(vb) vb.addEventListener('click', ()=>{ vibeOn=!vibeOn; try{localStorage.setItem('mpVibe', vibeOn?'1':'0');}catch(e){} updateVibeBtn(); if(vibeOn) vibrate(120); }); }
 applyUITexts(); updateFlags();
 document.addEventListener('click', e=>{ audioInit(); const t=e.target; if(t.closest && t.closest('.btn, .topic, .langflag') && !t.closest('.opt')) sfx.select(); }, true);
 $('#timeSlider').addEventListener('input', e=>{ const v=+e.target.value; $('#timeVal').textContent = v>90?'Ei aikarajaa':(v+' s'); });
