@@ -706,7 +706,7 @@
 <script>
 
 "use strict";
-const MP_VERSION = '00.10.01';
+const MP_VERSION = '00.10.02';
 const $ = s => document.querySelector(s);
 const PCOL = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
@@ -1579,10 +1579,22 @@ $('#verLabel').textContent = 'v'+MP_VERSION;
   window.__focusFirst=function(){ const l=items(); if(!l.length) return; const pri=l.find(el=>el.classList.contains('gold')||el.hasAttribute('data-startmode')||el.classList.contains('opt')||el.classList.contains('topic')); focusEl(pri||l[0]); };
   document.addEventListener('keydown', function(e){
     const k=e.key; const ae=document.activeElement;
-    if(ae && ae.tagName==='INPUT' && (ae.type==='text'||ae.type==='')){ if(k==='Enter'||k==='Escape'){ ae.blur(); e.preventDefault(); } return; }
-    if(k==='Enter'||k===' '){ if(ae && (ae.tagName==='BUTTON'||ae.classList.contains('opt')||ae.classList.contains('topic')||ae.classList.contains('corner-flag'))){ e.preventDefault(); ae.click(); } return; }
-    const m={ArrowUp:'up',ArrowDown:'down',ArrowLeft:'left',ArrowRight:'right'}; const dir=m[k]; if(!dir) return;
-    if(ae && ae.id==='timeSlider') return;  // let range slider handle left/right
+    const isText  = ae && ae.tagName==='INPUT' && (ae.type==='text'||ae.type===''||ae.type==='number');
+    const isRange = ae && ae.tagName==='INPUT' && ae.type==='range';
+    const isCheck = ae && ae.tagName==='INPUT' && ae.type==='checkbox';
+    const m={ArrowUp:'up',ArrowDown:'down',ArrowLeft:'left',ArrowRight:'right'}; const dir=m[k];
+    // OK / Enter / Space
+    if(k==='Enter'||k===' '){
+      if(isCheck){ e.preventDefault(); ae.checked=!ae.checked; ae.dispatchEvent(new Event('change',{bubbles:true})); return; }
+      if(isText){ return; }  // let the field/keyboard handle it
+      if(ae && (ae.tagName==='BUTTON'||ae.classList.contains('opt')||ae.classList.contains('topic')||ae.classList.contains('corner-flag'))){ e.preventDefault(); ae.click(); }
+      return;
+    }
+    if(!dir) return;
+    // text field: left/right move the cursor; up/down navigate away
+    if(isText && (dir==='left'||dir==='right')) return;
+    // range slider: left/right adjust value; up/down navigate away
+    if(isRange && (dir==='left'||dir==='right')) return;
     document.body.classList.add('kbd');
     const cur=(ae && items().indexOf(ae)>=0)?ae:null;
     const nx=nearest(cur, dir);
