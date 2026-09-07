@@ -707,7 +707,7 @@
 <script>
 
 "use strict";
-const MP_VERSION = '00.10.04';
+const MP_VERSION = '00.10.05';
 const $ = s => document.querySelector(s);
 const PCOL = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
@@ -1373,6 +1373,11 @@ function simulAfterRound(){
   clearDeadline();
   const max=Math.max(...room.players.map(p=>room.scores[p.id]||0));
   if(room.players.some(p=>(room.scores[p.id]||0)>=room.target)){ const top=room.players.filter(p=>(room.scores[p.id]||0)===max); if(top.length===1){ doWin(top[0].id); return; } }
+  // Bullseye: keep the picker's category for perCat questions (same rule as the solo game)
+  if(room.mode==='bullseye'){
+    room.bullQInCat=(room.bullQInCat||0)+1;
+    if(room.bullQInCat < (room.perCat||1)){ startSimulRound(); return; }
+  }
   room.catStarterSeat=(room.catStarterSeat+1)%room.players.length;
   beginCategory();
 }
