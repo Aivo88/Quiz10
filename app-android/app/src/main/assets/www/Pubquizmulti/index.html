@@ -707,7 +707,7 @@
 <script>
 
 "use strict";
-const MP_VERSION = '00.10.05';
+const MP_VERSION = '00.10.07';
 const $ = s => document.querySelector(s);
 const PCOL = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
@@ -880,7 +880,8 @@ function startHostHeartbeat(){
     try{ net.send({t:'alive'}); }catch(e){}
     const now=Date.now(); const before=room.players.length;
     const curPid = room.started ? (room.phase==='category'?room.pickerPid:room.answererPid) : null; let curDropped=false;
-    room.players = room.players.filter(p=>{ const keep = p.id===room.hostId || (now-p.ts)<9000; if(!keep){ if(room.scores) delete room.scores[p.id]; if(p.id===curPid) curDropped=true; } return keep; });
+    const grace = room.started ? 60000 : 12000;
+    room.players = room.players.filter(p=>{ const keep = p.id===room.hostId || (now-p.ts)<grace; if(!keep){ if(room.scores) delete room.scores[p.id]; if(p.id===curPid) curDropped=true; } return keep; });
     if(room.hostPlays===false && room.hadPlayers && room.players.length===0){ leaveAll(); show('view-home'); return; }
     if(room.players.length!==before){ if(room.started){ if(curDropped) reconcile(curPid); else pushState(); } else pushState(); }
   }, 3000);
@@ -1082,7 +1083,7 @@ function onGuestMsg(msg){
 }
 function startGuestHeartbeat(){
   clearInterval(heartbeat);
-  heartbeat = setInterval(()=>{ net.send({t:'ping', id:ME}); if(room && room.started && lastHostSeen && (Date.now()-lastHostSeen)>9000){ toast(t('hostLeft')); leaveAll(); show('view-home'); } }, 3000);
+  heartbeat = setInterval(()=>{ net.send({t:'ping', id:ME}); if(room && room.started && lastHostSeen && (Date.now()-lastHostSeen)>15000){ toast(t('hostLeft')); leaveAll(); show('view-home'); } }, 3000);
 }
 
 /* ---------- helpers + rendering (game-styled) ---------- */
@@ -1564,6 +1565,21 @@ $('#verLabel').textContent = 'v'+MP_VERSION;
   const sb=$('#scanBtn'); if(sb) sb.addEventListener('click', ()=>{ if(NATIVE && window.PQNative && typeof window.PQNative.scanQr==='function'){ try{ window.PQNative.scanQr(); return; }catch(e){} } startScan(); });
   const sc=$('#scanClose'); if(sc) sc.addEventListener('click', stopScan);
 })();
+/* ---------- Native Back button: navigate in-app, never quit ---------- */
+window.__onBack = function(){
+  try{
+    const ov=document.getElementById('scanOverlay');
+    if(ov && ov.style.display==='flex'){ ov.style.display='none'; return true; }
+    const a=document.querySelector('#stage .screen.active'); const id=a?a.id:'';
+    if(id==='view-home') return false;   // only from home does Back exit the app
+    const back={ 'view-mp':'view-home', 'view-name-host':'view-mp', 'view-name-join':'view-mp', 'view-mode':'view-host', 'view-modeset':'view-mode' };
+    if(back[id]){ show(back[id]); return true; }
+    return true;  // lobby / in-game / win: Back does nothing (no accidental quit/leave)
+  }catch(e){ return true; }
+};
+document.addEventListener('visibilitychange', function(){
+  if(!document.hidden && room && !iamHost){ try{ net.send({t:'ping', id:ME}); }catch(e){} }
+});
 /* ---------- TV / D-pad (remote) navigation ---------- */
 (function(){
   const SEL='button:not([disabled]), input:not([disabled]), .opt, .topic, [tabindex]';

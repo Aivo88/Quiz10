@@ -199,7 +199,12 @@ public class MainActivity extends Activity {
         if (hasFocus) hideSystemUi();
     }
     @Override public void onBackPressed() {
-        if (web != null && web.canGoBack()) web.goBack(); else super.onBackPressed();
+        if (web == null) { super.onBackPressed(); return; }
+        web.evaluateJavascript("(window.__onBack && window.__onBack()) ? 1 : 0", value -> {
+            if (value == null || value.equals("0") || value.equals("\"0\"")) {
+                runOnUiThread(MainActivity.this::finish);   // only home screen -> exit
+            }
+        });
     }
 
     @Override protected void onDestroy() {
