@@ -709,7 +709,7 @@
 <script>
 
 "use strict";
-const MP_VERSION = '00.10.12';
+const MP_VERSION = '00.10.13';
 const $ = s => document.querySelector(s);
 const PCOL = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
@@ -1594,12 +1594,15 @@ document.addEventListener('visibilitychange', function(){
     const list=items(); if(!list.length) return null;
     if(!cur || list.indexOf(cur)<0) return list[0];
     const c=ctr(cur); let best=null, bs=Infinity;
-    for(const el of list){ if(el===cur) continue; const t=ctr(el); const dx=t.x-c.x, dy=t.y-c.y; let ok,pri,cross;
-      if(dir==='left'){ ok=dx<-2; pri=-dx; cross=Math.abs(dy); }
-      else if(dir==='right'){ ok=dx>2; pri=dx; cross=Math.abs(dy); }
-      else if(dir==='up'){ ok=dy<-2; pri=-dy; cross=Math.abs(dx); }
-      else { ok=dy>2; pri=dy; cross=Math.abs(dx); }
-      if(!ok) continue; const score=pri*2+cross; if(score<bs){ bs=score; best=el; } }
+    const horiz=(dir==='left'||dir==='right');
+    for(const el of list){ if(el===cur) continue; const t=ctr(el); const dx=t.x-c.x, dy=t.y-c.y; let along,perp;
+      if(dir==='left'){ along=-dx; perp=Math.abs(dy); }
+      else if(dir==='right'){ along=dx; perp=Math.abs(dy); }
+      else if(dir==='up'){ along=-dy; perp=Math.abs(dx); }
+      else { along=dy; perp=Math.abs(dx); }
+      if(along<=2) continue;
+      const score=along + perp*(horiz?4:0.6);   // horiz: strongly stay on the same row; vert: tolerate side offset
+      if(score<bs){ bs=score; best=el; } }
     return best;
   }
   function focusEl(el){ if(!el) return; try{ el.focus({preventScroll:true}); }catch(e){ try{ el.focus(); }catch(_){}} try{ el.scrollIntoView({block:'nearest',inline:'nearest'}); }catch(e){} }
