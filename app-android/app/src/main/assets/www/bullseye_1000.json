@@ -31497,7 +31497,7 @@
    "topic": "geo",
    "d": "hard",
    "cat": {
-    "fi": "Mikä maa on maailman ainoa, joka ulottuu kaikkiin neljään pallonpuoliskoon?",
+    "fi": "Mikä maa ulottuu kaikkiin neljään pallonpuoliskoon?",
     "en": "Which nation spans all four hemispheres?",
     "es": "¿Qué nación abarca los cuatro hemisferios?"
    },
@@ -34500,7 +34500,7 @@
    "topic": "sport",
    "d": "hard",
    "cat": {
-    "fi": "Kuka voitti eniten uintikultaa yksissä olympialaisissa?",
+    "fi": "Kuka voitti 8 kultaa yksissä olympialaisissa (2008)?",
     "en": "Who won 8 golds at a single Olympics (2008)?",
     "es": "¿Quién ganó 8 oros en unos mismos Juegos (2008)?"
    },
@@ -68226,7 +68226,7 @@
    "topic": "sport",
    "d": "normal",
    "cat": {
-    "fi": "Missä lajissa on \"korotus\" ja \"yritys\"?",
+    "fi": "Missä lajissa tehdään \"yritys\" ja \"korotus\"?",
     "en": "Which sport has a \"try\" and a \"conversion\"?",
     "es": "¿Qué deporte tiene un \"try\" y una \"conversión\"?"
    },
@@ -70241,14 +70241,14 @@
     ],
     [
      "Elisabet",
-     "Elisabet",
-     "Elisabet",
+     "Elizabeth",
+     "Isabel",
      0
     ],
     [
      "Margareta",
-     "Margareta",
-     "Margareta",
+     "Margaret",
+     "Margarita",
      0
     ],
     [
@@ -70259,32 +70259,32 @@
     ],
     [
      "Maria Teresia",
-     "Maria Teresia",
-     "Maria Teresia",
+     "Maria Theresa",
+     "María Teresa",
      0
     ],
     [
      "Marie Antoinette",
      "Marie Antoinette",
-     "Marie Antoinette",
+     "María Antonieta",
      1
     ],
     [
      "Josephine",
-     "Josephine",
-     "Josephine",
+     "Joséphine",
+     "Josefina",
      0
     ],
     [
      "Eleonora Akvitanialainen",
-     "Eleonora Akvitanialainen",
-     "Eleonora Akvitanialainen",
+     "Eleanor of Aquitaine",
+     "Leonor de Aquitania",
      0
     ],
     [
      "Katariina de Medici",
-     "Katariina de Medici",
-     "Katariina de Medici",
+     "Catherine de' Medici",
+     "Catalina de Médici",
      0
     ],
     [
@@ -76311,9 +76311,9 @@
    "topic": "sport",
    "d": "hard",
    "cat": {
-    "fi": "Kuka on maalannut eniten maaleja jalkapallon MM-lopputurnauksissa?",
-    "en": "Who scored the most goals in football World Cup finals tournaments?",
-    "es": "¿Quién marcó más goles en fases finales de Mundiales?"
+    "fi": "Kuka on maalannut eniten maaleja jalkapallon MM-lopputurnauksissa (2026 mennessä)?",
+    "en": "Who scored the most goals in football World Cup finals tournaments (as of 2026)?",
+    "es": "¿Quién marcó más goles en fases finales de Mundiales (hasta 2026)?"
    },
    "o": [
     [

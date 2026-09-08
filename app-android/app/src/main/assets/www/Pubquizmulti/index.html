@@ -486,8 +486,11 @@
   #hostPlayers .pchip .pname, #lobbyPlayers .pchip .pname{ color:var(--ink); }
   .corner-flag{ padding:clamp(8px,1.3vh,14px) clamp(16px,1.8vw,24px); border-radius:16px; font-size:calc(clamp(34px,4.2vw,52px) * var(--fs)); }
   #targetPick .btn.num.sel{ background:linear-gradient(180deg,#F5BE52,#E09B22); border-color:#caa23f; color:#241a05; }
-  .pdots{ display:inline-flex; gap:4px; margin-left:8px; }
+  .pdots{ display:inline-flex; gap:4px; }
   .pdot{ width:12px; height:12px; border-radius:50%; box-shadow:0 0 0 2px rgba(0,0,0,.35); }
+  .opt.claimed .tick, .opt.wrong .tick{ position:absolute; right:8px; top:6px; width:1.5em; height:1.5em; margin:0; z-index:2; }
+  .opt .pdots{ position:absolute; right:8px; bottom:6px; z-index:2; max-width:60%; flex-wrap:wrap; justify-content:flex-end; }
+  .opt.claimed .txt, .opt.wrong .txt{ padding-right:2.2em; }
   #qLock{ min-width:14ch; padding:clamp(13px,1.9vh,20px) clamp(26px,4vw,48px); font-weight:800; border-radius:16px; }
   #qPass{ min-width:14ch; padding:clamp(15px,2.2vh,24px) clamp(30px,4.5vw,56px); font-size:calc(clamp(18px,2.2vw,28px) * var(--fs)); font-weight:800; border-radius:16px; box-shadow:0 6px 20px rgba(0,0,0,.4); }
   /* option buttons are <button>, so reset UA color/font to match the game's .opt <div> */
@@ -558,7 +561,6 @@
 
   <section class="screen" id="view-name-host">
     <button class="corner-flag" title="Language">🇬🇧</button>
-    <div class="hint" id="hostInfo" style="position:fixed; top:92px; left:50%; transform:translateX(-50%); width:min(46ch,92vw); text-align:center; z-index:6; pointer-events:none; color:var(--ink); font-weight:600; font-size:clamp(15px,4.4vw,21px); line-height:1.35"></div>
     <div class="center">
       <h2 class="q-title">Nimesi</h2>
       <div class="mpcard">
@@ -707,7 +709,7 @@
 <script>
 
 "use strict";
-const MP_VERSION = '00.10.09';
+const MP_VERSION = '00.10.12';
 const $ = s => document.querySelector(s);
 const PCOL = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
@@ -819,7 +821,7 @@ function applyUITexts(){
   setLast('#mpHost','mpHost'); setLast('#mpJoin','mpJoin');
   document.querySelectorAll('[data-back]').forEach(b=>{ b.textContent=t('back'); });
   setTxt('#modeBack','backLobby');
-  setTxt('#view-name-host .q-title','yourName'); setTxt('#hostInfo','hostInfo'); setTxt('#createRoom span','createRoom'); setPh('#hostName','hostPh');
+  setTxt('#view-name-host .q-title','yourName'); setTxt('#createRoom span','createRoom'); setPh('#hostName','hostPh');
   { const hp=$('#hostPlays'); if(hp){ const sp=hp.parentElement.querySelector('span'); if(sp) sp.textContent=t('hostPlaysLabel'); } }
   { const sm=$('#hostSimul'); if(sm){ const sp=sm.parentElement.querySelector('span'); if(sp) sp.textContent=t('simulLabel'); } }
   setTxt('#view-name-join .q-title','joinTitle'); setTxt('#doJoin span','join'); setPh('#joinName','playerPh');
@@ -1446,7 +1448,7 @@ function renderGame(){
   if(room.langs && room.langs.indexOf(myLang)<0) myLang=room.langs[0]||'fi';
   const ph=room.phase;
   const pb=$('#qPass'); if(pb) pb.style.display='none'; const lb=$('#qLock'); if(lb) lb.style.display='none';
-  if(room.simul){ if(ph==='question' && simSeenPhase!=='question'){ myPicks=[]; vibrate(180); } simSeenPhase=ph; }
+  if(room.simul){ if(ph==='question' && simSeenPhase!=='question'){ myPicks=[]; vibrate(180); } if(ph==='reveal' && simSeenPhase!=='reveal'){ setTimeout(()=>{ const l=$('#qLock'); if(l && l.style.display!=='none' && l.style.visibility!=='hidden'){ try{l.focus();}catch(e){} } else { const lb=document.querySelector('#view-q .leaveBtn'); if(lb){ try{lb.focus();}catch(e){} } } }, 120); } simSeenPhase=ph; }
   if(ph==='win'){ show('view-win'); renderWin(); }
   else if(ph==='category'){ show('view-cat'); renderCat(); }
   else { show('view-q'); if(room.simul) renderSimul(); else if(room.mode==='sweep') renderSweep(); else renderQ(); }
