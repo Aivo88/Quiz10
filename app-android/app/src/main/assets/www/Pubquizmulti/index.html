@@ -488,7 +488,7 @@
   #targetPick .btn.num.sel{ background:linear-gradient(180deg,#F5BE52,#E09B22); border-color:#caa23f; color:#241a05; }
   .pdots{ display:inline-flex; gap:4px; }
   .pdot{ width:12px; height:12px; border-radius:50%; box-shadow:0 0 0 2px rgba(0,0,0,.35); }
-  .opt.claimed .tick, .opt.wrong .tick{ position:absolute; right:8px; top:6px; width:1.5em; height:1.5em; margin:0; z-index:2; }
+  .opt.claimed .tick, .opt.wrong .tick{ position:absolute; right:7px; top:7px; width:1.25em; height:1.25em; min-width:1.25em; font-size:.92em; line-height:1; margin:0; padding:0; z-index:2; }
   .opt .pdots{ position:absolute; right:8px; bottom:6px; z-index:2; max-width:60%; flex-wrap:wrap; justify-content:flex-end; }
   .opt.claimed .txt, .opt.wrong .txt{ padding-right:2.2em; }
   #qLock{ min-width:14ch; padding:clamp(13px,1.9vh,20px) clamp(26px,4vw,48px); font-weight:800; border-radius:16px; }
@@ -709,7 +709,7 @@
 <script>
 
 "use strict";
-const MP_VERSION = '00.11.00';
+const MP_VERSION = '00.11.02';
 const $ = s => document.querySelector(s);
 const PCOL = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
@@ -1222,8 +1222,11 @@ function sweepPick(pid, idx){
   if(typeof idx!=='number' || idx<0 || idx>=curQ.opts.length) return;
   if(room.q.optState[idx]!=='idle') return;
   const p=findP(pid); if(p) p.misses=0;
-  if(curQ.opts[idx].correct){ room.q.optState[idx]='claimed'; room.q.optBy[idx]=pid; room.q.tokens[pid]=(room.q.tokens[pid]||0)+1; }
-  else { room.q.optState[idx]='wrong'; room.q.optBy[idx]=pid; room.q.tokens[pid]=0; room.q.status[pid]='busted'; }
+  if(curQ.opts[idx].correct){ room.q.optState[idx]='claimed'; room.q.optBy[idx]=pid; room.q.tokens[pid]=(room.q.tokens[pid]||0)+1;
+    if(room.q.optState.some(x=>x==='idle')){ setDeadline(); pushState(); return; }  // push your luck: same player keeps picking
+    sweepEndRound(); return;                                                          // board exhausted -> round ends
+  }
+  room.q.optState[idx]='wrong'; room.q.optBy[idx]=pid; room.q.tokens[pid]=0; room.q.status[pid]='busted';
   sweepAdvance();
 }
 function sweepPass(pid){
@@ -1443,15 +1446,26 @@ function renderSimul(){
   renderChips('#qScores');
 }
 
+function restoreGameFocus(keep){
+  requestAnimationFrame(()=>{ try{
+    let el=null;
+    if(keep.btn){ el=document.getElementById(keep.btn); if(el && (el.style.display==='none'||el.style.visibility==='hidden'||el.disabled)) el=null; }
+    if(!el && keep.opt!=null && keep.opt>=0){ const opts=[...document.querySelectorAll('#qOpts .opt')]; el=opts[keep.opt]; if(el && el.disabled){ el=opts.find(o=>!o.disabled)||null; } }
+    if(!el){ const p=$('#qPass'); if(p && p.style.display!=='none' && !p.disabled) el=p; else { const l=$('#qLock'); if(l && l.style.display!=='none' && l.style.visibility!=='hidden' && !l.disabled) el=l; } }
+    if(el && el.offsetParent!==null && !el.disabled) el.focus();
+  }catch(e){} });
+}
 function renderGame(){
   if(!room || !room.started) return;
   if(room.langs && room.langs.indexOf(myLang)<0) myLang=room.langs[0]||'fi';
   const ph=room.phase;
   const pb=$('#qPass'); if(pb) pb.style.display='none'; const lb=$('#qLock'); if(lb) lb.style.display='none';
   if(room.simul){ if(ph==='question' && simSeenPhase!=='question'){ myPicks=[]; vibrate(180); } if(ph==='reveal' && simSeenPhase!=='reveal'){ setTimeout(()=>{ const l=$('#qLock'); if(l && l.style.display!=='none' && l.style.visibility!=='hidden'){ try{l.focus();}catch(e){} } else { const lb=document.querySelector('#view-q .leaveBtn'); if(lb){ try{lb.focus();}catch(e){} } } }, 120); } simSeenPhase=ph; }
+  const _kbd=document.body.classList.contains('kbd'); const _ae=document.activeElement; let _keep=null;
+  if(_kbd && _ae){ if(_ae.classList && _ae.classList.contains('opt')){ const w=$('#qOpts'); _keep={opt:w?[...w.children].indexOf(_ae):-1}; } else if(_ae.id==='qPass'||_ae.id==='qLock'){ _keep={btn:_ae.id}; } }
   if(ph==='win'){ show('view-win'); renderWin(); }
   else if(ph==='category'){ show('view-cat'); renderCat(); }
-  else { show('view-q'); if(room.simul) renderSimul(); else if(room.mode==='sweep') renderSweep(); else renderQ(); }
+  else { show('view-q'); if(room.simul) renderSimul(); else if(room.mode==='sweep') renderSweep(); else renderQ(); if(_kbd && _keep) restoreGameFocus(_keep); }
   soundTick();
   startCountdownDisplay();
 }

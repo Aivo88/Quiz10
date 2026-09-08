@@ -3092,7 +3092,7 @@ const BULLSEYE_QUESTIONS = [
 
 const PLAYER_COLORS = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
-const APP_VERSION = '01.00.75';
+const APP_VERSION = '01.00.76';
 
 let questionsStatus = '';
 const QCACHE_KEY = 'quiz10_qcache2';  // bumped: use embedded 1000, ignore old device cache
@@ -4108,6 +4108,10 @@ function doPick(i){
     roundTokens[turnIdx]++;
     syncOpt(el,o);
     sfx.correct();
+    if(document.body.classList.contains('kbd')){          // remote: continue from the next free answer, not the flag
+      const n=current.opts.length;
+      for(let k=1;k<=n;k++){ const j=(i+k)%n; if(current.opts[j].state==='idle'){ const ne=$(`#board .opt[data-i="${j}"]`); if(ne) setFocus(ne); break; } }
+    }
   } else {
     o.state='wrong'; o.by=turnIdx;
     syncOpt(el,o);
