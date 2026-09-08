@@ -540,7 +540,7 @@
     <div class="center">
       <div style="text-align:center"><div class="brand">PUB <b>QUIZ</b></div><div class="tagline">Multiplayer</div></div>
       <div class="menu-col">
-        <button class="btn gold block" id="homeNew"><span class="mi">▶</span><span>Uusi peli</span></button>
+        <button class="btn block" id="homeNew"><span class="mi">▶</span><span>Uusi peli</span></button>
         <button class="btn block" id="homeMulti"><span class="mi">👥</span><span>Multiplayer</span></button>
       </div>
       <div class="mpfoot"><button class="btn chip" id="vibeToggle">📳</button><span id="verLabel">v0</span><button class="btn chip" id="checkUpd">Tarkista päivitykset</button></div>
@@ -552,7 +552,7 @@
     <div class="center">
       <div style="text-align:center"><div class="brand">PUB <b>QUIZ</b></div><div class="tagline">Multiplayer</div></div>
       <div class="menu-col">
-        <button class="btn gold block" id="mpHost"><span class="mi">➕</span><span>Luo peli</span></button>
+        <button class="btn block" id="mpHost"><span class="mi">➕</span><span>Luo peli</span></button>
         <button class="btn block" id="mpJoin"><span class="mi">🔗</span><span>Liity peliin</span></button>
       </div>
       <button class="btn back" data-back="home">Takaisin</button>
@@ -565,11 +565,11 @@
       <h2 class="q-title">Nimesi</h2>
       <div class="mpcard">
         <input type="text" id="hostName" maxlength="16" placeholder="Isäntä" autocomplete="off">
-        <label class="hostplay" style="display:flex; align-items:center; gap:10px; cursor:pointer; font-weight:700; color:var(--ink); justify-content:center">
-          <input type="checkbox" id="hostPlays" checked style="width:22px; height:22px; accent-color:var(--gold)">
+        <label class="hostplay" tabindex="0" style="display:flex; align-items:center; gap:10px; cursor:pointer; font-weight:700; color:var(--ink); justify-content:center">
+          <input type="checkbox" id="hostPlays" checked tabindex="-1" style="width:22px; height:22px; accent-color:var(--gold)">
           <span>Isäntä pelaa mukana</span>
         </label>
-        <button class="btn gold block" id="createRoom"><span>Luo huone</span></button>
+        <button class="btn block" id="createRoom"><span>Luo huone</span></button>
       </div>
       <button class="btn back" data-back="mp">Takaisin</button>
     </div>
@@ -587,7 +587,7 @@
         <input type="text" id="joinCode" maxlength="4" placeholder="ABCD" autocomplete="off" style="text-transform:uppercase; letter-spacing:.3em">
         <div class="lbl2">Nimesi</div>
         <input type="text" id="joinName" maxlength="16" placeholder="Pelaaja" autocomplete="off">
-        <button class="btn gold block" id="doJoin"><span>Liity</span></button>
+        <button class="btn block" id="doJoin"><span>Liity</span></button>
         <div class="hint" id="joinStatus" style="min-height:1.2em"></div>
       </div>
       <button class="btn back" data-back="mp">Takaisin</button>
@@ -606,7 +606,7 @@
       <div class="hostctl" id="hostCtl"></div>
     </div>
     <div style="flex:none; display:flex; flex-direction:column; align-items:center; gap:8px; padding:10px 0 16px; width:100%; background:linear-gradient(to top, var(--bg) 55%, rgba(11,15,25,0))">
-      <button class="btn gold block" id="startGame" disabled style="width:min(560px,92vw)"><span>Aloita peli</span></button>
+      <button class="btn block" id="startGame" disabled style="width:min(560px,92vw)"><span>Aloita peli</span></button>
       <div class="hint" id="startHint" style="color:var(--ink); font-weight:600; text-align:center"></div>
       <button class="btn back" id="hostLeave">Poistu</button>
     </div>
@@ -657,12 +657,12 @@
         <input type="range" id="timeSlider" min="10" max="95" step="5" value="30">
         <div style="font-weight:800;color:var(--gold)" id="timeVal">30 s</div>
       </div>
-      <label class="hostplay" style="display:flex; align-items:center; gap:10px; cursor:pointer; font-weight:700; color:var(--ink); justify-content:center; margin-top:2px">
-        <input type="checkbox" id="hostSimul" style="width:22px; height:22px; accent-color:var(--gold)">
+      <label class="hostplay" tabindex="0" style="display:flex; align-items:center; gap:10px; cursor:pointer; font-weight:700; color:var(--ink); justify-content:center; margin-top:2px">
+        <input type="checkbox" id="hostSimul" tabindex="-1" style="width:22px; height:22px; accent-color:var(--gold)">
         <span>Kaikki vastaavat yhtä aikaa</span>
       </label>
       <div class="hint" id="modeStatus"></div>
-      <button class="btn gold block" id="startMode"><span>Aloita peli</span></button>
+      <button class="btn block" id="startMode" style="width:min(560px,92vw)"><span>Aloita peli</span></button>
       <button class="btn back" id="modesetBack">Takaisin</button>
     </div>
   </section>
@@ -689,7 +689,7 @@
     </div>
     <div class="category" id="qText"></div>
     <div class="board" id="qOpts"></div>
-    <div class="actions" style="flex-direction:column; align-items:center; gap:10px"><button class="btn gold" id="qLock" style="display:none"></button><button class="btn good" id="qPass" style="display:none"></button><button class="btn back leaveBtn">Poistu</button></div>
+    <div class="actions" style="flex-direction:column; align-items:center; gap:10px"><button class="btn" id="qLock" style="display:none"></button><button class="btn good" id="qPass" style="display:none"></button><button class="btn back leaveBtn">Poistu</button></div>
   </section>
 
   <section class="screen" id="view-win">
@@ -709,7 +709,7 @@
 <script>
 
 "use strict";
-const MP_VERSION = '00.10.13';
+const MP_VERSION = '00.11.00';
 const $ = s => document.querySelector(s);
 const PCOL = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
@@ -1099,7 +1099,7 @@ function drawQR(text){ try{ const qr=qrcode(0,'M'); qr.addData(text); qr.make();
 function sendPick(topic){ if(iamHost) onPick(ME,topic); else net.send({t:'action',a:'pickTopic',topic,id:ME}); }
 function sendAnswer(idx){ if(iamHost) onAnswer(ME,idx); else net.send({t:'action',a:'answer',idx,id:ME}); }
 function sendReturn(){ if(iamHost) onReturn(ME); else net.send({t:'action',a:'back',id:ME}); }
-function returnBtn(){ const b=document.createElement('button'); b.className='btn gold'; b.textContent=t('imBack'); b.onclick=sendReturn; return b; }
+function returnBtn(){ const b=document.createElement('button'); b.className='btn'; b.textContent=t('imBack'); b.onclick=sendReturn; return b; }
 
 function renderChips(sel, withCtl){
   const bar=$(sel); if(!bar||!room) return; bar.innerHTML='';
@@ -1576,9 +1576,11 @@ window.__onBack = function(){
     if(ov && ov.style.display==='flex'){ ov.style.display='none'; return true; }
     const a=document.querySelector('#stage .screen.active'); const id=a?a.id:'';
     if(id==='view-home') return false;   // only from home does Back exit the app
+    const btn=a.querySelector('.btn.back, [data-back], .leaveBtn, #modeBack, #modesetBack, #hostLeave, #guestLeave');
+    if(btn){ btn.click(); return true; }
     const back={ 'view-mp':'view-home', 'view-name-host':'view-mp', 'view-name-join':'view-mp', 'view-mode':'view-host', 'view-modeset':'view-mode' };
-    if(back[id]){ show(back[id]); return true; }
-    return true;  // lobby / in-game / win: Back does nothing (no accidental quit/leave)
+    if(back[id]){ show(back[id]); }
+    return true;
   }catch(e){ return true; }
 };
 document.addEventListener('visibilitychange', function(){
@@ -1586,7 +1588,7 @@ document.addEventListener('visibilitychange', function(){
 });
 /* ---------- TV / D-pad (remote) navigation ---------- */
 (function(){
-  const SEL='button:not([disabled]), input:not([disabled]), .opt, .topic, [tabindex]';
+  const SEL='button:not([disabled]), input:not([disabled]):not([tabindex="-1"]), .opt, .topic, [tabindex]:not([tabindex="-1"])';
   function vis(el){ if(!el) return false; const r=el.getBoundingClientRect(); if(r.width<2||r.height<2) return false; const st=getComputedStyle(el); if(st.visibility==='hidden'||st.display==='none') return false; return true; }
   function items(){ const sc=document.querySelector('#stage .screen.active')||document.body; return [...sc.querySelectorAll(SEL)].filter(vis); }
   function ctr(el){ const r=el.getBoundingClientRect(); return {x:r.left+r.width/2, y:r.top+r.height/2}; }
@@ -1594,14 +1596,12 @@ document.addEventListener('visibilitychange', function(){
     const list=items(); if(!list.length) return null;
     if(!cur || list.indexOf(cur)<0) return list[0];
     const c=ctr(cur); let best=null, bs=Infinity;
-    const horiz=(dir==='left'||dir==='right');
-    for(const el of list){ if(el===cur) continue; const t=ctr(el); const dx=t.x-c.x, dy=t.y-c.y; let along,perp;
-      if(dir==='left'){ along=-dx; perp=Math.abs(dy); }
-      else if(dir==='right'){ along=dx; perp=Math.abs(dy); }
-      else if(dir==='up'){ along=-dy; perp=Math.abs(dx); }
-      else { along=dy; perp=Math.abs(dx); }
-      if(along<=2) continue;
-      const score=along + perp*(horiz?4:0.6);   // horiz: strongly stay on the same row; vert: tolerate side offset
+    for(const el of list){ if(el===cur) continue; const t=ctr(el); const dx=t.x-c.x, dy=t.y-c.y; let primary,cross;
+      if(dir==='right'){ if(dx<=8) continue; primary=dx; cross=Math.abs(dy); }
+      else if(dir==='left'){ if(dx>=-8) continue; primary=-dx; cross=Math.abs(dy); }
+      else if(dir==='down'){ if(dy<=8) continue; primary=dy; cross=Math.abs(dx); }
+      else { if(dy>=-8) continue; primary=-dy; cross=Math.abs(dx); }
+      const score=primary + cross*2;   // same as the solo game
       if(score<bs){ bs=score; best=el; } }
     return best;
   }
@@ -1616,6 +1616,7 @@ document.addEventListener('visibilitychange', function(){
     // OK / Enter / Space
     if(k==='Enter'||k===' '){
       if(isCheck){ e.preventDefault(); ae.checked=!ae.checked; ae.dispatchEvent(new Event('change',{bubbles:true})); return; }
+      if(ae && ae.classList && ae.classList.contains('hostplay')){ const cb=ae.querySelector('input[type=checkbox]'); if(cb){ e.preventDefault(); cb.checked=!cb.checked; cb.dispatchEvent(new Event('change',{bubbles:true})); } return; }
       if(isText){ return; }  // let the field/keyboard handle it
       if(ae && (ae.tagName==='BUTTON'||ae.classList.contains('opt')||ae.classList.contains('topic')||ae.classList.contains('corner-flag'))){ e.preventDefault(); ae.click(); }
       return;
