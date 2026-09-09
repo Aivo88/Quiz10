@@ -256,7 +256,6 @@
 
 <div class="corner-panel" id="cornerPanel">
   <div class="uilang" id="uiLangSel"></div>
-  <button class="btn small" id="updateBtn" data-i18n="update">🔄 Tarkista päivitykset</button>
   <div class="cp-ver" id="cpVer">v01.00.00</div>
 </div>
 
@@ -265,7 +264,7 @@
   <div class="wrap startwrap">
     <div class="startbrand"><span class="dice">🎲</span><span>Pub Quiz<small data-i18n="brandSub">Editor</small></span></div>
     <div class="startbtns">
-      <button class="btn gold block" id="startMakeBtn" data-i18n="startMake">Start making questions</button>
+      <button class="btn block" id="startMakeBtn" data-i18n="startMake">Start making questions</button>
       <button class="btn block" id="startLoadBtn" data-i18n="startLoad">Load questions</button>
       <button class="btn block" id="startBackBtn" data-i18n="startBack">Back to game</button>
     </div>
@@ -602,7 +601,7 @@ function detectFlag(){ try{ const c=document.createElement('canvas'); c.width=20
   for(let i=0;i<d.length;i+=4){const r=d[i],g=d[i+1],b=d[i+2],a=d[i+3]; if(a>0&&((b>90&&r<90)||(r>150&&g>120&&b<90)))n++;} return n>4; }catch(e){return false;} }
 function fl(code){ return FLAG_OK ? (LMETA[code]?LMETA[code].flag:'🏳️') : ''; }
 
-const EDITOR_VERSION = '01.00.30';
+const EDITOR_VERSION = '01.00.31';
 
 /* The game's built-in categories — same keys, so questions land in the right category in-game */
 const DEFAULT_TOPICS = [
@@ -673,7 +672,9 @@ function migrate(p){
   return { name:p.name||'', langs:[lc], customLangs:[], topics, questions };
 }
 
-let newQMode='sweep'; let dirty=false;
+let newQMode='sweep'; let dirty=false; let loadedFromFile=false;
+function resetPack(){ pack={ name:'', mode:'sweep', langs:pack.langs.slice(), customLangs:(pack.customLangs||[]).slice(), topics:defaultTopics(), questions:[] }; loadedFromFile=false; dirty=false; persist(); const pn=$('#packName'); if(pn) pn.value=''; render(); }
+function needsSave(){ return dirty || loadedFromFile; }
 function show(v){ $('#startView').classList.toggle('hidden',v!=='start'); $('#modeView').classList.toggle('hidden',v!=='mode'); $('#mainView').classList.toggle('hidden',v!=='main'); $('#catEditor').classList.toggle('hidden',v!=='cat'); $('#qEditor').classList.toggle('hidden',v!=='q'); $('#catQuestions').classList.toggle('hidden',v!=='catq'); document.querySelector('.topbar').classList.toggle('hidden', v==='start'||v==='mode'); $('#mainBackBtn').classList.toggle('hidden', v!=='main'); window.scrollTo(0,0); }
 
 /* header */
@@ -1053,7 +1054,7 @@ $('#fileInput').addEventListener('change', e=>{
     const arr=Array.isArray(data)?data:(data.questions||[]);
     if(!arr.length && !(data.topics||[]).length){ toast(t('tNoQInFile')); return; }
     if(!await uiConfirm(t('cImport'))) return;
-    importPack(data, arr); dirty=false; toast(t('tImported',pack.questions.length)); show('main');
+    importPack(data, arr); dirty=false; loadedFromFile=true; toast(t('tImported',pack.questions.length)); show('main');
   }catch(err){ toast(t('tBadJson')); } };
   r.readAsText(f); e.target.value='';
 });
@@ -1115,7 +1116,6 @@ async function checkUpdate(){
   }
   btn.textContent=old; updating=false;
 }
-$('#updateBtn').addEventListener('click', checkUpdate);
 if('serviceWorker' in navigator && location.protocol.startsWith('http')){ navigator.serviceWorker.register('editor-sw.js').catch(()=>{}); }
 
 /* UI language */
@@ -1137,7 +1137,7 @@ function applyUILang(){
 }
 document.addEventListener('click', e=>{
   if(!e.target.closest('#uiFlagBtn')) return;
-  const codes=UI_LANGS.map(l=>l.code); const i=codes.indexOf(UILANG);
+  const codes=['en','fi','es']; const i=codes.indexOf(UILANG);
   UILANG=codes[(i+1)%codes.length]; try{ localStorage.setItem(LS_UILANG,UILANG); }catch(_){}
   applyUILang();
 });
@@ -1163,7 +1163,7 @@ FLAG_OK = detectFlag();
 applyGameSettings();
 $('#cpVer').textContent = 'v'+EDITOR_VERSION;
 buildEmojiGrid(); buildLangEmojiGrid(); buildOptRows(); applyUILang(); render();
-$('#startMakeBtn').addEventListener('click',()=>show('mode'));
+$('#startMakeBtn').addEventListener('click',async ()=>{ if(loadedFromFile){ const c=await confirmLeave(); if(c==='cancel') return; if(c==='save'){ const ok=await doExport(); if(!ok) return; } resetPack(); } show('mode'); });
 $('#modeBackBtn').addEventListener('click',()=>show('start'));
 $('#modeBullBtn').addEventListener('click',()=>{ newQMode='bullseye'; show('main'); });
 $('#modeSweepBtn').addEventListener('click',()=>{ newQMode='sweep'; show('main'); });
@@ -1174,10 +1174,10 @@ $('#leaveSaveBtn').addEventListener('click',()=>closeLeave('save'));
 $('#leaveDiscardBtn').addEventListener('click',()=>closeLeave('discard'));
 $('#leaveCancelBtn').addEventListener('click',()=>closeLeave('cancel'));
 $('#leaveModal').addEventListener('click',e=>{ if(e.target.id==='leaveModal') closeLeave('cancel'); });
-async function backFromMain(){ if(dirty){ const c=await confirmLeave(); if(c==='cancel') return; if(c==='save'){ const ok=await doExport(); if(!ok) return; } else if(c==='discard'){ pack={ name:'', langs:pack.langs.slice(), customLangs:pack.customLangs||[], topics:defaultTopics(), questions:[] }; save(); dirty=false; $('#packName').value=''; render(); } } show('mode'); }
+async function backFromMain(){ if(needsSave()){ const c=await confirmLeave(); if(c==='cancel') return; if(c==='save'){ const ok=await doExport(); if(!ok) return; } resetPack(); } show('start'); }
 $('#mainBackBtn').addEventListener('click', backFromMain);
 $('#startLoadBtn').addEventListener('click',()=>$('#fileInput').click());
-$('#startBackBtn').addEventListener('click',()=>{ location.href='../quiz10.html'; });
+$('#startBackBtn').addEventListener('click',async ()=>{ if(needsSave()){ const c=await confirmLeave(); if(c==='cancel') return; if(c==='save'){ const ok=await doExport(); if(!ok) return; } resetPack(); } location.href='../quiz10.html'; });
 show('start'); dirty=false;
 </script>
 </body>
