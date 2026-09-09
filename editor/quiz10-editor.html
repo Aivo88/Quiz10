@@ -601,7 +601,7 @@ function detectFlag(){ try{ const c=document.createElement('canvas'); c.width=20
   for(let i=0;i<d.length;i+=4){const r=d[i],g=d[i+1],b=d[i+2],a=d[i+3]; if(a>0&&((b>90&&r<90)||(r>150&&g>120&&b<90)))n++;} return n>4; }catch(e){return false;} }
 function fl(code){ return FLAG_OK ? (LMETA[code]?LMETA[code].flag:'🏳️') : ''; }
 
-const EDITOR_VERSION = '01.00.31';
+const EDITOR_VERSION = '01.00.32';
 
 /* The game's built-in categories — same keys, so questions land in the right category in-game */
 const DEFAULT_TOPICS = [
@@ -1143,6 +1143,8 @@ document.addEventListener('click', e=>{
 });
 
 /* mirror the game's look: theme colours, background image + darkness (shared localStorage) */
+function setBgImage(url){ const bgEl=document.getElementById('bg'); if(!bgEl) return; bgEl.style.backgroundImage='url("'+url+'")'; bgEl.classList.add('on'); document.body.classList.add('has-bg'); }
+function tryRepoBg(names){ const bgEl=document.getElementById('bg'); if(!bgEl) return; if(!names.length){ bgEl.classList.remove('on'); document.body.classList.remove('has-bg'); return; } const im=new Image(); im.onload=()=>setBgImage(names[0]); im.onerror=()=>tryRepoBg(names.slice(1)); im.src=names[0]; }
 function applyGameSettings(){
   try{
     let st={}; try{ const raw=localStorage.getItem('quiz10_settings'); if(raw) st=JSON.parse(raw)||{}; }catch(_){}
@@ -1151,9 +1153,8 @@ function applyGameSettings(){
     const d=(st.bgdark!=null && st.bgdark!=='')?st.bgdark:'0.78';
     document.body.style.setProperty('--bg-dark', d);
     let img=null; try{ img=localStorage.getItem('quiz10_bgimg'); }catch(_){}
-    const bgEl=document.getElementById('bg');
-    if(bgEl){ if(img){ bgEl.style.backgroundImage='url("'+img+'")'; bgEl.classList.add('on'); document.body.classList.add('has-bg'); }
-              else { bgEl.classList.remove('on'); document.body.classList.remove('has-bg'); } }
+    if(img) setBgImage(img);                                                        // user's custom image
+    else tryRepoBg(['../background.jpg','../background.jpeg','../background.png','../background.webp']);  // else the game's default
   }catch(e){}
 }
 window.addEventListener('storage', e=>{ if(!e.key || e.key==='quiz10_settings' || e.key==='quiz10_bgimg') applyGameSettings(); });
