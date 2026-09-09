@@ -495,7 +495,8 @@
         <div class="tagline" data-i="tagline">The push-your-luck trivia game</div>
       </div>
       <div class="menu-col">
-        <button class="btn gold block focusable" data-focus data-action="newgame"><span class="mi">▶</span><span data-i="newGame">New game</span></button>
+        <button class="btn gold block focusable" data-focus data-action="newgame"><span class="mi">▶</span><span data-i="newGame">Single device</span></button>
+        <button class="btn block focusable" data-action="multiDevice"><span class="mi">📶</span><span data-i="multiDevice">Multiple devices</span></button>
         <button class="btn block focusable" data-action="rules"><span class="mi">📖</span><span data-i="rules">Rules</span></button>
         <button class="btn block focusable" data-action="settings"><span class="mi">⚙</span><span data-i="settings">Settings</span></button>
       </div>
@@ -854,7 +855,7 @@ const T = {
     upNext:"Up next",
     startHint:"<span class='press'>OK</span> or tap to start",
     tagline:"The push-your-luck trivia game",
-    newGame:"New game",
+    newGame:"Single device", multiDevice:"Multiple devices", wifiNotice:"This can only be played when all devices are on the same WiFi network. Continue?",
     rules:"Rules",
     modeTitle:"Choose game mode", modeSweepName:"Sweep", modeSweepTag:"many correct", modeBullName:"Bullseye", modeBullTag:"one correct", modeNoQ:"No questions for this mode yet",
     rulesTitle:"How to play",
@@ -936,7 +937,7 @@ const T = {
     upNext:"Vuorossa",
     startHint:"<span class='press'>OK</span> tai napauta aloittaaksesi",
     tagline:"Uskalla tai passaa -tietovisa",
-    newGame:"Uusi peli",
+    newGame:"Yksi laite", multiDevice:"Useampi laite", wifiNotice:"Tätä voi pelata vain kun kaikki laitteet ovat samassa WiFi-verkossa. Jatketaanko?",
     rules:"Säännöt",
     modeTitle:"Valitse pelimuoto", modeSweepName:"Sweep", modeSweepTag:"monta oikein", modeBullName:"Bullseye", modeBullTag:"yksi oikein", modeNoQ:"Tälle pelimuodolle ei ole vielä kysymyksiä",
     rulesTitle:"Pelin säännöt",
@@ -1018,7 +1019,7 @@ const T = {
     upNext:"Turno de",
     startHint:"<span class='press'>OK</span> o toca para empezar",
     tagline:"El concurso de arriesgar o pasar",
-    newGame:"Nuevo juego",
+    newGame:"Un dispositivo", multiDevice:"Varios dispositivos", wifiNotice:"Esto solo se puede jugar si todos los dispositivos están en la misma red WiFi. ¿Continuar?",
     rules:"Reglas",
     modeTitle:"Elige el modo de juego", modeSweepName:"Sweep", modeSweepTag:"varias correctas", modeBullName:"Bullseye", modeBullTag:"una correcta", modeNoQ:"Aún no hay preguntas para este modo",
     rulesTitle:"Cómo jugar",
@@ -3095,7 +3096,7 @@ const BULLSEYE_QUESTIONS = [
 
 const PLAYER_COLORS = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
-const APP_VERSION = '01.00.80';
+const APP_VERSION = '01.00.81';
 
 let questionsStatus = '';
 const QCACHE_KEY = 'quiz10_qcache2';  // bumped: use embedded 1000, ignore old device cache
@@ -4481,9 +4482,13 @@ function activate(el){
   // Text fields (e.g. question search): OK/Enter opens the on-screen keyboard
   if(el.tagName==='INPUT' && el.type==='text'){ try{ el.focus(); }catch(e){} return; }
   const a = el.dataset.action;
-  const menuSfx = ['lang','players','sizeStep','edgeStep','bgDarkStep','turnTimeStep','target','toggleDiff','toggleBase','start','again','newgame','setmode','backToMode','settings','rules','menu','mainmenu','backToLang','setTheme','setLang','toggleA','toggleB','topic','confirmYes','confirmNo','settab','togglePack','deletePack','importQuestions','qbOpen','qbBack','qbDetail','qbBackList','qbToggleQ','qbFilter','chooseBg','resetBg','quitGame','cyclelangtopic'];
+  const menuSfx = ['lang','players','sizeStep','edgeStep','bgDarkStep','turnTimeStep','target','toggleDiff','toggleBase','start','again','newgame','setmode','backToMode','settings','rules','multiDevice','menu','mainmenu','backToLang','setTheme','setLang','toggleA','toggleB','topic','confirmYes','confirmNo','settab','togglePack','deletePack','importQuestions','qbOpen','qbBack','qbDetail','qbBackList','qbToggleQ','qbFilter','chooseBg','resetBg','quitGame','cyclelangtopic'];
   if(menuSfx.includes(a)) sfx.select();
 
+  if(a==='multiDevice'){
+    askConfirm(tg('wifiNotice'), ()=>{ try{ const u=new URL('Pubquizmulti/index.html', location.href); u.searchParams.set('lang', lang); u.searchParams.set('direct','1'); location.href=u.href; }catch(e){ location.href='Pubquizmulti/index.html?direct=1&lang='+encodeURIComponent(lang); } });
+    return;
+  }
   if(a==='newgame'){
     if(QUESTIONS.length===0){   // base off and no active packs → nothing to play
       showToastMsg(tr('needQuestions'));

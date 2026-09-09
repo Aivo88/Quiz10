@@ -601,7 +601,7 @@ function detectFlag(){ try{ const c=document.createElement('canvas'); c.width=20
   for(let i=0;i<d.length;i+=4){const r=d[i],g=d[i+1],b=d[i+2],a=d[i+3]; if(a>0&&((b>90&&r<90)||(r>150&&g>120&&b<90)))n++;} return n>4; }catch(e){return false;} }
 function fl(code){ return FLAG_OK ? (LMETA[code]?LMETA[code].flag:'🏳️') : ''; }
 
-const EDITOR_VERSION = '01.00.32';
+const EDITOR_VERSION = '01.00.33';
 
 /* The game's built-in categories — same keys, so questions land in the right category in-game */
 const DEFAULT_TOPICS = [
@@ -1138,7 +1138,7 @@ function applyUILang(){
 document.addEventListener('click', e=>{
   if(!e.target.closest('#uiFlagBtn')) return;
   const codes=['en','fi','es']; const i=codes.indexOf(UILANG);
-  UILANG=codes[(i+1)%codes.length]; try{ localStorage.setItem(LS_UILANG,UILANG); }catch(_){}
+  UILANG=codes[(i+1)%codes.length]; try{ localStorage.setItem(LS_UILANG,UILANG); localStorage.setItem('quiz10_lang',UILANG); }catch(_){}
   applyUILang();
 });
 

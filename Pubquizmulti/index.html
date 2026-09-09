@@ -535,19 +535,7 @@
 <div id="bgShade"></div>
 <div id="stage">
 
-  <section class="screen active" id="view-home">
-    <button class="corner-flag" title="Language">🇬🇧</button>
-    <div class="center">
-      <div style="text-align:center"><div class="brand">PUB <b>QUIZ</b></div><div class="tagline">Multiplayer</div></div>
-      <div class="menu-col">
-        <button class="btn block" id="homeNew"><span class="mi">▶</span><span>Uusi peli</span></button>
-        <button class="btn block" id="homeMulti"><span class="mi">👥</span><span>Multiplayer</span></button>
-      </div>
-      <div class="mpfoot"><button class="btn chip" id="vibeToggle">📳</button><span id="verLabel">v0</span><button class="btn chip" id="checkUpd">Tarkista päivitykset</button></div>
-    </div>
-  </section>
-
-  <section class="screen" id="view-mp">
+  <section class="screen active" id="view-mp">
     <button class="corner-flag" title="Language">🇬🇧</button>
     <div class="center">
       <div style="text-align:center"><div class="brand">PUB <b>QUIZ</b></div><div class="tagline">Multiplayer</div></div>
@@ -555,7 +543,8 @@
         <button class="btn block" id="mpHost"><span class="mi">➕</span><span>Luo peli</span></button>
         <button class="btn block" id="mpJoin"><span class="mi">🔗</span><span>Liity peliin</span></button>
       </div>
-      <button class="btn back" data-back="home">Takaisin</button>
+      <button class="btn back" id="mpBackGame">Takaisin</button>
+      <div class="mpfoot"><button class="btn chip" id="vibeToggle">📳</button><span id="verLabel">v0</span></div>
     </div>
   </section>
 
@@ -709,7 +698,7 @@
 <script>
 
 "use strict";
-const MP_VERSION = '00.11.03';
+const MP_VERSION = '00.12.00';
 const $ = s => document.querySelector(s);
 const PCOL = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
@@ -840,7 +829,7 @@ function applyUITexts(){
   setTxt('#view-win .sub','winner');
   updateVibeBtn();
 }
-function cycleMyLang(){ const L=(room&&room.langs&&room.langs.length)?room.langs:['fi','en','es']; let i=L.indexOf(myLang); if(i<0)i=0; myLang=L[(i+1)%L.length]; try{localStorage.setItem('mpLang',myLang);}catch(e){} if(typeof sfx==='object'&&sfx.select){audioInit&&audioInit();sfx.select();} applyUITexts(); updateFlags(); if(room&&room.started) renderGame(); else if(room&&iamHost) renderHost(); else if(room) renderChips('#lobbyPlayers'); }
+function cycleMyLang(){ const L=(room&&room.langs&&room.langs.length)?room.langs:['fi','en','es']; let i=L.indexOf(myLang); if(i<0)i=0; myLang=L[(i+1)%L.length]; try{localStorage.setItem('mpLang',myLang); localStorage.setItem('quiz10_lang',myLang);}catch(e){} if(typeof sfx==='object'&&sfx.select){audioInit&&audioInit();sfx.select();} applyUITexts(); updateFlags(); if(room&&room.started) renderGame(); else if(room&&iamHost) renderHost(); else if(room) renderChips('#lobbyPlayers'); }
 let starting = false;
 
 /* ---------- HOST logic (authoritative) ---------- */
@@ -855,7 +844,7 @@ function hostCreate(name, plays, def){
 }
 function onHostMsg(msg){
   if(msg.t==='join'){ upsertPlayer(msg.id, msg.name, msg.def); if(room.started && room.scores && room.scores[msg.id]==null) room.scores[msg.id]=0; pushState(); }
-  else if(msg.t==='leave'){ const pid=msg.id; removePlayer(pid); if(room.scores) delete room.scores[pid]; if(room.hostPlays===false && room.hadPlayers && room.players.length===0){ leaveAll(); show('view-home'); return; } if(room.started) reconcile(pid); else pushState(); }
+  else if(msg.t==='leave'){ const pid=msg.id; removePlayer(pid); if(room.scores) delete room.scores[pid]; if(room.hostPlays===false && room.hadPlayers && room.players.length===0){ leaveAll(); show('view-mp'); return; } if(room.started) reconcile(pid); else pushState(); }
   else if(msg.t==='hello'){ pushState(); }
   else if(msg.t==='ping'){ touch(msg.id); }
   else if(msg.t==='action'){
@@ -886,7 +875,7 @@ function startHostHeartbeat(){
     const curPid = room.started ? (room.phase==='category'?room.pickerPid:room.answererPid) : null; let curDropped=false;
     const grace = room.started ? 60000 : 12000;
     room.players = room.players.filter(p=>{ const keep = p.id===room.hostId || (now-p.ts)<grace; if(!keep){ if(room.scores) delete room.scores[p.id]; if(p.id===curPid) curDropped=true; } return keep; });
-    if(room.hostPlays===false && room.hadPlayers && room.players.length===0){ leaveAll(); show('view-home'); return; }
+    if(room.hostPlays===false && room.hadPlayers && room.players.length===0){ leaveAll(); show('view-mp'); return; }
     if(room.players.length!==before){ if(room.started){ if(curDropped) reconcile(curPid); else pushState(); } else pushState(); }
   }, 3000);
 }
@@ -1078,7 +1067,7 @@ function guestJoin(cd, name, def){
 }
 function onGuestMsg(msg){
   lastHostSeen = Date.now();
-  if(msg.t==='end'){ toast(t('hostLeft')); leaveAll(); show('view-home'); return; }
+  if(msg.t==='end'){ toast(t('hostLeft')); leaveAll(); show('view-mp'); return; }
   if(msg.t==='state'){
     room = msg.room;
     if(room.started){ renderGame(); }
@@ -1087,7 +1076,7 @@ function onGuestMsg(msg){
 }
 function startGuestHeartbeat(){
   clearInterval(heartbeat);
-  heartbeat = setInterval(()=>{ net.send({t:'ping', id:ME}); if(room && room.started && lastHostSeen && (Date.now()-lastHostSeen)>15000){ toast(t('hostLeft')); leaveAll(); show('view-home'); } }, 3000);
+  heartbeat = setInterval(()=>{ net.send({t:'ping', id:ME}); if(room && room.started && lastHostSeen && (Date.now()-lastHostSeen)>15000){ toast(t('hostLeft')); leaveAll(); show('view-mp'); } }, 3000);
 }
 
 /* ---------- helpers + rendering (game-styled) ---------- */
@@ -1660,24 +1649,12 @@ window.__onUpdateResult = function(n){
   if(n>0) toast('Päivitetty ('+n+') — käynnistetään uudelleen…');
   else toast('Ei uusia päivityksiä (tai ei verkkoyhteyttä).');
 };
-$('#checkUpd').addEventListener('click', async ()=>{
-  if(window.PQNative && typeof PQNative.checkUpdate==='function'){   // native APK: pull latest from GitHub into the app
-    toast('Haetaan päivityksiä…');
-    try{ PQNative.checkUpdate(); }catch(e){ toast('Päivitys epäonnistui.'); }
-    return;
-  }
-  toast('Haetaan uusin versio…');
-  try{
-    if(window.caches){ const ks=await caches.keys(); await Promise.all(ks.map(k=>caches.delete(k))); }
-    if('serviceWorker' in navigator){ const rs=await navigator.serviceWorker.getRegistrations(); await Promise.all(rs.map(x=>x.unregister().catch(()=>{}))); }
-  }catch(e){}
-  location.replace(location.pathname + '?u=' + Date.now());
-});
-$('#homeNew').addEventListener('click', ()=> show('view-mp'));
-$('#homeMulti').addEventListener('click', ()=> show('view-mp'));
+// (updates handled by the main game's 'Check for updates')
+
 $('#mpHost').addEventListener('click', ()=>{ show('view-name-host'); setTimeout(()=>$('#hostName').focus(),50); });
 $('#mpJoin').addEventListener('click', ()=>{ show('view-name-join'); setTimeout(()=>$('#joinName').focus(),50); });
 document.querySelectorAll('[data-back]').forEach(b=> b.addEventListener('click', ()=> show('view-'+b.dataset.back)));
+{ const bg=$('#mpBackGame'); if(bg) bg.addEventListener('click', ()=>{ try{ leaveAll&&leaveAll(); }catch(e){} location.href='../quiz10.html'; }); }
 
 { const hn=$('#hostName'); if(hn){ hn.addEventListener('focus', ()=>{ const hi=$('#hostInfo'); if(hi) hi.style.visibility='hidden'; }); hn.addEventListener('blur', ()=>{ const hi=$('#hostInfo'); if(hi) hi.style.visibility='visible'; }); } }
 $('#createRoom').addEventListener('click', ()=>{
@@ -1717,18 +1694,30 @@ $('#copyLink').addEventListener('click', ()=>{
   if(navigator.clipboard){ navigator.clipboard.writeText(v).then(()=>toast('Linkki kopioitu')).catch(()=>toast('Kopiointi ei onnistunut')); }
   else { $('#joinLink').select(); document.execCommand('copy'); toast('Linkki kopioitu'); }
 });
-$('#hostLeave').addEventListener('click', ()=>{ leaveAll(); show('view-home'); });
-$('#guestLeave').addEventListener('click', ()=>{ leaveAll(); show('view-home'); });
-document.querySelectorAll('.leaveBtn').forEach(bb=> bb.addEventListener('click', ()=>{ leaveAll(); show('view-home'); }));
-try{ const sv=localStorage.getItem('mpLang'); if(sv) myLang=sv; }catch(e){}
+$('#hostLeave').addEventListener('click', ()=>{ leaveAll(); show('view-mp'); });
+$('#guestLeave').addEventListener('click', ()=>{ leaveAll(); show('view-mp'); });
+document.querySelectorAll('.leaveBtn').forEach(bb=> bb.addEventListener('click', ()=>{ leaveAll(); show('view-mp'); }));
+try{ const p=new URLSearchParams(location.search).get('lang'); const gl=localStorage.getItem('quiz10_lang'); const sv=localStorage.getItem('mpLang'); const cand=(p||gl||sv||'en').toLowerCase(); if(['fi','en','es'].includes(cand)) myLang=cand; }catch(e){}
 document.querySelectorAll('.corner-flag,#catFlag,#qFlag').forEach(f=> f.addEventListener('click', cycleMyLang));
 { const vb=$('#vibeToggle'); if(vb) vb.addEventListener('click', ()=>{ vibeOn=!vibeOn; try{localStorage.setItem('mpVibe', vibeOn?'1':'0');}catch(e){} updateVibeBtn(); if(vibeOn){ try{ if(window.PQNative && typeof window.PQNative.vibrateTest==='function'){ window.PQNative.vibrateTest(); } else { vibrate(200); } }catch(e){ vibrate(200); } } }); }
 applyUITexts(); updateFlags();
 document.addEventListener('click', e=>{ audioInit(); const t=e.target; if(t.closest && t.closest('.btn, .topic, .langflag') && !t.closest('.opt')) sfx.select(); }, true);
 $('#timeSlider').addEventListener('input', e=>{ const v=+e.target.value; $('#timeVal').textContent = v>90?'Ei aikarajaa':(v+' s'); });
 
-/* pub background (same image as the game) */
-(function(){ const img=new Image(); img.onload=()=>{ const bg=document.getElementById('bg'); if(bg){ bg.style.backgroundImage='url(\"../background.jpg\")'; setTimeout(()=>bg.classList.add('on'),400); } document.body.classList.add('has-bg'); }; img.onerror=()=>{}; img.src='../background.jpg'; })();
+/* inherit the main game's look: theme, background darkness + image (shared localStorage) */
+function setBgImage(url){ const bg=document.getElementById('bg'); if(!bg) return; bg.style.backgroundImage='url("'+url+'")'; setTimeout(()=>bg.classList.add('on'),300); document.body.classList.add('has-bg'); }
+function tryRepoBg(names){ const bg=document.getElementById('bg'); if(!bg) return; if(!names.length){ bg.classList.remove('on'); document.body.classList.remove('has-bg'); return; } const im=new Image(); im.onload=()=>setBgImage(names[0]); im.onerror=()=>tryRepoBg(names.slice(1)); im.src=names[0]; }
+function applyGameSettings(){
+  try{
+    let st={}; try{ const raw=localStorage.getItem('quiz10_settings'); if(raw) st=JSON.parse(raw)||{}; }catch(_){}
+    const theme=st.theme||'mono'; document.body.setAttribute('data-theme', theme==='default'?'':theme);
+    const d=(st.bgdark!=null&&st.bgdark!=='')?st.bgdark:'0.78'; document.body.style.setProperty('--bg-dark', d);
+    let img=null; try{ img=localStorage.getItem('quiz10_bgimg'); }catch(_){}
+    if(img) setBgImage(img); else tryRepoBg(['../background.jpg','../background.jpeg','../background.png','../background.webp']);
+  }catch(e){}
+}
+window.addEventListener('storage', e=>{ if(!e.key||e.key==='quiz10_settings'||e.key==='quiz10_bgimg') applyGameSettings(); });
+applyGameSettings();
 
 /* ---------- deep link: ?room=CODE ---------- */
 (function(){
