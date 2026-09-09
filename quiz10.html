@@ -1248,7 +1248,7 @@ const QUESTIONS = [
   { topic:'gen', d:'easy', cat:{en:"Which of these are round?",fi:"Mitkä näistä ovat pyöreitä?",es:"¿Cuáles de estos son redondos?"}, o:[["Ball","Pallo","Pelota",1],["Wheel","Pyörä","Rueda",1],["Coin","Kolikko","Moneda",1],["Book","Kirja","Libro",0],["Moon","Kuu","Luna",1],["Ruler","Viivain","Regla",0],["Orange","Appelsiini","Naranja",1],["Ladder","Tikkaat","Escalera",0],["Plate","Lautanen","Plato",1],["Clock","Kello","Reloj",1]] },
   { topic:'sci', d:'easy', cat:{en:"Which of these are pets?",fi:"Mitkä näistä ovat lemmikkejä?",es:"¿Cuáles de estas son mascotas?"}, o:[["Dog","Koira","Perro",1],["Cat","Kissa","Gato",1],["Goldfish","Kultakala","Pez dorado",1],["Lion","Leijona","León",0],["Hamster","Hamsteri","Hámster",1],["Elephant","Norsu","Elefante",0],["Rabbit","Kani","Conejo",1],["Shark","Hai","Tiburón",0],["Parrot","Papukaija","Loro",1],["Guinea pig","Marsu","Cobaya",1]] },
   { topic:'gen', d:'easy', cat:{en:"Which of these do you wear on your head?",fi:"Mitä näistä pidetään päässä?",es:"¿Cuáles de estos se llevan en la cabeza?"}, o:[["Hat","Hattu","Sombrero",1],["Cap","Lippalakki","Gorra",1],["Helmet","Kypärä","Casco",1],["Shoe","Kenkä","Zapato",0],["Crown","Kruunu","Corona",1],["Glove","Hansikas","Guante",0],["Beanie","Pipo","Gorro",1],["Sock","Sukka","Calcetín",0],["Headband","Otsanauha","Cinta para el pelo",1],["Turban","Turbaani","Turbante",1]] },
-  { topic:'gen', d:'easy', cat:{en:"Which of these are tools?",fi:"Mitkä näistä ovat työkaluja?",es:"¿Cuáles de estas son herramientas?"}, o:[["Hammer","Vasara","Martillo",1],["Screwdriver","Ruuvimeisseli","Destornillador",1],["Saw","Saha","Sierra",1],["Banana","Banaani","Plátano",0],["Wrench","Jakoavain","Llave inglesa",1],["Pillow","Tyyny","Almohada",0],["Drill","Pora","Taladro",1],["Cloud","Pilvi","Nube",0],["Pliers","Pihdit","Alicates",1],["Nail","Naula","Clavo",1]] },
+  { topic:'gen', d:'easy', cat:{en:"Which of these are tools?",fi:"Mitkä näistä ovat työkaluja?",es:"¿Cuáles de estas son herramientas?"}, o:[["Hammer","Vasara","Martillo",1],["Screwdriver","Ruuvimeisseli","Destornillador",1],["Saw","Saha","Sierra",1],["Banana","Banaani","Plátano",0],["Wrench","Jakoavain","Llave inglesa",1],["Pillow","Tyyny","Almohada",0],["Drill","Pora","Taladro",1],["Cloud","Pilvi","Nube",0],["Pliers","Pihdit","Alicates",1],["Nail","Naula","Clavo",0]] },
   { topic:'gen', d:'easy', cat:{en:"Which of these are found in a garden?",fi:"Mitä näistä löytyy puutarhasta?",es:"¿Cuáles de estos hay en un jardín?"}, o:[["Flowers","Kukat","Flores",1],["Grass","Ruoho","Hierba",1],["Tree","Puu","Árbol",1],["Sofa","Sohva","Sofá",0],["Bush","Pensas","Arbusto",1],["Oven","Uuni","Horno",0],["Fence","Aita","Valla",1],["Bed","Sänky","Cama",0],["Pond","Lampi","Estanque",1],["Bench","Penkki","Banco",1]] },
   { topic:'gen', d:'easy', cat:{en:"Which of these are sweet foods?",fi:"Mitkä näistä ovat makeita ruokia?",es:"¿Cuáles de estos son alimentos dulces?"}, o:[["Cake","Kakku","Pastel",1],["Chocolate","Suklaa","Chocolate",1],["Ice cream","Jäätelö","Helado",1],["Salad","Salaatti","Ensalada",0],["Candy","Karkki","Caramelo",1],["Bread","Leipä","Pan",0],["Cookie","Keksi","Galleta",1],["Onion","Sipuli","Cebolla",0],["Honey","Hunaja","Miel",1],["Donut","Donitsi","Dónut",1]] },
   { topic:'gen', d:'easy', cat:{en:"Which of these work in a hospital?",fi:"Ketkä näistä työskentelevät sairaalassa?",es:"¿Cuáles de estos trabajan en un hospital?"}, o:[["Doctor","Lääkäri","Médico",1],["Nurse","Sairaanhoitaja","Enfermero",1],["Surgeon","Kirurgi","Cirujano",1],["Pilot","Lentäjä","Piloto",0],["Paramedic","Ensihoitaja","Paramédico",1],["Chef","Kokki","Cocinero",0],["Dentist","Hammaslääkäri","Dentista",1],["Farmer","Maanviljelijä","Agricultor",0],["Radiologist","Radiologi","Radiólogo",1],["Midwife","Kätilö","Matrona",1]] },
@@ -3092,7 +3092,7 @@ const BULLSEYE_QUESTIONS = [
 
 const PLAYER_COLORS = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
-const APP_VERSION = '01.00.77';
+const APP_VERSION = '01.00.78';
 
 let questionsStatus = '';
 const QCACHE_KEY = 'quiz10_qcache2';  // bumped: use embedded 1000, ignore old device cache
@@ -3934,7 +3934,7 @@ function drawQuestion(){
 }
 
 /* Start the round with the chosen topic; opener plays immediately (no banner) */
-function newQuestion(){
+function newQuestion(announce){
   const bd=$('#board'); if(bd) bd.style.opacity='0';   // hide during rebuild to avoid flicker
   drawQuestion();
   pstatus = players.map((_,i)=> (suddenDeath && sdPlayers.indexOf(i)<0) ? 'eliminated' : 'active');
@@ -3946,9 +3946,9 @@ function newQuestion(){
   updateHeader();
   updateScorebar();
   showScreen('screen-game');
-  turnActive = true;
   applyLang();
-  focusFirstOption();
+  if(announce && players.length>1){ announceTurn(); }   // next question's opener didn't pick -> announce whose turn it is
+  else { turnActive = true; focusFirstOption(); }        // topic opener just picked -> play immediately
   requestAnimationFrame(()=>{ fitBoard(); requestAnimationFrame(()=>{ if(bd) bd.style.opacity='1'; }); });
 }
 
@@ -4164,7 +4164,7 @@ function afterBullResolved(scored){
   bullQInCat++;
   const perCat = Math.ceil(BULL_PER_CAT / players.length) * players.length;   // questions per round = smallest multiple of player count that is >= 5 (solo: 5)
   if(bullQInCat >= perCat){ bullQInCat=0; roundsPlayed++; roundStarter=(roundStarter+1)%players.length; chooseTopic(); }   // new category; rotate the picker so it isn't always the same player
-  else newQuestion();                                                             // next question, same category
+  else newQuestion(true);                                                         // next question, same category -> announce the next opener
 }
 
 
