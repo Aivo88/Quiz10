@@ -14,14 +14,64 @@
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-editor-32.png">
 <style>
   :root{
-    --bg:#191410; --panel:#241c15; --panel2:#2f2418; --line:#463726;
-    --ink:#f2e8d5; --muted:#b09a7d; --gold:#f5c542; --goldink:#2a2110;
-    --green:#3fae6b; --greenink:#0e2417; --red:#d9534f; --fs:1;
+    --fs:1; --grad:#1c2647; --bg:#0E1428; --bg2:#0A0F1F;
+    --panel:#18213B; --panel2:#1F2A49; --line:#2C3A5F;
+    --ink:#F5F1E6; --muted:#8A93AD; --gold:#F2B138; --gold-dim:#9c7526;
+    --goldink:#2a2110; --good:#34D399; --bad:#F05252; --focus:#FFE08A;
+    --green:#3fae6b; --greenink:#0e2417; --red:#d9534f;
   }
+  body[data-theme="forest"]{
+    --grad:#123024; --bg:#0C1F17; --bg2:#08140F; --panel:#14352A; --panel2:#1B4636;
+    --line:#2C5C48; --ink:#F1F6EF; --muted:#8FB0A0; --gold:#E7B24A; --gold-dim:#8f6f2c;
+    --good:#4ADE80; --bad:#F87171; --focus:#F4D98A;
+  }
+  body[data-theme="neon"]{
+    --grad:#1a1030; --bg:#08060F; --bg2:#040308; --panel:#160F28; --panel2:#241640;
+    --line:#3B2A66; --ink:#F5F0FF; --muted:#9A8BC2; --gold:#F5C542; --gold-dim:#9c7a1f;
+    --good:#22E6A5; --bad:#FF4D6D; --focus:#7CF9FF;
+    --p1:#F5C542; --p2:#22E6A5; --p3:#4CC9FF; --p4:#FF6FD8; --p5:#B18CFF; --p6:#FF9E45; --p7:#3DF5D0; --p8:#FF5C7A;
+  }
+  body[data-theme="light"]{
+    --grad:#e9eef7; --bg:#F3F5FA; --bg2:#E4E9F2; --panel:#FFFFFF; --panel2:#EDF1F8;
+    --line:#CBD5E6; --ink:#1C2540; --muted:#6B7690; --gold:#D69422; --gold-dim:#b07a1a;
+    --good:#159C6B; --bad:#D6453F; --focus:#E0A93A;
+    --p1:#C88413; --p2:#159C6B; --p3:#2C7BD6; --p4:#D24C97; --p5:#7A5CE0; --p6:#E07A1F; --p7:#159A8F; --p8:#D6453F;
+  }
+  body[data-theme="ocean"]{
+    --grad:#0c2a3a; --bg:#08202E; --bg2:#05161F; --panel:#0F3346; --panel2:#164459;
+    --line:#245D73; --ink:#EAF6FB; --muted:#88AEC0; --gold:#4FC3E8; --gold-dim:#2b7f9c;
+    --good:#3FE0C5; --bad:#FF6B6B; --focus:#9EE7FF;
+  }
+  body[data-theme="sunset"]{
+    --grad:#3a1330; --bg:#2A1226; --bg2:#1A0A18; --panel:#3D1C34; --panel2:#4F2743;
+    --line:#6B3A5A; --ink:#FDEEE6; --muted:#C89FB4; --gold:#FF9E45; --gold-dim:#b06a24;
+    --good:#57E0A6; --bad:#FF5C7A; --focus:#FFC58A;
+  }
+  body[data-theme="grape"]{
+    --grad:#241442; --bg:#1A0F33; --bg2:#0F0820; --panel:#271847; --panel2:#33205C;
+    --line:#463075; --ink:#F1EBFF; --muted:#A99AD0; --gold:#C9A0FF; --gold-dim:#7d5bb0;
+    --good:#4ADE80; --bad:#FF6B9A; --focus:#DCC6FF;
+  }
+  body[data-theme="mono"]{
+    --grad:#141414; --bg:#0A0A0A; --bg2:#000000; --panel:#161616; --panel2:#222222;
+    --line:#3A3A3A; --ink:#FFFFFF; --muted:#9A9A9A; --gold:#FFD400; --gold-dim:#a08a00;
+    --good:#00E676; --bad:#FF3B30; --focus:#FFEB3B;
+  }
+  body[data-theme="sepia"]{
+    --grad:#efe3cf; --bg:#F3E9D6; --bg2:#E6D8BF; --panel:#FBF4E6; --panel2:#F0E6D0;
+    --line:#D8C6A2; --ink:#3B2E1E; --muted:#8A7A5E; --gold:#B5791F; --gold-dim:#8f5f16;
+    --good:#2E8B57; --bad:#C0392B; --focus:#D8A63A;
+    --p1:#A9701A; --p2:#2E8B57; --p3:#2C6FB0; --p4:#B0417F; --p5:#6B4FB0; --p6:#C06A1A; --p7:#158080; --p8:#C0392B;
+  }
+  /* game background image + darkness (mirrors the game's settings) */
+  #bg{ position:fixed; inset:0; z-index:-2; background-size:cover; background-position:center; opacity:0; transition:opacity .3s; pointer-events:none; filter:blur(3px); transform:scale(1.06); }
+  #bg.on{ opacity:1; }
+  #bgShade{ position:fixed; inset:0; z-index:-1; background:#0a0c14; opacity:0; transition:opacity .6s; pointer-events:none; }
+  body.has-bg #bgShade{ opacity:var(--bg-dark, .78); }
   *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
   html,body{margin:0}
   body{
-    background:radial-gradient(120% 80% at 50% -10%, #2c2115 0%, var(--bg) 60%);
+    background:radial-gradient(120% 120% at 50% -10%, var(--grad) 0%, var(--bg) 45%, var(--bg2) 100%);
     color:var(--ink); font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
     font-size:calc(17px*var(--fs)); line-height:1.4; padding:0 0 100px; min-height:100vh;
   }
@@ -30,7 +80,7 @@
   input,select,textarea{font-family:inherit; font-size:1em}
 
   .topbar{
-    position:sticky; top:0; z-index:20; background:rgba(25,20,16,.96);
+    position:sticky; top:0; z-index:20; background:var(--panel);
     backdrop-filter:blur(6px); border-bottom:2px solid var(--line);
     padding:12px clamp(12px,4vw,24px); display:flex; align-items:center; gap:12px; flex-wrap:wrap;
   }
@@ -40,6 +90,8 @@
   .uilang{display:flex; gap:4px}
   .uilang button{background:var(--panel); border:2px solid var(--line); color:var(--muted); border-radius:9px; padding:6px 10px; font-weight:800; font-size:.85em; cursor:pointer}
   .uilang button.on{background:var(--gold); color:var(--goldink); border-color:var(--gold)}
+  .uilang .uiflag{ background:var(--panel); border:2px solid var(--line); color:var(--ink); border-radius:12px; padding:5px 12px; font-size:1.35em; line-height:1; cursor:pointer; }
+  .uilang .uiflag:hover{ border-color:var(--gold); }
   .corner-panel .uilang{justify-content:center}
   .searchwrap{display:flex; gap:8px; margin-top:12px}
   .searchwrap input{flex:1; background:var(--bg); color:var(--ink); border:2px solid var(--line); border-radius:10px; padding:10px 13px; outline:none}
@@ -191,6 +243,7 @@
 </style>
 </head>
 <body>
+<div id="bg"></div><div id="bgShade"></div>
 
 <div class="topbar">
   <button class="btn small hidden" id="mainBackBtn" data-i18n="back">‹ Takaisin</button>
@@ -549,7 +602,7 @@ function detectFlag(){ try{ const c=document.createElement('canvas'); c.width=20
   for(let i=0;i<d.length;i+=4){const r=d[i],g=d[i+1],b=d[i+2],a=d[i+3]; if(a>0&&((b>90&&r<90)||(r>150&&g>120&&b<90)))n++;} return n>4; }catch(e){return false;} }
 function fl(code){ return FLAG_OK ? (LMETA[code]?LMETA[code].flag:'🏳️') : ''; }
 
-const EDITOR_VERSION = '01.00.29';
+const EDITOR_VERSION = '01.00.30';
 
 /* The game's built-in categories — same keys, so questions land in the right category in-game */
 const DEFAULT_TOPICS = [
@@ -1068,7 +1121,7 @@ if('serviceWorker' in navigator && location.protocol.startsWith('http')){ naviga
 /* UI language */
 function renderUILangSel(){
   const el=$('#uiLangSel'); if(!el) return;
-  el.innerHTML = UI_LANGS.map(l=>`<button data-uilang="${l.code}" class="${l.code===UILANG?'on':''}">${FLAG_OK?l.flag:l.code.toUpperCase()}</button>`).join('');
+  el.innerHTML = `<button class="uiflag" id="uiFlagBtn" title="Language">${FLAG_OK?fl(UILANG):UILANG.toUpperCase()}</button>`;
 }
 function applyUILang(){
   document.documentElement.lang = UILANG;
@@ -1083,13 +1136,31 @@ function applyUILang(){
   if(!$('#qEditor').classList.contains('hidden')) $('#qEditorTitle').textContent = editingQId?t('qEdit'):t('qNew');
 }
 document.addEventListener('click', e=>{
-  const b=e.target.closest('[data-uilang]'); if(!b) return;
-  UILANG=b.dataset.uilang; try{ localStorage.setItem(LS_UILANG,UILANG); }catch(_){}
+  if(!e.target.closest('#uiFlagBtn')) return;
+  const codes=UI_LANGS.map(l=>l.code); const i=codes.indexOf(UILANG);
+  UILANG=codes[(i+1)%codes.length]; try{ localStorage.setItem(LS_UILANG,UILANG); }catch(_){}
   applyUILang();
 });
 
+/* mirror the game's look: theme colours, background image + darkness (shared localStorage) */
+function applyGameSettings(){
+  try{
+    let st={}; try{ const raw=localStorage.getItem('quiz10_settings'); if(raw) st=JSON.parse(raw)||{}; }catch(_){}
+    const theme = st.theme || 'mono';
+    document.body.setAttribute('data-theme', theme==='default'?'':theme);
+    const d=(st.bgdark!=null && st.bgdark!=='')?st.bgdark:'0.78';
+    document.body.style.setProperty('--bg-dark', d);
+    let img=null; try{ img=localStorage.getItem('quiz10_bgimg'); }catch(_){}
+    const bgEl=document.getElementById('bg');
+    if(bgEl){ if(img){ bgEl.style.backgroundImage='url("'+img+'")'; bgEl.classList.add('on'); document.body.classList.add('has-bg'); }
+              else { bgEl.classList.remove('on'); document.body.classList.remove('has-bg'); } }
+  }catch(e){}
+}
+window.addEventListener('storage', e=>{ if(!e.key || e.key==='quiz10_settings' || e.key==='quiz10_bgimg') applyGameSettings(); });
+
 /* boot */
 FLAG_OK = detectFlag();
+applyGameSettings();
 $('#cpVer').textContent = 'v'+EDITOR_VERSION;
 buildEmojiGrid(); buildLangEmojiGrid(); buildOptRows(); applyUILang(); render();
 $('#startMakeBtn').addEventListener('click',()=>show('mode'));
