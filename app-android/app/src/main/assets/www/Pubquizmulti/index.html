@@ -709,7 +709,7 @@
 <script>
 
 "use strict";
-const MP_VERSION = '00.11.02';
+const MP_VERSION = '00.11.03';
 const $ = s => document.querySelector(s);
 const PCOL = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
@@ -1656,7 +1656,16 @@ document.addEventListener('visibilitychange', function(){
   setTimeout(()=>{ try{ window.__focusFirst(); }catch(e){} }, 300);
 })();
 if('serviceWorker' in navigator){ window.addEventListener('load', ()=>{ navigator.serviceWorker.register('sw.js').catch(()=>{}); }); }
+window.__onUpdateResult = function(n){
+  if(n>0) toast('Päivitetty ('+n+') — käynnistetään uudelleen…');
+  else toast('Ei uusia päivityksiä (tai ei verkkoyhteyttä).');
+};
 $('#checkUpd').addEventListener('click', async ()=>{
+  if(window.PQNative && typeof PQNative.checkUpdate==='function'){   // native APK: pull latest from GitHub into the app
+    toast('Haetaan päivityksiä…');
+    try{ PQNative.checkUpdate(); }catch(e){ toast('Päivitys epäonnistui.'); }
+    return;
+  }
   toast('Haetaan uusin versio…');
   try{
     if(window.caches){ const ks=await caches.keys(); await Promise.all(ks.map(k=>caches.delete(k))); }

@@ -14249,9 +14249,9 @@
    "topic": "sport",
    "d": "hard",
    "cat": {
-    "fi": "Mikä on maailman myydyin videopeli?",
-    "en": "What is the best-selling video game of all time?",
-    "es": "¿Cuál es el videojuego más vendido de todos los tiempos?"
+    "fi": "Mikä on maailman myydyin videopeli (2026 mennessä)?",
+    "en": "What is the best-selling video game of all time (as of 2026)?",
+    "es": "¿Cuál es el videojuego más vendido de todos los tiempos (hasta 2026)?"
    },
    "o": [
     [
@@ -22103,9 +22103,9 @@
    "topic": "sport",
    "d": "hard",
    "cat": {
-    "fi": "Mikä on maailman myydyin auto?",
-    "en": "What is the best-selling car model of all time?",
-    "es": "¿Cuál es el modelo de coche más vendido de la historia?"
+    "fi": "Mikä on maailman myydyin auto (2026 mennessä)?",
+    "en": "What is the best-selling car model of all time (as of 2026)?",
+    "es": "¿Cuál es el modelo de coche más vendido de la historia (hasta 2026)?"
    },
    "o": [
     [
@@ -38658,9 +38658,9 @@
    "topic": "arts",
    "d": "hard",
    "cat": {
-    "fi": "Mikä on kallein maalaus koskaan huutokaupattu?",
-    "en": "Which is the most expensive painting ever sold at auction?",
-    "es": "¿Cuál es el cuadro más caro vendido en subasta?"
+    "fi": "Mikä on kallein maalaus koskaan huutokaupattu (2026 mennessä)?",
+    "en": "Which is the most expensive painting ever sold at auction (as of 2026)?",
+    "es": "¿Cuál es el cuadro más caro vendido en subasta (hasta 2026)?"
    },
    "o": [
     [
@@ -44433,9 +44433,9 @@
    "topic": "gen",
    "d": "normal",
    "cat": {
-    "fi": "Mikä on maailman korkein rakennus?",
-    "en": "What is the world's tallest building?",
-    "es": "¿Cuál es el edificio más alto del mundo?"
+    "fi": "Mikä on maailman korkein rakennus (2026 mennessä)?",
+    "en": "What is the world's tallest building (as of 2026)?",
+    "es": "¿Cuál es el edificio más alto del mundo (hasta 2026)?"
    },
    "o": [
     [
@@ -46743,9 +46743,9 @@
    "topic": "gen",
    "d": "normal",
    "cat": {
-    "fi": "Mikä on maailman suurin verkkokauppa- ja pilvipalveluyritys?",
-    "en": "Which company is the largest online retailer and cloud provider?",
-    "es": "¿Qué empresa es el mayor minorista en línea y proveedor de nube?"
+    "fi": "Mikä on maailman suurin verkkokauppa- ja pilvipalveluyritys (2026 mennessä)?",
+    "en": "Which company is the largest online retailer and cloud provider (as of 2026)?",
+    "es": "¿Qué empresa es el mayor minorista en línea y proveedor de nube (hasta 2026)?"
    },
    "o": [
     [
@@ -53442,9 +53442,9 @@
    "topic": "sport",
    "d": "hard",
    "cat": {
-    "fi": "Mikä maa on jääkiekon MM-historian menestynein?",
-    "en": "Which country has won the most IIHF World Championship golds?",
-    "es": "¿Qué país ha ganado más oros en el Mundial de hockey?"
+    "fi": "Mikä maa on jääkiekon MM-historian menestynein (2026 mennessä)?",
+    "en": "Which country has won the most IIHF World Championship golds (as of 2026)?",
+    "es": "¿Qué país ha ganado más oros en el Mundial de hockey (hasta 2026)?"
    },
    "o": [
     [
@@ -61296,9 +61296,9 @@
    "topic": "sci",
    "d": "hard",
    "cat": {
-    "fi": "Mikä on maailman suurin autonvalmistaja myynnillä?",
-    "en": "Which is among the world's largest carmakers by sales?",
-    "es": "¿Cuál está entre los mayores fabricantes de coches por ventas?"
+    "fi": "Mikä on maailman suurin autonvalmistaja myynnillä (2026 mennessä)?",
+    "en": "Which is among the world's largest carmakers by sales (as of 2026)?",
+    "es": "¿Cuál está entre los mayores fabricantes de coches por ventas (hasta 2026)?"
    },
    "o": [
     [
@@ -61450,9 +61450,9 @@
    "topic": "gen",
    "d": "hard",
    "cat": {
-    "fi": "Mikä on maailman suurin sosiaalinen media käyttäjämäärältään?",
-    "en": "Which is the largest social media platform by users?",
-    "es": "¿Cuál es la mayor red social por usuarios?"
+    "fi": "Mikä on maailman suurin sosiaalinen media käyttäjämäärältään (2026 mennessä)?",
+    "en": "Which is the largest social media platform by users (as of 2026)?",
+    "es": "¿Cuál es la mayor red social por usuarios (hasta 2026)?"
    },
    "o": [
     [
@@ -74694,9 +74694,9 @@
    "topic": "geo",
    "d": "hard",
    "cat": {
-    "fi": "Mikä on maailman suurin öljyntuottajamaa?",
-    "en": "Which country is among the top crude oil producers?",
-    "es": "¿Qué país está entre los mayores productores de petróleo?"
+    "fi": "Mikä on maailman suurin öljyntuottajamaa (2026 mennessä)?",
+    "en": "Which country is among the top crude oil producers (as of 2026)?",
+    "es": "¿Qué país está entre los mayores productores de petróleo (hasta 2026)?"
    },
    "o": [
     [
@@ -75926,9 +75926,9 @@
    "topic": "geo",
    "d": "hard",
    "cat": {
-    "fi": "Mikä on maailman suurin autonvalmistajamaa määrältään?",
-    "en": "Which country produces the most cars?",
-    "es": "¿Qué país produce más automóviles?"
+    "fi": "Mikä on maailman suurin autonvalmistajamaa määrältään (2026 mennessä)?",
+    "en": "Which country produces the most cars (as of 2026)?",
+    "es": "¿Qué país produce más automóviles (hasta 2026)?"
    },
    "o": [
     [

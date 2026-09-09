@@ -30,8 +30,12 @@ import com.google.mlkit.vision.codescanner.GmsBarcodeScannerOptions;
 import com.google.mlkit.vision.codescanner.GmsBarcodeScanning;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.net.HttpURLConnection;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
+import java.net.URL;
 import java.util.Collections;
 import java.util.List;
 
@@ -39,6 +43,9 @@ public class MainActivity extends Activity {
     static final int RELAY_PORT = 8787;   // WebSocket relay (guests connect here)
     static final int HTTP_PORT  = 8788;   // local asset server for our own WebView
     private static final String BASE = "http://127.0.0.1:" + HTTP_PORT + "/Pubquizmulti/index.html";
+    // OTA: "Tarkista paivitykset" pulls these from GitHub Pages into filesDir/www (served over the bundled copy)
+    private static final String OTA_BASE = "https://aivo88.github.io/Quiz10/";
+    private static final String[] OTA_FILES = { "bullseye_1000.json", "questions.json", "Pubquizmulti/index.html" };
 
     private WebView web;
     private RelayServer relay;
@@ -54,7 +61,7 @@ public class MainActivity extends Activity {
         } catch (Exception ignored) {}
         hideSystemUi();
         try { relay = new RelayServer(RELAY_PORT); relay.setReuseAddr(true); relay.start(); } catch (Exception ignored) {}
-        try { http = new AssetHttpServer(HTTP_PORT, getAssets()); http.start(fi.iki.elonen.NanoHTTPD.SOCKET_READ_TIMEOUT, false); } catch (Exception ignored) {}
+        try { http = new AssetHttpServer(HTTP_PORT, getAssets(), new File(getFilesDir(), "www")); http.start(fi.iki.elonen.NanoHTTPD.SOCKET_READ_TIMEOUT, false); } catch (Exception ignored) {}
 
         web = new WebView(this);
         WebSettings s = web.getSettings();
@@ -111,6 +118,15 @@ public class MainActivity extends Activity {
         @JavascriptInterface public int relayPort() { return RELAY_PORT; }
         @JavascriptInterface public void vibrate(int ms) { doVibrate(ms, false); }
         @JavascriptInterface public void vibrateTest() { doVibrate(220, false); }
+        @JavascriptInterface public void checkUpdate() {
+            new Thread(() -> {
+                final int n = downloadUpdates();
+                runOnUiThread(() -> {
+                    web.evaluateJavascript("window.__onUpdateResult && window.__onUpdateResult(" + n + ")", null);
+                    if (n > 0) web.loadUrl(BASE);
+                });
+            }).start();
+        }
         @JavascriptInterface public void scanQr() {
             runOnUiThread(() -> {
                 try {
@@ -167,6 +183,35 @@ public class MainActivity extends Activity {
                 try { v.vibrate(ms); } catch (Exception ignored) {}
             }
         } catch (Exception ignored) {}
+    }
+
+    /** Download the OTA file set into filesDir/www (atomic per file). Returns how many updated. */
+    private int downloadUpdates() {
+        File dir = new File(getFilesDir(), "www");
+        int updated = 0;
+        for (String rel : OTA_FILES) {
+            HttpURLConnection c = null;
+            try {
+                URL u = new URL(OTA_BASE + rel + "?t=" + System.currentTimeMillis());
+                c = (HttpURLConnection) u.openConnection();
+                c.setConnectTimeout(10000); c.setReadTimeout(20000);
+                c.setInstanceFollowRedirects(true);
+                c.setRequestProperty("Cache-Control", "no-cache");
+                if (c.getResponseCode() != 200) { c.disconnect(); continue; }
+                File out = new File(dir, rel);
+                File parent = out.getParentFile(); if (parent != null) parent.mkdirs();
+                File tmp = new File(dir, rel + ".tmp");
+                java.io.InputStream in = c.getInputStream();
+                FileOutputStream fos = new FileOutputStream(tmp);
+                byte[] buf = new byte[8192]; int k;
+                while ((k = in.read(buf)) > 0) fos.write(buf, 0, k);
+                fos.flush(); fos.close(); in.close();
+                if (tmp.length() > 0) { if (out.exists()) out.delete(); if (tmp.renameTo(out)) updated++; }
+                else tmp.delete();
+            } catch (Exception ignored) {
+            } finally { if (c != null) try { c.disconnect(); } catch (Exception ignored) {} }
+        }
+        return updated;
     }
 
     static String getWifiIp() {
