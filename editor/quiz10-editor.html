@@ -64,9 +64,9 @@
     --p1:#A9701A; --p2:#2E8B57; --p3:#2C6FB0; --p4:#B0417F; --p5:#6B4FB0; --p6:#C06A1A; --p7:#158080; --p8:#C0392B;
   }
   /* game background image + darkness (mirrors the game's settings) */
-  #bg{ position:fixed; inset:0; z-index:-2; background-size:cover; background-position:center; opacity:0; transition:opacity .3s; pointer-events:none; filter:blur(3px); transform:scale(1.06); }
+  #bg{ position:fixed; inset:0; z-index:-2; background-size:cover; background-position:center; opacity:0; pointer-events:none; filter:blur(3px); transform:scale(1.06); }
   #bg.on{ opacity:1; }
-  #bgShade{ position:fixed; inset:0; z-index:-1; background:#0a0c14; opacity:0; transition:opacity .6s; pointer-events:none; }
+  #bgShade{ position:fixed; inset:0; z-index:-1; background:#0a0c14; opacity:0; pointer-events:none; }
   body.has-bg #bgShade{ opacity:var(--bg-dark, .78); }
   *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
   html,body{margin:0}
@@ -256,7 +256,6 @@
 
 <div class="corner-panel" id="cornerPanel">
   <div class="uilang" id="uiLangSel"></div>
-  <div class="cp-ver" id="cpVer">v01.00.00</div>
 </div>
 
 <!-- START -->
@@ -601,7 +600,7 @@ function detectFlag(){ try{ const c=document.createElement('canvas'); c.width=20
   for(let i=0;i<d.length;i+=4){const r=d[i],g=d[i+1],b=d[i+2],a=d[i+3]; if(a>0&&((b>90&&r<90)||(r>150&&g>120&&b<90)))n++;} return n>4; }catch(e){return false;} }
 function fl(code){ return FLAG_OK ? (LMETA[code]?LMETA[code].flag:'🏳️') : ''; }
 
-const EDITOR_VERSION = '01.00.33';
+const EDITOR_VERSION = '01.00.34';
 
 /* The game's built-in categories — same keys, so questions land in the right category in-game */
 const DEFAULT_TOPICS = [
@@ -1162,7 +1161,6 @@ window.addEventListener('storage', e=>{ if(!e.key || e.key==='quiz10_settings' |
 /* boot */
 FLAG_OK = detectFlag();
 applyGameSettings();
-$('#cpVer').textContent = 'v'+EDITOR_VERSION;
 buildEmojiGrid(); buildLangEmojiGrid(); buildOptRows(); applyUILang(); render();
 $('#startMakeBtn').addEventListener('click',async ()=>{ if(loadedFromFile){ const c=await confirmLeave(); if(c==='cancel') return; if(c==='save'){ const ok=await doExport(); if(!ok) return; } resetPack(); } show('mode'); });
 $('#modeBackBtn').addEventListener('click',()=>show('start'));

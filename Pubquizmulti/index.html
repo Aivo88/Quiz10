@@ -96,11 +96,11 @@
     transform-origin:center center;
   }
   #bg{ position:fixed; inset:0; z-index:-2; background-size:cover; background-position:center;
-       opacity:0; transition:opacity .3s ease .4s; pointer-events:none; filter:blur(3px); transform:scale(1.06); }
+       opacity:0; pointer-events:none; filter:blur(3px); transform:scale(1.06); }
   #bg.on{ opacity:1; }
   #screen-menu .center{ opacity:0; transition:opacity .35s ease 1s; }
   body.bg-ready #screen-menu .center{ opacity:1; }
-  #bgShade{ position:fixed; inset:0; z-index:-1; background:#0a0c14; opacity:0; transition:opacity 1.2s ease; pointer-events:none; }
+  #bgShade{ position:fixed; inset:0; z-index:-1; background:#0a0c14; opacity:0; pointer-events:none; }
   body.has-bg #bgShade{ opacity:var(--bg-dark, .78); }
   body.has-bg .q-title, body.has-bg .sub, body.has-bg .brand, body.has-bg .tagline,
   body.has-bg .set-label, body.has-bg .diffhint, body.has-bg #topicTitle, body.has-bg .wb-title,
@@ -544,7 +544,7 @@
         <button class="btn block" id="mpJoin"><span class="mi">🔗</span><span>Liity peliin</span></button>
       </div>
       <button class="btn back" id="mpBackGame">Takaisin</button>
-      <div class="mpfoot"><button class="btn chip" id="vibeToggle">📳</button><span id="verLabel">v0</span></div>
+      <div class="mpfoot"><button class="btn chip" id="vibeToggle">📳</button></div>
     </div>
   </section>
 
@@ -829,7 +829,7 @@ function applyUITexts(){
   setTxt('#view-win .sub','winner');
   updateVibeBtn();
 }
-function cycleMyLang(){ const L=(room&&room.langs&&room.langs.length)?room.langs:['fi','en','es']; let i=L.indexOf(myLang); if(i<0)i=0; myLang=L[(i+1)%L.length]; try{localStorage.setItem('mpLang',myLang); localStorage.setItem('quiz10_lang',myLang);}catch(e){} if(typeof sfx==='object'&&sfx.select){audioInit&&audioInit();sfx.select();} applyUITexts(); updateFlags(); if(room&&room.started) renderGame(); else if(room&&iamHost) renderHost(); else if(room) renderChips('#lobbyPlayers'); }
+function cycleMyLang(){ const L=(room&&room.langs&&room.langs.length)?room.langs:['en','fi','es']; let i=L.indexOf(myLang); if(i<0)i=0; myLang=L[(i+1)%L.length]; try{localStorage.setItem('mpLang',myLang); localStorage.setItem('quiz10_lang',myLang);}catch(e){} if(typeof sfx==='object'&&sfx.select){audioInit&&audioInit();sfx.select();} applyUITexts(); updateFlags(); if(room&&room.started) renderGame(); else if(room&&iamHost) renderHost(); else if(room) renderChips('#lobbyPlayers'); }
 let starting = false;
 
 /* ---------- HOST logic (authoritative) ---------- */
@@ -1533,7 +1533,7 @@ function leaveAll(){
 window.addEventListener('beforeunload', ()=>{ try{ if(!iamHost && room) net.send({t:'leave', id:ME}); }catch(e){} });
 
 /* ---------- wire up UI ---------- */
-$('#verLabel').textContent = 'v'+MP_VERSION;
+
 (function(){
   const useRelay = (typeof RELAY_URL!=='undefined' && RELAY_URL) || NATIVE;
   if(useRelay){ ['#scanBtn','#hostIpLbl','#joinHostIp'].forEach(id=>{ const e=$(id); if(e) e.style.display=''; }); }
@@ -1705,7 +1705,7 @@ document.addEventListener('click', e=>{ audioInit(); const t=e.target; if(t.clos
 $('#timeSlider').addEventListener('input', e=>{ const v=+e.target.value; $('#timeVal').textContent = v>90?'Ei aikarajaa':(v+' s'); });
 
 /* inherit the main game's look: theme, background darkness + image (shared localStorage) */
-function setBgImage(url){ const bg=document.getElementById('bg'); if(!bg) return; bg.style.backgroundImage='url("'+url+'")'; setTimeout(()=>bg.classList.add('on'),300); document.body.classList.add('has-bg'); }
+function setBgImage(url){ const bg=document.getElementById('bg'); if(!bg) return; bg.style.backgroundImage='url("'+url+'")'; bg.classList.add('on'); document.body.classList.add('has-bg'); }
 function tryRepoBg(names){ const bg=document.getElementById('bg'); if(!bg) return; if(!names.length){ bg.classList.remove('on'); document.body.classList.remove('has-bg'); return; } const im=new Image(); im.onload=()=>setBgImage(names[0]); im.onerror=()=>tryRepoBg(names.slice(1)); im.src=names[0]; }
 function applyGameSettings(){
   try{

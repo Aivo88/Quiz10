@@ -52472,52 +52472,40 @@
   "topic": "arts",
   "d": "normal",
   "cat": {
-   "en": "Which of these are modern or contemporary artists?",
-   "fi": "Ketkä näistä ovat moderneja tai nykytaiteilijoita?",
-   "es": "¿Cuáles de estos son artistas modernos o contemporáneos?"
+   "fi": "Ketkä näistä ovat impressionisteja?",
+   "en": "Which of these are Impressionist painters?",
+   "es": "¿Quiénes de estos son pintores impresionistas?"
   },
   "o": [
    [
-    "Andy Warhol",
-    "Andy Warhol",
-    "Andy Warhol",
-    1
-   ],
-   [
-    "Jackson Pollock",
-    "Jackson Pollock",
-    "Jackson Pollock",
-    1
-   ],
-   [
-    "Banksy",
-    "Banksy",
-    "Banksy",
-    1
-   ],
-   [
-    "Damien Hirst",
-    "Damien Hirst",
-    "Damien Hirst",
-    1
-   ],
-   [
-    "Jean-Michel Basquiat",
-    "Jean-Michel Basquiat",
-    "Jean-Michel Basquiat",
-    1
-   ],
-   [
-    "Keith Haring",
-    "Keith Haring",
-    "Keith Haring",
-    1
-   ],
-   [
     "Claude Monet",
     "Claude Monet",
     "Claude Monet",
+    1
+   ],
+   [
+    "Pablo Picasso",
+    "Pablo Picasso",
+    "Pablo Picasso",
     0
+   ],
+   [
+    "Pierre-Auguste Renoir",
+    "Pierre-Auguste Renoir",
+    "Pierre-Auguste Renoir",
+    1
+   ],
+   [
+    "Salvador Dalí",
+    "Salvador Dalí",
+    "Salvador Dalí",
+    0
+   ],
+   [
+    "Edgar Degas",
+    "Edgar Degas",
+    "Edgar Degas",
+    1
    ],
    [
     "Rembrandt",
@@ -52526,15 +52514,27 @@
     0
    ],
    [
-    "Johannes Vermeer",
-    "Johannes Vermeer",
-    "Johannes Vermeer",
+    "Camille Pissarro",
+    "Camille Pissarro",
+    "Camille Pissarro",
+    1
+   ],
+   [
+    "Michelangelo",
+    "Michelangelo",
+    "Michelangelo",
     0
    ],
    [
-    "Francisco Goya",
-    "Francisco Goya",
-    "Francisco de Goya",
+    "Alfred Sisley",
+    "Alfred Sisley",
+    "Alfred Sisley",
+    1
+   ],
+   [
+    "Andy Warhol",
+    "Andy Warhol",
+    "Andy Warhol",
     0
    ]
   ]
