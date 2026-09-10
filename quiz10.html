@@ -495,8 +495,8 @@
         <div class="tagline" data-i="tagline">The push-your-luck trivia game</div>
       </div>
       <div class="menu-col">
-        <button class="btn gold block focusable" data-focus data-action="newgame"><span class="mi">▶</span><span data-i="newGame">Single device</span></button>
-        <button class="btn block focusable" data-action="multiDevice"><span class="mi">📶</span><span data-i="multiDevice">Multiple devices</span></button>
+        <button class="btn gold block focusable" data-focus data-action="newgame"><span class="mi">📺</span><span data-i="newGame">Single device</span></button>
+        <button class="btn block focusable" data-action="multiDevice"><span class="mi">📱</span><span data-i="multiDevice">Multiple devices</span></button>
         <button class="btn block focusable" data-action="rules"><span class="mi">📖</span><span data-i="rules">Rules</span></button>
         <button class="btn block focusable" data-action="settings"><span class="mi">⚙</span><span data-i="settings">Settings</span></button>
       </div>
@@ -596,19 +596,6 @@
           <span class="set-label" data-i="confirmBankLabel">Confirm banking</span>
           <div class="set-opts">
             <button class="btn chip focusable" data-action="toggleB"><span class="sw" id="swB">✓</span></button>
-          </div>
-        </div>
-        <div class="set-row">
-          <span class="set-label" data-i="turnTimeLabel">Turn timer</span>
-          <div class="set-opts">
-            <div class="sliderwrap">
-              <button class="arrow sarrow focusable" data-action="turnTimeStep" data-d="-1">−</button>
-              <div class="slider focusable" id="turnTimeSlider" data-role="slider">
-                <div class="track" id="turnTimeTrack"><div class="fill" id="turnTimeFill"></div><div class="thumb" id="turnTimeThumb"></div></div>
-                <div class="slabel" id="turnTimeValLabel">Off</div>
-              </div>
-              <button class="arrow sarrow focusable" data-action="turnTimeStep" data-d="1">+</button>
-            </div>
           </div>
         </div>
         <div class="set-row">
@@ -737,6 +724,18 @@
         </div>
       </div>
 
+      <div class="stack">
+        <div class="sub" data-i="turnTimeLabel">Turn timer</div>
+        <div class="sliderwrap" style="justify-content:center">
+          <button class="arrow sarrow focusable" data-action="turnTimeStep" data-d="-1">−</button>
+          <div class="slider focusable" id="turnTimeSlider" data-role="slider">
+            <div class="track" id="turnTimeTrack"><div class="fill" id="turnTimeFill"></div><div class="thumb" id="turnTimeThumb"></div></div>
+            <div class="slabel" id="turnTimeValLabel">Off</div>
+          </div>
+          <button class="arrow sarrow focusable" data-action="turnTimeStep" data-d="1">+</button>
+        </div>
+      </div>
+
       <div class="row">
         <button class="btn back focusable" data-action="backToMode" data-i="back">Back</button>
         <button class="btn gold back focusable" data-action="start" data-i="startBtn">Start game</button>
@@ -772,6 +771,7 @@
       <div class="crown">👑</div>
       <h2 class="q-title" id="winName"></h2>
       <div class="sub" id="winSub"></div>
+      <div class="sub" id="winRounds" style="margin-top:4px; opacity:.85"></div>
       <div class="wb-title" id="winBoardTitle"></div>
       <div class="winboard" id="winBoard"></div>
       <div class="row">
@@ -842,7 +842,7 @@ const T = {
     lostRound:"Turn over — round points lost",
     bankedPts:"banked",
     nextUp:"Next up:",
-    winSub:"reached the target first!", winTie:"It's a tie!",
+    winSub:"reached the target first!", winTie:"It's a tie!", roundsWord:"Rounds played",
     finalScores:"Final scores",
     pickOne:"Pick one you think is correct",
     pass:"Pass & bank",
@@ -924,7 +924,7 @@ const T = {
     lostRound:"Vuoro päättyi — kierroksen pisteet menetetty",
     bankedPts:"talletettu",
     nextUp:"Seuraavaksi:",
-    winSub:"saavutti tavoitteen ensimmäisenä!", winTie:"Tasapeli!",
+    winSub:"saavutti tavoitteen ensimmäisenä!", winTie:"Tasapeli!", roundsWord:"Kierroksia pelattu",
     finalScores:"Loppupisteet",
     pickOne:"Valitse yksi jonka uskot oikeaksi",
     pass:"Passaa & talleta",
@@ -1006,7 +1006,7 @@ const T = {
     lostRound:"Turno terminado — puntos de la ronda perdidos",
     bankedPts:"guardó",
     nextUp:"Siguiente:",
-    winSub:"¡ha llegado primero a la meta!", winTie:"¡Empate!",
+    winSub:"¡ha llegado primero a la meta!", winTie:"¡Empate!", roundsWord:"Rondas jugadas",
     finalScores:"Puntuación final",
     pickOne:"Elige una que creas correcta",
     pass:"Pasar y guardar",
@@ -3096,7 +3096,7 @@ const BULLSEYE_QUESTIONS = [
 
 const PLAYER_COLORS = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
-const APP_VERSION = '01.00.82';
+const APP_VERSION = '01.00.84';
 
 let questionsStatus = '';
 const QCACHE_KEY = 'quiz10_qcache2';  // bumped: use embedded 1000, ignore old device cache
@@ -3831,7 +3831,7 @@ function updateScorebar(){
     const base = players[i].score;
     const prov = (pstatus[i]==='active' && roundTokens[i]>0) ? ` +${roundTokens[i]}` : '';
     el.querySelector('.pname').textContent = pNameShort(i);
-    el.querySelector('.pscore').innerHTML = base + (prov?`<span style="color:var(--gold);font-size:.6em"> ${prov.trim()}</span>`:'');
+    el.querySelector('.pscore').innerHTML = base + `<span style="color:var(--muted);font-size:.5em">/${target}</span>` + (prov?`<span style="color:var(--gold);font-size:.6em"> ${prov.trim()}</span>`:'');
     el.classList.toggle('active', i===turnIdx && pstatus[i]==='active');
     el.classList.toggle('passed', pstatus[i]==='passed');
     el.classList.toggle('busted', pstatus[i]==='busted');
@@ -4280,6 +4280,7 @@ function endGame(winnerIdx, silent, forceLang){ clearTurnTimer();
     $('#winName').innerHTML = `<span style="color:var(${players[wi].color})">${nameIn(wi, WL)}</span>`;
     $('#winSub').innerHTML = TW.winSub;
   }
+  { const wr=$('#winRounds'); if(wr) wr.textContent = (TW.roundsWord||'Rounds played')+': '+(roundsPlayed+1); }
   $('#winBoardTitle').textContent = TW.finalScores;
 
   // Rank by score, with shared places for equal scores
