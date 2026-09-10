@@ -300,6 +300,10 @@
       <p class="hint" data-i18n="hint">Kirjoita jokainen kysymys valitsemillasi kielillä.</p>
     </div>
 
+    <div class="tabs" style="display:none">
+      <div class="tab on" id="tabQuestions"><span data-i18n="tabQuestions">Kysymykset</span> <span class="count" id="qCount">(0)</span></div>
+      <div class="tab" id="tabCategories"><span data-i18n="tabCategories">Kategoriat</span> <span class="count" id="cCount">(0)</span></div>
+    </div>
     <div class="searchwrap" style="display:none"><input type="text" id="searchBox" data-i18n-ph="searchPh" placeholder="Etsi…"><button id="searchClear" class="btn small" style="display:none">✕</button></div>
 
     <div class="panel hidden" id="panelQuestions">
@@ -596,7 +600,7 @@ function detectFlag(){ try{ const c=document.createElement('canvas'); c.width=20
   for(let i=0;i<d.length;i+=4){const r=d[i],g=d[i+1],b=d[i+2],a=d[i+3]; if(a>0&&((b>90&&r<90)||(r>150&&g>120&&b<90)))n++;} return n>4; }catch(e){return false;} }
 function fl(code){ return FLAG_OK ? (LMETA[code]?LMETA[code].flag:'🏳️') : ''; }
 
-const EDITOR_VERSION = '01.00.35';
+const EDITOR_VERSION = '01.00.36';
 
 /* The game's built-in categories — same keys, so questions land in the right category in-game */
 const DEFAULT_TOPICS = [
