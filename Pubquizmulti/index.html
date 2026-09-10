@@ -699,7 +699,7 @@
 <script>
 
 "use strict";
-const MP_VERSION = '00.12.01';
+const MP_VERSION = '00.12.02';
 const $ = s => document.querySelector(s);
 const PCOL = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
@@ -1037,6 +1037,24 @@ function sweepTimeoutBust(pid){
   room.q.tokens[pid]=0; room.q.status[pid]='busted';
   sweepAdvance();
 }
+let _lastBotKey='';
+function isBot(pid){ const p=findP(pid); return !!(p && p.bot); }
+function botOptCount(){ try{ return (room.q&&room.q.opts&&room.q.opts.length)||(typeof curQ!=='undefined'&&curQ&&curQ.opts?curQ.opts.length:10); }catch(e){ return 10; } }
+function botAct(){
+  if(!iamHost||!room||!room.started||room.phase==='win') return;
+  let key='', act=null;
+  if(room.phase==='category' && isBot(room.pickerPid)){
+    key='cat:'+room.pickerPid;
+    act=()=>{ const tps=(room.availTopics&&room.availTopics.length)?room.availTopics:availableTopics(); if(tps&&tps.length) onPick(room.pickerPid, tps[Math.floor(Math.random()*tps.length)]); };
+  } else if(room.q && room.simul){
+    const p=room.players.find(pp=>pp.bot && room.q.locked && !room.q.locked[pp.id] && (room.q.phase==='question'||!room.q.phase));
+    if(p){ key='sim:'+p.id; const n=botOptCount(); act=()=>onSimulPick(p.id, Math.floor(Math.random()*n)); }
+  } else if(room.q && room.phase!=='reveal' && isBot(room.q.answererPid)){
+    if(room.mode==='sweep'){ key='sw:'+room.q.answererPid; act=()=>sweepPass(room.q.answererPid); }
+    else { key='bl:'+room.q.answererPid; const n=botOptCount(); act=()=>onAnswer(room.q.answererPid, Math.floor(Math.random()*n)); }
+  }
+  if(act && key && key!==_lastBotKey){ _lastBotKey=key; setTimeout(()=>{ try{ act(); }catch(e){} }, 800); }
+}
 function startHostTick(){
   clearInterval(hostTick);
   hostTick=setInterval(()=>{
@@ -1044,6 +1062,7 @@ function startHostTick(){
     if(room.phase==='win') return;
     if(room.phase==='reveal' && !room.simul) return;
     if(room.endsAt && Date.now()>=room.endsAt) onDeadline();
+    try{ botAct(); }catch(e){}
   },250);
 }
 function hostToggleAway(pid){ const p=findP(pid); if(!p)return; p.away=!p.away; p.misses=0; reconcile(pid); }
@@ -1664,6 +1683,7 @@ $('#createRoom').addEventListener('click', ()=>{
   const name = raw || t('hostPh'); const def = raw ? null : 'host';
   const plays = $('#hostPlays') ? $('#hostPlays').checked : true;
   hostCreate(name, plays, def);
+  try{ if(room && !room.players.find(p=>p.bot)){ room.players.push({ id:'bot_'+code4(), name:'🤖 Bot', def:null, bot:true, ts:Date.now(), away:false, misses:0 }); room.hadPlayers=true; renderHost(); pushState&&pushState(); } }catch(e){}   // TEST-ONLY dummy player
 });
 $('#doJoin').addEventListener('click', ()=>{
   const cd = ($('#joinCode').value||'').trim().toUpperCase();

@@ -495,7 +495,7 @@
         <div class="tagline" data-i="tagline">The push-your-luck trivia game</div>
       </div>
       <div class="menu-col">
-        <button class="btn gold block focusable" data-focus data-action="newgame"><span class="mi">📺</span><span data-i="newGame">Single device</span></button>
+        <button class="btn block focusable" data-focus data-action="newgame"><span class="mi">📺</span><span data-i="newGame">Single device</span></button>
         <button class="btn block focusable" data-action="multiDevice"><span class="mi">📱</span><span data-i="multiDevice">Multiple devices</span></button>
         <button class="btn block focusable" data-action="rules"><span class="mi">📖</span><span data-i="rules">Rules</span></button>
         <button class="btn block focusable" data-action="settings"><span class="mi">⚙</span><span data-i="settings">Settings</span></button>
@@ -3096,7 +3096,7 @@ const BULLSEYE_QUESTIONS = [
 
 const PLAYER_COLORS = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
-const APP_VERSION = '01.00.84';
+const APP_VERSION = '01.00.85';
 
 let questionsStatus = '';
 const QCACHE_KEY = 'quiz10_qcache2';  // bumped: use embedded 1000, ignore old device cache
@@ -4510,7 +4510,7 @@ function activate(el){
   else if(a==='backToLang'){ showScreen('screen-menu'); }
   else if(a==='backToMode'){ showScreen('screen-mode'); }
   else if(a==='settings'){ applySettings(); qbMode='packs'; setTab('settings'); updateQStatus(); renderPackList(); showScreen('screen-settings'); }
-  else if(a==='rules'){ showScreen('screen-rules'); const b=$('#screen-rules [data-focus]'); if(b) setFocus(b); }
+  else if(a==='rules'){ showScreen('screen-rules'); const rb=$('#rulesBody'); if(rb) rb.scrollTop=0; const sc=$('#screen-rules'); if(sc) sc.scrollTop=0; window.scrollTo(0,0); const b=$('#screen-rules [data-focus]'); if(b) setFocus(b); }
   else if(a==='settab'){ qbMode='packs'; setTab(el.dataset.tab); }
   else if(a==='importQuestions'){ const f=$('#packFile'); if(f){ f.value=''; f.click(); } }
   else if(a==='openEditor'){ try{ const u=new URL('editor/quiz10-editor.html', location.href); u.searchParams.set('lang', lang); u.searchParams.set('from','game'); location.href=u.href; }catch(e){ location.href='editor/quiz10-editor.html?lang='+encodeURIComponent(lang)+'&from=game'; } }
