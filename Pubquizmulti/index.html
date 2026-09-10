@@ -699,7 +699,7 @@
 <script>
 
 "use strict";
-const MP_VERSION = '00.12.02';
+const MP_VERSION = '00.12.03';
 const $ = s => document.querySelector(s);
 const PCOL = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
@@ -880,7 +880,16 @@ function startHostHeartbeat(){
     if(room.players.length!==before){ if(room.started){ if(curDropped) reconcile(curPid); else pushState(); } else pushState(); }
   }, 3000);
 }
-function openModeScreen(){ if(room.players.length>=2) show('view-mode'); }
+function bankOn(key){ try{ return localStorage.getItem(key)!=='0'; }catch(e){ return true; } }
+function applyModeGating(){
+  const sweepOn=bankOn('quiz10_baseon'), bullOn=bankOn('quiz10_bullon');
+  const sb=document.querySelector('[data-startmode="sweep"]'), bb=document.querySelector('[data-startmode="bullseye"]');
+  if(sb) sb.style.display=sweepOn?'':'none';
+  if(bb) bb.style.display=bullOn?'':'none';
+  if(hostMode==='sweep'&&!sweepOn) hostMode=bullOn?'bullseye':'sweep';
+  if(hostMode==='bullseye'&&!bullOn) hostMode=sweepOn?'sweep':'bullseye';
+}
+function openModeScreen(){ if(room.players.length>=2){ applyModeGating(); show('view-mode'); } }
 function modeLoading(on){ const sm=$('#startMode'); if(sm) sm.disabled=on; const st=$('#modeStatus'); if(st) st.textContent = on?t('loadingQ'):''; }
 async function hostBegin(mode){
   if(starting || room.players.length<2) return;
