@@ -426,6 +426,7 @@
     <div style="display:flex; align-items:center; gap:10px">
       <span class="emojichosen" id="lmFlagChosen">🏳️</span>
       <input type="text" id="lmFlag" maxlength="8" data-i18n-ph="ownEmoji" placeholder="oma emoji" style="flex:1">
+      <label class="btn" style="cursor:pointer; white-space:nowrap">📷 <span data-i18n="chooseImage">Valitse kuva</span><input type="file" id="lmFlagImg" accept="image/*" hidden></label>
     </div>
     <div class="emojigrid" id="lmEmojiGrid"></div>
     <p class="warn hidden" id="lmWarn"></p>
@@ -588,6 +589,7 @@ const ALL_LANGS = [
   {code:'pl',flag:'🇵🇱',name:'Polski'}
 ];
 let LMETA = {};
+function flagHtml(f){ if(typeof f==="string" && f.slice(0,5)==="data:") return "<img class=\"cat-img\" alt=\"\" src=\""+f+"\">"; return esc(f||"🏳️"); }
 function rebuildLMeta(){ LMETA={}; ALL_LANGS.forEach(l=>LMETA[l.code]=l); (pack.customLangs||[]).forEach(l=>LMETA[l.code]=l); }
 function allLangList(){ return ALL_LANGS.concat(pack.customLangs||[]); }
 const DIFF_LABEL = { easy:'Helppo', normal:'Normaali', hard:'Vaikea' };
@@ -600,7 +602,7 @@ function detectFlag(){ try{ const c=document.createElement('canvas'); c.width=20
   for(let i=0;i<d.length;i+=4){const r=d[i],g=d[i+1],b=d[i+2],a=d[i+3]; if(a>0&&((b>90&&r<90)||(r>150&&g>120&&b<90)))n++;} return n>4; }catch(e){return false;} }
 function fl(code){ return FLAG_OK ? (LMETA[code]?LMETA[code].flag:'🏳️') : ''; }
 
-const EDITOR_VERSION = '01.00.37';
+const EDITOR_VERSION = '01.00.38';
 
 /* The game's built-in categories — same keys, so questions land in the right category in-game */
 const DEFAULT_TOPICS = [
@@ -680,7 +682,7 @@ $('#packName').addEventListener('input', e=>{ pack.name=e.target.value; save(); 
 function renderLangChips(){
   const chips = allLangList().map(l=>{
     const custom = (pack.customLangs||[]).some(c=>c.code===l.code);
-    return `<button class="langchip ${pack.langs.includes(l.code)?'on':''}" data-lang="${l.code}"><span class="fl">${l.flag}</span>${esc(l.name)}${custom?` <span class="editlang" data-editlang="${l.code}" style="opacity:.7; padding:0 3px">✎</span>`:''}</button>`;
+    return `<button class="langchip ${pack.langs.includes(l.code)?'on':''}" data-lang="${l.code}"><span class="fl">${flagHtml(l.flag)}</span>${esc(l.name)}${custom?` <span class="editlang" data-editlang="${l.code}" style="opacity:.7; padding:0 3px">✎</span>`:''}</button>`;
   }).join('');
   $('#langChips').innerHTML = chips + `<button class="langchip" id="addLangChip" style="border-style:dashed">${t("addOwnLang")}</button>`;
 }
@@ -700,17 +702,18 @@ $('#langChips').addEventListener('click', e=>{
 const FLAG_EMOJIS = ['🏳️','🏴','🚩','🏁','🎌','🖖','⭐','🔥','❄️','🌍','🎲','🎯','👑','⚡','🎵','🍺',
   '🇫🇮','🇬🇧','🇪🇸','🇸🇪','🇩🇪','🇫🇷','🇮🇹','🇵🇹','🇳🇱','🇪🇪','🇳🇴','🇩🇰','🇵🇱','🇷🇺',
   '🇺🇸','🇨🇦','🇧🇷','🇦🇷','🇲🇽','🇯🇵','🇨🇳','🇰🇷','🇮🇳','🇦🇺','🇿🇦','🇬🇷','🇹🇷','🇺🇦','🇮🇪','🇮🇸'];
-let lmEditingCode = null;
+let lmEditingCode = null; let lmFlagData = null;
 function buildLangEmojiGrid(){ $('#lmEmojiGrid').innerHTML = FLAG_EMOJIS.map(e=>`<button type="button" data-lmemoji="${e}">${e}</button>`).join(''); }
-function syncLmGrid(){ const cur=$('#lmFlag').value.trim(); $('#lmFlagChosen').textContent = cur||'🏳️';
-  $$('#lmEmojiGrid button').forEach(b=>b.classList.toggle('sel', b.dataset.lmemoji===cur)); }
+function syncLmGrid(){ const fc=$('#lmFlagChosen'); if(lmFlagData){ fc.innerHTML='<img class="cat-img" alt="" src="'+lmFlagData+'">'; } else { const cur=$('#lmFlag').value.trim(); fc.textContent=cur||'🏳️'; }
+  $$('#lmEmojiGrid button').forEach(b=>b.classList.toggle('sel', b.dataset.lmemoji===$('#lmFlag').value.trim())); }
 function openLangModal(code){
   lmEditingCode = code || null;
   const l = code ? (pack.customLangs||[]).find(c=>c.code===code) : null;
   $('#langModalTitle').textContent = l ? t('langTitleEdit') : t('langTitleNew');
   $('#lmName').value = l ? l.name : '';
   $('#lmCode').value = l ? l.code : '';
-  $('#lmFlag').value = l ? l.flag : '';
+  lmFlagData = (l && typeof l.flag==='string' && l.flag.slice(0,5)==='data:') ? l.flag : null;
+  $('#lmFlag').value = (l && typeof l.flag==='string' && l.flag.slice(0,5)!=='data:') ? l.flag : '';
   $('#lmDelete').classList.toggle('hidden', !l);
   $('#lmWarn').classList.add('hidden');
   syncLmGrid();
@@ -724,8 +727,9 @@ function migrateLangCode(oldC, newC){
   pack.topics.forEach(tp=>mv(tp.names));
   pack.questions.forEach(q=>{ mv(q.q); (q.opts||[]).forEach(o=>mv(o.t)); });
 }
-$('#lmEmojiGrid').addEventListener('click', e=>{ const b=e.target.closest('[data-lmemoji]'); if(!b)return; $('#lmFlag').value=b.dataset.lmemoji; syncLmGrid(); });
-$('#lmFlag').addEventListener('input', syncLmGrid);
+$('#lmEmojiGrid').addEventListener('click', e=>{ const b=e.target.closest('[data-lmemoji]'); if(!b)return; lmFlagData=null; $('#lmFlag').value=b.dataset.lmemoji; syncLmGrid(); });
+$('#lmFlag').addEventListener('input', ()=>{ if($('#lmFlag').value.trim()) lmFlagData=null; syncLmGrid(); });
+$('#lmFlagImg').addEventListener('change', e=>{ const f=e.target.files&&e.target.files[0]; if(!f) return; const rd=new FileReader(); rd.onload=()=>{ const img=new Image(); img.onload=()=>{ const cv=document.createElement('canvas'); const s=Math.min(96, Math.max(img.width,img.height)); const sc=s/Math.max(img.width,img.height); cv.width=Math.round(img.width*sc); cv.height=Math.round(img.height*sc); cv.getContext('2d').drawImage(img,0,0,cv.width,cv.height); lmFlagData=cv.toDataURL('image/png'); $('#lmFlag').value=''; syncLmGrid(); }; img.src=rd.result; }; rd.readAsDataURL(f); e.target.value=''; });
 $('#lmCode').addEventListener('input', e=>{ e.target.value = e.target.value.toLowerCase().replace(/[^a-z]/g,''); });
 $('#lmCancel').addEventListener('click', closeLangModal);
 $('#langModal').addEventListener('click', e=>{ if(e.target.id==='langModal') closeLangModal(); });
@@ -733,7 +737,7 @@ $('#lmSave').addEventListener('click', ()=>{
   const warn=$('#lmWarn');
   const nm=$('#lmName').value.trim();
   const code=$('#lmCode').value.trim().toLowerCase();
-  const flag=$('#lmFlag').value.trim() || '🏳️';
+  const flag=lmFlagData || ($('#lmFlag').value.trim() || '🏳️');
   const fail=m=>{ warn.textContent=m; warn.classList.remove('hidden'); };
   if(!nm) return fail(t('tNeedLangName'));
   if(!/^[a-z]{2,3}$/.test(code)) return fail(t('tBadCode'));            // stays open, lets you fix it
