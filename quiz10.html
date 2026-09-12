@@ -219,14 +219,14 @@
   .topic-scorebar{ width:min(1100px,100%); margin:0 auto clamp(14px,2.4vh,22px) }
 
   .qhead{display:flex; align-items:center; justify-content:space-between; gap:16px; margin-top:clamp(4px,.8vh,10px)}
-  .turnwrap{display:flex; align-items:center; gap:clamp(8px,1.2vw,16px); min-width:0}
+  .turnwrap{display:flex; flex-direction:column; align-items:center; gap:clamp(6px,1vw,12px); min-width:0}
   .langflag{
     flex:none; cursor:pointer; background:var(--panel); border:2px solid var(--line);
     border-radius:12px; padding:clamp(4px,.7vh,8px) clamp(8px,1vw,12px);
     font-size:calc(clamp(20px,2.4vw,32px) * var(--fs)); line-height:1;
   }
   body.kbd .langflag.focused{border-color:var(--focus); box-shadow:0 0 0 4px rgba(255,224,138,.4); background:var(--panel2)}
-  .topic-head{display:flex; align-items:center; justify-content:center; gap:clamp(10px,1.6vw,20px); flex-wrap:wrap}
+  .topic-head{display:flex; flex-direction:column; align-items:center; justify-content:center; gap:clamp(8px,1.2vw,14px)}
   /* When flag emoji aren't supported (Windows), language codes show instead — make them clearly legible */
   body.nofe .corner-flag, body.nofe .langflag, body.nofe #langFlagTopic, body.nofe .pack-flags{
     color:#fff; font-weight:800; letter-spacing:.06em;
@@ -3096,7 +3096,7 @@ const BULLSEYE_QUESTIONS = [
 
 const PLAYER_COLORS = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
-const APP_VERSION = '01.00.87';
+const APP_VERSION = '01.00.88';
 
 let questionsStatus = '';
 const QCACHE_KEY = 'quiz10_qcache2';  // bumped: use embedded 1000, ignore old device cache
