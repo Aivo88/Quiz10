@@ -584,6 +584,7 @@
         <div class="lbl2">Nimesi</div>
         <input type="text" id="joinName" maxlength="16" placeholder="Pelaaja" autocomplete="off">
         <button class="btn block" id="doJoin"><span>Liity</span></button>
+        <button class="btn block" id="testRoomBtn" style="margin-top:8px; background:var(--panel2); opacity:.9">🤖 Test room (Aivo)</button>
         <div class="hint" id="joinStatus" style="min-height:1.2em"></div>
       </div>
       <button class="btn back" data-back="mp">Takaisin</button>
@@ -715,7 +716,7 @@
 <script>
 
 "use strict";
-const MP_VERSION = '00.13.05';
+const MP_VERSION = '00.14.03';
 const $ = s => document.querySelector(s);
 const PCOL = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
@@ -723,7 +724,7 @@ const PCOL = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 function show(id){ const cur=document.querySelector('#stage .screen.active'); const changed=!cur||cur.id!==id; document.querySelectorAll('#stage .screen').forEach(v=>v.classList.toggle('active', v.id===id)); window.scrollTo(0,0); if(changed) setTimeout(()=>{ try{ window.__focusFirst&&window.__focusFirst(); }catch(e){} }, 70); }
 function toast(msg){ const t=$('#toast'); t.textContent=msg; t.classList.add('show'); clearTimeout(toast._t); toast._t=setTimeout(()=>t.classList.remove('show'),1800); }
 function code4(){ const A='ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; let s=''; for(let i=0;i<4;i++) s+=A[Math.floor(Math.random()*A.length)]; return s; }
-function myId(){ let id=sessionStorage.getItem('pqm_id'); if(!id){ id='c'+Math.random().toString(36).slice(2,9); sessionStorage.setItem('pqm_id',id); } return id; }
+function myId(){ try{ if(new URLSearchParams(location.search).get('bothost')==='1') return 'aivohost_'+Math.random().toString(36).slice(2,9); }catch(e){} let id=sessionStorage.getItem('pqm_id'); if(!id){ id='c'+Math.random().toString(36).slice(2,9); sessionStorage.setItem('pqm_id',id); } return id; }
 
 /* ---------- transport adapter ----------
    Phase 1: BroadcastChannel (same browser, many tabs — no server, no internet).
@@ -788,7 +789,7 @@ let heartbeat = null;
 let stateWaitTimer = null;
 let hostTick = null;
 let cdTimer = null;
-let hostMode = 'bullseye';
+let hostMode = 'bullseye'; let _forceCode=null; let _botHostMode=false;
 let hostTarget = 25; let hostDiffs = {easy:false, normal:true, hard:true};
 let myPicks=[]; let simSeenPhase='';
 let pool = [];
@@ -809,6 +810,8 @@ const TOPIC_DEFS=[
 let myLang = 'en';
 const LANG_FLAG={fi:'🇫🇮',en:'🇬🇧',es:'🇪🇸',sv:'🇸🇪',de:'🇩🇪',fr:'🇫🇷',it:'🇮🇹',pt:'🇵🇹',nl:'🇳🇱',et:'🇪🇪',no:'🇳🇴',da:'🇩🇰',pl:'🇵🇱'};
 function flagFor(c){ return LANG_FLAG[c]||String(c||'').toUpperCase(); }
+function registerPackFlags(){ try{ const raw=localStorage.getItem('quiz10_packs'); if(raw){ (JSON.parse(raw)||[]).forEach(p=>{ if(p&&Array.isArray(p.langs)) p.langs.forEach(l=>{ if(l&&l.code&&l.flag) LANG_FLAG[l.code]=l.flag; }); }); } }catch(e){} }
+function flagInto(el, code){ if(!el) return; const f=flagFor(code); if(typeof f==='string' && f.slice(0,5)==='data:'){ el.innerHTML='<img class="cat-img" alt="" src="'+f+'">'; } else { el.textContent=f; } }
 function pickMy(o){ if(!o) return ''; return o[myLang] || o.en || Object.values(o)[0] || ''; }
 function iconHtml(ic){ ic=ic||'📦'; if(typeof ic==='string' && ic.slice(0,5)==='data:') return '<img class="cat-img" alt="" src="'+ic+'">'; return esc(ic); }
 const T = {
@@ -818,7 +821,7 @@ const T = {
 };
 function uiLang(){ return ['fi','en','es'].includes(myLang) ? myLang : 'en'; }
 function t(key, sub){ let str=(T[uiLang()]&&T[uiLang()][key])||T.en[key]||key; if(sub!=null) str=str.replace('%s', sub); return str; }
-function updateFlags(){ document.querySelectorAll('.corner-flag,#catFlag,#qFlag').forEach(f=>{ f.textContent=flagFor(myLang); }); }
+function updateFlags(){ document.querySelectorAll('.corner-flag,#catFlag,#qFlag').forEach(f=>flagInto(f, myLang)); }
 function applyUITexts(){
   const setLast=(sel,key)=>document.querySelectorAll(sel).forEach(b=>{ const sp=b.querySelector('span:last-child'); if(sp) sp.textContent=t(key); });
   const setTxt=(sel,key)=>document.querySelectorAll(sel).forEach(el=>{ el.textContent=t(key); });
@@ -854,7 +857,7 @@ let starting = false;
 /* ---------- HOST logic (authoritative) ---------- */
 function hostCreate(name, plays, def){
   iamHost = true; myName = name;
-  room = { code: code4(), hostId: ME, hostPlays: plays!==false, started:false, timeLimit:30, mode:'bullseye', target:15, poolCount:0, turn:null, players: (plays!==false) ? [ { id:ME, name:name, def:def||null, ts:Date.now(), away:false, misses:0 } ] : [] };
+  room = { code: _forceCode || code4(), hostId: ME, hostPlays: plays!==false, started:false, timeLimit:30, mode:'bullseye', target:15, poolCount:0, turn:null, players: (plays!==false) ? [ { id:ME, name:name, def:def||null, ts:Date.now(), away:false, misses:0 } ] : [] };
   net.open(room.code);
   net.onMessage(onHostMsg);
   startHostHeartbeat();
@@ -862,7 +865,7 @@ function hostCreate(name, plays, def){
   show('view-host');
 }
 function onHostMsg(msg){
-  if(msg.t==='join'){ upsertPlayer(msg.id, msg.name, msg.def); if(room.started && room.scores && room.scores[msg.id]==null) room.scores[msg.id]=0; pushState(); }
+  if(msg.t==='join'){ upsertPlayer(msg.id, msg.name, msg.def); if(room.started && room.scores && room.scores[msg.id]==null) room.scores[msg.id]=0; pushState(); if(_botHostMode && !room.started && room.players.length>=2){ setTimeout(()=>{ if(_botHostMode && !room.started && room.players.length>=2){ const mode = hasQuestionsFor('bullseye')?'bullseye':'sweep'; hostMode=mode; hostTarget=15; try{ hostBegin(mode); }catch(e){} } }, 1500); } }
   else if(msg.t==='leave'){ const pid=msg.id; removePlayer(pid); if(room.scores) delete room.scores[pid]; if(room.hostPlays===false && room.hadPlayers && room.players.length===0){ leaveAll(); show('view-mp'); return; } if(room.started) reconcile(pid); else pushState(); }
   else if(msg.t==='hello'){ pushState(); }
   else if(msg.t==='ping'){ touch(msg.id); }
@@ -962,6 +965,7 @@ async function loadPool(mode){
   try{ const raw=localStorage.getItem('quiz10_disabledq'); if(raw){ (JSON.parse(raw)||[]).forEach(x=>disabled.add(x)); } }catch(e){}
   topics = tp || TOPIC_DEFS.slice();
   try{ const raw=localStorage.getItem('quiz10_packs'); if(raw){ (JSON.parse(raw)||[]).forEach(p=>{ if(p&&p.active!==false&&Array.isArray(p.topics)){ p.topics.forEach(pt=>{ if(pt&&pt.key!=null){ const key=String(pt.key).toLowerCase(); if(!topics.some(x=>x.key===key)){ const nt=Object.assign({}, pt); nt.key=key; if(!nt.icon && nt.img) nt.icon=nt.img; topics.push(nt); } } }); } }); } }catch(e){}
+  registerPackFlags();
   const norm = out.filter(q=> q && q.opts.length>=2 && !disabled.has((q.cat&&q.cat.en)||''));
   const baseUI=['en','fi','es']; const extra=new Set();
   norm.forEach(q=>{ if(q.cat) Object.keys(q.cat).forEach(l=>{ if(l && !baseUI.includes(l) && q.cat[l]) extra.add(l); }); });
@@ -1090,23 +1094,39 @@ function sweepTimeoutBust(pid){
   room.q.tokens[pid]=0; room.q.status[pid]='busted';
   sweepAdvance();
 }
-let _lastBotKey='';
+let _botNextAt=0;
+// TEST-ONLY: a room maintained by a bot named "Aivo" (removed before the APK build)
+(function(){ try{ if(new URLSearchParams(location.search).get('bothost')==='1'){
+  _botHostMode=true;
+  setTimeout(()=>{ try{ _forceCode='AIVO'; hostCreate('Aivo', true, null); _forceCode=null; const hp=room.players.find(p=>p.id===ME); if(hp){ hp.bot=true; hp.name='Aivo'; } startHostTick(); }catch(e){} }, 250);
+} }catch(e){} })();
+document.addEventListener('click', e=>{ if(!e.target.closest('#testRoomBtn')) return;
+  let f=document.getElementById('botHostFrame');
+  if(!f){ f=document.createElement('iframe'); f.id='botHostFrame'; f.style.cssText='position:fixed;width:1px;height:1px;left:-9999px;top:-9999px;opacity:0;border:0;pointer-events:none'; const u=new URL(location.href); u.search='?bothost=1'; f.src=u.href; document.body.appendChild(f); }
+  const nm=($('#joinName').value||'').trim()||t('playerPh');
+  toast('Aivo…'); setTimeout(()=>{ try{ guestJoin('AIVO', nm, null); }catch(e){} }, 1200);
+});
 function isBot(pid){ const p=findP(pid); return !!(p && p.bot); }
 function botOptCount(){ try{ return (room.q&&room.q.opts&&room.q.opts.length)||(typeof curQ!=='undefined'&&curQ&&curQ.opts?curQ.opts.length:10); }catch(e){ return 10; } }
 function botAct(){
   if(!iamHost||!room||!room.started||room.phase==='win') return;
-  let key='', act=null;
+  if(Date.now()<_botNextAt) return;
+  const q=room.q; let did=false;
   if(room.phase==='category' && isBot(room.pickerPid)){
-    key='cat:'+room.pickerPid;
-    act=()=>{ const tps=(room.availTopics&&room.availTopics.length)?room.availTopics:availableTopics(); if(tps&&tps.length) onPick(room.pickerPid, tps[Math.floor(Math.random()*tps.length)]); };
-  } else if(room.q && room.simul){
-    const p=room.players.find(pp=>pp.bot && room.q.locked && !room.q.locked[pp.id] && (room.q.phase==='question'||!room.q.phase));
-    if(p){ key='sim:'+p.id; const n=botOptCount(); act=()=>onSimulPick(p.id, Math.floor(Math.random()*n)); }
-  } else if(room.q && room.phase!=='reveal' && isBot(room.q.answererPid)){
-    if(room.mode==='sweep'){ key='sw:'+room.q.answererPid; act=()=>sweepPass(room.q.answererPid); }
-    else { key='bl:'+room.q.answererPid; const n=botOptCount(); act=()=>onAnswer(room.q.answererPid, Math.floor(Math.random()*n)); }
+    const tps=(room.availTopics&&room.availTopics.length)?room.availTopics:availableTopics();
+    if(tps&&tps.length){ onPick(room.pickerPid, tps[Math.floor(Math.random()*tps.length)].key); did=true; }
+  } else if(q && room.simul && room.phase==='reveal'){
+    const p=room.players.find(pp=>pp.bot && q.continued && !q.continued[pp.id]);
+    if(p){ onSimulCont(p.id); did=true; }
+  } else if(q && room.simul){
+    const p=room.players.find(pp=>pp.bot && q.locked && !q.locked[pp.id]);
+    if(p){ onSimulPick(p.id, Math.floor(Math.random()*botOptCount())); did=true; }
+  } else if(q && room.phase!=='reveal' && isBot(q.answererPid)){
+    const pid=q.answererPid;
+    if(room.mode==='sweep') sweepPass(pid); else onAnswer(pid, Math.floor(Math.random()*botOptCount()));
+    did=true;
   }
-  if(act && key && key!==_lastBotKey){ _lastBotKey=key; setTimeout(()=>{ try{ act(); }catch(e){} }, 800); }
+  if(did) _botNextAt=Date.now()+700;
 }
 function startHostTick(){
   clearInterval(hostTick);
@@ -1799,6 +1819,7 @@ function applyGameSettings(){
 }
 window.addEventListener('storage', e=>{ if(!e.key||e.key==='quiz10_settings'||e.key==='quiz10_bgimg') applyGameSettings(); });
 applyGameSettings();
+registerPackFlags();
 
 /* ---------- deep link: ?room=CODE ---------- */
 (function(){

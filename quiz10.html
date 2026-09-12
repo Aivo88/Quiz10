@@ -3096,7 +3096,7 @@ const BULLSEYE_QUESTIONS = [
 
 const PLAYER_COLORS = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
-const APP_VERSION = '01.00.89';
+const APP_VERSION = '01.00.91';
 
 let questionsStatus = '';
 const QCACHE_KEY = 'quiz10_qcache2';  // bumped: use embedded 1000, ignore old device cache
@@ -3749,10 +3749,9 @@ function applyStaticText(){
   const rb=$('#rulesBody'); if(rb) rb.innerHTML = tr('rulesBody');
 }
 let lastWinner = null;
+function flagInto(el, code){ if(!el) return; const f=flagFor(code); if(typeof f==='string' && f.slice(0,5)==='data:'){ el.innerHTML='<img class="cat-img" alt="" src="'+f+'">'; } else { el.textContent=f; } }
 function updateCornerFlags(){
-  const f = flagFor(lang);
-  const a=$('#menuFlag'), b=$('#winFlag'), c=$('#modeFlag'), d=$('#setupFlag');
-  if(a) a.textContent=f; if(b) b.textContent=f; if(c) c.textContent=f; if(d) d.textContent=f;
+  ['#menuFlag','#winFlag','#modeFlag','#setupFlag'].forEach(id=>flagInto($(id), lang));
 }
 function saveLang(){ try{ lsSet('quiz10_lang', lang); }catch(e){} }
 function loadLang(){
@@ -3858,7 +3857,7 @@ function refreshTopicScreen(){
   syncEngineLang(si);
   const prompt = (T[lang]||T.en).topicPrompt;
   $('#topicTitle').innerHTML = `<span style="color:var(${players[si].color})">${nameIn(si, lang)}</span> — ${prompt}`;
-  const tf = $('#langFlagTopic'); if(tf) tf.textContent = flagFor(sl);
+  flagInto($('#langFlagTopic'), sl);
   const bk = $('#screen-topic [data-i="back"]'); if(bk) bk.textContent = (TT(lang,'back')||(T[lang]||T.en).back||'Back');
   renderTopicMeta(si, lang);
   renderTopics(sl);
@@ -4011,7 +4010,7 @@ function applyLang(){
   fitBoard();
 }
 function updateFlag(){
-  const f = $('#langFlag'); if(f) f.textContent = flagFor(dispLang());
+  flagInto($('#langFlag'), dispLang());
 }
 function syncEngineLang(idx){
   const pl = playerLang[idx];
