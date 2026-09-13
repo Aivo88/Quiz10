@@ -219,14 +219,14 @@
   .topic-scorebar{ width:min(1100px,100%); margin:0 auto clamp(14px,2.4vh,22px) }
 
   .qhead{display:flex; align-items:center; justify-content:space-between; gap:16px; margin-top:clamp(4px,.8vh,10px)}
-  .turnwrap{display:flex; flex-direction:column; align-items:center; gap:clamp(6px,1vw,12px); min-width:0}
+  .turnwrap{display:flex; flex-direction:column; align-items:flex-start; gap:clamp(6px,1vw,12px); min-width:0}
   .langflag{
     flex:none; cursor:pointer; background:var(--panel); border:2px solid var(--line);
     border-radius:12px; padding:clamp(4px,.7vh,8px) clamp(8px,1vw,12px);
     font-size:calc(clamp(20px,2.4vw,32px) * var(--fs)); line-height:1;
   }
   body.kbd .langflag.focused{border-color:var(--focus); box-shadow:0 0 0 4px rgba(255,224,138,.4); background:var(--panel2)}
-  .topic-head{display:flex; flex-direction:column; align-items:center; justify-content:center; gap:clamp(8px,1.2vw,14px)}
+  .topic-head{display:flex; flex-direction:column; align-items:flex-start; gap:clamp(8px,1.2vw,14px)}
   /* When flag emoji aren't supported (Windows), language codes show instead — make them clearly legible */
   body.nofe .corner-flag, body.nofe .langflag, body.nofe #langFlagTopic, body.nofe .pack-flags{
     color:#fff; font-weight:800; letter-spacing:.06em;
@@ -1711,7 +1711,7 @@ const QUESTIONS = [
   { topic:'hist', d:'hard', cat:{en:"Which of these were ancient Roman writers?",fi:"Ketkä näistä olivat antiikin Rooman kirjailijoita?",es:"¿Cuáles de estos fueron escritores de la antigua Roma?"}, o:[["Cicero","Cicero","Cicerón",1],["Virgil","Vergilius","Virgilio",1],["Ovid","Ovidius","Ovidio",1],["Tacitus","Tacitus","Tácito",1],["Horace","Horatius","Horacio",1],["Livy","Livius","Tito Livio",1],["Homer","Homeros","Homero",0],["Herodotus","Herodotos","Heródoto",0],["Plato","Platon","Platón",0],["Aristotle","Aristoteles","Aristóteles",0]] },
   { topic:'hist', d:'normal', cat:{en:"Which of these were reigning queens or empresses?",fi:"Ketkä näistä olivat hallitsevia kuningattaria tai keisarinnoja?",es:"¿Cuáles de estas fueron reinas o emperatrices reinantes?"}, o:[["Cleopatra","Kleopatra","Cleopatra",1],["Elizabeth I","Elisabet I","Isabel I",1],["Catherine the Great","Katariina Suuri","Catalina la Grande",1],["Queen Victoria","Kuningatar Viktoria","La reina Victoria",1],["Maria Theresa","Maria Teresia","María Teresa",1],["Isabella I of Castile","Isabella I","Isabel I de Castilla",1],["Joan of Arc","Jeanne d'Arc","Juana de Arco",0],["Florence Nightingale","Florence Nightingale","Florence Nightingale",0],["Marie Curie","Marie Curie","Marie Curie",0],["Anne Frank","Anne Frank","Ana Frank",0]] },
   { topic:'hist', d:'normal', cat:{en:"Which of these were events of the American Revolution?",fi:"Mitkä näistä olivat Amerikan vallankumouksen tapahtumia?",es:"¿Cuáles de estos fueron acontecimientos de la Revolución Americana?"}, o:[["The Boston Tea Party","Bostonin teekutsut","El motín del té de Boston",1],["The Declaration of Independence","Itsenäisyysjulistus","La Declaración de Independencia",1],["The Battle of Yorktown","Yorktownin taistelu","La batalla de Yorktown",1],["The Battles of Lexington and Concord","Lexingtonin ja Concordin taistelut","Las batallas de Lexington y Concord",1],["The Battle of Gettysburg","Gettysburgin taistelu","La batalla de Gettysburg",0],["The attack on Pearl Harbor","Pearl Harborin hyökkäys","El ataque a Pearl Harbor",0],["The Battle of the Alamo","Alamon taistelu","La batalla de El Álamo",0],["The Wall Street Crash","Wall Streetin romahdus","El crac de Wall Street",0],["The Louisiana Purchase","Louisianan kauppa","La compra de Luisiana",0],["The Cuban Missile Crisis","Kuuban ohjuskriisi","La crisis de los misiles de Cuba",0]] },
-  { topic:'hist', d:'normal', cat:{en:"Which of these are events in Finnish history?",fi:"Mitkä näistä ovat Suomen historian tapahtumia?",es:"¿Cuáles de estos son acontecimientos de la historia de Finlandia?"}, o:[["Declaration of independence in 1917","Itsenäisyysjulistus 1917","La declaración de independencia de 1917",1],["The Winter War","Talvisota","La Guerra de Invierno",1],["The Continuation War","Jatkosota","La Guerra de Continuación",1],["The Finnish Civil War of 1918","Suomen sisällissota 1918","La Guerra Civil finlandesa de 1918",1],["The Helsinki Olympics of 1952","Helsingin olympialaiset 1952","Los Juegos Olímpicos de Helsinki de 1952",1],["Joining the European Union in 1995","EU-jäsenyys 1995","La adhesión a la Unión Europea en 1995",1],["The fall of the Berlin Wall","Berliinin muurin murtuminen","La caída del Muro de Berlín",0],["The American Civil War","Yhdysvaltain sisällissota","La Guerra Civil estadounidense",0],["The Battle of Hastings","Hastingsin taistelu","La batalla de Hastings",0],["The Spanish Civil War","Espanjan sisällissota","La Guerra Civil española",0]] },
+  { topic:'hist', d:'normal', cat:{en:"Which of these are events in Finnish history?",fi:"Mitkä näistä ovat Suomen historian tapahtumia?",es:"¿Cuáles de estos son acontecimientos de la historia de Finlandia?"}, o:[["Declaration of independence","Itsenäisyysjulistus","La declaración de independencia",1],["The Winter War","Talvisota","La Guerra de Invierno",1],["The Continuation War","Jatkosota","La Guerra de Continuación",1],["The Finnish Civil War","Suomen sisällissota","La Guerra Civil finlandesa",1],["The Helsinki Olympics","Helsingin olympialaiset","Los Juegos Olímpicos de Helsinki",1],["Joining the European Union","EU-jäsenyys","La adhesión a la Unión Europea",1],["The fall of the Berlin Wall","Berliinin muurin murtuminen","La caída del Muro de Berlín",0],["The American Civil War","Yhdysvaltain sisällissota","La Guerra Civil estadounidense",0],["The Battle of Hastings","Hastingsin taistelu","La batalla de Hastings",0],["The Spanish Civil War","Espanjan sisällissota","La Guerra Civil española",0]] },
   { topic:'hist', d:'hard', cat:{en:"Which of these were periods of Japanese history?",fi:"Mitkä näistä olivat Japanin historian kausia?",es:"¿Cuáles de estos fueron períodos de la historia de Japón?"}, o:[["Edo","Edo","Edo",1],["Meiji","Meiji","Meiji",1],["Heian","Heian","Heian",1],["Kamakura","Kamakura","Kamakura",1],["Shōwa","Shōwa","Shōwa",1],["Ming","Ming","Ming",0],["Qing","Qing","Qing",0],["Tudor","Tudor","Tudor",0],["Victorian","Viktoriaaninen","Victoriana",0],["Carolingian","Karolinginen","Carolingia",0]] },
   { topic:'hist', d:'hard', cat:{en:"Which of these were historic trade routes?",fi:"Mitkä näistä olivat historiallisia kauppareittejä?",es:"¿Cuáles de estas fueron rutas comerciales históricas?"}, o:[["The Silk Road","Silkkitie","La Ruta de la Seda",1],["The Amber Road","Meripihkatie","La Ruta del Ámbar",1],["The Incense Route","Suitsukereitti","La Ruta del Incienso",1],["Trans-Saharan trade routes","Saharan halki kulkevat kauppareitit","Las rutas transaharianas",1],["The Spice Route","Mausteiden reitti","La Ruta de las Especias",1],["Route 66","Route 66","La Ruta 66",0],["The Orient Express","Idän pikajuna","El Orient Express",0],["The Panama Canal","Panaman kanava","El Canal de Panamá",0],["The Trans-Siberian Railway","Siperian rata","El Transiberiano",0],["The Suez Canal","Suezin kanava","El Canal de Suez",0]] },
   { topic:'hist', d:'hard', cat:{en:"Which of these were leaders of ancient Greece or Macedonia?",fi:"Ketkä näistä olivat antiikin Kreikan tai Makedonian johtajia?",es:"¿Cuáles de estos fueron líderes de la antigua Grecia o Macedonia?"}, o:[["Alexander the Great","Aleksanteri Suuri","Alejandro Magno",1],["Philip II of Macedon","Filippos II","Filipo II de Macedonia",1],["Pericles","Perikles","Pericles",1],["Leonidas","Leonidas","Leónidas",1],["Themistocles","Themistokles","Temístocles",1],["Julius Caesar","Julius Caesar","Julio César",0],["Augustus","Augustus","Augusto",0],["Hannibal","Hannibal","Aníbal",0],["Cyrus the Great","Kyyros Suuri","Ciro el Grande",0],["Attila","Attila","Atila",0]] },
@@ -3096,7 +3096,7 @@ const BULLSEYE_QUESTIONS = [
 
 const PLAYER_COLORS = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
-const APP_VERSION = '01.00.91';
+const APP_VERSION = '01.00.95';
 
 let questionsStatus = '';
 const QCACHE_KEY = 'quiz10_qcache2';  // bumped: use embedded 1000, ignore old device cache
@@ -3129,6 +3129,7 @@ function rebuildQuestions(){
   if(bullseyeOn) BULLSEYE_QUESTIONS.forEach(q => { if(questionEnabled(q)) QUESTIONS.push(q); });   // built-in bullseye, survives questions.json refresh
   packs.forEach(p => { if(p.active && Array.isArray(p.questions)) p.questions.forEach(q => { if(questionEnabled(q)) QUESTIONS.push(q); }); });
   usedQ = new Set();
+  const _av=availableLangs(); if(!_av.includes(lang)){ lang=_av.includes('en')?'en':_av[0]; try{ saveLang(); }catch(e){} }
 }
 function loadDisabled(){ try{ const raw=lsGet(DISABLED_KEY); if(raw){ const a=JSON.parse(raw); if(Array.isArray(a)) disabledQ=new Set(a); } }catch(e){} }
 function saveDisabled(){ try{ lsSet(DISABLED_KEY, JSON.stringify([...disabledQ])); }catch(e){} }
@@ -3704,13 +3705,15 @@ function move(dir){
 /* ---------- Localisation of static text ---------- */
 // Languages actually present in the questions currently in play (keeps LANG_ORDER order).
 function availableLangs(){
-  const set = BASE_LANGS.slice();   // fi/en/es are always available (game is trilingual)
+  const set = ['en'];   // English is always available (default fallback)
   const qs = (typeof QUESTIONS!=='undefined' && Array.isArray(QUESTIONS)) ? QUESTIONS : [];
   for(const q of qs){
     const ls = (Array.isArray(q.L)&&q.L.length) ? q.L : Object.keys(q.cat||{});
-    for(const c of ls){ if(c && !set.includes(c)) set.push(c); }
+    for(const c of ls){ if(c && !set.includes(c) && q.cat && q.cat[c]) set.push(c); }   // only languages that actually have content
   }
-  const avail = LANG_ORDER.filter(c => set.includes(c));
+  const inOrder = LANG_ORDER.filter(c => set.includes(c));
+  const extra = set.filter(c => !LANG_ORDER.includes(c));
+  const avail = inOrder.concat(extra);
   return avail.length ? avail : ['en'];
 }
 function renderLangPickers(){
@@ -4509,7 +4512,7 @@ function activate(el){
   else if(a==='backToLang'){ showScreen('screen-menu'); }
   else if(a==='backToMode'){ showScreen('screen-mode'); }
   else if(a==='settings'){ applySettings(); qbMode='packs'; setTab('settings'); updateQStatus(); renderPackList(); showScreen('screen-settings'); }
-  else if(a==='rules'){ showScreen('screen-rules'); const rb=$('#rulesBody'); if(rb) rb.scrollTop=0; const sc=$('#screen-rules'); if(sc) sc.scrollTop=0; window.scrollTo(0,0); const b=$('#screen-rules [data-focus]'); if(b) setFocus(b); }
+  else if(a==='rules'){ showScreen('screen-rules'); requestAnimationFrame(()=>{ const rb=$('#rulesBody'); if(rb) rb.scrollTop=0; const sc=$('#screen-rules'); if(sc) sc.scrollTop=0; if(document.scrollingElement) document.scrollingElement.scrollTop=0; window.scrollTo(0,0); }); }
   else if(a==='settab'){ qbMode='packs'; setTab(el.dataset.tab); }
   else if(a==='importQuestions'){ const f=$('#packFile'); if(f){ f.value=''; f.click(); } }
   else if(a==='openEditor'){ try{ const u=new URL('editor/quiz10-editor.html', location.href); u.searchParams.set('lang', lang); u.searchParams.set('from','game'); location.href=u.href; }catch(e){ location.href='editor/quiz10-editor.html?lang='+encodeURIComponent(lang)+'&from=game'; } }

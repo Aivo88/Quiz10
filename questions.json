@@ -44313,9 +44313,9 @@
   },
   "o": [
    [
-    "Declaration of independence in 1917",
-    "Itsenäisyysjulistus 1917",
-    "La declaración de independencia de 1917",
+    "Declaration of independence",
+    "Itsenäisyysjulistus",
+    "La declaración de independencia",
     1
    ],
    [
@@ -44331,21 +44331,21 @@
     1
    ],
    [
-    "The Finnish Civil War of 1918",
-    "Suomen sisällissota 1918",
-    "La Guerra Civil finlandesa de 1918",
+    "The Finnish Civil War",
+    "Suomen sisällissota",
+    "La Guerra Civil finlandesa",
     1
    ],
    [
-    "The Helsinki Olympics of 1952",
-    "Helsingin olympialaiset 1952",
-    "Los Juegos Olímpicos de Helsinki de 1952",
+    "The Helsinki Olympics",
+    "Helsingin olympialaiset",
+    "Los Juegos Olímpicos de Helsinki",
     1
    ],
    [
-    "Joining the European Union in 1995",
-    "EU-jäsenyys 1995",
-    "La adhesión a la Unión Europea en 1995",
+    "Joining the European Union",
+    "EU-jäsenyys",
+    "La adhesión a la Unión Europea",
     1
    ],
    [
@@ -52472,8 +52472,8 @@
   "topic": "arts",
   "d": "normal",
   "cat": {
-   "fi": "Ketkä näistä ovat impressionisteja?",
    "en": "Which of these are Impressionist painters?",
+   "fi": "Ketkä näistä ovat impressionisteja?",
    "es": "¿Quiénes de estos son pintores impresionistas?"
   },
   "o": [

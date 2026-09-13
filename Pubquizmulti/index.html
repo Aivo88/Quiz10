@@ -220,14 +220,14 @@
   .topic-scorebar{ width:min(1100px,100%); margin:0 auto clamp(14px,2.4vh,22px) }
 
   .qhead{display:flex; align-items:center; justify-content:space-between; gap:16px; margin-top:clamp(4px,.8vh,10px)}
-  .turnwrap{display:flex; flex-direction:column; align-items:center; gap:clamp(6px,1vw,12px); min-width:0}
+  .turnwrap{display:flex; flex-direction:column; align-items:flex-start; gap:clamp(6px,1vw,12px); min-width:0}
   .langflag{
     flex:none; cursor:pointer; background:var(--panel); border:2px solid var(--line);
     border-radius:12px; padding:clamp(4px,.7vh,8px) clamp(8px,1vw,12px);
     font-size:calc(clamp(20px,2.4vw,32px) * var(--fs)); line-height:1;
   }
   body.kbd .langflag.focused{border-color:var(--focus); box-shadow:0 0 0 4px rgba(255,224,138,.4); background:var(--panel2)}
-  .topic-head{display:flex; flex-direction:column; align-items:center; justify-content:center; gap:clamp(8px,1.2vw,14px)}
+  .topic-head{display:flex; flex-direction:column; align-items:flex-start; gap:clamp(8px,1.2vw,14px)}
   /* When flag emoji aren't supported (Windows), language codes show instead — make them clearly legible */
   body.nofe .corner-flag, body.nofe .langflag, body.nofe #langFlagTopic, body.nofe .pack-flags{
     color:#fff; font-weight:800; letter-spacing:.06em;
@@ -716,7 +716,7 @@
 <script>
 
 "use strict";
-const MP_VERSION = '00.14.03';
+const MP_VERSION = '00.14.05';
 const $ = s => document.querySelector(s);
 const PCOL = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
@@ -967,9 +967,9 @@ async function loadPool(mode){
   try{ const raw=localStorage.getItem('quiz10_packs'); if(raw){ (JSON.parse(raw)||[]).forEach(p=>{ if(p&&p.active!==false&&Array.isArray(p.topics)){ p.topics.forEach(pt=>{ if(pt&&pt.key!=null){ const key=String(pt.key).toLowerCase(); if(!topics.some(x=>x.key===key)){ const nt=Object.assign({}, pt); nt.key=key; if(!nt.icon && nt.img) nt.icon=nt.img; topics.push(nt); } } }); } }); } }catch(e){}
   registerPackFlags();
   const norm = out.filter(q=> q && q.opts.length>=2 && !disabled.has((q.cat&&q.cat.en)||''));
-  const baseUI=['en','fi','es']; const extra=new Set();
-  norm.forEach(q=>{ if(q.cat) Object.keys(q.cat).forEach(l=>{ if(l && !baseUI.includes(l) && q.cat[l]) extra.add(l); }); });
-  poolLangs = baseUI.concat([...extra]);   // base UI langs + any extra language the packs add
+  const present=new Set(['en']);   // English always
+  norm.forEach(q=>{ if(q.cat) Object.keys(q.cat).forEach(l=>{ if(l && q.cat[l]) present.add(l); }); });
+  poolLangs = ['en','fi','es'].filter(l=>present.has(l)).concat([...present].filter(l=>!['en','fi','es'].includes(l)));   // only languages actually present
   return shuffle(norm);
 }
 function normQ(q, order){
@@ -1539,6 +1539,7 @@ function restoreGameFocus(keep){
   }catch(e){} });
 }
 function renderGame(){
+  if(room && room.langs && room.langs.length && !room.langs.includes(myLang)){ myLang = room.langs.includes('en')?'en':room.langs[0]; }
   if(!room || !room.started) return;
   if(room.langs && room.langs.indexOf(myLang)<0) myLang=room.langs[0]||'fi';
   const ph=room.phase;
