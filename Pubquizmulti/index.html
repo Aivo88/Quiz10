@@ -716,7 +716,7 @@
 <script>
 
 "use strict";
-const MP_VERSION = '00.15.00';
+const MP_VERSION = '00.15.02';
 const $ = s => document.querySelector(s);
 const PCOL = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
@@ -809,7 +809,9 @@ const TOPIC_DEFS=[
 ];
 let myLang = 'en';
 const LANG_FLAG={fi:'🇫🇮',en:'🇬🇧',es:'🇪🇸',sv:'🇸🇪',de:'🇩🇪',fr:'🇫🇷',it:'🇮🇹',pt:'🇵🇹',nl:'🇳🇱',et:'🇪🇪',no:'🇳🇴',da:'🇩🇰',pl:'🇵🇱'};
-function flagFor(c){ return LANG_FLAG[c]||String(c||'').toUpperCase(); }
+let FLAG_OK = true;
+function detectFlagEmoji(){ try{ const c=document.createElement('canvas'); c.width=20; c.height=16; const x=c.getContext('2d'); if(!x) return false; x.textBaseline='top'; x.font='16px sans-serif'; x.fillText('🇸🇪',-2,0); const d=x.getImageData(0,0,20,16).data; let colored=0; for(let i=0;i<d.length;i+=4){ const r=d[i],g=d[i+1],b=d[i+2],a=d[i+3]; if(a>0 && ((b>90&&r<90) || (r>150&&g>120&&b<90))) colored++; } return colored>4; }catch(e){ return false; } }
+function flagFor(c){ c=String(c||''); const f=LANG_FLAG[c.toLowerCase()]; if(f){ if(typeof f==='string' && f.slice(0,5)==='data:') return f; if(FLAG_OK) return f; } return c.toUpperCase()||'?'; }
 function registerPackFlags(){ try{ const raw=localStorage.getItem('quiz10_packs'); if(raw){ (JSON.parse(raw)||[]).forEach(p=>{ if(p&&Array.isArray(p.langs)) p.langs.forEach(l=>{ if(l&&l.code&&l.flag) LANG_FLAG[l.code]=l.flag; }); }); } }catch(e){} }
 function flagInto(el, code){ if(!el) return; const f=flagFor(code); if(typeof f==='string' && f.slice(0,5)==='data:'){ el.innerHTML='<img class="cat-img" alt="" src="'+f+'">'; } else { el.textContent=f; } }
 function pickMy(o){ if(!o) return ''; return o[myLang] || o.en || Object.values(o)[0] || ''; }
@@ -1704,7 +1706,8 @@ document.addEventListener('visibilitychange', function(){
       if(score<bs){ bs=score; best=el; } }
     return best;
   }
-  function focusEl(el){ if(!el) return; try{ el.focus({preventScroll:true}); }catch(e){ try{ el.focus(); }catch(_){}} try{ el.scrollIntoView({block:'nearest',inline:'nearest'}); }catch(e){} }
+  let _kbFocused=null;
+  function focusEl(el){ if(!el) return; if(_kbFocused && _kbFocused!==el) _kbFocused.classList.remove('focused'); _kbFocused=el; el.classList.add('focused'); try{ el.focus({preventScroll:true}); }catch(e){ try{ el.focus(); }catch(_){}} try{ el.scrollIntoView({block:'nearest',inline:'nearest'}); }catch(e){} }
   window.__focusFirst=function(){ const l=items(); if(!l.length) return; const pri=l.find(el=>el.classList.contains('gold')||el.hasAttribute('data-startmode')||el.classList.contains('opt')||el.classList.contains('topic')); focusEl(pri||l[0]); };
   document.addEventListener('keydown', function(e){
     const k=e.key; const ae=document.activeElement;
@@ -1737,7 +1740,7 @@ document.addEventListener('visibilitychange', function(){
     for(const d of cands){ const st=getComputedStyle(d); if((st.overflowY==='auto'||st.overflowY==='scroll') && d.scrollHeight>d.clientHeight+4) return d; }
     return null;
   }
-  document.addEventListener('pointerdown', function(){ document.body.classList.remove('kbd'); });
+  document.addEventListener('pointerdown', function(){ document.body.classList.remove('kbd'); if(_kbFocused){ _kbFocused.classList.remove('focused'); _kbFocused=null; } });
   setTimeout(()=>{ try{ window.__focusFirst(); }catch(e){} }, 300);
 })();
 if('serviceWorker' in navigator){ window.addEventListener('load', ()=>{ navigator.serviceWorker.register('sw.js').catch(()=>{}); }); }
@@ -1822,6 +1825,7 @@ function applyGameSettings(){
 window.addEventListener('storage', e=>{ if(!e.key||e.key==='quiz10_settings'||e.key==='quiz10_bgimg') applyGameSettings(); });
 applyGameSettings();
 registerPackFlags();
+FLAG_OK=detectFlagEmoji(); if(!FLAG_OK) document.body.classList.add('nofe');
 
 /* ---------- deep link: ?room=CODE ---------- */
 (function(){
