@@ -60081,69 +60081,69 @@
     "es"
    ],
    "cat": {
-    "en": "Which planet orbits just inside Earth's orbit?",
-    "fi": "Mikä planeetta kiertää Aurinkoa juuri Maan radan sisäpuolella?",
-    "es": "¿Qué planeta orbita justo dentro de la Tierra?"
+    "en": "How far away is the nearest neighbouring star system (Alpha Centauri)?",
+    "fi": "Kuinka kaukana on lähin naapuriaurinkokunta (Alfa Centauri)?",
+    "es": "¿A qué distancia está el sistema estelar más cercano (Alfa Centauri)?"
    },
    "o": [
     [
-     "Aurinko",
-     "the Sun",
-     "el Sol",
-     0
-    ],
-    [
-     "Merkurius",
-     "Mercury",
-     "Mercurio",
-     0
-    ],
-    [
-     "Mars",
-     "Mars",
-     "Marte",
-     0
-    ],
-    [
-     "Uranus",
-     "Uranus",
-     "Urano",
-     0
-    ],
-    [
-     "Saturnus",
-     "Saturn",
-     "Saturno",
-     0
-    ],
-    [
-     "Pluto",
-     "Pluto",
-     "Plutón",
-     0
-    ],
-    [
-     "Jupiter",
-     "Jupiter",
-     "Júpiter",
-     0
-    ],
-    [
-     "Neptunus",
-     "Neptune",
-     "Neptuno",
-     0
-    ],
-    [
-     "Venus",
-     "Venus",
-     "Venus",
+     "4,2 valovuotta",
+     "4.2 light-years",
+     "4,2 años luz",
      1
     ],
     [
-     "Kuu",
-     "the Moon",
-     "la Luna",
+     "0,4 valovuotta",
+     "0.4 light-years",
+     "0,4 años luz",
+     0
+    ],
+    [
+     "1 valovuosi",
+     "1 light-year",
+     "1 año luz",
+     0
+    ],
+    [
+     "2 valovuotta",
+     "2 light-years",
+     "2 años luz",
+     0
+    ],
+    [
+     "8 valovuotta",
+     "8 light-years",
+     "8 años luz",
+     0
+    ],
+    [
+     "12 valovuotta",
+     "12 light-years",
+     "12 años luz",
+     0
+    ],
+    [
+     "25 valovuotta",
+     "25 light-years",
+     "25 años luz",
+     0
+    ],
+    [
+     "50 valovuotta",
+     "50 light-years",
+     "50 años luz",
+     0
+    ],
+    [
+     "100 valovuotta",
+     "100 light-years",
+     "100 años luz",
+     0
+    ],
+    [
+     "500 valovuotta",
+     "500 light-years",
+     "500 años luz",
      0
     ]
    ]
