@@ -602,7 +602,7 @@ function detectFlag(){ try{ const c=document.createElement('canvas'); c.width=20
   for(let i=0;i<d.length;i+=4){const r=d[i],g=d[i+1],b=d[i+2],a=d[i+3]; if(a>0&&((b>90&&r<90)||(r>150&&g>120&&b<90)))n++;} return n>4; }catch(e){return false;} }
 function fl(code){ return FLAG_OK ? (LMETA[code]?LMETA[code].flag:'🏳️') : ''; }
 
-const EDITOR_VERSION = '01.00.38';
+const EDITOR_VERSION = '01.00.39';
 
 /* The game's built-in categories — same keys, so questions land in the right category in-game */
 const DEFAULT_TOPICS = [
@@ -934,7 +934,7 @@ function openQ(id, presetCat){
   editingQId=id;
   const q=id?pack.questions.find(x=>x.id===id):null;
   // build working draft with all pack languages present
-  qDraft = { mode: q ? (q.mode||'sweep') : (newQMode||'sweep'), q:{}, opts:Array.from({length:10},()=>({t:{},correct:false})) };
+  qDraft = { mode: q ? (q.mode||'sweep') : (pack.mode||newQMode||'sweep'), q:{}, opts:Array.from({length:10},()=>({t:{},correct:false})) };
   pack.langs.forEach(c=>{ qDraft.q[c] = q? (q.q[c]||'') : ''; });
   for(let i=0;i<10;i++){
     const src = q && q.opts[i];
@@ -1021,7 +1021,7 @@ function buildPack(){
     const o=q.opts.map(op=>{ const row=L.map(c=>op.t[c].trim()); row.push(op.correct?1:0); return row; });
     questions.push({ mode, topic:q.topic, d:q.d, cat, o, L });
   });
-  return { name:pack.name||'Oma paketti', langs:langs.map(c=>({code:c, flag:LMETA[c].flag, name:LMETA[c].name})), topics, questions };
+  return { name:pack.name||'Oma paketti', mode:(pack.mode==='bullseye'?'bullseye':'sweep'), langs:langs.map(c=>({code:c, flag:LMETA[c].flag, name:LMETA[c].name})), topics, questions };
 }
 async function doExport(){
   if(!pack.questions.length){ toast(t('tNeedQ')); return false; }
@@ -1079,7 +1079,10 @@ function importPack(data, arr){
     let topic=q.topic; if(!byKey[topic]){ const nk=topic||uid('cat_'); byKey[nk]={key:nk,icon:'📦',names:{[langs[0]]:nk}}; topics.push(byKey[nk]); topic=nk; }
     return { id:uid('q_'), mode:q.mode==='bullseye'?'bullseye':'sweep', topic, d:['easy','normal','hard'].includes(q.d)?q.d:'normal', q:qt, opts:opts.slice(0,10) };
   });
-  pack={ name:data.name||'', langs, topics, questions };
+  const pmode=(data.mode==='bullseye'||data.mode==='sweep')?data.mode:((questions.length && questions.every(q=>q.mode==='bullseye'))?'bullseye':'sweep');
+  questions.forEach(q=>q.mode=pmode);   // a pack is single-mode: keep every question in the pack's mode
+  pack={ name:data.name||'', mode:pmode, langs, topics, questions };
+  newQMode=pmode;   // new questions continue in the loaded pack's mode
   save(); render();
 }
 
@@ -1167,8 +1170,8 @@ applyGameSettings();
 buildEmojiGrid(); buildLangEmojiGrid(); buildOptRows(); applyUILang(); render();
 $('#startMakeBtn').addEventListener('click',async ()=>{ if(loadedFromFile){ const c=await confirmLeave(); if(c==='cancel') return; if(c==='save'){ const ok=await doExport(); if(!ok) return; } resetPack(); } show('mode'); });
 $('#modeBackBtn').addEventListener('click',()=>show('start'));
-$('#modeBullBtn').addEventListener('click',()=>{ newQMode='bullseye'; show('main'); });
-$('#modeSweepBtn').addEventListener('click',()=>{ newQMode='sweep'; show('main'); });
+$('#modeBullBtn').addEventListener('click',()=>{ newQMode='bullseye'; pack.mode='bullseye'; save(); show('main'); });
+$('#modeSweepBtn').addEventListener('click',()=>{ newQMode='sweep'; pack.mode='sweep'; save(); show('main'); });
 let leaveResolve=null;
 function confirmLeave(){ return new Promise(res=>{ leaveResolve=res; $('#leaveMsg').textContent=t('cLeaveMsg'); $('#leaveModal').classList.remove('hidden'); }); }
 function closeLeave(v){ $('#leaveModal').classList.add('hidden'); const r=leaveResolve; leaveResolve=null; if(r) r(v); }
