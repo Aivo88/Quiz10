@@ -716,7 +716,7 @@
 <script>
 
 "use strict";
-const MP_VERSION = '00.15.02';
+const MP_VERSION = '00.15.03';
 const $ = s => document.querySelector(s);
 const PCOL = ['--p1','--p2','--p3','--p4','--p5','--p6','--p7','--p8'];
 
@@ -1033,7 +1033,10 @@ function drawFromTopic(topic){
   let idxs=[]; for(let i=0;i<pool.length;i++){ if((anyTopic||pool[i].topic===topic) && !used.has(i)) idxs.push(i); }
   if(!idxs.length){ for(let i=0;i<pool.length;i++){ if(anyTopic||pool[i].topic===topic){ used.delete(i); idxs.push(i); } } }
   const pick=idxs[Math.floor(Math.random()*idxs.length)];
-  used.add(pick); curQIdx=pick; return pool[pick];
+  used.add(pick); curQIdx=pick;
+  const src=pool[pick];
+  const q=Object.assign({}, src); q.opts=shuffle(src.opts.slice());   // fresh shuffled option order each draw (display + correctness stay aligned)
+  return q;
 }
 function startQuestion(){
   const seat=(room.catStarterSeat+room.bullQInCat)%room.players.length;
@@ -1677,6 +1680,7 @@ window.__onBack = function(){
     if(ov && ov.style.display==='flex'){ ov.style.display='none'; return true; }
     const a=document.querySelector('#stage .screen.active'); const id=a?a.id:'';
     if(id==='view-home') return false;   // only from home does Back exit the app
+    if((id==='view-q'||id==='view-cat') && room && room.started){ if(typeof confirmLeaveRoom==='function') confirmLeaveRoom(); return true; }   // in-game Back = Quit confirm (like single)
     const btn=a.querySelector('.btn.back, [data-back], .leaveBtn, #modeBack, #modesetBack, #hostLeave, #guestLeave');
     if(btn){ btn.click(); return true; }
     const back={ 'view-mp':'view-home', 'view-name-host':'view-mp', 'view-name-join':'view-mp', 'view-mode':'view-host', 'view-modeset':'view-mode' };
